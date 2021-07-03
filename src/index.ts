@@ -8,7 +8,6 @@ import play from './components/commands/music/play'
 import stop from './components/commands/music/stop'
 import skip from './components/commands/music/skip'
 import queue from './components/commands/music/queue'
-import skipvote from './components/commands/music/skipVote'
 import clear from './components/commands/misc/clear'
 import restart from './components/commands/music/restart'
 import join from './components/commands/music/join'
@@ -39,7 +38,6 @@ import announce from "./components/commands/misc/announce";
 const config: object = require('./../config.json')
 
 export default class HydroCarbon extends Client {
-    private handleVoiceStateUpdate = require('./components/events/handleVoiceStateUpdate')
     public on
     public login
 
@@ -116,8 +114,7 @@ export default class HydroCarbon extends Client {
                this.handleMessage(message) 
         })
 
-        this.on('voiceStateUpdate', (oldState: VoiceState, newState: VoiceState) => this.handleVoiceStateUpdate(oldState, newState, this))
-
+        
         this.loginWithToken()
 
     }

@@ -9,7 +9,7 @@ import { Client, Message } from 'discord.js';
 const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
 //const CommandClass = require('../classes/CommandClass');
 import HydroCarbon from './../../../index'
-import { ERROR } from "./../../classes/ErrorClass";
+import { ERROR } from "../../classes/Errors";
 import getAudio from "./../../utility/getAudio"
 export {}
 

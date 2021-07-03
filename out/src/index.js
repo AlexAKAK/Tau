@@ -41,7 +41,6 @@ class HydroCarbon extends discord_js_1.Client {
     // /property declarations
     constructor() {
         super();
-        this.handleVoiceStateUpdate = require('./components/events/handleVoiceStateUpdate');
         this.PREFIX = config['prefix'];
         this.TOKEN = config['token'];
         this.TEXT_CHANNEL_COMMANDS = [
@@ -92,7 +91,6 @@ class HydroCarbon extends discord_js_1.Client {
             }
             this.handleMessage(message);
         }));
-        this.on('voiceStateUpdate', (oldState, newState) => this.handleVoiceStateUpdate(oldState, newState, this));
         this.loginWithToken();
     }
     handleMessageInYesChannel(message) {

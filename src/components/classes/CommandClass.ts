@@ -1,8 +1,8 @@
 import { DMChannel, Guild, GuildMember, Message, MessageEmbed, NewsChannel, TextChannel } from "discord.js"
 
-import * as errorClasses from "./ErrorClass"
+import * as errorClasses from "./Errors"
 import HydroCarbon from '../../index'
-import {ERROR, ERROR_METACLASS} from './ErrorClass'
+import {ERROR, ERROR_METACLASS} from './Errors'
 const fs = require('fs')
 
 /* make the err list definable as a static property of the CommandClass subclass, then use .class to

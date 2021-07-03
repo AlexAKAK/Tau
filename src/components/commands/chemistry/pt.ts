@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
 import HydroCarbon from '../../..';
-import { ErrorClass, MISSING_ARGS_ERR_METACLASS } from '../../classes/ErrorClass';
+import { ErrorClass, MISSING_ARGS_ERR_METACLASS } from '../../classes/Errors';
 import CommandClass from '../../classes/CommandClass'
 
 "bryson on top"

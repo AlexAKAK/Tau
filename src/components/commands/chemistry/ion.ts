@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from "discord.js";
 import HydroCarbon from "../../..";
 import CommandClass from "../../classes/CommandClass";
-import { ErrorClass } from "../../classes/ErrorClass";
+import { ErrorClass } from "../../classes/Errors";
 import pt from "./pt";
 
 
