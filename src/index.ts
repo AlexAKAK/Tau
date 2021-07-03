@@ -1,14 +1,8 @@
-
-
-// add an alias option for commands where the command can have multiple names
-
 import { Client, Guild, GuildMember, Message, VoiceState } from "discord.js";
 
 export {}
 
-import Discord = require('discord.js');
-
-
+ 
 import help from './components/commands/misc/help'
 import play from './components/commands/music/play'
 import stop from './components/commands/music/stop'
@@ -44,8 +38,10 @@ import announce from "./components/commands/misc/announce";
 
 const config: object = require('./../config.json')
 
-export default class HydroCarbon extends Discord.Client {
+export default class HydroCarbon extends Client {
     private handleVoiceStateUpdate = require('./components/events/handleVoiceStateUpdate')
+    public on
+    public login
 
     // property declarations
     public TEXT_CHANNEL_COMMANDS;
@@ -99,7 +95,7 @@ export default class HydroCarbon extends Discord.Client {
         this.queueMap = new Map()
         
         // EVENTS
-        this.once('ready', () => {
+        this.on('ready', () => {
             console.log("[Online]")
         })
 
