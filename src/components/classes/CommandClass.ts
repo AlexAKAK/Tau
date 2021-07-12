@@ -28,6 +28,11 @@ export default abstract class CommandClass {
     static MEMBER_ALREADY_MUTED_ERR: ERROR = errorClasses.MEMBER_ALREADY_MUTED_ERR
     static MEMBER_ALREADY_UNMUTED_ERR: ERROR = errorClasses.MEMBER_ALREADY_UNMUTED_ERR
     
+    
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = ''
+    protected static commandSyntax: string = ''
+
 
     public abstract /*async*/ commandMain(message: Message, client: HydroCarbon): Promise<any>
     // can be overriden

@@ -19,29 +19,53 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const { MessageEmbed } = require('discord.js');
 //const CommandClass = require('../classes/CommandClass')
 const CommandClass_1 = require("../../classes/CommandClass");
+// import commands
+const bal_1 = require("../currency/bal");
+const hack_1 = require("../currency/hack");
+const mine_1 = require("../currency/mine");
+const walletcreate_1 = require("../currency/walletcreate");
+const announce_1 = require("./announce");
+const clear_1 = require("./clear");
+const gif_1 = require("./gif");
+const meme_1 = require("./meme");
+const report_1 = require("./report");
+const join_1 = require("../music/join");
+const leave_1 = require("../music/leave");
+const loop_1 = require("../music/loop");
+const play_1 = require("../music/play");
+const queue_1 = require("../music/queue");
+const restart_1 = require("../music/restart");
+const skip_1 = require("../music/skip");
+const stop_1 = require("../music/stop");
+const commands = [
+    bal_1.default,
+    hack_1.default,
+    mine_1.default,
+    walletcreate_1.default,
+    announce_1.default,
+    clear_1.default,
+    gif_1.default,
+    meme_1.default,
+    report_1.default,
+    join_1.default,
+    leave_1.default,
+    loop_1.default,
+    play_1.default,
+    queue_1.default,
+    restart_1.default,
+    skip_1.default,
+    stop_1.default
+];
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(help_1.aliases);
+            const PREFIX = client.PREFIX;
             const embed = new MessageEmbed()
                 .setColor('GREEN')
-                .setTitle(`Usage Info`)
-                .addField('%play <url/keywords>', 'plays a youtube video from url or keywords')
-                .addField('%stop', 'stops whatever song the bot is playing and clears the queue')
-                .addField('%skip', 'skips the current song')
-                .addField('%skipvote', 'creates a vote to skip the current song')
-                .addField('%queue', 'displays the song queue')
-                .addField('%help', 'this command')
-                .addField('%loop', 'sets the current playing song to loop')
-                .addField('%restart', 'restarts the current playing song')
-                .addField('%gif <keywords>', 'sends a gif according to the keywords provided')
-                .addField('%meme', 'sends a random meme')
-                .addField('%helpstaff', 'shows the staff commands')
-                .addField('%walletcreate', 'creates a wallet for BrysonCoin')
-                .addField('%bal <?user>', 'shows BrysonCoin balance for you or another member')
-                .addField('%mine', 'you mine 0.00001 BrysonCoin')
-                .addField('%hack <user>', 'you hack someone\'s coin balance!')
                 .setTimestamp();
+            commands.forEach(function (command) {
+                embed.addField(command.commandSyntax, command.commandDescription, false);
+            });
             const sentMessage = yield message.channel.send(embed);
             setTimeout(function () {
                 if (!sentMessage['deleted'])

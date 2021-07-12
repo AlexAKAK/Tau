@@ -5,8 +5,48 @@ import HydroCarbon from "../../.."
 const {MessageEmbed} = require('discord.js')
 //const CommandClass = require('../classes/CommandClass')
 import CommandClass from '../../classes/CommandClass'
-export {}
 
+// import commands
+import bal from "../currency/bal"
+import hack from "../currency/hack"
+import mine from "../currency/mine"
+import walletcreate from "../currency/walletcreate"
+
+import announce from "./announce"
+import clear from "./clear"
+import gif from "./gif"
+import meme from "./meme"
+import report from "./report"
+
+import join from "../music/join"
+import leave from "../music/leave"
+import loop from "../music/loop"
+import play from "../music/play"
+import queue from "../music/queue"
+import restart from "../music/restart"
+import skip from "../music/skip"
+import stop from "../music/stop"
+
+
+const commands = [
+    bal,
+    hack,
+    mine,
+    walletcreate,
+    announce,
+    clear,
+    gif,
+    meme,
+    report,
+    join,
+    leave,
+    loop,
+    play,
+    queue,
+    restart,
+    skip,
+    stop
+]
 
 
 @help.alias(['h'])
@@ -14,27 +54,19 @@ export {}
 export default class help extends CommandClass {
     
     public async commandMain(message: Message, client: HydroCarbon) {
-        console.log(help.aliases)
-
+        const PREFIX: string = client.PREFIX
         const embed = new MessageEmbed()
         .setColor('GREEN')
-        .setTitle(`Usage Info`)
-        .addField('%play <url/keywords>', 'plays a youtube video from url or keywords')
-        .addField('%stop', 'stops whatever song the bot is playing and clears the queue')
-        .addField('%skip', 'skips the current song')
-        .addField('%skipvote', 'creates a vote to skip the current song')
-        .addField('%queue', 'displays the song queue')
-        .addField('%help', 'this command')
-        .addField('%loop', 'sets the current playing song to loop')
-        .addField('%restart', 'restarts the current playing song')
-        .addField('%gif <keywords>', 'sends a gif according to the keywords provided')
-        .addField('%meme', 'sends a random meme')
-        .addField('%helpstaff', 'shows the staff commands')
-        .addField('%walletcreate', 'creates a wallet for BrysonCoin')
-        .addField('%bal <?user>', 'shows BrysonCoin balance for you or another member')
-        .addField('%mine', 'you mine 0.00001 BrysonCoin')
-        .addField('%hack <user>', 'you hack someone\'s coin balance!')
         .setTimestamp()
+
+
+
+        commands.forEach(
+            function(command: any){
+                embed.addField(command.commandSyntax, command.commandDescription, false)
+            }
+        )
+
 
         const sentMessage = await message.channel.send(embed)
         

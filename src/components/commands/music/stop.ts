@@ -17,6 +17,9 @@ import CommandClass from '../../classes/CommandClass'
 ])
 
 export default class stop extends CommandClass { 
+    protected static commandCategory: string = 'music'
+    protected static commandDescription: string = 'The bot stops playing songs and the queue is cleared'
+    protected static commandSyntax: string = 'stop'
 
     
     public async commandMain(message: Message, client: HydroCarbon) {

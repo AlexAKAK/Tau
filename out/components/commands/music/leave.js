@@ -34,6 +34,9 @@ let leave = leave_1 = class leave extends CommandClass_1.default {
         });
     }
 };
+leave.commandCategory = 'music';
+leave.commandDescription = 'I leave the voice channel I\'m in';
+leave.commandSyntax = 'leave';
 leave = leave_1 = __decorate([
     leave_1.alias(['l']),
     leave_1.errorCheck([

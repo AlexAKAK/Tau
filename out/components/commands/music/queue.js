@@ -53,6 +53,9 @@ let queue = queue_1 = class queue extends CommandClass_1.default {
         });
     }
 };
+queue.commandCategory = 'music';
+queue.commandDescription = 'I show the current song queue';
+queue.commandSyntax = 'queue';
 queue = queue_1 = __decorate([
     queue_1.alias(['q']),
     queue_1.errorCheck([

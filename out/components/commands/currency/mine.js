@@ -70,6 +70,9 @@ let mine = mine_1 = class mine extends CommandClass_1.default {
             return false;
     }
 };
+mine.commandCategory = 'currency';
+mine.commandDescription = 'you mine an amount of currency';
+mine.commandSyntax = 'mine';
 mine.mostRecentMine = [];
 mine = mine_1 = __decorate([
     mine_1.memberCooldown(60000)

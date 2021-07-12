@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// import dependencies
 const discord_js_1 = require("discord.js");
+// import commands 
 const help_1 = require("./components/commands/misc/help");
 const play_1 = require("./components/commands/music/play");
 const stop_1 = require("./components/commands/music/stop");
@@ -22,11 +24,6 @@ const leave_1 = require("./components/commands/music/leave");
 const gif_1 = require("./components/commands/misc/gif");
 const loop_1 = require("./components/commands/music/loop");
 const meme_1 = require("./components/commands/misc/meme");
-const mute_1 = require("./components/commands/staff/mute");
-const unmute_1 = require("./components/commands/staff/unmute");
-const tempmute_1 = require("./components/commands/staff/tempmute");
-const tempmutevc_1 = require("./components/commands/staff/tempmutevc");
-const helpstaff_1 = require("./components/commands/staff/helpstaff");
 const bal_1 = require("./components/commands/currency/bal");
 const walletcreate_1 = require("./components/commands/currency/walletcreate");
 const mine_1 = require("./components/commands/currency/mine");
@@ -34,6 +31,7 @@ const report_1 = require("./components/commands/misc/report");
 const hack_1 = require("./components/commands/currency/hack");
 const announce_1 = require("./components/commands/misc/announce");
 //const discordButtons = require('discord-buttons')
+// import config
 const config = require('./../config.json');
 class HydroCarbon extends discord_js_1.Client {
     // /property declarations
@@ -41,7 +39,6 @@ class HydroCarbon extends discord_js_1.Client {
         super();
         this.PREFIX = config['prefix'];
         this.TOKEN = config['token'];
-        console.log(this.PREFIX);
         this.TEXT_CHANNEL_COMMANDS = [
             help_1.default,
             play_1.default,
@@ -51,15 +48,9 @@ class HydroCarbon extends discord_js_1.Client {
             loop_1.default,
             restart_1.default,
             clear_1.default,
-            //skipvote,
             join_1.default,
             leave_1.default,
             gif_1.default,
-            mute_1.default,
-            unmute_1.default,
-            tempmute_1.default,
-            tempmutevc_1.default,
-            helpstaff_1.default,
             meme_1.default,
             bal_1.default,
             walletcreate_1.default,
@@ -69,8 +60,7 @@ class HydroCarbon extends discord_js_1.Client {
             announce_1.default
         ];
         this.DM_COMMANDS = [
-            help_1.default,
-            helpstaff_1.default,
+            help_1.default
         ];
         this.queueMap = new Map();
         // EVENTS

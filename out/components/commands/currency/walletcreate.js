@@ -49,3 +49,6 @@ class walletcreate extends CommandClass_1.default {
     }
 }
 exports.default = walletcreate;
+walletcreate.commandCategory = 'currency';
+walletcreate.commandDescription = 'You create a wallet for currency';
+walletcreate.commandSyntax = 'walletcreate';

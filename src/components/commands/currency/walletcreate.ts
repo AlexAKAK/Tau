@@ -8,6 +8,12 @@ const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const fs = require('fs')
 
 export default class walletcreate extends CommandClass {
+    protected static commandCategory: string = 'currency'
+    protected static commandDescription: string = 'You create a wallet for currency'
+    protected static commandSyntax: string = 'walletcreate'
+
+
+
     async commandMain(message: Message, client: HydroCarbon) {
 
         //const walletsPath = require('path').resolve(__dirname, './../../../../data/wallets.json')

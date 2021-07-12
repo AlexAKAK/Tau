@@ -24,6 +24,10 @@ export {}
 ])
 
 export default class play extends CommandClass {
+    protected static commandCategory: string = 'music'
+    protected static commandDescription: string = 'I play a song by name or youtube link'
+    protected static commandSyntax: string = 'play <youtube link/search query>'
+
     static MISSING_ARGS_ERR_2: ERROR = play.MISSING_ARGS_ERR_METACLASS(2)
 
     static async ytQueueAdd(message: Message, client: HydroCarbon) {

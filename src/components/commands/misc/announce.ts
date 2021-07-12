@@ -9,21 +9,15 @@ import CommandClass from "../../classes/CommandClass";
 
 
 export default class announce extends CommandClass {
-
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = 'You make an announcement'
+    protected static commandSyntax: string = 'announce <message>'
 
 
     static MISSING_ARGS_ERR_2 = announce.MISSING_ARGS_ERR_METACLASS(2)
 
 
     async commandMain(message: Message, client: HydroCarbon): Promise<void> {
-
-        //special
-        if (message.author.id != '536235243938643998') {
-            message.channel.send(`Shut the fok up.`)
-            return;
-        }
-
-        // / special
 
     
 

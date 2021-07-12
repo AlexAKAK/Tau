@@ -11,6 +11,11 @@ const fs = require('fs')
 
 
 export default class bal extends CommandClass {
+
+    protected static commandCategory: string = 'currency'
+    protected static commandDescription: string = 'shows your currency balance'
+    protected static commandSyntax: string = 'bal <?user>'
+
     async commandMain(message: Message, client: HydroCarbon) {
         const wallets: object = require('./../../../../data/wallets.json')
         console.log(wallets)

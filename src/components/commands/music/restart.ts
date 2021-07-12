@@ -16,6 +16,10 @@ import CommandClass from '../../classes/CommandClass'
 ])
 
 export default class restart extends CommandClass { 
+    protected static commandCategory: string = 'music'
+    protected static commandDescription: string = 'the currently playing song restarts'
+    protected static commandSyntax: string = 'restart'
+
     public async commandMain(message: Message, client: HydroCarbon) {
         
         const audio = await ytdl(client.queueMap[message.guild.id].playing.url)

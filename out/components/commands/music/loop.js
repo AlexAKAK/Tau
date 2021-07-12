@@ -32,6 +32,9 @@ let loop = loop_1 = class loop extends CommandClass_1.default {
         });
     }
 };
+loop.commandCategory = 'music';
+loop.commandDescription = 'the currently playing song is set to loop after completion';
+loop.commandSyntax = 'loop';
 loop = loop_1 = __decorate([
     loop_1.errorCheck([
         loop_1.CLIENT_NOT_IN_VC_ERR,

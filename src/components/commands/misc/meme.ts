@@ -6,6 +6,10 @@ const fetch = require('node-fetch')
 
 
 export default class meme extends CommandClass {
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = 'A random meme is sent into the chat'
+    protected static commandSyntax: string = 'meme'
+    
     async commandMain(message: Message, client: HydroCarbon) {
 
         const memeFromReddit = await meme.getRandomMeme()  

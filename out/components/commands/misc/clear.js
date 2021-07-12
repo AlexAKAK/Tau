@@ -42,6 +42,9 @@ let clear = clear_1 = class clear extends CommandClass_1.default {
         });
     } // commandMain()
 };
+clear.commandCategory = 'misc';
+clear.commandDescription = 'You clear an amount of messages from the text channel';
+clear.commandSyntax = 'clear <number of messages>';
 clear.QUANTATIVE_RANGE_ERR_1_1_100 = clear_1.QUANTATIVE_RANGE_ERR_METACLASS('[Number of messages]', 1, 1, 100);
 clear = clear_1 = __decorate([
     clear_1.errorCheck([

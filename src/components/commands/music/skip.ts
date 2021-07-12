@@ -41,7 +41,12 @@ const {red, lightBlue} = require('./../../utility/hexColors');
     skip.CLIENT_NOT_PLAYING_ANYTHING_ERR
 ])
 
-export default class skip extends CommandClass { 
+export default class skip extends CommandClass {
+    protected static commandCategory: string = 'music'
+    protected static commandDescription: string = 'The current song is skipped'
+    protected static commandSyntax: string = 'skip'
+    
+    
     public async commandMain(message: Message, client: HydroCarbon) {
         const connection = message.guild.me.voice.connection
         const dispatcher = connection.dispatcher

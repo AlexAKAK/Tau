@@ -7,6 +7,9 @@ const sendEmbed = require('./../../utility/embeds/sendEmbed')
 
 @report.errorCheck([report.MISSING_ARGS_ERR_3])
 export default class report extends CommandClass {
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = 'report a user'
+    protected static commandSyntax: string = 'report <user> <reason>'
 
     static MISSING_ARGS_ERR_3 = report.MISSING_ARGS_ERR_METACLASS(3)
 

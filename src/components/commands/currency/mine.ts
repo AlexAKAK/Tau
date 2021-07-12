@@ -9,6 +9,9 @@ const fs = require('fs')
 @mine.memberCooldown(60000)
 export default class mine extends CommandClass {
 
+    protected static commandCategory: string = 'currency'
+    protected static commandDescription: string = 'you mine an amount of currency'
+    protected static commandSyntax: string = 'mine'
 
     public static mostRecentMine: object = []
 

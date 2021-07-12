@@ -39,6 +39,9 @@ let restart = restart_1 = class restart extends CommandClass_1.default {
         });
     }
 };
+restart.commandCategory = 'music';
+restart.commandDescription = 'the currently playing song restarts';
+restart.commandSyntax = 'restart';
 restart = restart_1 = __decorate([
     restart_1.alias(['r']),
     restart_1.errorCheck([

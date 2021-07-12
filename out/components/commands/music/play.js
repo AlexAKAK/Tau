@@ -167,6 +167,9 @@ let play = play_1 = class play extends CommandClass_1.default {
         });
     }
 };
+play.commandCategory = 'music';
+play.commandDescription = 'I play a song by name or youtube link';
+play.commandSyntax = 'play <youtube link/search query>';
 play.MISSING_ARGS_ERR_2 = play_1.MISSING_ARGS_ERR_METACLASS(2);
 play = play_1 = __decorate([
     play_1.alias(['p']),

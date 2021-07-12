@@ -214,6 +214,9 @@ CommandClass.QUANTATIVE_RANGE_ERR_METACLASS = errorClasses.QUANTATIVE_RANGE_ERR_
 CommandClass.MISSING_ARGS_ERR_METACLASS = errorClasses.MISSING_ARGS_ERR_METACLASS;
 CommandClass.MEMBER_ALREADY_MUTED_ERR = errorClasses.MEMBER_ALREADY_MUTED_ERR;
 CommandClass.MEMBER_ALREADY_UNMUTED_ERR = errorClasses.MEMBER_ALREADY_UNMUTED_ERR;
+CommandClass.commandCategory = 'misc';
+CommandClass.commandDescription = '';
+CommandClass.commandSyntax = '';
 // can be overriden
 CommandClass.aliases = [];
 // decorator factory

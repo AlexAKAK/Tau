@@ -54,3 +54,6 @@ class bal extends CommandClass_1.default {
     }
 }
 exports.default = bal;
+bal.commandCategory = 'currency';
+bal.commandDescription = 'shows your currency balance';
+bal.commandSyntax = 'bal <?user>';

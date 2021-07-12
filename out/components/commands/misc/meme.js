@@ -40,3 +40,6 @@ class meme extends CommandClass_1.default {
     }
 }
 exports.default = meme;
+meme.commandCategory = 'misc';
+meme.commandDescription = 'A random meme is sent into the chat';
+meme.commandSyntax = 'meme';

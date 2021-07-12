@@ -16,6 +16,10 @@ const {red, randomColor} = require('./../../utility/hexColors');
 @clear.unStable
 
 export default class clear extends CommandClass {
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = 'You clear an amount of messages from the text channel'
+    protected static commandSyntax: string = 'clear <number of messages>'
+
     static QUANTATIVE_RANGE_ERR_1_1_100 = clear.QUANTATIVE_RANGE_ERR_METACLASS('[Number of messages]', 1, 1, 100)
     
 

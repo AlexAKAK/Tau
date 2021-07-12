@@ -34,6 +34,9 @@ let report = report_1 = class report extends CommandClass_1.default {
         });
     }
 };
+report.commandCategory = 'misc';
+report.commandDescription = 'report a user';
+report.commandSyntax = 'report <user> <reason>';
 report.MISSING_ARGS_ERR_3 = report_1.MISSING_ARGS_ERR_METACLASS(3);
 report = report_1 = __decorate([
     report_1.errorCheck([report_1.MISSING_ARGS_ERR_3])

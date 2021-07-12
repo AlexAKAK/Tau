@@ -25,6 +25,9 @@ let join = join_1 = class join extends CommandClass_1.default {
         });
     }
 };
+join.commandCategory = 'music';
+join.commandDescription = 'I join the voice channel you are in';
+join.commandSyntax = 'join';
 join = join_1 = __decorate([
     join_1.alias(['j']),
     join_1.errorCheck([

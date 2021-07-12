@@ -15,7 +15,12 @@ export {}
     queue.CLIENT_NOT_PLAYING_ANYTHING_ERR
 ])
 
-export default class queue extends CommandClass { 
+export default class queue extends CommandClass {
+    protected static commandCategory: string = 'music'
+    protected static commandDescription: string = 'I show the current song queue'
+    protected static commandSyntax: string = 'queue'
+
+
     public async commandMain(message: Message, client: HydroCarbon) {
 
         console.log('queue.commandMain')

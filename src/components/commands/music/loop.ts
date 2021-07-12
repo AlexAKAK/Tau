@@ -14,7 +14,10 @@ const { red, randomColor } = require('./../../utility/hexColors');
 ])
 
 
-export default class loop extends CommandClass { 
+export default class loop extends CommandClass {
+    protected static commandCategory: string = 'music'
+    protected static commandDescription: string = 'the currently playing song is set to loop after completion'
+    protected static commandSyntax: string = 'loop'
     
     public async commandMain(message: Message, client: HydroCarbon) {
         client.queueMap[message.guild.me.voice.connection.channel.id]['playing']['loop'] = true

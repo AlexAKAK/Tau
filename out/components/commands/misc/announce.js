@@ -21,12 +21,6 @@ const CommandClass_1 = require("../../classes/CommandClass");
 let announce = announce_1 = class announce extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            //special
-            if (message.author.id != '536235243938643998') {
-                message.channel.send(`Shut the fok up.`);
-                return;
-            }
-            // / special
             const spaceIndex = message.content.indexOf(' ');
             const msg = message.content.substring(spaceIndex + 1);
             const embed = new discord_js_1.MessageEmbed();
@@ -40,6 +34,9 @@ let announce = announce_1 = class announce extends CommandClass_1.default {
         });
     }
 };
+announce.commandCategory = 'misc';
+announce.commandDescription = 'You make an announcement';
+announce.commandSyntax = 'announce <message>';
 announce.MISSING_ARGS_ERR_2 = announce_1.MISSING_ARGS_ERR_METACLASS(2);
 announce = announce_1 = __decorate([
     announce_1.alias(['a'])

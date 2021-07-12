@@ -58,6 +58,9 @@ let skip = skip_1 = class skip extends CommandClass_1.default {
         });
     }
 };
+skip.commandCategory = 'music';
+skip.commandDescription = 'The current song is skipped';
+skip.commandSyntax = 'skip';
 skip = skip_1 = __decorate([
     skip_1.alias(['s']),
     skip_1.errorCheck([

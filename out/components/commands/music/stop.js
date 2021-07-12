@@ -36,6 +36,9 @@ let stop = stop_1 = class stop extends CommandClass_1.default {
         });
     }
 };
+stop.commandCategory = 'music';
+stop.commandDescription = 'The bot stops playing songs and the queue is cleared';
+stop.commandSyntax = 'stop';
 stop = stop_1 = __decorate([
     stop_1.errorCheck([
         stop_1.CLIENT_NOT_IN_VC_ERR,

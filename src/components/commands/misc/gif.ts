@@ -17,6 +17,9 @@ import CommandClass from '../../classes/CommandClass'
 ])
 
 export default class gif extends CommandClass {
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = 'A gif is sent into the chat'
+    protected static commandSyntax: string = 'gif <search query>'
 
     static fetch = require('node-fetch')
     static MISSING_ARGS_ERR_2 = gif.MISSING_ARGS_ERR_METACLASS(2)

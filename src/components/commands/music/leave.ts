@@ -12,7 +12,10 @@ const {randomHi, randomBye} = require('./.././../utility/gifs')
 ])
 
 export default class leave extends CommandClass {
-    
+    protected static commandCategory: string = 'music'
+    protected static commandDescription: string = 'I leave the voice channel I\'m in'
+    protected static commandSyntax: string = 'leave'
+
     public async commandMain(message: Message, client: HydroCarbon) {
         message.guild.me.voice.channel.leave()
         //message.react('👋')

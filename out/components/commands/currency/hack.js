@@ -51,6 +51,9 @@ let hack = hack_1 = class hack extends CommandClass_1.default {
     }
 };
 hack.MISSING_ARGS_ERR_2 = hack_1.MISSING_ARGS_ERR_METACLASS(2);
+hack.commandCategory = 'currency';
+hack.commandDescription = 'you steal currency from another user';
+hack.commandSyntax = 'hack <user>';
 hack = hack_1 = __decorate([
     hack_1.errorCheck([hack_1.MISSING_ARGS_ERR_2])
     //1 hour

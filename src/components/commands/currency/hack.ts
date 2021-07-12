@@ -11,6 +11,9 @@ const sendEmbed = require('./../../utility/embeds/sendEmbed')
 export default class hack extends CommandClass {
     static MISSING_ARGS_ERR_2 = hack.MISSING_ARGS_ERR_METACLASS(2)
     
+    protected static commandCategory: string = 'currency'
+    protected static commandDescription: string = 'you steal currency from another user'
+    protected static commandSyntax: string = 'hack <user>'
 
 
     async commandMain(message: Message, client: HydroCarbon) {

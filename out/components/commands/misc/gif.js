@@ -39,6 +39,9 @@ let gif = gif_1 = class gif extends CommandClass_1.default {
         });
     }
 };
+gif.commandCategory = 'misc';
+gif.commandDescription = 'A gif is sent into the chat';
+gif.commandSyntax = 'gif <search query>';
 gif.fetch = require('node-fetch');
 gif.MISSING_ARGS_ERR_2 = gif_1.MISSING_ARGS_ERR_METACLASS(2);
 gif = gif_1 = __decorate([

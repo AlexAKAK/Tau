@@ -1,8 +1,7 @@
+// import dependencies
 import { Client, Guild, GuildMember, Message, VoiceState } from "discord.js";
 
-export {}
-
- 
+// import commands 
 import help from './components/commands/misc/help'
 import play from './components/commands/music/play'
 import stop from './components/commands/music/stop'
@@ -16,11 +15,7 @@ import gif from './components/commands/misc/gif'
 import loop from './components/commands/music/loop'
 import meme from './components/commands/misc/meme'
 
-import mute from './components/commands/staff/mute'
-import unmute from './components/commands/staff/unmute'
-import tempmute from './components/commands/staff/tempmute'
-import tempmutevc from './components/commands/staff/tempmutevc'
-import helpstaff from './components/commands/staff/helpstaff'
+
 
 import bal from './components/commands/currency/bal'
 import walletcreate from './components/commands/currency/walletcreate'
@@ -32,7 +27,7 @@ import hack from "./components/commands/currency/hack";
 import announce from "./components/commands/misc/announce";
 
 //const discordButtons = require('discord-buttons')
-
+// import config
 const config: object = require('./../config.json')
 
 export default class HydroCarbon extends Client {
@@ -50,8 +45,6 @@ export default class HydroCarbon extends Client {
 
     constructor() {
         super()
-        console.log(this.PREFIX)
-    
         this.TEXT_CHANNEL_COMMANDS = [
             help,
             play,
@@ -61,15 +54,9 @@ export default class HydroCarbon extends Client {
             loop,
             restart,
             clear,
-            //skipvote,
             join,
             leave,
             gif,
-            mute,
-            unmute,
-            tempmute,
-            tempmutevc,
-            helpstaff,
             meme,
             bal,
             walletcreate,
@@ -80,8 +67,7 @@ export default class HydroCarbon extends Client {
         ]
 
         this.DM_COMMANDS = [
-            help,
-            helpstaff,
+            help
         ]
         
         this.queueMap = new Map()
