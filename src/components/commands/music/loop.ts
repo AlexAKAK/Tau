@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import HydroCarbon from "../../..";
 
 import CommandClass from '../../classes/CommandClass'
-const { CLIENT_NOT_IN_VC_ERR, PLAYING_SONG_ALREADY_LOOPING_ERR } = require('./../../classes/ErrorClass');
+const { CLIENT_NOT_IN_VC_ERR, PLAYING_SONG_ALREADY_LOOPING_ERR } = require('./../../classes/Errors');
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { red, randomColor } = require('./../../utility/hexColors');
 

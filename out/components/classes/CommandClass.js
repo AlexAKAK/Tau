@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const errorClasses = require("./ErrorClass");
+const errorClasses = require("./Errors");
 const fs = require('fs');
 /* make the err list definable as a static property of the CommandClass subclass, then use .class to
 retrieve the class. After, use that to call CommandClass.constructor (super, in context).

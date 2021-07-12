@@ -1,5 +1,4 @@
 "use strict";
-// add an alias option for commands where the command can have multiple names
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Discord = require("discord.js");
+const discord_js_1 = require("discord.js");
 const help_1 = require("./components/commands/misc/help");
 const play_1 = require("./components/commands/music/play");
 const stop_1 = require("./components/commands/music/stop");
@@ -22,8 +21,6 @@ const join_1 = require("./components/commands/music/join");
 const leave_1 = require("./components/commands/music/leave");
 const gif_1 = require("./components/commands/misc/gif");
 const loop_1 = require("./components/commands/music/loop");
-const pt_1 = require("./components/commands/chemistry/pt");
-const ion_1 = require("./components/commands/chemistry/ion");
 const meme_1 = require("./components/commands/misc/meme");
 const mute_1 = require("./components/commands/staff/mute");
 const unmute_1 = require("./components/commands/staff/unmute");
@@ -38,13 +35,13 @@ const hack_1 = require("./components/commands/currency/hack");
 const announce_1 = require("./components/commands/misc/announce");
 //const discordButtons = require('discord-buttons')
 const config = require('./../config.json');
-class HydroCarbon extends Discord.Client {
+class HydroCarbon extends discord_js_1.Client {
     // /property declarations
     constructor() {
         super();
-        this.handleVoiceStateUpdate = require('./components/events/handleVoiceStateUpdate');
         this.PREFIX = config['prefix'];
         this.TOKEN = config['token'];
+        console.log(this.PREFIX);
         this.TEXT_CHANNEL_COMMANDS = [
             help_1.default,
             play_1.default,
@@ -58,8 +55,6 @@ class HydroCarbon extends Discord.Client {
             join_1.default,
             leave_1.default,
             gif_1.default,
-            pt_1.default,
-            ion_1.default,
             mute_1.default,
             unmute_1.default,
             tempmute_1.default,
@@ -75,51 +70,15 @@ class HydroCarbon extends Discord.Client {
         ];
         this.DM_COMMANDS = [
             help_1.default,
-            pt_1.default,
-            ion_1.default,
             helpstaff_1.default,
         ];
         this.queueMap = new Map();
         // EVENTS
-        this.once('ready', () => {
+        this.on('ready', () => {
             console.log("[Online]");
         });
-        this.on('message', (message) => __awaiter(this, void 0, void 0, function* () {
-            //try {
-            // yes channel
-            /**/ if (message.channel.id == '857052318951538708') {
-                this.handleMessageInYesChannel(message);
-                return;
-            }
-            this.handleMessage(message);
-        }));
-        this.on('voiceStateUpdate', (oldState, newState) => this.handleVoiceStateUpdate(oldState, newState, this));
-        this.loginWithToken();
+        this.on('message', (message) => __awaiter(this, void 0, void 0, function* () { return this.handleMessage(message); }));
     }
-    handleMessageInYesChannel(message) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (message.content != "Yes") {
-                try {
-                    message.delete();
-                }
-                catch (_a) { }
-            }
-            else if (this.mostRecentYes == message.member)
-                try {
-                    message.delete();
-                }
-                catch (_b) { }
-            else
-                this.mostRecentYes = message.member;
-        });
-    }
-    loginWithToken() {
-        return __awaiter(this, void 0, void 0, function* () {
-            //const token = fs.readFileSync('components/data/token.txt', 'utf-8')
-            this.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mxaPe7uqjJReKZEPRT25N_Xqgf0');
-        });
-    }
-    // Command handlers
     handleMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
             if (message.channel.type === 'text')
@@ -192,3 +151,4 @@ class HydroCarbon extends Discord.Client {
 exports.default = HydroCarbon;
 // Running the bot
 const client = new HydroCarbon();
+client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.DvfblPWj2BrpmImnmvU5sYbTohE');

@@ -14,8 +14,6 @@ import join from './components/commands/music/join'
 import leave from './components/commands/music/leave'
 import gif from './components/commands/misc/gif'
 import loop from './components/commands/music/loop'
-import pt from './components/commands/chemistry/pt'
-import ion from './components/commands/chemistry/ion'
 import meme from './components/commands/misc/meme'
 
 import mute from './components/commands/staff/mute'
@@ -52,7 +50,7 @@ export default class HydroCarbon extends Client {
 
     constructor() {
         super()
-
+        console.log(this.PREFIX)
     
         this.TEXT_CHANNEL_COMMANDS = [
             help,
@@ -67,8 +65,6 @@ export default class HydroCarbon extends Client {
             join,
             leave,
             gif,
-            pt,
-            ion,
             mute,
             unmute,
             tempmute,
@@ -85,8 +81,6 @@ export default class HydroCarbon extends Client {
 
         this.DM_COMMANDS = [
             help,
-            pt,
-            ion,
             helpstaff,
         ]
         
@@ -97,52 +91,9 @@ export default class HydroCarbon extends Client {
             console.log("[Online]")
         })
 
-
-
-        this.on('message', async(message: Message) => {
-            //try {
-                // yes channel
-                /**/if (message.channel.id == '857052318951538708') {
-                    this.handleMessageInYesChannel(message)
-                    return;
-                }
-                
-                
-
-
-
-               this.handleMessage(message) 
-        })
-
-        
-        this.loginWithToken()
-
+        this.on('message', async(message: Message) => this.handleMessage(message))
     }
 
-    private mostRecentYes: GuildMember;
-    async handleMessageInYesChannel(message: Message) {
-        if (message.content != "Yes") {
-            try {
-                message.delete()
-            } catch {}
-
-        }
-
-        else if (this.mostRecentYes == message.member) try {
-            message.delete()
-        } catch {}
-        
-        else this.mostRecentYes = message.member
-    }
-    
-    
-
-    async loginWithToken() {
-        //const token = fs.readFileSync('components/data/token.txt', 'utf-8')
-        this.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mxaPe7uqjJReKZEPRT25N_Xqgf0')
-    }
-
-    // Command handlers
     async handleMessage(message: Message) {
 
 
@@ -218,4 +169,5 @@ export default class HydroCarbon extends Client {
 
 // Running the bot
 const client: HydroCarbon|Client = new HydroCarbon();
+client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.DvfblPWj2BrpmImnmvU5sYbTohE')
 
