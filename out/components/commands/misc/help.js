@@ -59,20 +59,62 @@ const commands = [
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            const PREFIX = client.PREFIX;
+            const args = help_1.splitArgsWithoutCommandCall(message);
+            if (args.length == 0)
+                help_1.noArgsMain(message, client);
+            else
+                help_1.argsMain(message, client);
+        });
+    }
+    static noArgsMain(message, client) {
+        return __awaiter(this, void 0, void 0, function* () {
             const embed = new MessageEmbed()
                 .setColor('GREEN')
                 .setTimestamp();
             commands.forEach(function (command) {
-                embed.addField(command.commandSyntax, command.commandDescription, false);
+                embed.addField(`${client.PREFIX}${command.commandSyntax}`, command.commandDescription, false);
             });
             const sentMessage = yield message.channel.send(embed);
             setTimeout(function () {
                 if (!sentMessage['deleted'])
                     sentMessage.delete();
             }, 10000);
-            return false;
         });
+    }
+    static argsMain(message, client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const commandName = help_1.splitArgsWithoutCommandCall(message)[0];
+            if (!help_1.checkIfCommandNameIsValid(commandName)) {
+                help_1.sendEmbed(message.channel, {
+                    title: `Invalid command name, ${message.member.nickname}.`,
+                    color: 'RED',
+                    deleteTimeout: 5000
+                });
+                return;
+            }
+            const command = help_1.getCommand(help_1.splitArgsWithoutCommandCall(message)[0]);
+            const embed = new MessageEmbed()
+                .setTimestamp()
+                .setColor('GREEN')
+                .addField(`Usage: ${command.commandSyntax}`, `Description: ${command.commandDescription}`, false);
+            message.channel.send(embed);
+        });
+    }
+    static checkIfCommandNameIsValid(commandName) {
+        let valid = false;
+        commands.forEach(function (command) {
+            if (command.name == commandName)
+                valid = true;
+        });
+        return valid;
+    }
+    static getCommand(commandName) {
+        let command = null;
+        commands.forEach(function (_command) {
+            if (_command.name == commandName)
+                command = _command;
+        });
+        return command;
     }
 };
 help = help_1 = __decorate([

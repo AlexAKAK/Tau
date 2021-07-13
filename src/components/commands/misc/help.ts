@@ -1,4 +1,4 @@
-import { Message } from "discord.js"
+import { DMChannel, Message, TextChannel } from "discord.js"
 import HydroCarbon from "../../.."
 
 
@@ -54,16 +54,18 @@ const commands = [
 export default class help extends CommandClass {
     
     public async commandMain(message: Message, client: HydroCarbon) {
-        const PREFIX: string = client.PREFIX
+        const args = help.splitArgsWithoutCommandCall(message)
+        if (args.length == 0) help.noArgsMain(message, client)
+        else help.argsMain(message, client)
+    }
+
+    private static async noArgsMain(message: Message, client: HydroCarbon): Promise<void> {
         const embed = new MessageEmbed()
         .setColor('GREEN')
-        .setTimestamp()
-
-
-
+        .setTimestamp()  
         commands.forEach(
             function(command: any){
-                embed.addField(command.commandSyntax, command.commandDescription, false)
+                embed.addField(`${client.PREFIX}${command.commandSyntax}`, command.commandDescription, false)
             }
         )
 
@@ -73,8 +75,48 @@ export default class help extends CommandClass {
         setTimeout(function() {
             if (!sentMessage['deleted']) sentMessage.delete()
         }, 10000)
-
-        return false
     }
+
+    private static async argsMain(message: Message, client: HydroCarbon): Promise<void> {
+        const commandName = help.splitArgsWithoutCommandCall(message)[0]
+        if (!help.checkIfCommandNameIsValid(commandName)) {
+            help.sendEmbed(<TextChannel|DMChannel> message.channel, {
+                title: `Invalid command name, ${message.member.nickname}.`,
+                color: 'RED',
+                deleteTimeout: 5000
+            })
+            return
+        }
+        
+        const command: any = help.getCommand(help.splitArgsWithoutCommandCall(message)[0])
+        const embed = new MessageEmbed()
+        .setTimestamp()
+        .setColor('GREEN')
+        .addField(`Usage: ${command.commandSyntax}`, `Description: ${command.commandDescription}`, false)
+
+        message.channel.send(embed)
+        
+
+        
+    }
+
+    private static checkIfCommandNameIsValid(commandName: string): boolean {
+        let valid: boolean = false;
+        commands.forEach(function(command: any) {
+            if (command.name == commandName) valid = true
+        })
+
+        return valid
+    }
+
+    private static getCommand(commandName: string): Function {
+        let command: Function = null
+        commands.forEach(function(_command: any) {
+            if (_command.name == commandName) command = _command
+        })
+        return command
+
+    }
+
 }
 
