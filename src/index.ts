@@ -31,15 +31,15 @@ import announce from "./components/commands/misc/announce";
 const config: object = require('./../config.json')
 
 export default class HydroCarbon extends Client {
-    public on
-    public login
+    public on: any
+    public login: any
 
     // property declarations
-    public TEXT_CHANNEL_COMMANDS;
-    public DM_COMMANDS;
-    public PREFIX = config['prefix']
-    public TOKEN = config['token']
-    public queueMap;
+    public TEXT_CHANNEL_COMMANDS: any[];
+    public DM_COMMANDS: any[];
+    public PREFIX: string = config['prefix']
+    public TOKEN: string = config['token']
+    public queueMap: any;
     // /property declarations
 
 
@@ -155,5 +155,5 @@ export default class HydroCarbon extends Client {
 
 // Running the bot
 const client: HydroCarbon|Client = new HydroCarbon();
-client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.DvfblPWj2BrpmImnmvU5sYbTohE')
+client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.GsgJDSCcwiLNq2x874aAFbR0wGc')
 

@@ -141,4 +141,4 @@ class HydroCarbon extends discord_js_1.Client {
 exports.default = HydroCarbon;
 // Running the bot
 const client = new HydroCarbon();
-client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.DvfblPWj2BrpmImnmvU5sYbTohE');
+client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.GsgJDSCcwiLNq2x874aAFbR0wGc');

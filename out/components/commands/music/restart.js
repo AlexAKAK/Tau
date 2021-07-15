@@ -27,7 +27,7 @@ let restart = restart_1 = class restart extends CommandClass_1.default {
             const audio = yield ytdl(client.queueMap[message.guild.id].playing.url);
             if (message.guild.me.voice.connection.dispatcher != null)
                 message.guild.me.voice.connection.dispatcher.destroy();
-            const dispatcher = message.guild.me.voice.connection.play(audio, { type: 'opus' });
+            const dispatcher = message.guild.me.voice.connection.play(audio, { type: 'opus', volume: 0.05 });
             dispatcher.on('finish', () => {
                 checkQueueThenHandle(message, message.guild.me.voice.connection);
             });

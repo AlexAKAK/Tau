@@ -9,15 +9,13 @@ async function playAudio(audio: any, voiceChannel: VoiceChannel, url: string, me
     const connection = await voiceChannel.join()
     let dispatcher: StreamDispatcher = null
     setTimeout(() => {
-        dispatcher = connection.play(audio)
+        dispatcher = connection.play(audio, {volume: 0.05})
         dispatcher.on('finish', () => {
                 checkQueueThenHandle(message, connection)
             })
 
-        dispatcher.on('close', () => {
-            console.log('dispatcher closed')
-        })
-    }, 2000) // used to be 5000
+
+    }, 0) // used to be 5000
     
         
     // once the song has finished playing, handle the queue

@@ -40,7 +40,7 @@ function checkQueueThenHandle(message, connection) {
             console.log('else if');
             const audio = client.queueMap[message.guild.id]['queue'][0]['audio'];
             const url = client.queueMap[message.guild.id]['queue'][0]['url'];
-            const dispatcher = connection.play(audio);
+            const dispatcher = connection.play(audio, { volume: 0.05 });
             dispatcher.on('finish', () => {
                 checkQueueThenHandle(message, connection);
             });
