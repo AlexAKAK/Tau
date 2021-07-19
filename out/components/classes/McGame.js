@@ -20,6 +20,7 @@ const grass = emojis_1.default.greenSquare;
 const stone = emojis_1.default.blackSquare;
 const characterEmoji = emojis_1.default.character;
 const tree = emojis_1.default.tree;
+const heart = emojis_1.default.heart;
 class McGame extends GameSuperClass_1.default {
     constructor(_client, _channel) {
         super();
@@ -33,7 +34,15 @@ class McGame extends GameSuperClass_1.default {
             str: function () {
                 return characterEmoji;
             },
-            underBlock: null
+            underBlock: null,
+            health: 10,
+            getHearts: function () {
+                let s = '';
+                for (let i = 0; i < this.health; i++) {
+                    s += heart;
+                }
+                return s;
+            }
         };
         this.contentToFunction = {
             w: () => {
@@ -79,21 +88,18 @@ class McGame extends GameSuperClass_1.default {
         this.character.underBlock = this.grid[this.character.y][this.character.x];
         this.grid[this.character.y][this.character.x] = this.character.str();
     }
-    send() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _embed = new discord_js_1.MessageEmbed();
-            _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}`, false);
-            this.messageInChannel = yield this.channel.send(_embed);
-        });
-    }
     makeEmbed() {
         const _embed = new discord_js_1.MessageEmbed();
-        _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}`, false);
+        _embed.addField(`Minecraft`, this.toString(), false);
+        _embed.addField('Standing on', this.character.underBlock, false);
+        _embed.addField('x', this.character.x, false);
+        _embed.addField('y', this.character.y, false);
+        _embed.addField('Health', this.character.getHearts(), false);
         return _embed;
     }
     startLoop() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.send();
+            this.messageInChannel = yield this.channel.send(this.makeEmbed());
             this.client.on('message', (message) => __awaiter(this, void 0, void 0, function* () { return this.messageProcedure(message); }));
         });
     }

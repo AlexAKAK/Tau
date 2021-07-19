@@ -13,5 +13,6 @@ exports.default = {
     potato: '🥔',
     watermelon: '🍉',
     tree: '🌳',
-    pickaxe: '⛏️'
+    pickaxe: '⛏️',
+    heart: '❤️'
 };

@@ -16,6 +16,7 @@ const grass = emojis.greenSquare
 const stone = emojis.blackSquare
 const characterEmoji = emojis.character
 const tree = emojis.tree
+const heart = emojis.heart
 
 type block = string
 
@@ -28,7 +29,9 @@ interface characterInterface {
     x: number,
     y: number,
     str: Function,
-    underBlock: block
+    underBlock: block,
+    health: number, // whole number
+    getHearts: Function
 }
 
 export default class McGame extends GameSuperClass{
@@ -47,7 +50,15 @@ export default class McGame extends GameSuperClass{
         str: function() {
             return characterEmoji
         },
-        underBlock: null
+        underBlock: null,
+        health: 10,
+        getHearts: function() {
+            let s = ''
+            for (let i = 0; i < this.health; i++) {
+                s += heart
+            }
+            return s
+        }
     }
 
     constructor(_client: HydroCarbon, _channel: TextChannel) {
@@ -84,20 +95,19 @@ export default class McGame extends GameSuperClass{
     }
 
 
-    async send(): Promise<void> {
-        const _embed = new MessageEmbed()
-        _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}` , false)
-        this.messageInChannel = await this.channel.send(_embed)
-    }
-
     makeEmbed(): MessageEmbed {
         const _embed = new MessageEmbed()
-        _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}` , false)
+        _embed.addField(`Minecraft`, this.toString() , false)
+        _embed.addField('Standing on', this.character.underBlock, false)
+        _embed.addField('x', this.character.x, false)
+        _embed.addField('y', this.character.y, false)
+        _embed.addField('Health', this.character.getHearts(), false)
+
         return _embed
     }
 
     async startLoop(): Promise<void> {
-        await this.send()
+        this.messageInChannel = await this.channel.send(this.makeEmbed())
         this.client.on('message', async (message: Message) => this.messageProcedure(message))
     }
 
@@ -172,5 +182,6 @@ export default class McGame extends GameSuperClass{
         if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
         return true
     }
+
 
 }
