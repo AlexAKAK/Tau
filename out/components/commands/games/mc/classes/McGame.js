@@ -19,6 +19,7 @@ const getRandomInt_1 = require("../../../../utility/getRandomInt");
 const grass_1 = require("./items/grass");
 const stone_1 = require("./items/stone");
 const tree_1 = require("./items/tree");
+const blockTypes_1 = require("./blockTypes");
 const characterEmoji = emojis_1.default.character;
 const heart = emojis_1.default.heart;
 class McGame extends GameSuperClass_1.default {
@@ -149,7 +150,7 @@ class McGame extends GameSuperClass_1.default {
             return false;
         if (this.character.y == this.WIDTH - 1 && y == 1)
             return false;
-        if (this.grid[this.character.y + y][this.character.x + x].toString() == tree_1.default.prototype.toString())
+        if (this.grid[this.character.y + y][this.character.x + x].blockType == blockTypes_1.default.NOT_WALK_OVER)
             return false;
         return true;
     }

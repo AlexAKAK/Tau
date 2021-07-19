@@ -16,6 +16,8 @@ import grass from "./items/grass"
 import stone from "./items/stone"
 import tree from "./items/tree"
 import Item from "../interfaces/Item"
+import blockTypes from "./blockTypes"
+import { clearScreenDown } from "readline"
 
 
 
@@ -165,8 +167,8 @@ export default class McGame extends GameSuperClass{
         if (this.character.x == this.LENGTH - 1 && x == 1) return false
         if (this.character.y == 0 && y == -1) return false
         if (this.character.y == this.WIDTH - 1 && y == 1) return false
-       
-        if (this.grid[this.character.y + y][this.character.x + x].toString() == tree.prototype.toString()) return false
+
+        if (this.grid[this.character.y + y][this.character.x + x].blockType == blockTypes.NOT_WALK_OVER) return false
         return true
     }
 
