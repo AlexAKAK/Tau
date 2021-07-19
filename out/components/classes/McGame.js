@@ -112,18 +112,33 @@ class McGame extends GameSuperClass_1.default {
         }
     }
     moveCharacter(x, y) {
+        // the character cannot cross the boundries of the map
+        if (this.character.x == 0 && x == -1) {
+            this.update();
+            return;
+        }
+        if (this.character.x == this.LENGTH - 1 && x == 1) {
+            this.update();
+            return;
+        }
+        if (this.character.y == 0 && y == -1) {
+            this.update();
+            return;
+        }
+        if (this.character.y == this.WIDTH - 1 && y == 1) {
+            this.update();
+            return;
+        }
         this.grid[this.character.y][this.character.x] = this.character.underBlock;
         this.character.x += x;
         this.character.y += y;
-        // checking for boundries and fixing them
-        if (this.character.x == -1)
-            this.character.x = this.LENGTH - 1;
-        if (this.character.y == -1)
-            this.character.y = this.WIDTH - 1;
-        if (this.character.x == this.LENGTH)
-            this.character.x = 0;
-        if (this.character.y == this.WIDTH)
-            this.character.y = 0;
+        // checking for boundries and fixing them (old)
+        /*
+        if (this.character.x == -1) this.character.x = this.LENGTH - 1
+        if (this.character.y == -1) this.character.y = this.WIDTH - 1
+        if (this.character.x == this.LENGTH) this.character.x = 0
+        if (this.character.y == this.WIDTH) this.character.y = 0
+        */
         this.character.underBlock = this.grid[this.character.y][this.character.x];
         this.grid[this.character.y][this.character.x] = this.character.str();
         this.update();
