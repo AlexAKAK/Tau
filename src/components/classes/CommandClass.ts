@@ -28,7 +28,7 @@ export default abstract class CommandClass {
     static MEMBER_ALREADY_MUTED_ERR: ERROR = errorClasses.MEMBER_ALREADY_MUTED_ERR
     static MEMBER_ALREADY_UNMUTED_ERR: ERROR = errorClasses.MEMBER_ALREADY_UNMUTED_ERR
     
-    
+    // default values
     protected static commandCategory: string = 'misc'
     protected static commandDescription: string = ''
     protected static commandSyntax: string = ''

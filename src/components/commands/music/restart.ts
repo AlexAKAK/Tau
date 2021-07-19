@@ -1,4 +1,4 @@
-import { Message } from "discord.js"
+import { Message, TextChannel } from "discord.js"
 import HydroCarbon from "../../../index"
 
 const sendEmbed = require("./../../utility/embeds/sendEmbed")
@@ -11,7 +11,6 @@ import CommandClass from '../../classes/CommandClass'
 @restart.alias(['r'])
 
 @restart.errorCheck([
-    restart.CLIENT_NOT_IN_VC_ERR,
     restart.CLIENT_NOT_PLAYING_ANYTHING_ERR
 ])
 
@@ -30,7 +29,7 @@ export default class restart extends CommandClass {
             checkQueueThenHandle(message, message.guild.me.voice.connection)
         })
 
-        sendEmbed(message.channel, {
+        restart.sendEmbed(<TextChannel> message.channel, {
             title: `Restarting ${client.queueMap[message.guild.id].playing.songName}`,
             color: randomColor(),
             deleteTimeout: 10000

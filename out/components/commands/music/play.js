@@ -150,9 +150,12 @@ let play = play_1 = class play extends CommandClass_1.default {
     }
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            const isLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?');
-            if (isLink)
+            const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?');
+            const isSpotifyLink = false;
+            if (isYTLink)
                 play_1.yt(message, client);
+            if (isSpotifyLink)
+                play_1.spotify(message, client);
             else
                 play_1.kw(message, client);
         });
@@ -165,6 +168,8 @@ let play = play_1 = class play extends CommandClass_1.default {
                 deleteTimeout: 5000
             });
         });
+    }
+    static spotify(message, client) {
     }
 };
 play.commandCategory = 'music';

@@ -26,25 +26,36 @@ import hack from "./components/commands/currency/hack";
 
 import announce from "./components/commands/misc/announce";
 
+import mc from "./components/commands/games/mc";
+import GameBoard from "./components/classes/McGame";
+import stopgame from "./components/commands/games/stopgame";
+
 //const discordButtons = require('discord-buttons')
 // import config
 const config: object = require('./../config.json')
-
+type GameObject = GameBoard
 export default class HydroCarbon extends Client {
-    public on: any
-    public login: any
+    
 
     // property declarations
+    public on: any
+    public login: any
+    public games: Map<string, GameObject>
     public TEXT_CHANNEL_COMMANDS: any[];
     public DM_COMMANDS: any[];
     public PREFIX: string = config['prefix']
     public TOKEN: string = config['token']
-    public queueMap: any;
+    public queueMap: Map<any, any>;
+
+
     // /property declarations
-
-
     constructor() {
         super()
+        // data holders
+        this.games = new Map<string, GameObject>()
+        this.queueMap = new Map<any, any>()
+        // / data holders
+        // commands
         this.TEXT_CHANNEL_COMMANDS = [
             help,
             play,
@@ -63,21 +74,33 @@ export default class HydroCarbon extends Client {
             mine,
             report,
             hack,
-            announce
+            announce,
         ]
-
         this.DM_COMMANDS = [
-            help
+            help,
+            mc,
+            stopgame
         ]
+        // / commands
         
-        this.queueMap = new Map()
-        
-        // EVENTS
-        this.on('ready', () => {
-            console.log("[Online]")
-        })
-
+        // events
+        this.on('ready', () => console.log("[Online]"))
         this.on('message', async(message: Message) => this.handleMessage(message))
+        // / events
+    }
+
+    public addGame(userID: string, gameObject: GameObject): void {
+        this.games.set(userID, gameObject)
+    }
+
+    public getGame(userID: string): GameObject {
+        return this.games.get(userID)
+    }
+
+    public removeGame(userID: string): GameBoard {
+        const gameObject = this.games.get(userID)
+        this.games.delete(userID)
+        return gameObject
     }
 
     async handleMessage(message: Message) {
@@ -138,7 +161,6 @@ export default class HydroCarbon extends Client {
           }
       }
     }
-    // /Command handlers
 
 
     isPlaying(guild: Guild): boolean {
@@ -154,6 +176,6 @@ export default class HydroCarbon extends Client {
 }
 
 // Running the bot
-const client: HydroCarbon|Client = new HydroCarbon();
+const client: HydroCarbon = new HydroCarbon();
 client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.GsgJDSCcwiLNq2x874aAFbR0wGc')
 

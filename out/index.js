@@ -30,6 +30,8 @@ const mine_1 = require("./components/commands/currency/mine");
 const report_1 = require("./components/commands/misc/report");
 const hack_1 = require("./components/commands/currency/hack");
 const announce_1 = require("./components/commands/misc/announce");
+const mc_1 = require("./components/commands/games/mc");
+const stopgame_1 = require("./components/commands/games/stopgame");
 //const discordButtons = require('discord-buttons')
 // import config
 const config = require('./../config.json');
@@ -39,6 +41,11 @@ class HydroCarbon extends discord_js_1.Client {
         super();
         this.PREFIX = config['prefix'];
         this.TOKEN = config['token'];
+        // data holders
+        this.games = new Map();
+        this.queueMap = new Map();
+        // / data holders
+        // commands
         this.TEXT_CHANNEL_COMMANDS = [
             help_1.default,
             play_1.default,
@@ -57,17 +64,29 @@ class HydroCarbon extends discord_js_1.Client {
             mine_1.default,
             report_1.default,
             hack_1.default,
-            announce_1.default
+            announce_1.default,
         ];
         this.DM_COMMANDS = [
-            help_1.default
+            help_1.default,
+            mc_1.default,
+            stopgame_1.default
         ];
-        this.queueMap = new Map();
-        // EVENTS
-        this.on('ready', () => {
-            console.log("[Online]");
-        });
+        // / commands
+        // events
+        this.on('ready', () => console.log("[Online]"));
         this.on('message', (message) => __awaiter(this, void 0, void 0, function* () { return this.handleMessage(message); }));
+        // / events
+    }
+    addGame(userID, gameObject) {
+        this.games.set(userID, gameObject);
+    }
+    getGame(userID) {
+        return this.games.get(userID);
+    }
+    removeGame(userID) {
+        const gameObject = this.games.get(userID);
+        this.games.delete(userID);
+        return gameObject;
     }
     handleMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -124,7 +143,6 @@ class HydroCarbon extends discord_js_1.Client {
             }
         });
     }
-    // /Command handlers
     isPlaying(guild) {
         if (guild.me.voice.connection.dispatcher == undefined || guild.me.voice.connection.dispatcher == null)
             return false;

@@ -1,0 +1,4 @@
+export default {
+    blackSquare: '⬛',
+    character: '🟥'
+}

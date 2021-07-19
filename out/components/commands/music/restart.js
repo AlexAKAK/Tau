@@ -31,7 +31,7 @@ let restart = restart_1 = class restart extends CommandClass_1.default {
             dispatcher.on('finish', () => {
                 checkQueueThenHandle(message, message.guild.me.voice.connection);
             });
-            sendEmbed(message.channel, {
+            restart_1.sendEmbed(message.channel, {
                 title: `Restarting ${client.queueMap[message.guild.id].playing.songName}`,
                 color: randomColor(),
                 deleteTimeout: 10000
@@ -45,7 +45,6 @@ restart.commandSyntax = 'restart';
 restart = restart_1 = __decorate([
     restart_1.alias(['r']),
     restart_1.errorCheck([
-        restart_1.CLIENT_NOT_IN_VC_ERR,
         restart_1.CLIENT_NOT_PLAYING_ANYTHING_ERR
     ])
 ], restart);

@@ -172,9 +172,13 @@ export default class play extends CommandClass {
 
 
     public async commandMain(message: Message, client: HydroCarbon) {
-        const isLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
+        const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
+        const isSpotifyLink = false
+        if (isYTLink) play.yt(message, client)
+        if (isSpotifyLink) play.spotify(message, client)
 
-        if (isLink) play.yt(message, client)
+
+
         else play.kw(message, client)
 
     }
@@ -187,6 +191,11 @@ export default class play extends CommandClass {
             color: 'RED',
             deleteTimeout: 5000
         })
+
+    }
+
+
+    static spotify(message: Message, client: HydroCarbon) {
 
     }
   

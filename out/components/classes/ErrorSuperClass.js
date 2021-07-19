@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const sendEmbed = require('./../utility/embeds/sendEmbed');
 class ErrorClass {
     getCommandName(message) {
         const unCutCommand = message.content.split(' ')[0];

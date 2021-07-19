@@ -1,4 +1,5 @@
 import { Message, TextChannel, NewsChannel, DMChannel } from "discord.js"
+const sendEmbed = require('./../utility/embeds/sendEmbed')
 
 export default abstract class ErrorClass {
     getCommandName(message: Message) {
