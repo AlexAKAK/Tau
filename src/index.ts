@@ -27,13 +27,14 @@ import hack from "./components/commands/currency/hack";
 import announce from "./components/commands/misc/announce";
 
 import mc from "./components/commands/games/mc";
-import GameBoard from "./components/classes/McGame";
 import stopgame from "./components/commands/games/stopgame";
 
-//const discordButtons = require('discord-buttons')
+// import games
+import McGame from "./components/classes/McGame";
+
 // import config
 const config: object = require('./../config.json')
-type GameObject = GameBoard
+type GameObject = McGame
 export default class HydroCarbon extends Client {
     
 
@@ -75,6 +76,8 @@ export default class HydroCarbon extends Client {
             report,
             hack,
             announce,
+            mc,
+            stopgame
         ]
         this.DM_COMMANDS = [
             help,
@@ -89,22 +92,21 @@ export default class HydroCarbon extends Client {
         // / events
     }
 
-    public addGame(userID: string, gameObject: GameObject): void {
-        this.games.set(userID, gameObject)
+    public addGame(channelID: string, gameObject: GameObject): void {
+        this.games.set(channelID, gameObject)
     }
 
-    public getGame(userID: string): GameObject {
-        return this.games.get(userID)
+    public getGame(channelID: string): GameObject {
+        return this.games.get(channelID)
     }
 
-    public removeGame(userID: string): GameBoard {
-        const gameObject = this.games.get(userID)
-        this.games.delete(userID)
+    public removeGame(channelID: string): McGame {
+        const gameObject = this.games.get(channelID)
+        this.games.delete(channelID)
         return gameObject
     }
 
     async handleMessage(message: Message) {
-
 
       if (message.channel.type === 'text') this.handleMessageFromTextChannel(message)
       else if (message.channel.type === 'dm') this.handleMessageFromDMChannel(message)

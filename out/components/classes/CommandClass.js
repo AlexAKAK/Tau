@@ -214,6 +214,9 @@ CommandClass.QUANTATIVE_RANGE_ERR_METACLASS = errorClasses.QUANTATIVE_RANGE_ERR_
 CommandClass.MISSING_ARGS_ERR_METACLASS = errorClasses.MISSING_ARGS_ERR_METACLASS;
 CommandClass.MEMBER_ALREADY_MUTED_ERR = errorClasses.MEMBER_ALREADY_MUTED_ERR;
 CommandClass.MEMBER_ALREADY_UNMUTED_ERR = errorClasses.MEMBER_ALREADY_UNMUTED_ERR;
+CommandClass.USER_NOT_PLAYING_A_GAME_ERR = errorClasses.USER_NOT_PLAYING_A_GAME_ERR;
+CommandClass.USER_ALREADY_PLAYING_GAME_ERR = errorClasses.USER_ALREADY_PLAYING_GAME_ERR;
+// default values
 CommandClass.commandCategory = 'misc';
 CommandClass.commandDescription = '';
 CommandClass.commandSyntax = '';

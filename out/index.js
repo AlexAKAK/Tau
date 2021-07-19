@@ -32,7 +32,6 @@ const hack_1 = require("./components/commands/currency/hack");
 const announce_1 = require("./components/commands/misc/announce");
 const mc_1 = require("./components/commands/games/mc");
 const stopgame_1 = require("./components/commands/games/stopgame");
-//const discordButtons = require('discord-buttons')
 // import config
 const config = require('./../config.json');
 class HydroCarbon extends discord_js_1.Client {
@@ -65,6 +64,8 @@ class HydroCarbon extends discord_js_1.Client {
             report_1.default,
             hack_1.default,
             announce_1.default,
+            mc_1.default,
+            stopgame_1.default
         ];
         this.DM_COMMANDS = [
             help_1.default,
@@ -77,15 +78,15 @@ class HydroCarbon extends discord_js_1.Client {
         this.on('message', (message) => __awaiter(this, void 0, void 0, function* () { return this.handleMessage(message); }));
         // / events
     }
-    addGame(userID, gameObject) {
-        this.games.set(userID, gameObject);
+    addGame(channelID, gameObject) {
+        this.games.set(channelID, gameObject);
     }
-    getGame(userID) {
-        return this.games.get(userID);
+    getGame(channelID) {
+        return this.games.get(channelID);
     }
-    removeGame(userID) {
-        const gameObject = this.games.get(userID);
-        this.games.delete(userID);
+    removeGame(channelID) {
+        const gameObject = this.games.get(channelID);
+        this.games.delete(channelID);
         return gameObject;
     }
     handleMessage(message) {

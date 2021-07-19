@@ -27,6 +27,8 @@ export default abstract class CommandClass {
     static MISSING_ARGS_ERR_METACLASS: ERROR_METACLASS = errorClasses.MISSING_ARGS_ERR_METACLASS
     static MEMBER_ALREADY_MUTED_ERR: ERROR = errorClasses.MEMBER_ALREADY_MUTED_ERR
     static MEMBER_ALREADY_UNMUTED_ERR: ERROR = errorClasses.MEMBER_ALREADY_UNMUTED_ERR
+    static USER_NOT_PLAYING_A_GAME_ERR: ERROR = errorClasses.USER_NOT_PLAYING_A_GAME_ERR
+    static USER_ALREADY_PLAYING_GAME_ERR: ERROR = errorClasses.USER_ALREADY_PLAYING_GAME_ERR
     
     // default values
     protected static commandCategory: string = 'misc'

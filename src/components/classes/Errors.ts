@@ -218,5 +218,44 @@ export class MEMBER_ALREADY_UNMUTED_ERR extends ErrorClass {
     }
 }
 
+export class USER_NOT_PLAYING_A_GAME_ERR extends ErrorClass {
+    checkPresence(message: any): boolean {
+        // first check if a game exists. If it doesn't, return true
+        // then, if a game exists, check if <gameobject>.active == false. If false, return true
+        // else return false
+
+        const gameExists: boolean = message.client.games.has(message.channel.id)
+        if (!gameExists) return true
+        const gameObject = message.client.games.get(message.channel.id)
+        if (gameObject.active) return false
+        else return true
+    } 
+    standardHandle(message: Message): void {
+        this.sendErrMessage(message.channel, `You are not playing a game, ${message.author.tag}.`)
+    }
+    
+}
+
+export class USER_ALREADY_PLAYING_GAME_ERR extends ErrorClass {
+    checkPresence(message: any): boolean {
+        console.log("checkpresence playing game")
+        // check if a key/value pair exists in the games map. If not, return false
+        // if it does exist, check if the game is active. If active, return true.
+        // else return false
+
+        const game = message.client.games.get(message.channel.id)
+        if (game == undefined|| game == null) return false
+        if (game.active == true) return true
+        else return false
+
+
+        
+    }
+
+    standardHandle(message: Message): void {
+        this.sendErrMessage(message.channel, `You are already playing a game, ${message.author.tag}.`)
+    }
+}
+
 export type ERROR = Function
 export type ERROR_METACLASS = Function

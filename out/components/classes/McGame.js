@@ -12,10 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const emojis_1 = require("../utility/emojis");
 const GameSuperClass_1 = require("./GameSuperClass");
-/*
-IMPORTANT
-all game objects must have a property called "active" which is a boolean
-*/
 const blackSquare = emojis_1.default.blackSquare;
 const character = emojis_1.default.character;
 const c = new discord_js_1.Client();
@@ -85,6 +81,10 @@ class McGame extends GameSuperClass_1.default {
     }
     handleInput(content, message) {
         this.contentToFunction[content]();
+        if (this.channel.type == 'text') {
+            if (!message.deleted)
+                message.delete();
+        }
     }
     moveCharacter(x, y) {
         this.coordinates[this.characterCoords.y][this.characterCoords.x] = blackSquare;
@@ -100,7 +100,10 @@ class McGame extends GameSuperClass_1.default {
         if (this.characterCoords.y == this.WIDTH)
             this.characterCoords.y = 0;
         this.coordinates[this.characterCoords.y][this.characterCoords.x] = character;
-        this.messageInChannel.channel.send(this.makeEmbed());
+        this.update();
+    }
+    update() {
+        this.channel.send(this.makeEmbed());
     }
 }
 exports.default = McGame;

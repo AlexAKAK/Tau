@@ -1,4 +1,10 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,23 +14,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var mc_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
 const McGame_1 = require("../../classes/McGame");
 const emojis_1 = require("../../utility/emojis");
 const blackSquare = emojis_1.default.blackSquare;
 const character = emojis_1.default.character;
-class mc extends CommandClass_1.default {
-    //static activeTextChannels: TextChannel[] = [];
+let mc = mc_1 = class mc extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('running mc');
             const gameBoard = new McGame_1.default(client, message.channel);
-            //mc.activeTextChannels.push(<TextChannel> message.channel)
-            client.addGame(message.author.id, gameBoard);
+            client.addGame(message.channel.id, gameBoard);
         });
     }
-}
-exports.default = mc;
+};
 mc.commandCategory = 'games';
 mc.commandDescription = 'you play minecraft';
 mc.commandSyntax = 'mc';
+mc = mc_1 = __decorate([
+    mc_1.errorCheck([mc_1.USER_ALREADY_PLAYING_GAME_ERR])
+], mc);
+exports.default = mc;

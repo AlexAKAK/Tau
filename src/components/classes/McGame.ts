@@ -5,15 +5,6 @@ import emojis from "../utility/emojis"
 import GameSuperClass from "./GameSuperClass"
 
 
-
-/*
-IMPORTANT
-all game objects must have a property called "active" which is a boolean
-*/
-
-
-
-
 const blackSquare = emojis.blackSquare
 const character = emojis.character
 
@@ -26,7 +17,7 @@ const c = new Client()
 export default class McGame extends GameSuperClass{
     public gameName: string = 'Minecraft'
     private client: HydroCarbon
-    private channel: TextChannel
+    private channel: TextChannel|DMChannel
     private messageInChannel: Message
     private WIDTH: number = 7
     private LENGTH: number = 7
@@ -94,6 +85,9 @@ export default class McGame extends GameSuperClass{
 
     handleInput(content: string, message: Message): void {
         this.contentToFunction[content]()
+        if (this.channel.type == 'text') {
+            if (!message.deleted) message.delete()
+        }
     }
 
     moveCharacter(x: number, y: number): void {
@@ -110,7 +104,11 @@ export default class McGame extends GameSuperClass{
 
         this.coordinates[this.characterCoords.y][this.characterCoords.x] = character
 
-        this.messageInChannel.channel.send(this.makeEmbed())
+        this.update()
        
+    }
+
+    update() {
+this.channel.send(this.makeEmbed())
     }
 }
