@@ -28,6 +28,7 @@ import announce from "./components/commands/misc/announce";
 
 import mc from "./components/commands/games/mc";
 import stopgame from "./components/commands/games/stopgame";
+import currentgame from "./components/commands/games/currentgame";
 
 // import games
 import McGame from "./components/classes/McGame";
@@ -77,12 +78,14 @@ export default class HydroCarbon extends Client {
             hack,
             announce,
             mc,
-            stopgame
+            stopgame,
+            currentgame
         ]
         this.DM_COMMANDS = [
             help,
             mc,
-            stopgame
+            stopgame,
+            currentgame
         ]
         // / commands
         
