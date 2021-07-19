@@ -86,13 +86,13 @@ export default class McGame extends GameSuperClass{
 
     async send(): Promise<void> {
         const _embed = new MessageEmbed()
-        _embed.addField('Minecraft', this.toString(), false)
+        _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}` , false)
         this.messageInChannel = await this.channel.send(_embed)
     }
 
     makeEmbed(): MessageEmbed {
         const _embed = new MessageEmbed()
-        _embed.addField('Minecraft', this.toString(), false)
+        _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}` , false)
         return _embed
     }
 

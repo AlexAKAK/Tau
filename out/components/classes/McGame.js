@@ -82,13 +82,13 @@ class McGame extends GameSuperClass_1.default {
     send() {
         return __awaiter(this, void 0, void 0, function* () {
             const _embed = new discord_js_1.MessageEmbed();
-            _embed.addField('Minecraft', this.toString(), false);
+            _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}`, false);
             this.messageInChannel = yield this.channel.send(_embed);
         });
     }
     makeEmbed() {
         const _embed = new discord_js_1.MessageEmbed();
-        _embed.addField('Minecraft', this.toString(), false);
+        _embed.addField(`Minecraft`, this.toString() + `\n\nStanding on: ${this.character.underBlock}\n x: ${this.character.x}\ny: ${this.character.y}`, false);
         return _embed;
     }
     startLoop() {
