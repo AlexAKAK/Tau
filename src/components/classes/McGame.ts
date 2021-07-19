@@ -1,59 +1,98 @@
+/*
+Add inventory
+*/
+
+
+
 import discordButtons from "discord-buttons"
 import { DMChannel, Message, MessageEmbed, TextChannel, Client } from "discord.js"
 import HydroCarbon from "../.."
 import emojis from "../utility/emojis"
 import GameSuperClass from "./GameSuperClass"
+import getRandomInt from "../utility/getRandomInt"
 
 
-const blackSquare = emojis.blackSquare
-const character = emojis.character
+const grass = emojis.greenSquare
+const stone = emojis.blackSquare
+const characterEmoji = emojis.character
+const tree = emojis.tree
+
+type block = string
 
 interface coordinatePair {
     x: number,
     y: number
 }
 
-const c = new Client()
+interface characterInterface {
+    x: number,
+    y: number,
+    str: Function,
+    underBlock: block
+}
+
 export default class McGame extends GameSuperClass{
     public gameName: string = 'Minecraft'
     private client: HydroCarbon
     private channel: TextChannel|DMChannel
     private messageInChannel: Message
-    private WIDTH: number = 7
-    private LENGTH: number = 7
+    WIDTH: number = 14
+    LENGTH: number = 14
 
-    private coordinates: string[][] = [
-        [blackSquare, blackSquare ,blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-        [blackSquare, blackSquare ,blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-        [blackSquare, blackSquare ,blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-        [blackSquare, blackSquare ,blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-        [blackSquare, blackSquare ,blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-        [blackSquare, blackSquare ,blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-        [blackSquare, blackSquare ,blackSquare, blackSquare, blackSquare, blackSquare, blackSquare]
-    ]
+    grid = []
 
-    private characterCoords: coordinatePair = {
+    private character: characterInterface = {
         x: 4,
-        y: 4
+        y: 4,
+        str: function() {
+            return characterEmoji
+        },
+        underBlock: null
     }
 
     constructor(_client: HydroCarbon, _channel: TextChannel) {
         super()
-        this.coordinates[this.characterCoords.y][this.characterCoords.x] = character
+        this.renderTerrain()
+        this.renderCharacter()
         this.client = _client
         this.channel = _channel
         this.startLoop()
     }
 
+    private renderTerrain(): void {
+        // fill with grass
+        for (let i = 0; i < this.WIDTH; i++) {
+            this.grid.push([])
+            for (let j = 0; j < this.LENGTH; j++) {
+                this.grid[i].push(this.generateBlock())
+            }
+        }
+        // add a few gray ones (stone)
+        // add a couple trees
+    }
+
+    private generateBlock(): block {
+        const i = getRandomInt(10)
+        if (i == 1) return tree
+        else if (i == 2 || i == 3) return stone
+        else return grass
+    }
+
+    private renderCharacter(): void {
+        this.character.underBlock = this.grid[this.character.y][this.character.x]
+        this.grid[this.character.y][this.character.x] = this.character.str()
+    }
+
+
     async send(): Promise<void> {
         const _embed = new MessageEmbed()
-        _embed.addField('Minecraft', this.coordinates, false)
+        _embed.addField('Minecraft', this.toString(), false)
         this.messageInChannel = await this.channel.send(_embed)
     }
 
     makeEmbed(): MessageEmbed {
         const _embed = new MessageEmbed()
-        _embed.addField('Minecraft', this.coordinates, false)
+        _embed.addField('Minecraft', this.toString(), false)
         return _embed
     }
 
@@ -86,29 +125,30 @@ export default class McGame extends GameSuperClass{
     handleInput(content: string, message: Message): void {
         this.contentToFunction[content]()
         if (this.channel.type == 'text') {
-            if (!message.deleted) message.delete()
+            //if (!message.deleted) message.delete()
         }
     }
 
     moveCharacter(x: number, y: number): void {
-        this.coordinates[this.characterCoords.y][this.characterCoords.x] = blackSquare
-        this.characterCoords.x += x
-        this.characterCoords.y += y
+        this.grid[this.character.y][this.character.x] = this.character.underBlock
+        this.character.x += x
+        this.character.y += y
 
         // checking for boundries and fixing them
-        if (this.characterCoords.x == -1) this.characterCoords.x = this.LENGTH - 1
-        if (this.characterCoords.y == -1) this.characterCoords.y = this.WIDTH - 1
-        if (this.characterCoords.x == this.LENGTH) this.characterCoords.x = 0
-        if (this.characterCoords.y == this.WIDTH) this.characterCoords.y = 0
+        if (this.character.x == -1) this.character.x = this.LENGTH - 1
+        if (this.character.y == -1) this.character.y = this.WIDTH - 1
+        if (this.character.x == this.LENGTH) this.character.x = 0
+        if (this.character.y == this.WIDTH) this.character.y = 0
 
 
-        this.coordinates[this.characterCoords.y][this.characterCoords.x] = character
+        this.character.underBlock = this.grid[this.character.y][this.character.x]
+        this.grid[this.character.y][this.character.x] = this.character.str()
 
         this.update()
        
     }
 
     update() {
-this.channel.send(this.makeEmbed())
+        this.channel.send(this.makeEmbed())
     }
 }

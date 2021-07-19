@@ -1,4 +1,7 @@
 "use strict";
+/*
+Add inventory
+*/
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,27 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const emojis_1 = require("../utility/emojis");
 const GameSuperClass_1 = require("./GameSuperClass");
-const blackSquare = emojis_1.default.blackSquare;
-const character = emojis_1.default.character;
-const c = new discord_js_1.Client();
+const getRandomInt_1 = require("../utility/getRandomInt");
+const grass = emojis_1.default.greenSquare;
+const stone = emojis_1.default.blackSquare;
+const characterEmoji = emojis_1.default.character;
+const tree = emojis_1.default.tree;
 class McGame extends GameSuperClass_1.default {
     constructor(_client, _channel) {
         super();
         this.gameName = 'Minecraft';
-        this.WIDTH = 7;
-        this.LENGTH = 7;
-        this.coordinates = [
-            [blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-            [blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-            [blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-            [blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-            [blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-            [blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare],
-            [blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare, blackSquare]
-        ];
-        this.characterCoords = {
+        this.WIDTH = 14;
+        this.LENGTH = 14;
+        this.grid = [];
+        this.character = {
             x: 4,
-            y: 4
+            y: 4,
+            str: function () {
+                return characterEmoji;
+            },
+            underBlock: null
         };
         this.contentToFunction = {
             w: () => {
@@ -48,21 +49,46 @@ class McGame extends GameSuperClass_1.default {
                 this.moveCharacter(1, 0);
             }
         };
-        this.coordinates[this.characterCoords.y][this.characterCoords.x] = character;
+        this.renderTerrain();
+        this.renderCharacter();
         this.client = _client;
         this.channel = _channel;
         this.startLoop();
     }
+    renderTerrain() {
+        // fill with grass
+        for (let i = 0; i < this.WIDTH; i++) {
+            this.grid.push([]);
+            for (let j = 0; j < this.LENGTH; j++) {
+                this.grid[i].push(this.generateBlock());
+            }
+        }
+        // add a few gray ones (stone)
+        // add a couple trees
+    }
+    generateBlock() {
+        const i = getRandomInt_1.default(10);
+        if (i == 1)
+            return tree;
+        else if (i == 2 || i == 3)
+            return stone;
+        else
+            return grass;
+    }
+    renderCharacter() {
+        this.character.underBlock = this.grid[this.character.y][this.character.x];
+        this.grid[this.character.y][this.character.x] = this.character.str();
+    }
     send() {
         return __awaiter(this, void 0, void 0, function* () {
             const _embed = new discord_js_1.MessageEmbed();
-            _embed.addField('Minecraft', this.coordinates, false);
+            _embed.addField('Minecraft', this.toString(), false);
             this.messageInChannel = yield this.channel.send(_embed);
         });
     }
     makeEmbed() {
         const _embed = new discord_js_1.MessageEmbed();
-        _embed.addField('Minecraft', this.coordinates, false);
+        _embed.addField('Minecraft', this.toString(), false);
         return _embed;
     }
     startLoop() {
@@ -82,24 +108,24 @@ class McGame extends GameSuperClass_1.default {
     handleInput(content, message) {
         this.contentToFunction[content]();
         if (this.channel.type == 'text') {
-            if (!message.deleted)
-                message.delete();
+            //if (!message.deleted) message.delete()
         }
     }
     moveCharacter(x, y) {
-        this.coordinates[this.characterCoords.y][this.characterCoords.x] = blackSquare;
-        this.characterCoords.x += x;
-        this.characterCoords.y += y;
+        this.grid[this.character.y][this.character.x] = this.character.underBlock;
+        this.character.x += x;
+        this.character.y += y;
         // checking for boundries and fixing them
-        if (this.characterCoords.x == -1)
-            this.characterCoords.x = this.LENGTH - 1;
-        if (this.characterCoords.y == -1)
-            this.characterCoords.y = this.WIDTH - 1;
-        if (this.characterCoords.x == this.LENGTH)
-            this.characterCoords.x = 0;
-        if (this.characterCoords.y == this.WIDTH)
-            this.characterCoords.y = 0;
-        this.coordinates[this.characterCoords.y][this.characterCoords.x] = character;
+        if (this.character.x == -1)
+            this.character.x = this.LENGTH - 1;
+        if (this.character.y == -1)
+            this.character.y = this.WIDTH - 1;
+        if (this.character.x == this.LENGTH)
+            this.character.x = 0;
+        if (this.character.y == this.WIDTH)
+            this.character.y = 0;
+        this.character.underBlock = this.grid[this.character.y][this.character.x];
+        this.grid[this.character.y][this.character.x] = this.character.str();
         this.update();
     }
     update() {

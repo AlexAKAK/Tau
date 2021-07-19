@@ -5,5 +5,15 @@ class GameSuperClass {
     constructor() {
         this.active = true;
     }
+    toString() {
+        let s = "";
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid[i].length; j++) {
+                s += this.grid[i][j];
+            }
+            s += '\n';
+        }
+        return s;
+    }
 }
 exports.default = GameSuperClass;
