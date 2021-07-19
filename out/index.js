@@ -30,7 +30,7 @@ const mine_1 = require("./components/commands/currency/mine");
 const report_1 = require("./components/commands/misc/report");
 const hack_1 = require("./components/commands/currency/hack");
 const announce_1 = require("./components/commands/misc/announce");
-const mc_1 = require("./components/commands/games/mc");
+const mc_1 = require("./components/commands/games/mc/mc");
 const stopgame_1 = require("./components/commands/games/stopgame");
 const currentgame_1 = require("./components/commands/games/currentgame");
 // import config

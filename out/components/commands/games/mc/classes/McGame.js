@@ -13,13 +13,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const emojis_1 = require("../utility/emojis");
-const GameSuperClass_1 = require("./GameSuperClass");
-const getRandomInt_1 = require("../utility/getRandomInt");
-const grass = emojis_1.default.greenSquare;
-const stone = emojis_1.default.blackSquare;
+const emojis_1 = require("../../../../utility/emojis");
+const GameSuperClass_1 = require("../../../../classes/GameSuperClass");
+const getRandomInt_1 = require("../../../../utility/getRandomInt");
+const grass_1 = require("./items/grass");
+const stone_1 = require("./items/stone");
+const tree_1 = require("./items/tree");
 const characterEmoji = emojis_1.default.character;
-const tree = emojis_1.default.tree;
 const heart = emojis_1.default.heart;
 class McGame extends GameSuperClass_1.default {
     constructor(_client, _channel) {
@@ -78,11 +78,11 @@ class McGame extends GameSuperClass_1.default {
     generateBlock() {
         const i = getRandomInt_1.default(10);
         if (i == 1)
-            return tree;
+            return new tree_1.default();
         else if (i == 2 || i == 3)
-            return stone;
+            return new stone_1.default();
         else
-            return grass;
+            return new grass_1.default();
     }
     renderCharacter() {
         this.character.underBlock = this.grid[this.character.y][this.character.x];
@@ -149,13 +149,7 @@ class McGame extends GameSuperClass_1.default {
             return false;
         if (this.character.y == this.WIDTH - 1 && y == 1)
             return false;
-        if (this.grid[this.character.y + y][this.character.x + x] == tree)
-            return false;
-        if (this.grid[this.character.y + y][this.character.x + x] == tree)
-            return false;
-        if (this.grid[this.character.y + y][this.character.x + x] == tree)
-            return false;
-        if (this.grid[this.character.y + y][this.character.x + x] == tree)
+        if (this.grid[this.character.y + y][this.character.x + x].toString() == tree_1.default.prototype.toString())
             return false;
         return true;
     }

@@ -6,41 +6,31 @@ Add inventory
 
 import discordButtons from "discord-buttons"
 import { DMChannel, Message, MessageEmbed, TextChannel, Client } from "discord.js"
-import HydroCarbon from "../.."
-import emojis from "../utility/emojis"
-import GameSuperClass from "./GameSuperClass"
-import getRandomInt from "../utility/getRandomInt"
+import HydroCarbon from "../../../../.."
+import emojis from "../../../../utility/emojis"
+import GameSuperClass from "../../../../classes/GameSuperClass"
+import getRandomInt from "../../../../utility/getRandomInt"
+
+import characterInterface from "../interfaces/characterInterface"
+import grass from "./items/grass"
+import stone from "./items/stone"
+import tree from "./items/tree"
+import Item from "../interfaces/Item"
 
 
-const grass = emojis.greenSquare
-const stone = emojis.blackSquare
+
 const characterEmoji = emojis.character
-const tree = emojis.tree
 const heart = emojis.heart
 
 type block = string
-
-interface coordinatePair {
-    x: number,
-    y: number
-}
-
-interface characterInterface {
-    x: number,
-    y: number,
-    str: Function,
-    underBlock: block,
-    health: number, // whole number
-    getHearts: Function
-}
 
 export default class McGame extends GameSuperClass{
     public gameName: string = 'Minecraft'
     private client: HydroCarbon
     private channel: TextChannel|DMChannel
     private messageInChannel: Message
-    WIDTH: number = 14
-    LENGTH: number = 14
+    WIDTH: number = 9
+    LENGTH: number = 9
 
     grid = []
 
@@ -82,11 +72,11 @@ export default class McGame extends GameSuperClass{
         // add a couple trees
     }
 
-    private generateBlock(): block {
+    private generateBlock(): Item {
         const i = getRandomInt(10)
-        if (i == 1) return tree
-        else if (i == 2 || i == 3) return stone
-        else return grass
+        if (i == 1) return new tree()
+        else if (i == 2 || i == 3) return new stone()
+        else return new grass()
     }
 
     private renderCharacter(): void {
@@ -176,10 +166,7 @@ export default class McGame extends GameSuperClass{
         if (this.character.y == 0 && y == -1) return false
         if (this.character.y == this.WIDTH - 1 && y == 1) return false
        
-        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
-        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
-        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
-        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
+        if (this.grid[this.character.y + y][this.character.x + x].toString() == tree.prototype.toString()) return false
         return true
     }
 

@@ -26,12 +26,12 @@ import hack from "./components/commands/currency/hack";
 
 import announce from "./components/commands/misc/announce";
 
-import mc from "./components/commands/games/mc";
+import mc from "./components/commands/games/mc/mc";
 import stopgame from "./components/commands/games/stopgame";
 import currentgame from "./components/commands/games/currentgame";
 
 // import games
-import McGame from "./components/classes/McGame";
+import McGame from "./components/commands/games/mc/classes/McGame";
 
 // import config
 const config: object = require('./../config.json')

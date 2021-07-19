@@ -13,19 +13,16 @@ export default abstract class GameSuperClass {
     abstract WIDTH: number;
     abstract grid: string[][];
 
-
     toString(): string {
         let s: string = ""
         for (let i = 0; i < this.grid.length; i++) {
             for (let j = 0; j < this.grid[i].length; j++) {
-                s += this.grid[i][j]
+                // turn the item into a string for the grid
+                s += this.grid[i][j].toString()
             }
             s += '\n'
         }
         return s
     }
-
-
-
 
 }

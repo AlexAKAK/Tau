@@ -1,8 +1,8 @@
 import { DMChannel, Message, TextChannel } from "discord.js";
-import HydroCarbon from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import McGame from "../../classes/McGame";
-import emojis from "../../utility/emojis";
+import HydroCarbon from "../../../..";
+import CommandClass from "../../../classes/CommandClass";
+import McGame from "./classes/McGame";
+import emojis from "../../../utility/emojis";
 
 const blackSquare: string = emojis.blackSquare
 const character: string = emojis.character
