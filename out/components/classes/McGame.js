@@ -112,20 +112,7 @@ class McGame extends GameSuperClass_1.default {
         }
     }
     moveCharacter(x, y) {
-        // the character cannot cross the boundries of the map
-        if (this.character.x == 0 && x == -1) {
-            this.update();
-            return;
-        }
-        if (this.character.x == this.LENGTH - 1 && x == 1) {
-            this.update();
-            return;
-        }
-        if (this.character.y == 0 && y == -1) {
-            this.update();
-            return;
-        }
-        if (this.character.y == this.WIDTH - 1 && y == 1) {
+        if (!this.checkIfCanMove(x, y)) {
             this.update();
             return;
         }
@@ -145,6 +132,26 @@ class McGame extends GameSuperClass_1.default {
     }
     update() {
         this.channel.send(this.makeEmbed());
+    }
+    checkIfCanMove(x, y) {
+        console.log(`x: ${x} y: ${y}`);
+        if (this.character.x == 0 && x == -1)
+            return false;
+        if (this.character.x == this.LENGTH - 1 && x == 1)
+            return false;
+        if (this.character.y == 0 && y == -1)
+            return false;
+        if (this.character.y == this.WIDTH - 1 && y == 1)
+            return false;
+        if (this.grid[this.character.y + y][this.character.x + x] == tree)
+            return false;
+        if (this.grid[this.character.y + y][this.character.x + x] == tree)
+            return false;
+        if (this.grid[this.character.y + y][this.character.x + x] == tree)
+            return false;
+        if (this.grid[this.character.y + y][this.character.x + x] == tree)
+            return false;
+        return true;
     }
 }
 exports.default = McGame;

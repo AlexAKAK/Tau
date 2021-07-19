@@ -130,21 +130,7 @@ export default class McGame extends GameSuperClass{
     }
 
     moveCharacter(x: number, y: number): void {
-
-        // the character cannot cross the boundries of the map
-        if (this.character.x == 0 && x == -1) {
-            this.update()
-            return
-        }
-        if (this.character.x == this.LENGTH - 1 && x == 1) {
-            this.update()
-            return
-        }
-        if (this.character.y == 0 && y == -1) {
-            this.update()
-            return
-        }
-        if (this.character.y == this.WIDTH - 1 && y == 1) {
+        if (!this.checkIfCanMove(x, y)) {
             this.update()
             return
         }
@@ -169,7 +155,22 @@ export default class McGame extends GameSuperClass{
        
     }
 
-    update() {
+    update(): void {
         this.channel.send(this.makeEmbed())
     }
+
+    checkIfCanMove(x: number, y: number): boolean {
+        console.log(`x: ${x} y: ${y}`)
+        if (this.character.x == 0 && x == -1) return false
+        if (this.character.x == this.LENGTH - 1 && x == 1) return false
+        if (this.character.y == 0 && y == -1) return false
+        if (this.character.y == this.WIDTH - 1 && y == 1) return false
+       
+        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
+        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
+        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
+        if (this.grid[this.character.y + y][this.character.x + x] == tree) return false
+        return true
+    }
+
 }
