@@ -29,8 +29,8 @@ class McGame extends GameSuperClass_1.default {
         this.gameName = 'Minecraft';
         this.messageInChannel = null;
         this.mostRecentMessage = null;
-        this.WIDTH = 9;
-        this.LENGTH = 9;
+        this.WIDTH = 13;
+        this.LENGTH = 13;
         this.grid = [];
         this.character = {
             x: 4,

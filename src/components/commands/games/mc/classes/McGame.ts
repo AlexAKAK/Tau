@@ -32,8 +32,8 @@ export default class McGame extends GameSuperClass {
     private channel: TextChannel|DMChannel
     private messageInChannel: Message = null
     public mostRecentMessage: Message = null
-    WIDTH: number = 9
-    LENGTH: number = 9
+    WIDTH: number = 13
+    LENGTH: number = 13
 
     grid = []
 

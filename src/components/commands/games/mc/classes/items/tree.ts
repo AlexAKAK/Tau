@@ -5,6 +5,7 @@ import characterInterface from "../../interfaces/characterInterface";
 import grass from "./grass";
 import McGame from "../McGame";
 import seed from "./seed";
+import wood from "./wood";
 
 export default class tree implements Item {
     miningDifficulty: 5
@@ -34,5 +35,7 @@ export default class tree implements Item {
     mine(gameInstance: McGame): void {
         gameInstance.grid[this.y][this.x] = new grass().setChoords(this.x, this.y)
         gameInstance.character.inventory.push(new seed())
+        gameInstance.character.inventory.push(new wood())
+        gameInstance.character.inventory.push(new wood())
     }
 }

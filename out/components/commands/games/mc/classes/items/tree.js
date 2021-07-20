@@ -4,6 +4,7 @@ const emojis_1 = require("../../../../../utility/emojis");
 const blockTypes_1 = require("../blockTypes");
 const grass_1 = require("./grass");
 const seed_1 = require("./seed");
+const wood_1 = require("./wood");
 class tree {
     constructor(x, y) {
         this.blockType = blockTypes_1.default.NOT_WALK_OVER;
@@ -25,6 +26,8 @@ class tree {
     mine(gameInstance) {
         gameInstance.grid[this.y][this.x] = new grass_1.default().setChoords(this.x, this.y);
         gameInstance.character.inventory.push(new seed_1.default());
+        gameInstance.character.inventory.push(new wood_1.default());
+        gameInstance.character.inventory.push(new wood_1.default());
     }
 }
 exports.default = tree;

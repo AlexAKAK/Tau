@@ -19,5 +19,6 @@ exports.default = {
     leftArrow: '⬅️',
     upArrow: '⬆️',
     downArrow: '⬇️',
-    seed: '🌱'
+    seed: '🌱',
+    brownSquare: '🟫'
 };
