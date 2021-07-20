@@ -29,8 +29,8 @@ class McGame extends GameSuperClass_1.default {
         this.gameName = 'Minecraft';
         this.messageInChannel = null;
         this.mostRecentMessage = null;
-        this.WIDTH = 13;
-        this.LENGTH = 13;
+        this.WIDTH = 5;
+        this.LENGTH = 5;
         this.grid = [];
         this.character = {
             x: 4,
@@ -262,6 +262,13 @@ class McGame extends GameSuperClass_1.default {
         this.grid[this.character.y][this.character.x] = this.character.str();
     }
     update() {
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid[i].length; j++) {
+                const block = this.grid[j][i];
+                if (typeof (block) != 'string')
+                    block.update();
+            }
+        }
         this.updateCharacter();
         this.channel.send(this.makeEmbed());
     }

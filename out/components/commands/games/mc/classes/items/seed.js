@@ -25,5 +25,8 @@ class seed {
     }
     setChoords(x, y) {
     }
+    update(gameInstance) {
+        console.log('updating');
+    }
 }
 exports.default = seed;

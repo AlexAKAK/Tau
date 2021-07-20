@@ -25,4 +25,7 @@ export default class grass implements Item {
     mine(gameInstance: McGame): void {
 
     }
+    update(gameInstance: McGame): void {
+        console.log('updating')
+    }
 }

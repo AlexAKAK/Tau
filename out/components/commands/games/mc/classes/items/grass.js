@@ -18,5 +18,8 @@ class grass {
     }
     mine(gameInstance) {
     }
+    update(gameInstance) {
+        console.log('updating');
+    }
 }
 exports.default = grass;

@@ -27,5 +27,8 @@ export default class seed implements Item {
     setChoords(x: number, y: number) {
         
     }
+    update(gameInstance: McGame): void {
+        console.log('updating')
+    }
     
 }

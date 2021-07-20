@@ -18,5 +18,8 @@ class stone {
     }
     mine(gameInstance) {
     }
+    update(gameInstance) {
+        console.log('updating');
+    }
 }
 exports.default = stone;

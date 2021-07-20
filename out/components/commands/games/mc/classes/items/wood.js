@@ -8,6 +8,9 @@ class wood {
         this.miningDifficulty = 2;
         this.blockType = blockTypes_1.default.WALK_OVER;
     }
+    update(gameInstance) {
+        console.log('updating');
+    }
     toString() {
         return emojis_1.default.brownSquare;
     }

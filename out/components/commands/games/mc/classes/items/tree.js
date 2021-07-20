@@ -29,5 +29,8 @@ class tree {
         gameInstance.character.inventory.push(new wood_1.default());
         gameInstance.character.inventory.push(new wood_1.default());
     }
+    update(gameInstance) {
+        console.log('updating');
+    }
 }
 exports.default = tree;

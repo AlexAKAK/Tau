@@ -6,6 +6,9 @@ import McGame from "../McGame";
 import grass from "./grass";
 
 export default class wood implements Item {
+    update(gameInstance: McGame): void {
+        console.log('updating')
+    }
     x: number
     y: number
     toString(): string {

@@ -9,6 +9,7 @@ export default interface Item {
     blockType: blockTypes
     mine(gameInstance: McGame): void
     setChoords(x: number, y: number)
+    update(gameInstance: McGame): void
       
     
 }

@@ -25,4 +25,7 @@ export default class stone implements Item {
     mine(gameInstance: McGame): void {
 
     }
+    update(gameInstance: McGame): void {
+        console.log('updating')
+    }
 }

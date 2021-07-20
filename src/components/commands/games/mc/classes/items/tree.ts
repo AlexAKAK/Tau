@@ -38,4 +38,7 @@ export default class tree implements Item {
         gameInstance.character.inventory.push(new wood())
         gameInstance.character.inventory.push(new wood())
     }
+    update(gameInstance: McGame): void {
+        console.log('updating')
+    }
 }
