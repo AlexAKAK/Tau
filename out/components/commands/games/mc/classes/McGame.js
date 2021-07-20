@@ -27,6 +27,8 @@ class McGame extends GameSuperClass_1.default {
     constructor(_client, _channel) {
         super();
         this.gameName = 'Minecraft';
+        this.messageInChannel = null;
+        this.mostRecentMessage = null;
         this.WIDTH = 9;
         this.LENGTH = 9;
         this.grid = [];
@@ -97,7 +99,11 @@ class McGame extends GameSuperClass_1.default {
                 if (this.character.direction == direction_1.default.FACE_RIGHT)
                     return this.character.getEastBlock();
             },
-            direction: direction_1.default.FACE_DOWN
+            direction: direction_1.default.FACE_DOWN,
+            inventory: [],
+            use: (slot) => {
+                this.character.inventory[slot].use(this); // pass the gameInstance as the argument
+            }
         };
         this.directionToString = {
             0: 'north',
@@ -106,27 +112,27 @@ class McGame extends GameSuperClass_1.default {
             3: 'east'
         };
         this.contentToFunction = {
-            w: () => {
+            w: (message) => {
                 this.character.direction = direction_1.default.FACE_UP;
                 this.moveCharacter(0, -1);
             },
-            a: () => {
+            a: (message) => {
                 this.character.direction = direction_1.default.FACE_LEFT;
                 this.moveCharacter(-1, 0);
             },
-            s: () => {
+            s: (message) => {
                 this.character.direction = direction_1.default.FACE_DOWN;
                 this.moveCharacter(0, 1);
             },
-            d: () => {
+            d: (message) => {
                 this.character.direction = direction_1.default.FACE_RIGHT;
                 this.moveCharacter(1, 0);
             },
-            mine: () => {
+            mine: (message) => {
                 const block = this.character.getBlockInFront();
                 this.character.mine(block);
             },
-            rotate180: () => {
+            rotate180: (message) => {
                 const conversion = {
                     0: 1,
                     1: 0,
@@ -137,7 +143,7 @@ class McGame extends GameSuperClass_1.default {
                 this.character.direction = conversion[currentDirection];
                 this.grid[this.character.y][this.character.x] = this.character.str();
             },
-            rotate90: () => {
+            rotate90: (message) => {
                 const conversion = {
                     0: 3,
                     1: 2,
@@ -148,7 +154,7 @@ class McGame extends GameSuperClass_1.default {
                 this.character.direction = conversion[currentDirection];
                 this.grid[this.character.y][this.character.x] = this.character.str();
             },
-            rotate270: () => {
+            rotate270: (message) => {
                 const conversion = {
                     0: 2,
                     1: 3,
@@ -158,6 +164,17 @@ class McGame extends GameSuperClass_1.default {
                 const currentDirection = this.character.direction;
                 this.character.direction = conversion[currentDirection];
                 this.grid[this.character.y][this.character.x] = this.character.str();
+            },
+            use: (message) => {
+                const args = message.content.split(' ');
+                // if not enough args
+                if (args.length < 2)
+                    return;
+                const slot = Number(args[1]);
+                // if the slot number is too high
+                if (slot > this.character.inventory.length - 1)
+                    return;
+                this.character.use(slot);
             }
         };
         this.renderTerrain();
@@ -201,6 +218,7 @@ class McGame extends GameSuperClass_1.default {
         _embed.addField('y', this.character.y, false);
         _embed.addField('Health', this.character.getHearts(), false);
         _embed.addField('Facing', this.directionToString[this.character.direction], false);
+        _embed.addField('Inventory', this.inventoryToString(), false);
         return _embed;
     }
     startLoop() {
@@ -213,12 +231,13 @@ class McGame extends GameSuperClass_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this.active)
                 return;
-            if (this.contentToFunction[message.content] != undefined)
-                this.handleInput(message.content, message);
+            this.mostRecentMessage = message;
+            if (this.contentToFunction[message.content.split(' ')[0]] != undefined)
+                this.handleInput(message.content.split(' ')[0], message);
         });
     }
     handleInput(content, message) {
-        this.contentToFunction[content]();
+        this.contentToFunction[content](message);
         if (this.channel.type == 'text') {
             //if (!message.deleted) message.delete()
         }
@@ -259,6 +278,16 @@ class McGame extends GameSuperClass_1.default {
         if (this.grid[this.character.y + y][this.character.x + x].blockType == blockTypes_1.default.NOT_WALK_OVER)
             return false;
         return true;
+    }
+    inventoryToString() {
+        let s = '';
+        for (let i = 0; i < this.character.inventory.length; i++) {
+            s = `${s} ${i}. ${this.character.inventory[i].toString()}`;
+        }
+        if (s == '')
+            return 'Empty';
+        else
+            return s;
     }
 }
 exports.default = McGame;

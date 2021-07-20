@@ -3,6 +3,7 @@ import emojis from "../../../../../utility/emojis";
 import blockTypes from "../blockTypes";
 import characterInterface from "../../interfaces/characterInterface";
 import McGame from "../McGame";
+import seed from "./seed";
 
 export default class grass implements Item {
     miningDifficulty: 1
@@ -18,7 +19,7 @@ export default class grass implements Item {
     toString(): string {
         return emojis.greenSquare
     }
-    use(): void {
+    use(gameInstance: McGame): void {
         
     }
     mine(gameInstance: McGame): void {

@@ -4,7 +4,7 @@ import characterInterface from "./characterInterface";
 
 export default interface Item {
     toString(): string
-    use(): void
+    use(gameInstance: McGame): void
     miningDifficulty: number
     blockType: blockTypes
     mine(gameInstance: McGame): void

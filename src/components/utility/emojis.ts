@@ -16,6 +16,7 @@ export default {
     rightArrow: '➡️',
     leftArrow: '⬅️',
     upArrow: '⬆️',
-    downArrow: '⬇️'
+    downArrow: '⬇️',
+    seed: '🌱'
 
 }

@@ -1,4 +1,5 @@
 import direction from "../classes/direction";
+import Item from "./Item";
 
 export default interface characterInterface {
     x: number,
@@ -14,5 +15,7 @@ export default interface characterInterface {
     mine: Function,
     getBlockInFront: Function,
     direction: direction,
+    inventory: Item[];
+    use(slot: number): void
 
 }

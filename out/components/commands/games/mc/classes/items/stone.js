@@ -14,7 +14,7 @@ class stone {
     toString() {
         return emojis_1.default.blackSquare;
     }
-    use() {
+    use(gameInstance) {
     }
     mine(gameInstance) {
     }

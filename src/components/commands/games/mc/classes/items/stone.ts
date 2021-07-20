@@ -19,7 +19,7 @@ export default class stone implements Item {
     toString(): string {
         return emojis.blackSquare
     }
-    use(): void {
+    use(gameInstance: McGame): void {
         
     }
     mine(gameInstance: McGame): void {

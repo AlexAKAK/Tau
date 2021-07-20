@@ -3,9 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
 const blockTypes_1 = require("../blockTypes");
 const grass_1 = require("./grass");
+const seed_1 = require("./seed");
 class tree {
-    constructor() {
+    constructor(x, y) {
         this.blockType = blockTypes_1.default.NOT_WALK_OVER;
+        if (x != undefined && y != undefined) {
+            this.x = x;
+            this.y = y;
+        }
     }
     setChoords(x, y) {
         this.x = x;
@@ -15,10 +20,11 @@ class tree {
     toString() {
         return emojis_1.default.tree;
     }
-    use() {
+    use(gameInstance) {
     }
     mine(gameInstance) {
         gameInstance.grid[this.y][this.x] = new grass_1.default().setChoords(this.x, this.y);
+        gameInstance.character.inventory.push(new seed_1.default());
     }
 }
 exports.default = tree;

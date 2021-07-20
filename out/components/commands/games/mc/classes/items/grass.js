@@ -14,7 +14,7 @@ class grass {
     toString() {
         return emojis_1.default.greenSquare;
     }
-    use() {
+    use(gameInstance) {
     }
     mine(gameInstance) {
     }

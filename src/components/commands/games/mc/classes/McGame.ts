@@ -17,6 +17,7 @@ import Item from "../interfaces/Item"
 import blockTypes from "./blockTypes"
 import { clearScreenDown } from "readline"
 import direction from "./direction"
+import CommandClass from "../../../../classes/CommandClass"
 
 
 
@@ -25,11 +26,12 @@ const heart = emojis.heart
 
 type block = string
 
-export default class McGame extends GameSuperClass{
+export default class McGame extends GameSuperClass {
     public gameName: string = 'Minecraft'
     private client: HydroCarbon
     private channel: TextChannel|DMChannel
-    private messageInChannel: Message
+    private messageInChannel: Message = null
+    public mostRecentMessage: Message = null
     WIDTH: number = 9
     LENGTH: number = 9
 
@@ -37,7 +39,7 @@ export default class McGame extends GameSuperClass{
 
     
 
-    private character: characterInterface = {
+    public character: characterInterface = {
         x: 4,
         y: 4,
         str: function() {
@@ -97,7 +99,11 @@ export default class McGame extends GameSuperClass{
             if(this.character.direction == direction.FACE_RIGHT) return this.character.getEastBlock()
             
         },
-        direction: direction.FACE_DOWN
+        direction: direction.FACE_DOWN,
+        inventory: [],
+        use: (slot: number) => {
+            this.character.inventory[slot].use(this) // pass the gameInstance as the argument
+        }
     }
 
     constructor(_client: HydroCarbon, _channel: TextChannel) {
@@ -146,7 +152,7 @@ export default class McGame extends GameSuperClass{
         _embed.addField('y', this.character.y, false)
         _embed.addField('Health', this.character.getHearts(), false)
         _embed.addField('Facing', this.directionToString[this.character.direction], false)
-
+        _embed.addField('Inventory', this.inventoryToString(), false)
         return _embed
     }
 
@@ -157,7 +163,8 @@ export default class McGame extends GameSuperClass{
 
     async messageProcedure(message: Message): Promise<void> {
         if (!this.active) return
-        if (this.contentToFunction[message.content] != undefined) this.handleInput(message.content, message)
+        this.mostRecentMessage = message
+        if (this.contentToFunction[message.content.split(' ')[0]] != undefined) this.handleInput(message.content.split(' ')[0], message)
     }
 
     private directionToString: object = {
@@ -168,31 +175,31 @@ export default class McGame extends GameSuperClass{
     }
     
     private contentToFunction: object = {
-        w: () => {
+        w: (message: Message) => {
             this.character.direction = direction.FACE_UP
             this.moveCharacter(0, -1)
             
         },
-        a: () => {
+        a: (message: Message) => {
             this.character.direction = direction.FACE_LEFT
             this.moveCharacter(-1, 0)
             
         },
-        s: () => {
+        s: (message: Message) => {
             this.character.direction = direction.FACE_DOWN
             this.moveCharacter(0, 1)
             
         },
-        d: () => {
+        d: (message: Message) => {
             this.character.direction = direction.FACE_RIGHT
             this.moveCharacter(1, 0)
             
         },
-        mine: () => {
+        mine: (message: Message) => {
             const block = this.character.getBlockInFront()
             this.character.mine(block)
         },
-        rotate180: () => {
+        rotate180: (message: Message) => {
             const conversion: object = {
                 0: 1,
                 1: 0,
@@ -206,7 +213,7 @@ export default class McGame extends GameSuperClass{
             this.grid[this.character.y][this.character.x] = this.character.str()
 
         },
-        rotate90: () => {
+        rotate90: (message: Message) => {
             const conversion: object = {
                 0: 3,
                 1: 2,
@@ -219,7 +226,7 @@ export default class McGame extends GameSuperClass{
             this.grid[this.character.y][this.character.x] = this.character.str()
 
         },
-        rotate270: () => {
+        rotate270: (message: Message) => {
             const conversion: object = {
                 0: 2,
                 1: 3,
@@ -231,12 +238,21 @@ export default class McGame extends GameSuperClass{
             this.character.direction = conversion[currentDirection]
             this.grid[this.character.y][this.character.x] = this.character.str()
 
+        },
+        use: (message: Message) => {
+            const args = message.content.split(' ')
+            // if not enough args
+            if (args.length < 2) return
+            const slot = Number(args[1])
+            // if the slot number is too high
+            if (slot > this.character.inventory.length - 1) return
+            this.character.use(slot)
         }
     }
 
 
     handleInput(content: string, message: Message): void {
-        this.contentToFunction[content]()
+        this.contentToFunction[content](message)
         if (this.channel.type == 'text') {
             //if (!message.deleted) message.delete()
         }
@@ -285,5 +301,13 @@ export default class McGame extends GameSuperClass{
         return true
     }
 
+    private inventoryToString(): string {
+        let s: string = ''
+        for (let i = 0; i < this.character.inventory.length; i++) {
+            s = `${s} ${i}. ${this.character.inventory[i].toString()}`
+        }
+        if (s == '') return 'Empty'
+        else return s
+    }
 
 }
