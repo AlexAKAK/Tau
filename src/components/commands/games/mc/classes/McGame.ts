@@ -32,8 +32,8 @@ export default class McGame extends GameSuperClass {
     private channel: TextChannel|DMChannel
     private messageInChannel: Message = null
     public mostRecentMessage: Message = null
-    WIDTH: number = 5
-    LENGTH: number = 5
+    WIDTH: number = 13
+    LENGTH: number = 13
 
     grid = []
 
@@ -289,8 +289,7 @@ export default class McGame extends GameSuperClass {
         for (let i = 0; i < this.grid.length; i++) {
             for (let j = 0; j < this.grid[i].length; j++) {
                 const block: any = this.grid[j][i]
-                if (typeof(block) != 'string') block.update()
-            
+                if (typeof(block) != 'string') block.update(this)
             }
         }
         this.updateCharacter()
