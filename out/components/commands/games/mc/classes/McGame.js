@@ -20,6 +20,7 @@ const grass_1 = require("./items/grass");
 const stone_1 = require("./items/stone");
 const tree_1 = require("./items/tree");
 const blockTypes_1 = require("./blockTypes");
+const direction_1 = require("./direction");
 const characterEmoji = emojis_1.default.character;
 const heart = emojis_1.default.heart;
 class McGame extends GameSuperClass_1.default {
@@ -33,7 +34,14 @@ class McGame extends GameSuperClass_1.default {
             x: 4,
             y: 4,
             str: function () {
-                return characterEmoji;
+                const dirToCharacterEmoji = {
+                    0: emojis_1.default.upArrow,
+                    1: emojis_1.default.downArrow,
+                    2: emojis_1.default.leftArrow,
+                    3: emojis_1.default.rightArrow
+                };
+                console.log(dirToCharacterEmoji[this.direction]);
+                return dirToCharacterEmoji[this.direction];
             },
             underBlock: null,
             health: 10,
@@ -78,40 +86,82 @@ class McGame extends GameSuperClass_1.default {
             },
             mine: (block) => {
                 block.mine(this);
-            }
+            },
+            getBlockInFront: () => {
+                if (this.character.direction == direction_1.default.FACE_UP)
+                    return this.character.getNorthBlock();
+                if (this.character.direction == direction_1.default.FACE_DOWN)
+                    return this.character.getSouthBlock();
+                if (this.character.direction == direction_1.default.FACE_LEFT)
+                    return this.character.getWestBlock();
+                if (this.character.direction == direction_1.default.FACE_RIGHT)
+                    return this.character.getEastBlock();
+            },
+            direction: direction_1.default.FACE_DOWN
+        };
+        this.directionToString = {
+            0: 'north',
+            1: 'south',
+            2: 'west',
+            3: 'east'
         };
         this.contentToFunction = {
             w: () => {
+                this.character.direction = direction_1.default.FACE_UP;
                 this.moveCharacter(0, -1);
             },
             a: () => {
+                this.character.direction = direction_1.default.FACE_LEFT;
                 this.moveCharacter(-1, 0);
             },
             s: () => {
+                this.character.direction = direction_1.default.FACE_DOWN;
                 this.moveCharacter(0, 1);
             },
             d: () => {
+                this.character.direction = direction_1.default.FACE_RIGHT;
                 this.moveCharacter(1, 0);
             },
-            minetree: () => {
-                const northBlock = this.character.getNorthBlock();
-                const southBlock = this.character.getSouthBlock();
-                const westBlock = this.character.getWestBlock();
-                const eastBlock = this.character.getEastBlock();
-                console.log(northBlock);
-                if (northBlock.toString() == tree_1.default.prototype.toString())
-                    this.character.mine(northBlock);
-                if (southBlock.toString() == tree_1.default.prototype.toString())
-                    this.character.mine(southBlock);
-                if (westBlock.toString() == tree_1.default.prototype.toString())
-                    this.character.mine(westBlock);
-                if (eastBlock.toString() == tree_1.default.prototype.toString())
-                    this.character.mine(eastBlock);
-                this.update();
+            mine: () => {
+                const block = this.character.getBlockInFront();
+                this.character.mine(block);
+            },
+            rotate180: () => {
+                const conversion = {
+                    0: 1,
+                    1: 0,
+                    2: 3,
+                    3: 2
+                };
+                const currentDirection = this.character.direction;
+                this.character.direction = conversion[currentDirection];
+                this.grid[this.character.y][this.character.x] = this.character.str();
+            },
+            rotate90: () => {
+                const conversion = {
+                    0: 3,
+                    1: 2,
+                    2: 0,
+                    3: 1
+                };
+                const currentDirection = this.character.direction;
+                this.character.direction = conversion[currentDirection];
+                this.grid[this.character.y][this.character.x] = this.character.str();
+            },
+            rotate270: () => {
+                const conversion = {
+                    0: 2,
+                    1: 3,
+                    2: 1,
+                    3: 0
+                };
+                const currentDirection = this.character.direction;
+                this.character.direction = conversion[currentDirection];
+                this.grid[this.character.y][this.character.x] = this.character.str();
             }
         };
         this.renderTerrain();
-        this.renderCharacter();
+        this.renderCharacterInit();
         this.client = _client;
         this.channel = _channel;
         this.startLoop();
@@ -136,8 +186,11 @@ class McGame extends GameSuperClass_1.default {
         else
             return new grass_1.default();
     }
-    renderCharacter() {
+    renderCharacterInit() {
         this.character.underBlock = this.grid[this.character.y][this.character.x];
+        this.grid[this.character.y][this.character.x] = this.character.str();
+    }
+    updateCharacter() {
         this.grid[this.character.y][this.character.x] = this.character.str();
     }
     makeEmbed() {
@@ -147,6 +200,7 @@ class McGame extends GameSuperClass_1.default {
         _embed.addField('x', this.character.x, false);
         _embed.addField('y', this.character.y, false);
         _embed.addField('Health', this.character.getHearts(), false);
+        _embed.addField('Facing', this.directionToString[this.character.direction], false);
         return _embed;
     }
     startLoop() {
@@ -159,7 +213,7 @@ class McGame extends GameSuperClass_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this.active)
                 return;
-            if (message.content == 'w' || message.content == 'a' || message.content == 's' || message.content == 'd' || message.content == 'minetree')
+            if (this.contentToFunction[message.content] != undefined)
                 this.handleInput(message.content, message);
         });
     }
@@ -168,6 +222,7 @@ class McGame extends GameSuperClass_1.default {
         if (this.channel.type == 'text') {
             //if (!message.deleted) message.delete()
         }
+        this.update();
     }
     moveCharacter(x, y) {
         if (!this.checkIfCanMove(x, y)) {
@@ -186,13 +241,13 @@ class McGame extends GameSuperClass_1.default {
         */
         this.character.underBlock = this.grid[this.character.y][this.character.x];
         this.grid[this.character.y][this.character.x] = this.character.str();
-        this.update();
     }
     update() {
+        this.updateCharacter();
         this.channel.send(this.makeEmbed());
     }
     checkIfCanMove(x, y) {
-        console.log(`x: ${x} y: ${y}`);
+        // trying to move outside of the map
         if (this.character.x == 0 && x == -1)
             return false;
         if (this.character.x == this.LENGTH - 1 && x == 1)

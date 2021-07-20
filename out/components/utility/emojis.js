@@ -14,5 +14,9 @@ exports.default = {
     watermelon: '🍉',
     tree: '🌳',
     pickaxe: '⛏️',
-    heart: '❤️'
+    heart: '❤️',
+    rightArrow: '➡️',
+    leftArrow: '⬅️',
+    upArrow: '⬆️',
+    downArrow: '⬇️'
 };

@@ -16,6 +16,7 @@ import tree from "./items/tree"
 import Item from "../interfaces/Item"
 import blockTypes from "./blockTypes"
 import { clearScreenDown } from "readline"
+import direction from "./direction"
 
 
 
@@ -34,11 +35,20 @@ export default class McGame extends GameSuperClass{
 
     grid = []
 
+    
+
     private character: characterInterface = {
         x: 4,
         y: 4,
         str: function() {
-            return characterEmoji
+            const dirToCharacterEmoji: object = {
+                0: emojis.upArrow,
+                1: emojis.downArrow,
+                2: emojis.leftArrow,
+                3: emojis.rightArrow
+            }
+            console.log(dirToCharacterEmoji[this.direction])
+            return dirToCharacterEmoji[this.direction]
         },
         underBlock: null,
         health: 10,
@@ -79,13 +89,21 @@ export default class McGame extends GameSuperClass{
         },
         mine: (block: Item) => {
             block.mine(this)
-        }
+        },
+        getBlockInFront: () => {
+            if(this.character.direction == direction.FACE_UP) return this.character.getNorthBlock()
+            if(this.character.direction == direction.FACE_DOWN) return this.character.getSouthBlock()
+            if(this.character.direction == direction.FACE_LEFT) return this.character.getWestBlock()
+            if(this.character.direction == direction.FACE_RIGHT) return this.character.getEastBlock()
+            
+        },
+        direction: direction.FACE_DOWN
     }
 
     constructor(_client: HydroCarbon, _channel: TextChannel) {
         super()
         this.renderTerrain()
-        this.renderCharacter()
+        this.renderCharacterInit()
         this.client = _client
         this.channel = _channel
         this.startLoop()
@@ -110,8 +128,12 @@ export default class McGame extends GameSuperClass{
         else return new grass()
     }
 
-    private renderCharacter(): void {
+    private renderCharacterInit(): void {
         this.character.underBlock = this.grid[this.character.y][this.character.x]
+        this.grid[this.character.y][this.character.x] = this.character.str()
+    }
+
+    private updateCharacter(): void {
         this.grid[this.character.y][this.character.x] = this.character.str()
     }
 
@@ -123,6 +145,7 @@ export default class McGame extends GameSuperClass{
         _embed.addField('x', this.character.x, false)
         _embed.addField('y', this.character.y, false)
         _embed.addField('Health', this.character.getHearts(), false)
+        _embed.addField('Facing', this.directionToString[this.character.direction], false)
 
         return _embed
     }
@@ -134,34 +157,80 @@ export default class McGame extends GameSuperClass{
 
     async messageProcedure(message: Message): Promise<void> {
         if (!this.active) return
-        if (message.content == 'w' || message.content == 'a' || message.content == 's' || message.content == 'd' || message.content == 'minetree') this.handleInput(message.content, message)
+        if (this.contentToFunction[message.content] != undefined) this.handleInput(message.content, message)
+    }
+
+    private directionToString: object = {
+        0: 'north',
+        1: 'south',
+        2: 'west',
+        3: 'east'
     }
     
     private contentToFunction: object = {
         w: () => {
+            this.character.direction = direction.FACE_UP
             this.moveCharacter(0, -1)
+            
         },
         a: () => {
+            this.character.direction = direction.FACE_LEFT
             this.moveCharacter(-1, 0)
+            
         },
         s: () => {
+            this.character.direction = direction.FACE_DOWN
             this.moveCharacter(0, 1)
+            
         },
         d: () => {
+            this.character.direction = direction.FACE_RIGHT
             this.moveCharacter(1, 0)
+            
         },
-        minetree: () => {
-            const northBlock = this.character.getNorthBlock()
-            const southBlock = this.character.getSouthBlock()
-            const westBlock = this.character.getWestBlock()
-            const eastBlock = this.character.getEastBlock()
-            console.log(northBlock)
+        mine: () => {
+            const block = this.character.getBlockInFront()
+            this.character.mine(block)
+        },
+        rotate180: () => {
+            const conversion: object = {
+                0: 1,
+                1: 0,
+                2: 3,
+                3: 2
+            }
+            
+            const currentDirection = this.character.direction
+            this.character.direction = conversion[currentDirection]
 
-            if (northBlock.toString() == tree.prototype.toString()) this.character.mine(northBlock)
-            if (southBlock.toString() == tree.prototype.toString()) this.character.mine(southBlock)
-            if (westBlock.toString() == tree.prototype.toString()) this.character.mine(westBlock)
-            if (eastBlock.toString() == tree.prototype.toString()) this.character.mine(eastBlock)
-            this.update()
+            this.grid[this.character.y][this.character.x] = this.character.str()
+
+        },
+        rotate90: () => {
+            const conversion: object = {
+                0: 3,
+                1: 2,
+                2: 0,
+                3: 1
+            }
+            
+            const currentDirection = this.character.direction
+            this.character.direction = conversion[currentDirection]
+            this.grid[this.character.y][this.character.x] = this.character.str()
+
+        },
+        rotate270: () => {
+            const conversion: object = {
+                0: 2,
+                1: 3,
+                2: 1,
+                3: 0
+            }
+            
+            const currentDirection = this.character.direction
+            this.character.direction = conversion[currentDirection]
+            this.grid[this.character.y][this.character.x] = this.character.str()
+
         }
     }
 
@@ -171,6 +240,7 @@ export default class McGame extends GameSuperClass{
         if (this.channel.type == 'text') {
             //if (!message.deleted) message.delete()
         }
+        this.update()
     }
 
     moveCharacter(x: number, y: number): void {
@@ -178,6 +248,7 @@ export default class McGame extends GameSuperClass{
             this.update()
             return
         }
+        
 
         this.grid[this.character.y][this.character.x] = this.character.underBlock
         this.character.x += x
@@ -195,16 +266,16 @@ export default class McGame extends GameSuperClass{
         this.character.underBlock = this.grid[this.character.y][this.character.x]
         this.grid[this.character.y][this.character.x] = this.character.str()
 
-        this.update()
        
     }
 
     update(): void {
+        this.updateCharacter()
         this.channel.send(this.makeEmbed())
     }
 
     checkIfCanMove(x: number, y: number): boolean {
-        console.log(`x: ${x} y: ${y}`)
+        // trying to move outside of the map
         if (this.character.x == 0 && x == -1) return false
         if (this.character.x == this.LENGTH - 1 && x == 1) return false
         if (this.character.y == 0 && y == -1) return false

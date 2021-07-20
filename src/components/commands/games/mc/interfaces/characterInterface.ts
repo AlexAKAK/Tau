@@ -1,3 +1,5 @@
+import direction from "../classes/direction";
+
 export default interface characterInterface {
     x: number,
     y: number,
@@ -9,5 +11,8 @@ export default interface characterInterface {
     getSouthBlock: Function,
     getWestBlock: Function,
     getEastBlock: Function,
-    mine: Function
+    mine: Function,
+    getBlockInFront: Function,
+    direction: direction,
+
 }
