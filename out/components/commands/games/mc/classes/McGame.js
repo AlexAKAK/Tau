@@ -43,6 +43,41 @@ class McGame extends GameSuperClass_1.default {
                     s += heart;
                 }
                 return s;
+            },
+            /**
+             * @returns Item
+             */
+            getNorthBlock: () => {
+                if (this.character.y == 0)
+                    return null;
+                return this.grid[this.character.y - 1][this.character.x];
+            },
+            /**
+             * @returns Item
+             */
+            getSouthBlock: () => {
+                if (this.character.y == this.WIDTH - 1)
+                    return null;
+                return this.grid[this.character.y + 1][this.character.x];
+            },
+            /**
+             * @returns Item
+             */
+            getWestBlock: () => {
+                if (this.character.x == 0)
+                    return null;
+                return this.grid[this.character.y][this.character.x - 1];
+            },
+            /**
+             * @returns Item
+             */
+            getEastBlock: () => {
+                if (this.character.x == this.LENGTH - 1)
+                    return null;
+                return this.grid[this.character.y][this.character.x + 1];
+            },
+            mine: (block) => {
+                block.mine(this);
             }
         };
         this.contentToFunction = {
@@ -57,6 +92,22 @@ class McGame extends GameSuperClass_1.default {
             },
             d: () => {
                 this.moveCharacter(1, 0);
+            },
+            minetree: () => {
+                const northBlock = this.character.getNorthBlock();
+                const southBlock = this.character.getSouthBlock();
+                const westBlock = this.character.getWestBlock();
+                const eastBlock = this.character.getEastBlock();
+                console.log(northBlock);
+                if (northBlock.toString() == tree_1.default.prototype.toString())
+                    this.character.mine(northBlock);
+                if (southBlock.toString() == tree_1.default.prototype.toString())
+                    this.character.mine(southBlock);
+                if (westBlock.toString() == tree_1.default.prototype.toString())
+                    this.character.mine(westBlock);
+                if (eastBlock.toString() == tree_1.default.prototype.toString())
+                    this.character.mine(eastBlock);
+                this.update();
             }
         };
         this.renderTerrain();
@@ -70,7 +121,7 @@ class McGame extends GameSuperClass_1.default {
         for (let i = 0; i < this.WIDTH; i++) {
             this.grid.push([]);
             for (let j = 0; j < this.LENGTH; j++) {
-                this.grid[i].push(this.generateBlock());
+                this.grid[i].push(this.generateBlock().setChoords(j, i));
             }
         }
         // add a few gray ones (stone)
@@ -108,7 +159,7 @@ class McGame extends GameSuperClass_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this.active)
                 return;
-            if (message.content == 'w' || message.content == 'a' || message.content == 's' || message.content == 'd')
+            if (message.content == 'w' || message.content == 'a' || message.content == 's' || message.content == 'd' || message.content == 'minetree')
                 this.handleInput(message.content, message);
         });
     }

@@ -5,4 +5,9 @@ export default interface characterInterface {
     underBlock: string,
     health: number, // whole number
     getHearts: Function,
+    getNorthBlock: Function,
+    getSouthBlock: Function,
+    getWestBlock: Function,
+    getEastBlock: Function,
+    mine: Function
 }

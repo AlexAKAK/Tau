@@ -6,10 +6,17 @@ class grass {
     constructor() {
         this.blockType = blockTypes_1.default.WALK_OVER;
     }
+    setChoords(x, y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
     toString() {
         return emojis_1.default.greenSquare;
     }
     use() {
+    }
+    mine(gameInstance) {
     }
 }
 exports.default = grass;

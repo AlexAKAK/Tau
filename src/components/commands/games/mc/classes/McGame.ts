@@ -2,8 +2,6 @@
 Add inventory
 */
 
-
-
 import discordButtons from "discord-buttons"
 import { DMChannel, Message, MessageEmbed, TextChannel, Client } from "discord.js"
 import HydroCarbon from "../../../../.."
@@ -50,6 +48,37 @@ export default class McGame extends GameSuperClass{
                 s += heart
             }
             return s
+        },
+        /**
+         * @returns Item
+         */
+        getNorthBlock: () => {
+            if (this.character.y == 0) return null
+            return this.grid[this.character.y - 1][this.character.x]
+        },
+        /**
+         * @returns Item
+         */
+        getSouthBlock: () => {
+            if (this.character.y == this.WIDTH - 1) return null
+            return this.grid[this.character.y + 1][this.character.x]
+        },
+        /**
+         * @returns Item
+         */
+        getWestBlock: () => {
+            if (this.character.x == 0) return null
+            return this.grid[this.character.y][this.character.x - 1]
+        },
+        /**
+         * @returns Item
+         */
+        getEastBlock: () => {
+            if (this.character.x == this.LENGTH - 1) return null
+            return this.grid[this.character.y][this.character.x + 1]
+        },
+        mine: (block: Item) => {
+            block.mine(this)
         }
     }
 
@@ -67,7 +96,7 @@ export default class McGame extends GameSuperClass{
         for (let i = 0; i < this.WIDTH; i++) {
             this.grid.push([])
             for (let j = 0; j < this.LENGTH; j++) {
-                this.grid[i].push(this.generateBlock())
+                this.grid[i].push(this.generateBlock().setChoords(j, i))
             }
         }
         // add a few gray ones (stone)
@@ -105,7 +134,7 @@ export default class McGame extends GameSuperClass{
 
     async messageProcedure(message: Message): Promise<void> {
         if (!this.active) return
-        if (message.content == 'w' || message.content == 'a' || message.content == 's' || message.content == 'd') this.handleInput(message.content, message)
+        if (message.content == 'w' || message.content == 'a' || message.content == 's' || message.content == 'd' || message.content == 'minetree') this.handleInput(message.content, message)
     }
     
     private contentToFunction: object = {
@@ -120,6 +149,19 @@ export default class McGame extends GameSuperClass{
         },
         d: () => {
             this.moveCharacter(1, 0)
+        },
+        minetree: () => {
+            const northBlock = this.character.getNorthBlock()
+            const southBlock = this.character.getSouthBlock()
+            const westBlock = this.character.getWestBlock()
+            const eastBlock = this.character.getEastBlock()
+            console.log(northBlock)
+
+            if (northBlock.toString() == tree.prototype.toString()) this.character.mine(northBlock)
+            if (southBlock.toString() == tree.prototype.toString()) this.character.mine(southBlock)
+            if (westBlock.toString() == tree.prototype.toString()) this.character.mine(westBlock)
+            if (eastBlock.toString() == tree.prototype.toString()) this.character.mine(eastBlock)
+            this.update()
         }
     }
 
