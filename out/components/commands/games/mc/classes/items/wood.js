@@ -12,6 +12,11 @@ class wood {
         return emojis_1.default.brownSquare;
     }
     use(gameInstance) {
+        const block = gameInstance.character.getBlockInFront();
+        if (block == null)
+            return;
+        gameInstance.grid[block.y][block.x] = new wood().setChoords(block.x, block.y);
+        gameInstance.character.inventory.splice(Number(gameInstance.mostRecentMessage.content.split(' ')[1]), 1);
     }
     mine(gameInstance) {
         gameInstance.grid[this.y][this.x] = new grass_1.default().setChoords(this.x, this.y);

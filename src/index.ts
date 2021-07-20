@@ -182,5 +182,5 @@ export default class HydroCarbon extends Client {
 
 // Running the bot
 const client: HydroCarbon = new HydroCarbon();
-client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.GsgJDSCcwiLNq2x874aAFbR0wGc')
+client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mykagyy_X6_xh5QpXrJbHmwn4Z0')
 
