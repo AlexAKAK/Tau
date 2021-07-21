@@ -5,8 +5,10 @@ const blockTypes_1 = require("../blockTypes");
 const grass_1 = require("./grass");
 const seed_1 = require("./seed");
 const wood_1 = require("./wood");
+const miningDifficultyEnum_1 = require("../miningDifficultyEnum");
 class tree {
     constructor(x, y) {
+        this.miningDifficulty = miningDifficultyEnum_1.default.STANDARD;
         this.blockType = blockTypes_1.default.NOT_WALK_OVER;
         if (x != undefined && y != undefined) {
             this.x = x;

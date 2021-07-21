@@ -10,6 +10,4 @@ export default interface Item {
     mine(gameInstance: McGame): void
     setChoords(x: number, y: number)
     update(gameInstance: McGame): void
-      
-    
 }

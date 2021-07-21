@@ -2,6 +2,7 @@ import emojis from "../../../../../utility/emojis";
 import Item from "../../interfaces/Item";
 import blockTypes from "../blockTypes";
 import McGame from "../McGame";
+import miningDifficultyEnum from "../miningDifficultyEnum";
 import grass from "./grass";
 import tree from "./tree";
 
@@ -21,10 +22,11 @@ export default class seed implements Item {
         gameInstance.character.inventory.splice(Number(gameInstance.mostRecentMessage.content.split(' ')[1]), 1)
         
     }
-    miningDifficulty: number = -1
+    miningDifficulty: number = miningDifficultyEnum.STANDARD
+
     blockType: blockTypes = -1
     mine(gameInstance: McGame): void {
-        
+        gameInstance.grid[this.y][this.x] = new grass().setChoords(this.x, this.y)
     }
 
     setChoords(x: number, y: number) {

@@ -21,6 +21,8 @@ const stone_1 = require("./items/stone");
 const tree_1 = require("./items/tree");
 const blockTypes_1 = require("./blockTypes");
 const direction_1 = require("./direction");
+const woodenPickaxe_1 = require("./items/woodenPickaxe");
+const miningDifficultyEnum_1 = require("./miningDifficultyEnum");
 const characterEmoji = emojis_1.default.character;
 const heart = emojis_1.default.heart;
 class McGame extends GameSuperClass_1.default {
@@ -103,6 +105,10 @@ class McGame extends GameSuperClass_1.default {
             inventory: [],
             use: (slot) => {
                 this.character.inventory[slot].use(this); // pass the gameInstance as the argument
+            },
+            craft: (item) => {
+                if (item == 'wooden_pickaxe')
+                    woodenPickaxe_1.default.craft(this);
             }
         };
         this.directionToString = {
@@ -130,7 +136,8 @@ class McGame extends GameSuperClass_1.default {
             },
             mine: (message) => {
                 const block = this.character.getBlockInFront();
-                this.character.mine(block);
+                if (block.miningDifficulty == miningDifficultyEnum_1.default.STANDARD)
+                    this.character.mine(block);
             },
             rotate180: (message) => {
                 const conversion = {
@@ -175,6 +182,15 @@ class McGame extends GameSuperClass_1.default {
                 if (slot > this.character.inventory.length - 1)
                     return;
                 this.character.use(slot);
+            },
+            craft: (message) => {
+                const args = message.content.split(' ');
+                // if not enough args
+                if (args.length < 2)
+                    return;
+                const item = args[1];
+                if (item == 'wooden_pickaxe')
+                    this.character.craft(item);
             }
         };
         this.renderTerrain();
@@ -182,6 +198,7 @@ class McGame extends GameSuperClass_1.default {
         this.client = _client;
         this.channel = _channel;
         this.startLoop();
+        this.character.inventory.push(new woodenPickaxe_1.default());
     }
     renderTerrain() {
         // fill with grass

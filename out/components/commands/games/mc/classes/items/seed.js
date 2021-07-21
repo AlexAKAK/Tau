@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
+const miningDifficultyEnum_1 = require("../miningDifficultyEnum");
 const grass_1 = require("./grass");
 const tree_1 = require("./tree");
 class seed {
     constructor() {
         this.growthProgress = 1;
-        this.miningDifficulty = -1;
+        this.miningDifficulty = miningDifficultyEnum_1.default.STANDARD;
         this.blockType = -1;
     }
     toString() {
@@ -23,6 +24,7 @@ class seed {
         gameInstance.character.inventory.splice(Number(gameInstance.mostRecentMessage.content.split(' ')[1]), 1);
     }
     mine(gameInstance) {
+        gameInstance.grid[this.y][this.x] = new grass_1.default().setChoords(this.x, this.y);
     }
     setChoords(x, y) {
         this.x = x;

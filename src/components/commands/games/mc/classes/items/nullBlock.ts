@@ -3,22 +3,18 @@ import emojis from "../../../../../utility/emojis";
 import blockTypes from "../blockTypes";
 import characterInterface from "../../interfaces/characterInterface";
 import McGame from "../McGame";
-import seed from "./seed";
 import miningDifficultyEnum from "../miningDifficultyEnum";
 
-export default class grass implements Item {
-    miningDifficulty: number = miningDifficultyEnum.STANDARD
-    blockType: blockTypes =  blockTypes.WALK_OVER
+export default class nullBlock implements Item {
+    miningDifficulty: number = miningDifficultyEnum.WOODEN_PICKAXE
+    blockType: blockTypes =  blockTypes.NULL_BLOCK
     x: number
     y: number
+    setChoords (x: number, y: number): void {
 
-    setChoords (x: number, y: number): grass {
-        this.x = x
-        this.y = y
-        return this
     }
     toString(): string {
-        return emojis.greenSquare
+        return emojis.blackSquare
     }
     use(gameInstance: McGame): void {
         
@@ -27,6 +23,6 @@ export default class grass implements Item {
 
     }
     update(gameInstance: McGame): void {
-        console.log('updating')
+
     }
 }

@@ -3,6 +3,8 @@ import emojis from "../../../../../utility/emojis";
 import Item from "../../interfaces/Item";
 import blockTypes from "../blockTypes";
 import McGame from "../McGame";
+import miningDifficultyEnum from "../miningDifficultyEnum";
+import miningDifficulty from "../miningDifficultyEnum";
 import grass from "./grass";
 
 export default class wood implements Item {
@@ -20,7 +22,7 @@ export default class wood implements Item {
         gameInstance.grid[block.y][block.x] = new wood().setChoords(block.x, block.y)
         gameInstance.character.inventory.splice(Number(gameInstance.mostRecentMessage.content.split(' ')[1]), 1)
     }
-    miningDifficulty: number = 2
+    miningDifficulty: number = miningDifficultyEnum.STANDARD
     blockType: blockTypes = blockTypes.WALK_OVER
     mine(gameInstance: McGame): void {
         gameInstance.grid[this.y][this.x] = new grass().setChoords(this.x, this.y)

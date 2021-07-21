@@ -18,6 +18,8 @@ import blockTypes from "./blockTypes"
 import { clearScreenDown } from "readline"
 import direction from "./direction"
 import CommandClass from "../../../../classes/CommandClass"
+import woodenPickaxe from "./items/woodenPickaxe"
+import miningDifficultyEnum from "./miningDifficultyEnum"
 
 
 
@@ -103,6 +105,9 @@ export default class McGame extends GameSuperClass {
         inventory: [],
         use: (slot: number) => {
             this.character.inventory[slot].use(this) // pass the gameInstance as the argument
+        },
+        craft: (item: string) => {
+            if (item == 'wooden_pickaxe') woodenPickaxe.craft(this)
         }
     }
 
@@ -113,6 +118,7 @@ export default class McGame extends GameSuperClass {
         this.client = _client
         this.channel = _channel
         this.startLoop()
+        this.character.inventory.push(new woodenPickaxe())
     }
 
     private renderTerrain(): void {
@@ -196,8 +202,8 @@ export default class McGame extends GameSuperClass {
             
         },
         mine: (message: Message) => {
-            const block = this.character.getBlockInFront()
-            this.character.mine(block)
+            const block: Item = this.character.getBlockInFront()
+            if (block.miningDifficulty == miningDifficultyEnum.STANDARD) this.character.mine(block)
         },
         rotate180: (message: Message) => {
             const conversion: object = {
@@ -247,6 +253,14 @@ export default class McGame extends GameSuperClass {
             // if the slot number is too high
             if (slot > this.character.inventory.length - 1) return
             this.character.use(slot)
+        },
+        craft: (message: Message) => {
+            const args = message.content.split(' ')
+            // if not enough args
+            if (args.length < 2) return
+            const item: string = args[1]
+            if (item == 'wooden_pickaxe') this.character.craft(item)
+
         }
     }
 

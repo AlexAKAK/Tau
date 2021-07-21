@@ -3,9 +3,10 @@ import emojis from "../../../../../utility/emojis";
 import blockTypes from "../blockTypes";
 import characterInterface from "../../interfaces/characterInterface";
 import McGame from "../McGame";
+import miningDifficultyEnum from "../miningDifficultyEnum";
 
 export default class stone implements Item {
-    miningDifficulty: 2
+    miningDifficulty: number = miningDifficultyEnum.WOODEN_PICKAXE
     blockType: blockTypes =  blockTypes.WALK_OVER
     x: number
     y: number
@@ -23,7 +24,7 @@ export default class stone implements Item {
         
     }
     mine(gameInstance: McGame): void {
-
+        gameInstance.character.inventory.push(new stone())
     }
     update(gameInstance: McGame): void {
         console.log('updating')

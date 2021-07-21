@@ -1,4 +1,5 @@
 import direction from "../classes/direction";
+import McGame from "../classes/McGame";
 import Item from "./Item";
 
 export default interface characterInterface {
@@ -16,6 +17,7 @@ export default interface characterInterface {
     getBlockInFront: Function,
     direction: direction,
     inventory: Item[];
-    use(slot: number): void
+    use(slot: number): void,
+    craft(item: string): void
 
 }

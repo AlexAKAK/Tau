@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
 const blockTypes_1 = require("../blockTypes");
+const miningDifficultyEnum_1 = require("../miningDifficultyEnum");
 const grass_1 = require("./grass");
 class wood {
     constructor() {
-        this.miningDifficulty = 2;
+        this.miningDifficulty = miningDifficultyEnum_1.default.STANDARD;
         this.blockType = blockTypes_1.default.WALK_OVER;
     }
     update(gameInstance) {

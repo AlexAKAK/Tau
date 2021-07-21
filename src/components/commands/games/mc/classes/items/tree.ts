@@ -6,9 +6,10 @@ import grass from "./grass";
 import McGame from "../McGame";
 import seed from "./seed";
 import wood from "./wood";
+import miningDifficultyEnum from "../miningDifficultyEnum";
 
 export default class tree implements Item {
-    miningDifficulty: 5
+    miningDifficulty: number = miningDifficultyEnum.STANDARD
     blockType: blockTypes = blockTypes.NOT_WALK_OVER
     x: number
     y: number
