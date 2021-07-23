@@ -23,6 +23,7 @@ const blockTypes_1 = require("../enums/blockTypes");
 const direction_1 = require("../enums/direction");
 const woodenPickaxe_1 = require("./items/woodenPickaxe");
 const miningDifficultyEnum_1 = require("../enums/miningDifficultyEnum");
+const cactus_1 = require("./items/cactus");
 const sendEmbed = require("./../../../../utility/embeds/sendEmbed");
 const characterEmoji = emojis_1.default.character;
 const heart = emojis_1.default.heart;
@@ -241,6 +242,8 @@ class McGame extends GameSuperClass_1.default {
             return new tree_1.default();
         else if (i == 2 || i == 3)
             return new stone_1.default();
+        else if (i == 4)
+            return new cactus_1.default();
         else
             return new grass_1.default();
     }

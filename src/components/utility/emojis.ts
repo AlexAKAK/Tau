@@ -20,6 +20,7 @@ export default {
     seed: '🌱',
     brownSquare: '🟫',
     chickenDrumstick: '🍗',
-    redApple: '🍎'
+    redApple: '🍎',
+    cactus: '🌵'
 
 }

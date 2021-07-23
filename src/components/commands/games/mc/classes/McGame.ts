@@ -20,6 +20,7 @@ import direction from "../enums/direction"
 import CommandClass from "../../../../classes/CommandClass"
 import woodenPickaxe from "./items/woodenPickaxe"
 import miningDifficultyEnum from "../enums/miningDifficultyEnum"
+import cactus from "./items/cactus"
 
 const sendEmbed = require("./../../../../utility/embeds/sendEmbed")
 
@@ -158,6 +159,7 @@ export default class McGame extends GameSuperClass {
         const i = getRandomInt(10)
         if (i == 1) return new tree()
         else if (i == 2 || i == 3) return new stone()
+        else if (i == 4) return new cactus()
         else return new grass()
     }
 
