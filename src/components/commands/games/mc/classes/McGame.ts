@@ -14,12 +14,14 @@ import grass from "./items/grass"
 import stone from "./items/stone"
 import tree from "./items/tree"
 import Item from "../interfaces/Item"
-import blockTypes from "./blockTypes"
+import blockTypes from "../enums/blockTypes"
 import { clearScreenDown } from "readline"
-import direction from "./direction"
+import direction from "../enums/direction"
 import CommandClass from "../../../../classes/CommandClass"
 import woodenPickaxe from "./items/woodenPickaxe"
-import miningDifficultyEnum from "./miningDifficultyEnum"
+import miningDifficultyEnum from "../enums/miningDifficultyEnum"
+
+const sendEmbed = require("./../../../../utility/embeds/sendEmbed")
 
 
 
@@ -66,6 +68,9 @@ export default class McGame extends GameSuperClass {
         /**
          * @returns Item
          */
+        incrementHealth: function(): void {
+            this.health--
+        },
         getNorthBlock: () => {
             if (this.character.y == 0) return null
             return this.grid[this.character.y - 1][this.character.x]
@@ -108,6 +113,19 @@ export default class McGame extends GameSuperClass {
         },
         craft: (item: string) => {
             if (item == 'wooden_pickaxe') woodenPickaxe.craft(this)
+        },
+        hunger: 10,
+        getHungerBar: function(): string {
+            let s = '';
+            for (let i = 0; i < this.hunger; i++) {
+                s = `${s}${emojis.chickenDrumstick}`
+            }
+            if (s == '') return "Dead"
+            else return s
+        },
+        isAlive: function(): boolean {
+            if (this.health == 0) return false
+            else return true
         }
     }
 
@@ -118,7 +136,6 @@ export default class McGame extends GameSuperClass {
         this.client = _client
         this.channel = _channel
         this.startLoop()
-        this.character.inventory.push(new woodenPickaxe())
     }
 
     private renderTerrain(): void {
@@ -126,6 +143,7 @@ export default class McGame extends GameSuperClass {
         for (let i = 0; i < this.WIDTH; i++) {
             this.grid.push([])
             for (let j = 0; j < this.LENGTH; j++) {
+                
                 this.grid[i].push(this.generateBlock().setChoords(j, i))
             }
         }
@@ -146,6 +164,9 @@ export default class McGame extends GameSuperClass {
     }
 
     private updateCharacter(): void {
+        // randomly deduct a hunger point
+        const i = getRandomInt(3)
+        if (i == 3) this.character.hunger--
         this.grid[this.character.y][this.character.x] = this.character.str()
     }
 
@@ -157,6 +178,7 @@ export default class McGame extends GameSuperClass {
         _embed.addField('x', this.character.x, false)
         _embed.addField('y', this.character.y, false)
         _embed.addField('Health', this.character.getHearts(), false)
+        _embed.addField('Hunger', this.character.getHungerBar(), false)
         _embed.addField('Facing', this.directionToString[this.character.direction], false)
         _embed.addField('Inventory', this.inventoryToString(), false)
         return _embed
@@ -298,6 +320,13 @@ export default class McGame extends GameSuperClass {
 
        
     }
+    private characterDeathProcedure(): void {
+        this.active = false
+        sendEmbed(this.messageInChannel.channel, {
+            title: `You have died. Good Game!`,
+            color: 'GREEN'
+        })
+    }
 
     update(): void {
         for (let i = 0; i < this.grid.length; i++) {
@@ -306,6 +335,9 @@ export default class McGame extends GameSuperClass {
                 if (typeof(block) != 'string') block.update(this)
             }
         }
+        this.character.hunger -= 1;    
+        // if the character is dead, activate the deathProdcedure
+        if (!this.character.isAlive()) this.characterDeathProcedure()
         this.updateCharacter()
         this.channel.send(this.makeEmbed())
     }

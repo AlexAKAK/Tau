@@ -39,9 +39,8 @@ announce.commandDescription = 'You make an announcement';
 announce.commandSyntax = 'announce <message>';
 announce.MISSING_ARGS_ERR_2 = announce_1.MISSING_ARGS_ERR_METACLASS(2);
 announce = announce_1 = __decorate([
-    announce_1.alias(['a'])
-    //@announce.memberCooldown(60000)
-    ,
+    announce_1.alias(['a']),
+    announce_1.memberCooldown(60000),
     announce_1.errorCheck([announce_1.MISSING_ARGS_ERR_2])
 ], announce);
 exports.default = announce;

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
-const miningDifficultyEnum_1 = require("../miningDifficultyEnum");
+const miningDifficultyEnum_1 = require("../../enums/miningDifficultyEnum");
 const grass_1 = require("./grass");
 const tree_1 = require("./tree");
 class seed {

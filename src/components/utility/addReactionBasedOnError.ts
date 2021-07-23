@@ -1,6 +1,6 @@
 import { Message } from "discord.js"
 
-const {FINGER_CIRCLE,X} = require("./reactions")
+const {FINGER_CIRCLE, X} = require("./reactions")
 
 function addReactionBasedOnError(message: Message, errBool: boolean) {
     // message: Discord.Message

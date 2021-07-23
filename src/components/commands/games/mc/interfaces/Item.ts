@@ -1,13 +1,14 @@
-import blockTypes from "../classes/blockTypes";
+import blockTypes from "../enums/blockTypes";
 import McGame from "../classes/McGame";
 import characterInterface from "./characterInterface";
 
 export default interface Item {
+    // change this later
+    [x: string]: any;
     toString(): string
     use(gameInstance: McGame): void
     miningDifficulty: number
     blockType: blockTypes
     mine(gameInstance: McGame): void
-    setChoords(x: number, y: number)
     update(gameInstance: McGame): void
 }

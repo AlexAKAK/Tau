@@ -25,6 +25,7 @@ let mc = mc_1 = class mc extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('running mc');
+            // creates the new game
             const gameBoard = new McGame_1.default(client, message.channel);
             client.addGame(message.channel.id, gameBoard);
         });

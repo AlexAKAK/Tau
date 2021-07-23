@@ -1,12 +1,13 @@
 import Item from "../../interfaces/Item";
 import emojis from "../../../../../utility/emojis";
-import blockTypes from "../blockTypes";
+import blockTypes from "../../enums/blockTypes";
 import characterInterface from "../../interfaces/characterInterface";
 import McGame from "../McGame";
 import seed from "./seed";
-import miningDifficultyEnum from "../miningDifficultyEnum";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
+import placeable from "../../interfaces/placeable";
 
-export default class grass implements Item {
+export default class grass implements Item, placeable {
     miningDifficulty: number = miningDifficultyEnum.STANDARD
     blockType: blockTypes =  blockTypes.WALK_OVER
     x: number

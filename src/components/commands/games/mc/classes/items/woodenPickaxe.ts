@@ -2,9 +2,9 @@ import { isThisTypeNode } from "typescript";
 import emojis from "../../../../../utility/emojis";
 import craftable from "../../interfaces/craftable";
 import Item from "../../interfaces/Item";
-import blockTypes from "../blockTypes";
+import blockTypes from "../../enums/blockTypes";
 import McGame from "../McGame";
-import miningDifficultyEnum from "../miningDifficultyEnum";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
 import grass from "./grass";
 import nullBlock from "./nullBlock";
 import wood from "./wood";
@@ -47,7 +47,7 @@ export default class woodenPickaxe implements Item{
         gameInstance.character.inventory.push(new woodenPickaxe())
         // remove 4 wood
         for (let i = 0; i < woodIndex.length; i++) {
-            gameInstance.character.inventory[woodIndex[i]] = new nullBlock
+            gameInstance.character.inventory[woodIndex[i]] = new nullBlock()
         }
         for (let i = 0; i < gameInstance.character.inventory.length; i++) {
             if (gameInstance.character.inventory[i].blockType == blockTypes.NULL_BLOCK) {

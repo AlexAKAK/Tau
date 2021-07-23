@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
-const blockTypes_1 = require("../blockTypes");
-const miningDifficultyEnum_1 = require("../miningDifficultyEnum");
+const blockTypes_1 = require("../../enums/blockTypes");
+const miningDifficultyEnum_1 = require("../../enums/miningDifficultyEnum");
 const nullBlock_1 = require("./nullBlock");
 class woodenPickaxe {
     constructor() {
@@ -43,7 +43,7 @@ class woodenPickaxe {
         gameInstance.character.inventory.push(new woodenPickaxe());
         // remove 4 wood
         for (let i = 0; i < woodIndex.length; i++) {
-            gameInstance.character.inventory[woodIndex[i]] = new nullBlock_1.default;
+            gameInstance.character.inventory[woodIndex[i]] = new nullBlock_1.default();
         }
         for (let i = 0; i < gameInstance.character.inventory.length; i++) {
             if (gameInstance.character.inventory[i].blockType == blockTypes_1.default.NULL_BLOCK) {

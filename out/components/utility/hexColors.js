@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const red = '#c43131';
 const orange = '#eb9175';
 const yellow = '#d4c96a';

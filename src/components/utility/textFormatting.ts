@@ -1,4 +1,5 @@
-export {}
+import { isNamedExportBindings } from "typescript"
+
 class textFormatting {
     // text formatting for discord
     italicize(s: string) {

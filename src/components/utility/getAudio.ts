@@ -10,6 +10,7 @@ export default async function getYTDLStream(url: string) {
 
 
 function getVideo(url: string) {
+    // possibly experiment with changing the highWaterMark value to make the video work better.
     const stream = ytdl(url, {filter: "audioonly", highWaterMark:  1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 *1024 * 10 })
     return stream
 }

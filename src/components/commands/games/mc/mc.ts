@@ -17,6 +17,7 @@ export default class mc extends CommandClass {
 
     async commandMain(message: Message, client: HydroCarbon): Promise<void> {
         console.log('running mc')
+        // creates the new game
         const gameBoard: McGame = new McGame(client, <TextChannel> message.channel);
         client.addGame(message.channel.id, gameBoard)
     }

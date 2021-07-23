@@ -3,8 +3,8 @@
 #include <string.h>
 
 enum actions {
-    encrypt = 0,
-    decrypt = 1
+    encrypt,
+    decrypt
 };
 
 
@@ -46,10 +46,6 @@ char * decrypt(char * s, unsigned int offset) {
 
     return _s;
 
-}
-
-int getAction() {
-    scanf()
 }
 
 

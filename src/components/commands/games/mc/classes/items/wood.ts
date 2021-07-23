@@ -1,13 +1,14 @@
 import { isThisTypeNode } from "typescript";
 import emojis from "../../../../../utility/emojis";
 import Item from "../../interfaces/Item";
-import blockTypes from "../blockTypes";
+import placeable from "../../interfaces/placeable";
+import blockTypes from "../../enums/blockTypes";
 import McGame from "../McGame";
-import miningDifficultyEnum from "../miningDifficultyEnum";
-import miningDifficulty from "../miningDifficultyEnum";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
+import miningDifficulty from "../../enums/miningDifficultyEnum";
 import grass from "./grass";
 
-export default class wood implements Item {
+export default class wood implements Item, placeable {
     update(gameInstance: McGame): void {
         console.log('updating')
     }

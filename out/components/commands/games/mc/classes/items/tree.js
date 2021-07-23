@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
-const blockTypes_1 = require("../blockTypes");
+const blockTypes_1 = require("../../enums/blockTypes");
 const grass_1 = require("./grass");
 const seed_1 = require("./seed");
 const wood_1 = require("./wood");
-const miningDifficultyEnum_1 = require("../miningDifficultyEnum");
+const miningDifficultyEnum_1 = require("../../enums/miningDifficultyEnum");
+const getRandomInt_1 = require("../../../../../utility/getRandomInt");
+const greenapple_1 = require("./greenapple");
 class tree {
     constructor(x, y) {
         this.miningDifficulty = miningDifficultyEnum_1.default.STANDARD;
@@ -30,6 +32,9 @@ class tree {
         gameInstance.character.inventory.push(new seed_1.default());
         gameInstance.character.inventory.push(new wood_1.default());
         gameInstance.character.inventory.push(new wood_1.default());
+        const i = getRandomInt_1.default(4);
+        // a change of getting a green apple on mining the tree
+        gameInstance.character.inventory.push(new greenapple_1.default());
     }
     update(gameInstance) {
         console.log('updating');

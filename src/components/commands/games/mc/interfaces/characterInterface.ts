@@ -1,4 +1,4 @@
-import direction from "../classes/direction";
+import direction from "../enums/direction";
 import McGame from "../classes/McGame";
 import Item from "./Item";
 
@@ -18,6 +18,10 @@ export default interface characterInterface {
     direction: direction,
     inventory: Item[];
     use(slot: number): void,
-    craft(item: string): void
+    craft(item: string): void,
+    hunger: number,
+    getHungerBar(): string,
+    isAlive(): boolean,
+    incrementHealth: Function
 
 }

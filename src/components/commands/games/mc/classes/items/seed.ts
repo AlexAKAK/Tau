@@ -1,12 +1,13 @@
 import emojis from "../../../../../utility/emojis";
 import Item from "../../interfaces/Item";
-import blockTypes from "../blockTypes";
+import placeable from "../../interfaces/placeable";
+import blockTypes from "../../enums/blockTypes";
 import McGame from "../McGame";
-import miningDifficultyEnum from "../miningDifficultyEnum";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
 import grass from "./grass";
 import tree from "./tree";
 
-export default class seed implements Item {
+export default class seed implements Item, placeable {
     x: number
     y: number
     growthProgress: number = 1
@@ -29,7 +30,7 @@ export default class seed implements Item {
         gameInstance.grid[this.y][this.x] = new grass().setChoords(this.x, this.y)
     }
 
-    setChoords(x: number, y: number) {
+    setChoords(x: number, y: number): seed {
         this.x = x
         this.y = y
         return this

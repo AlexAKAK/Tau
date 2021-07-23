@@ -19,10 +19,11 @@ const getRandomInt_1 = require("../../../../utility/getRandomInt");
 const grass_1 = require("./items/grass");
 const stone_1 = require("./items/stone");
 const tree_1 = require("./items/tree");
-const blockTypes_1 = require("./blockTypes");
-const direction_1 = require("./direction");
+const blockTypes_1 = require("../enums/blockTypes");
+const direction_1 = require("../enums/direction");
 const woodenPickaxe_1 = require("./items/woodenPickaxe");
-const miningDifficultyEnum_1 = require("./miningDifficultyEnum");
+const miningDifficultyEnum_1 = require("../enums/miningDifficultyEnum");
+const sendEmbed = require("./../../../../utility/embeds/sendEmbed");
 const characterEmoji = emojis_1.default.character;
 const heart = emojis_1.default.heart;
 class McGame extends GameSuperClass_1.default {
@@ -59,6 +60,9 @@ class McGame extends GameSuperClass_1.default {
             /**
              * @returns Item
              */
+            incrementHealth: function () {
+                this.health--;
+            },
             getNorthBlock: () => {
                 if (this.character.y == 0)
                     return null;
@@ -109,6 +113,23 @@ class McGame extends GameSuperClass_1.default {
             craft: (item) => {
                 if (item == 'wooden_pickaxe')
                     woodenPickaxe_1.default.craft(this);
+            },
+            hunger: 10,
+            getHungerBar: function () {
+                let s = '';
+                for (let i = 0; i < this.hunger; i++) {
+                    s = `${s}${emojis_1.default.chickenDrumstick}`;
+                }
+                if (s == '')
+                    return "Dead";
+                else
+                    return s;
+            },
+            isAlive: function () {
+                if (this.health == 0)
+                    return false;
+                else
+                    return true;
             }
         };
         this.directionToString = {
@@ -198,7 +219,6 @@ class McGame extends GameSuperClass_1.default {
         this.client = _client;
         this.channel = _channel;
         this.startLoop();
-        this.character.inventory.push(new woodenPickaxe_1.default());
     }
     renderTerrain() {
         // fill with grass
@@ -225,6 +245,10 @@ class McGame extends GameSuperClass_1.default {
         this.grid[this.character.y][this.character.x] = this.character.str();
     }
     updateCharacter() {
+        // randomly deduct a hunger point
+        const i = getRandomInt_1.default(3);
+        if (i == 3)
+            this.character.hunger--;
         this.grid[this.character.y][this.character.x] = this.character.str();
     }
     makeEmbed() {
@@ -234,6 +258,7 @@ class McGame extends GameSuperClass_1.default {
         _embed.addField('x', this.character.x, false);
         _embed.addField('y', this.character.y, false);
         _embed.addField('Health', this.character.getHearts(), false);
+        _embed.addField('Hunger', this.character.getHungerBar(), false);
         _embed.addField('Facing', this.directionToString[this.character.direction], false);
         _embed.addField('Inventory', this.inventoryToString(), false);
         return _embed;
@@ -278,6 +303,13 @@ class McGame extends GameSuperClass_1.default {
         this.character.underBlock = this.grid[this.character.y][this.character.x];
         this.grid[this.character.y][this.character.x] = this.character.str();
     }
+    characterDeathProcedure() {
+        this.active = false;
+        sendEmbed(this.messageInChannel.channel, {
+            title: `You have died. Good Game!`,
+            color: 'GREEN'
+        });
+    }
     update() {
         for (let i = 0; i < this.grid.length; i++) {
             for (let j = 0; j < this.grid[i].length; j++) {
@@ -286,6 +318,10 @@ class McGame extends GameSuperClass_1.default {
                     block.update(this);
             }
         }
+        this.character.hunger -= 1;
+        // if the character is dead, activate the deathProdcedure
+        if (!this.character.isAlive())
+            this.characterDeathProcedure();
         this.updateCharacter();
         this.channel.send(this.makeEmbed());
     }

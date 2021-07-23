@@ -4,10 +4,8 @@ import CommandClass from "../../classes/CommandClass";
 
 
 @announce.alias(['a'])
-//@announce.memberCooldown(60000)
+@announce.memberCooldown(60000)
 @announce.errorCheck([announce.MISSING_ARGS_ERR_2])
-
-
 export default class announce extends CommandClass {
     protected static commandCategory: string = 'misc'
     protected static commandDescription: string = 'You make an announcement'

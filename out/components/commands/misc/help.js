@@ -16,7 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var help_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-const { MessageEmbed } = require('discord.js');
+const discord_js_1 = require("discord.js");
 //const CommandClass = require('../classes/CommandClass')
 const CommandClass_1 = require("../../classes/CommandClass");
 // import commands
@@ -37,6 +37,9 @@ const queue_1 = require("../music/queue");
 const restart_1 = require("../music/restart");
 const skip_1 = require("../music/skip");
 const stop_1 = require("../music/stop");
+const currentgame_1 = require("../games/currentgame");
+const stopgame_1 = require("../games/stopgame");
+const mc_1 = require("../games/mc/mc");
 const commands = [
     bal_1.default,
     hack_1.default,
@@ -54,7 +57,10 @@ const commands = [
     queue_1.default,
     restart_1.default,
     skip_1.default,
-    stop_1.default
+    stop_1.default,
+    currentgame_1.default,
+    stopgame_1.default,
+    mc_1.default
 ];
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {
@@ -68,7 +74,7 @@ let help = help_1 = class help extends CommandClass_1.default {
     }
     static noArgsMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            const embed = new MessageEmbed()
+            const embed = new discord_js_1.MessageEmbed()
                 .setColor('GREEN')
                 .setTimestamp();
             commands.forEach(function (command) {
@@ -93,7 +99,7 @@ let help = help_1 = class help extends CommandClass_1.default {
                 return;
             }
             const command = help_1.getCommand(help_1.splitArgsWithoutCommandCall(message)[0]);
-            const embed = new MessageEmbed()
+            const embed = new discord_js_1.MessageEmbed()
                 .setTimestamp()
                 .setColor('GREEN')
                 .addField(`Usage: ${command.commandSyntax}`, `Description: ${command.commandDescription}`, false);

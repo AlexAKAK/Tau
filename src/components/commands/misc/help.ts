@@ -1,8 +1,6 @@
-import { DMChannel, Message, TextChannel } from "discord.js"
+import { DMChannel, Message, TextChannel, MessageEmbed } from "discord.js"
 import HydroCarbon from "../../.."
 
-
-const {MessageEmbed} = require('discord.js')
 //const CommandClass = require('../classes/CommandClass')
 import CommandClass from '../../classes/CommandClass'
 
@@ -27,6 +25,10 @@ import restart from "../music/restart"
 import skip from "../music/skip"
 import stop from "../music/stop"
 
+import currentgame from "../games/currentgame"
+import stopgame from "../games/stopgame"
+import mc from "../games/mc/mc"
+
 
 const commands = [
     bal,
@@ -45,12 +47,14 @@ const commands = [
     queue,
     restart,
     skip,
-    stop
+    stop,
+    currentgame,
+    stopgame,
+    mc
 ]
 
 
 @help.alias(['h'])
-
 export default class help extends CommandClass {
     
     public async commandMain(message: Message, client: HydroCarbon) {

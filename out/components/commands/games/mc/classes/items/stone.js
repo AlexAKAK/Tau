@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
-const blockTypes_1 = require("../blockTypes");
-const miningDifficultyEnum_1 = require("../miningDifficultyEnum");
+const blockTypes_1 = require("../../enums/blockTypes");
+const miningDifficultyEnum_1 = require("../../enums/miningDifficultyEnum");
 class stone {
     constructor() {
         this.miningDifficulty = miningDifficultyEnum_1.default.WOODEN_PICKAXE;
