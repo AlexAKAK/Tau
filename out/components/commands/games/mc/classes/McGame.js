@@ -61,7 +61,10 @@ class McGame extends GameSuperClass_1.default {
              * @returns Item
              */
             incrementHealth: function () {
-                this.health--;
+                this.health += 2;
+            },
+            incrementHunger: function () {
+                this.hunger += 2;
             },
             getNorthBlock: () => {
                 if (this.character.y == 0)
@@ -128,8 +131,9 @@ class McGame extends GameSuperClass_1.default {
             isAlive: function () {
                 if (this.health == 0)
                     return false;
-                else
-                    return true;
+                if (this.hunger == 0)
+                    return false;
+                return true;
             }
         };
         this.directionToString = {
@@ -318,10 +322,13 @@ class McGame extends GameSuperClass_1.default {
                     block.update(this);
             }
         }
-        this.character.hunger -= 1;
+        if (getRandomInt_1.default(3) == 1)
+            this.character.hunger -= 1;
         // if the character is dead, activate the deathProdcedure
-        if (!this.character.isAlive())
+        if (!this.character.isAlive()) {
             this.characterDeathProcedure();
+            return;
+        }
         this.updateCharacter();
         this.channel.send(this.makeEmbed());
     }

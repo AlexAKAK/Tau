@@ -22,6 +22,7 @@ export default interface characterInterface {
     hunger: number,
     getHungerBar(): string,
     isAlive(): boolean,
-    incrementHealth: Function
+    incrementHealth: Function,
+    incrementHunger: Function
 
 }

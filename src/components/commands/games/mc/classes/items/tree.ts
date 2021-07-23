@@ -10,6 +10,7 @@ import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
 import getRandomInt from "../../../../../utility/getRandomInt";
 import greenapple from "./greenapple";
 import placeable from "../../interfaces/placeable";
+import redApple from "./redApple";
 
 export default class tree implements Item, placeable {
     miningDifficulty: number = miningDifficultyEnum.STANDARD
@@ -43,7 +44,8 @@ export default class tree implements Item, placeable {
         gameInstance.character.inventory.push(new wood())
         const i = getRandomInt(4)
         // a change of getting a green apple on mining the tree
-        gameInstance.character.inventory.push(new greenapple())
+        if ( i == 1) gameInstance.character.inventory.push(new greenapple())
+        else if (i == 2) gameInstance.character.inventory.push(new redApple())
     }
     update(gameInstance: McGame): void {
         console.log('updating')

@@ -1,15 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const emojis_1 = require("../../../../../utility/emojis");
-class greenapple {
+class redApple {
     toString() {
-        return emojis_1.default.greenApple;
+        return emojis_1.default.redApple;
     }
     use(gameInstance) {
-        console.log('green apple use');
-        gameInstance.character.incrementHunger();
-        if (gameInstance.character.hunger > 10)
-            gameInstance.character.hunger = 10;
+        gameInstance.character.incrementHealth();
+        if (gameInstance.character.health > 10)
+            gameInstance.character.health = 10;
         gameInstance.character.inventory.splice(Number(gameInstance.mostRecentMessage.content.split(' ')[1]), 1);
     }
     mine(gameInstance) {
@@ -19,4 +18,4 @@ class greenapple {
     update(gameInstance) {
     }
 }
-exports.default = greenapple;
+exports.default = redApple;

@@ -19,6 +19,7 @@ export default {
     downArrow: '⬇️',
     seed: '🌱',
     brownSquare: '🟫',
-    chickenDrumstick: '🍗'
+    chickenDrumstick: '🍗',
+    redApple: '🍎'
 
 }

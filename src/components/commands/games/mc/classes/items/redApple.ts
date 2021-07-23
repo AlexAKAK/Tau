@@ -3,14 +3,13 @@ import Item from "../../interfaces/Item";
 import blockTypes from "../../enums/blockTypes";
 import McGame from "../McGame";
 
-export default class greenapple implements Item {
+export default class redApple implements Item {
     toString(): string {
-        return emojis.greenApple
+        return emojis.redApple
     }
     use(gameInstance: McGame): void {
-        console.log('green apple use')
-        gameInstance.character.incrementHunger()
-        if (gameInstance.character.hunger > 10) gameInstance.character.hunger = 10
+        gameInstance.character.incrementHealth()
+        if (gameInstance.character.health > 10) gameInstance.character.health = 10
         gameInstance.character.inventory.splice(Number(gameInstance.mostRecentMessage.content.split(' ')[1]), 1)
     }
     miningDifficulty: number;

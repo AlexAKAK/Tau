@@ -69,7 +69,9 @@ export default class McGame extends GameSuperClass {
          * @returns Item
          */
         incrementHealth: function(): void {
-            this.health--
+            this.health += 2       },
+        incrementHunger: function(): void {
+            this.hunger += 2
         },
         getNorthBlock: () => {
             if (this.character.y == 0) return null
@@ -125,7 +127,8 @@ export default class McGame extends GameSuperClass {
         },
         isAlive: function(): boolean {
             if (this.health == 0) return false
-            else return true
+            if (this.hunger == 0) return false
+            return true
         }
     }
 
@@ -335,9 +338,9 @@ export default class McGame extends GameSuperClass {
                 if (typeof(block) != 'string') block.update(this)
             }
         }
-        this.character.hunger -= 1;    
+        if (getRandomInt(3) == 1) this.character.hunger -= 1;    
         // if the character is dead, activate the deathProdcedure
-        if (!this.character.isAlive()) this.characterDeathProcedure()
+        if (!this.character.isAlive()) {this.characterDeathProcedure(); return;}
         this.updateCharacter()
         this.channel.send(this.makeEmbed())
     }
