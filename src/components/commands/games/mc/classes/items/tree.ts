@@ -42,10 +42,10 @@ export default class tree implements Item, placeable {
         gameInstance.character.inventory.push(new seed())
         gameInstance.character.inventory.push(new wood())
         gameInstance.character.inventory.push(new wood())
-        const i = getRandomInt(4)
+        const i = getRandomInt(3)
         // a change of getting a green apple on mining the tree
-        if ( i == 1) gameInstance.character.inventory.push(new greenapple())
-        else if (i == 2) gameInstance.character.inventory.push(new redApple())
+        gameInstance.character.inventory.push(new greenapple())
+        gameInstance.character.inventory.push(new redApple())
     }
     update(gameInstance: McGame): void {
         console.log('updating')

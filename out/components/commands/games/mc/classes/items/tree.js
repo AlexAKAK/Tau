@@ -33,12 +33,10 @@ class tree {
         gameInstance.character.inventory.push(new seed_1.default());
         gameInstance.character.inventory.push(new wood_1.default());
         gameInstance.character.inventory.push(new wood_1.default());
-        const i = getRandomInt_1.default(4);
+        const i = getRandomInt_1.default(3);
         // a change of getting a green apple on mining the tree
-        if (i == 1)
-            gameInstance.character.inventory.push(new greenapple_1.default());
-        else if (i == 2)
-            gameInstance.character.inventory.push(new redApple_1.default());
+        gameInstance.character.inventory.push(new greenapple_1.default());
+        gameInstance.character.inventory.push(new redApple_1.default());
     }
     update(gameInstance) {
         console.log('updating');
