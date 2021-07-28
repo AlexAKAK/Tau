@@ -24,6 +24,7 @@ const direction_1 = require("../enums/direction");
 const woodenPickaxe_1 = require("./items/woodenPickaxe");
 const miningDifficultyEnum_1 = require("../enums/miningDifficultyEnum");
 const cactus_1 = require("./items/cactus");
+const stoneSword_1 = require("./items/stoneSword");
 const sendEmbed = require("./../../../../utility/embeds/sendEmbed");
 const characterEmoji = emojis_1.default.character;
 const heart = emojis_1.default.heart;
@@ -117,6 +118,8 @@ class McGame extends GameSuperClass_1.default {
             craft: (item) => {
                 if (item == 'wooden_pickaxe')
                     woodenPickaxe_1.default.craft(this);
+                if (item == 'stone_sword')
+                    stoneSword_1.default.craft(this);
             },
             hunger: 10,
             getHungerBar: function () {
@@ -210,12 +213,13 @@ class McGame extends GameSuperClass_1.default {
                 this.character.use(slot);
             },
             craft: (message) => {
+                const CRAFTABLE_ITEM_NAMES = ['wooden_pickaxe', 'stone_sword'];
                 const args = message.content.split(' ');
                 // if not enough args
                 if (args.length < 2)
                     return;
                 const item = args[1];
-                if (item == 'wooden_pickaxe')
+                if (CRAFTABLE_ITEM_NAMES.includes(item))
                     this.character.craft(item);
             }
         };

@@ -23,5 +23,6 @@ exports.default = {
     brownSquare: '🟫',
     chickenDrumstick: '🍗',
     redApple: '🍎',
-    cactus: '🌵'
+    cactus: '🌵',
+    stone_sword: '🗡️'
 };

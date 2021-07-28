@@ -20,7 +20,7 @@ export default class woodenPickaxe implements Item{
     }
     use(gameInstance: McGame): void {
         const block: Item = gameInstance.character.getBlockInFront()
-        if (block.miningDifficulty == miningDifficultyEnum.WOODEN_PICKAXE) block.mine(gameInstance)        
+        if (block.miningDifficulty == miningDifficultyEnum.WOODEN_PICKAXE || block.miningDifficulty == miningDifficultyEnum.STANDARD) block.mine(gameInstance)        
     }
     miningDifficulty: number = miningDifficultyEnum.STANDARD
     blockType: blockTypes = blockTypes.WALK_OVER
@@ -44,10 +44,16 @@ export default class woodenPickaxe implements Item{
         }
         console.log(count)
         if (count < 4) return
+        // get the first 4 wood indicies
+        let woodIndiciesToUse: number[] = []
+        for (let i = 0; i < 4; i++) {
+            woodIndiciesToUse.push(woodIndex[i])
+        }
+
         gameInstance.character.inventory.push(new woodenPickaxe())
         // remove 4 wood
-        for (let i = 0; i < woodIndex.length; i++) {
-            gameInstance.character.inventory[woodIndex[i]] = new nullBlock()
+        for (let i = 0; i < woodIndiciesToUse.length; i++) {
+            gameInstance.character.inventory[woodIndiciesToUse[i]] = new nullBlock()
         }
         for (let i = 0; i < gameInstance.character.inventory.length; i++) {
             if (gameInstance.character.inventory[i].blockType == blockTypes.NULL_BLOCK) {

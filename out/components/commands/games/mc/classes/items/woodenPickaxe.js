@@ -17,7 +17,7 @@ class woodenPickaxe {
     }
     use(gameInstance) {
         const block = gameInstance.character.getBlockInFront();
-        if (block.miningDifficulty == miningDifficultyEnum_1.default.WOODEN_PICKAXE)
+        if (block.miningDifficulty == miningDifficultyEnum_1.default.WOODEN_PICKAXE || block.miningDifficulty == miningDifficultyEnum_1.default.STANDARD)
             block.mine(gameInstance);
     }
     mine(gameInstance) {
@@ -40,10 +40,15 @@ class woodenPickaxe {
         console.log(count);
         if (count < 4)
             return;
+        // get the first 4 wood indicies
+        let woodIndiciesToUse = [];
+        for (let i = 0; i < 4; i++) {
+            woodIndiciesToUse.push(woodIndex[i]);
+        }
         gameInstance.character.inventory.push(new woodenPickaxe());
         // remove 4 wood
-        for (let i = 0; i < woodIndex.length; i++) {
-            gameInstance.character.inventory[woodIndex[i]] = new nullBlock_1.default();
+        for (let i = 0; i < woodIndiciesToUse.length; i++) {
+            gameInstance.character.inventory[woodIndiciesToUse[i]] = new nullBlock_1.default();
         }
         for (let i = 0; i < gameInstance.character.inventory.length; i++) {
             if (gameInstance.character.inventory[i].blockType == blockTypes_1.default.NULL_BLOCK) {

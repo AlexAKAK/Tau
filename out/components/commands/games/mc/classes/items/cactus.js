@@ -6,7 +6,7 @@ const miningDifficultyEnum_1 = require("../../enums/miningDifficultyEnum");
 const grass_1 = require("./grass");
 class cactus {
     constructor() {
-        this.miningDifficulty = miningDifficultyEnum_1.default.STANDARD;
+        this.miningDifficulty = miningDifficultyEnum_1.default.STONE_SWORD;
         this.blockType = blockTypes_1.default.NOT_WALK_OVER;
     }
     toString() {

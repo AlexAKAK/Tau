@@ -21,6 +21,7 @@ import CommandClass from "../../../../classes/CommandClass"
 import woodenPickaxe from "./items/woodenPickaxe"
 import miningDifficultyEnum from "../enums/miningDifficultyEnum"
 import cactus from "./items/cactus"
+import stoneSword from "./items/stoneSword"
 
 const sendEmbed = require("./../../../../utility/embeds/sendEmbed")
 
@@ -116,6 +117,8 @@ export default class McGame extends GameSuperClass {
         },
         craft: (item: string) => {
             if (item == 'wooden_pickaxe') woodenPickaxe.craft(this)
+            if (item == 'stone_sword') stoneSword.craft(this)
+
         },
         hunger: 10,
         getHungerBar: function(): string {
@@ -276,17 +279,19 @@ export default class McGame extends GameSuperClass {
             const args = message.content.split(' ')
             // if not enough args
             if (args.length < 2) return
-            const slot = Number(args[1])
+            const slot: number = Number(args[1])
             // if the slot number is too high
             if (slot > this.character.inventory.length - 1) return
             this.character.use(slot)
         },
         craft: (message: Message) => {
+            const CRAFTABLE_ITEM_NAMES: string[] = ['wooden_pickaxe', 'stone_sword']
             const args = message.content.split(' ')
             // if not enough args
             if (args.length < 2) return
             const item: string = args[1]
-            if (item == 'wooden_pickaxe') this.character.craft(item)
+            if (CRAFTABLE_ITEM_NAMES.includes(item)) this.character.craft(item)
+            
 
         }
     }

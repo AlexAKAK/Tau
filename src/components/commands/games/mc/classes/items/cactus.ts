@@ -16,7 +16,7 @@ export default class cactus implements Item {
         gameInstance.grid[block.y][block.x] = new cactus().setChoords(block.x, block.y)
         gameInstance.character.inventory.splice(Number(gameInstance.mostRecentMessage.content.split(' ')[1]), 1)
     }
-    miningDifficulty: number = miningDifficultyEnum.STANDARD
+    miningDifficulty: number = miningDifficultyEnum.STONE_SWORD
     blockType: blockTypes = blockTypes.NOT_WALK_OVER
     mine(gameInstance: McGame): void {
         gameInstance.character.inventory.push(new cactus())
@@ -31,7 +31,7 @@ export default class cactus implements Item {
         if (gameInstance.character.getSouthBlock() == this) isTouching = true
 
         if (isTouching) gameInstance.character.health--;
-
+        
     }
     setChoords (x: number, y: number): cactus {
         this.x = x
