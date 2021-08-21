@@ -29,6 +29,9 @@ import currentgame from "../games/currentgame"
 import stopgame from "../games/stopgame"
 import mc from "../games/mc/mc"
 
+import transcribe from "../../science/transcribe"
+import translate from "../../science/translate"
+import pt from "../../science/pt"
 
 const commands = [
     bal,
@@ -50,7 +53,10 @@ const commands = [
     stop,
     currentgame,
     stopgame,
-    mc
+    mc,
+    transcribe,
+    translate,
+    pt
 ]
 
 

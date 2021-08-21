@@ -33,6 +33,9 @@ const announce_1 = require("./components/commands/misc/announce");
 const mc_1 = require("./components/commands/games/mc/mc");
 const stopgame_1 = require("./components/commands/games/stopgame");
 const currentgame_1 = require("./components/commands/games/currentgame");
+const pt_1 = require("./components/science/pt");
+const transcribe_1 = require("./components/science/transcribe");
+const translate_1 = require("./components/science/translate");
 // import config
 const config = require('./../config.json');
 class HydroCarbon extends discord_js_1.Client {
@@ -67,13 +70,19 @@ class HydroCarbon extends discord_js_1.Client {
             announce_1.default,
             mc_1.default,
             stopgame_1.default,
-            currentgame_1.default
+            currentgame_1.default,
+            pt_1.default,
+            transcribe_1.default,
+            translate_1.default
         ];
         this.DM_COMMANDS = [
             help_1.default,
             mc_1.default,
             stopgame_1.default,
-            currentgame_1.default
+            currentgame_1.default,
+            pt_1.default,
+            transcribe_1.default,
+            translate_1.default
         ];
         // / commands
         // events

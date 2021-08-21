@@ -40,6 +40,9 @@ const stop_1 = require("../music/stop");
 const currentgame_1 = require("../games/currentgame");
 const stopgame_1 = require("../games/stopgame");
 const mc_1 = require("../games/mc/mc");
+const transcribe_1 = require("../../science/transcribe");
+const translate_1 = require("../../science/translate");
+const pt_1 = require("../../science/pt");
 const commands = [
     bal_1.default,
     hack_1.default,
@@ -60,7 +63,10 @@ const commands = [
     stop_1.default,
     currentgame_1.default,
     stopgame_1.default,
-    mc_1.default
+    mc_1.default,
+    transcribe_1.default,
+    translate_1.default,
+    pt_1.default
 ];
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {
