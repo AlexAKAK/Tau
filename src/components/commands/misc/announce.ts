@@ -27,7 +27,7 @@ export default class announce extends CommandClass {
         embed
         .setColor('BLUE')
         .setDescription(msg)
-        .setTitle(`Annoucement by ${message.member.nickname}`)
+        .setTitle(`Annoucement by ${message.author.tag}`)
         .setTimestamp()
 
 

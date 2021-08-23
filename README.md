@@ -5,5 +5,3 @@
 ### music
 ### misc
 ### currency
-### science
-### games

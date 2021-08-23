@@ -84,7 +84,7 @@ let help = help_1 = class help extends CommandClass_1.default {
                 .setColor('GREEN')
                 .setTimestamp();
             commands.forEach(function (command) {
-                embed.addField(`${client.PREFIX}${command.commandSyntax}`, command.commandDescription, false);
+                embed.addField(`${client.PREFIX}${command.commandSyntax}`, `${command.commandCategory}: ${command.commandDescription}`, false);
             });
             const sentMessage = yield message.channel.send(embed);
             setTimeout(function () {
@@ -98,7 +98,7 @@ let help = help_1 = class help extends CommandClass_1.default {
             const commandName = help_1.splitArgsWithoutCommandCall(message)[0];
             if (!help_1.checkIfCommandNameIsValid(commandName)) {
                 help_1.sendEmbed(message.channel, {
-                    title: `Invalid command name, ${message.member.nickname}.`,
+                    title: `Invalid command name, ${message.author.tag}.`,
                     color: 'RED',
                     deleteTimeout: 5000
                 });

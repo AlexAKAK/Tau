@@ -27,7 +27,7 @@ let announce = announce_1 = class announce extends CommandClass_1.default {
             embed
                 .setColor('BLUE')
                 .setDescription(msg)
-                .setTitle(`Annoucement by ${message.member.nickname}`)
+                .setTitle(`Annoucement by ${message.author.tag}`)
                 .setTimestamp();
             message.channel.send(embed);
             //announce.dmEveryone(embed, message.guild)

@@ -60,6 +60,8 @@ const commands = [
 ]
 
 
+
+
 @help.alias(['h'])
 export default class help extends CommandClass {
     
@@ -75,7 +77,7 @@ export default class help extends CommandClass {
         .setTimestamp()  
         commands.forEach(
             function(command: any){
-                embed.addField(`${client.PREFIX}${command.commandSyntax}`, command.commandDescription, false)
+                embed.addField(`${client.PREFIX}${command.commandSyntax}`, `${command.commandCategory}: ${command.commandDescription}`, false)
             }
         )
 
@@ -91,7 +93,7 @@ export default class help extends CommandClass {
         const commandName = help.splitArgsWithoutCommandCall(message)[0]
         if (!help.checkIfCommandNameIsValid(commandName)) {
             help.sendEmbed(<TextChannel|DMChannel> message.channel, {
-                title: `Invalid command name, ${message.member.nickname}.`,
+                title: `Invalid command name, ${message.author.tag}.`,
                 color: 'RED',
                 deleteTimeout: 5000
             })
