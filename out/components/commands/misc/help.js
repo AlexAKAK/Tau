@@ -43,6 +43,32 @@ const mc_1 = require("../games/mc/mc");
 const transcribe_1 = require("../../science/transcribe");
 const translate_1 = require("../../science/translate");
 const pt_1 = require("../../science/pt");
+/*
+// utilities
+import getDirectories from "../../utility/getDirectories"
+const path = require('path')
+
+// each folder for a command categorys
+const commandCategories: string[] = getDirectories(`${__dirname}/../`)
+let commandsByCategory: object = {}
+// load each command into the correct category
+
+
+for (let i = 0; i < commandCategories.length; i++) {
+    let commandsForThisCategory: string[] = getDirectories(`${__dirname}/../${commandCategories[i]}`)
+    let commandClassArray: Function[] = [];
+    
+    for (let j = 0; j < commandsForThisCategory.length; j++) {
+        commandClassArray.push(require(`${__dirname}/../${commandCategories[i]}/${commandsForThisCategory[j]}`))
+    }
+
+    // add the commands to the object
+    commandsByCategory[commandCategories[i]] = commandClassArray
+}
+
+const miscCommands: string[] = getDirectories(path.resolve(__dirname, './../misc'))
+
+*/
 const commands = [
     bal_1.default,
     hack_1.default,
@@ -71,6 +97,10 @@ const commands = [
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            /*console.log(commandCategories)
+            console.log(miscCommands)
+            console.log(path.resolve(__dirname, './../misc'))
+            */
             const args = help_1.splitArgsWithoutCommandCall(message);
             if (args.length == 0)
                 help_1.noArgsMain(message, client);

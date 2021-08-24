@@ -1,17 +1,16 @@
+/*
+Returns a promise for an object
+the object has a property called items, which is an array of objects
+each object within that array represents a search result, each having an id.
 
-class a {
-    sus = 1;
-}
 
-const obj = new a()
+*/
 
-console.log(`before function ${obj.sus}`)
+var youtubesearchapi = require('youtube-search-api');
 
-function test(obj) {
-    obj.sus = 0
-    console.log(`inside function ${obj.sus}`)
-}
+youtubesearchapi.GetListByKeyword("among us")
+.then(results => console.log(results.items))
 
-test(obj)
+// https://www.youtube.com/watch?v=yEupsNjoDUY
 
-console.log(`after function ${obj.sus}`)
+

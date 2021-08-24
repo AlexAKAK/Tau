@@ -33,6 +33,32 @@ import transcribe from "../../science/transcribe"
 import translate from "../../science/translate"
 import pt from "../../science/pt"
 
+/*
+// utilities
+import getDirectories from "../../utility/getDirectories"
+const path = require('path')
+
+// each folder for a command categorys
+const commandCategories: string[] = getDirectories(`${__dirname}/../`)
+let commandsByCategory: object = {}
+// load each command into the correct category
+
+
+for (let i = 0; i < commandCategories.length; i++) {
+    let commandsForThisCategory: string[] = getDirectories(`${__dirname}/../${commandCategories[i]}`)
+    let commandClassArray: Function[] = [];
+    
+    for (let j = 0; j < commandsForThisCategory.length; j++) {
+        commandClassArray.push(require(`${__dirname}/../${commandCategories[i]}/${commandsForThisCategory[j]}`))
+    }
+
+    // add the commands to the object
+    commandsByCategory[commandCategories[i]] = commandClassArray
+}
+
+const miscCommands: string[] = getDirectories(path.resolve(__dirname, './../misc'))
+
+*/
 const commands = [
     bal,
     hack,
@@ -60,12 +86,14 @@ const commands = [
 ]
 
 
-
-
 @help.alias(['h'])
 export default class help extends CommandClass {
     
     public async commandMain(message: Message, client: HydroCarbon) {
+        /*console.log(commandCategories)
+        console.log(miscCommands)
+        console.log(path.resolve(__dirname, './../misc'))
+        */
         const args = help.splitArgsWithoutCommandCall(message)
         if (args.length == 0) help.noArgsMain(message, client)
         else help.argsMain(message, client)
