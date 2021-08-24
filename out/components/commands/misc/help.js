@@ -43,6 +43,7 @@ const mc_1 = require("../games/mc/mc");
 const transcribe_1 = require("../../science/transcribe");
 const translate_1 = require("../../science/translate");
 const pt_1 = require("../../science/pt");
+const yt_1 = require("./yt");
 /*
 // utilities
 import getDirectories from "../../utility/getDirectories"
@@ -92,7 +93,8 @@ const commands = [
     mc_1.default,
     transcribe_1.default,
     translate_1.default,
-    pt_1.default
+    pt_1.default,
+    yt_1.default
 ];
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {

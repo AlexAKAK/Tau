@@ -35,6 +35,7 @@ import transcribe from "./components/science/transcribe";
 import translate from "./components/science/translate";
 // import games
 import McGame from "./components/commands/games/mc/classes/McGame";
+import yt from "./components/commands/misc/yt";
 
 // import config
 const config: object = require('./../config.json')
@@ -85,7 +86,8 @@ export default class HydroCarbon extends Client {
             currentgame,
             pt,
             transcribe,
-            translate
+            translate,
+            yt
         ]
         this.DM_COMMANDS = [
             help,
@@ -94,7 +96,8 @@ export default class HydroCarbon extends Client {
             currentgame,
             pt,
             transcribe,
-            translate
+            translate,
+            yt
         ]
         // / commands
         

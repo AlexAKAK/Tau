@@ -26,6 +26,9 @@ class CommandClass {
         args.shift();
         return args;
     }
+    static removePrefixFromString(s, prefix) {
+        return s.substring(prefix.length + 2);
+    }
     static sendErrMessage(channel, errMessage) {
         sendEmbed(channel, {
             title: errMessage,

@@ -32,6 +32,7 @@ import mc from "../games/mc/mc"
 import transcribe from "../../science/transcribe"
 import translate from "../../science/translate"
 import pt from "../../science/pt"
+import yt from "./yt"
 
 /*
 // utilities
@@ -82,7 +83,8 @@ const commands = [
     mc,
     transcribe,
     translate,
-    pt
+    pt,
+    yt
 ]
 
 
