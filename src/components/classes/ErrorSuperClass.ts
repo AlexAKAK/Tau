@@ -23,7 +23,7 @@ export default abstract class ErrorClass {
     }
     */
 
-    sendErrMessage(channel: TextChannel|DMChannel, message: string) {
+    sendErrMessage(channel: TextChannel|DMChannel|NewsChannel, message: string) {
         // message is a discord.message, kwargs is a dictionary
     
         let embed = new MessageEmbed()

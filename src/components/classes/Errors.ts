@@ -30,7 +30,7 @@ export class CLIENT_NOT_IN_VC_ERR extends ErrorClass {
         console.log('not in vc')
 
         const commandName = this.getCommandName(message)
-        this.sendErrMessage(message.channel, `I must be in a voice channel to use the ${commandName} command, ${message.author.tag}.`)
+        this.sendErrMessage(<TextChannel|DMChannel> message.channel, `I must be in a voice channel to use the ${commandName} command, ${message.author.tag}.`)
     }
 
 

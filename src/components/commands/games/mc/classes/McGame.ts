@@ -2,7 +2,6 @@
 Add inventory
 */
 
-import discordButtons from "discord-buttons"
 import { DMChannel, Message, MessageEmbed, TextChannel, Client } from "discord.js"
 import HydroCarbon from "../../../../.."
 import emojis from "../../../../utility/emojis"
