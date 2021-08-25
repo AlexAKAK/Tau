@@ -1,9 +1,10 @@
 import { Message, MessageEmbed } from "discord.js";
 import HydroCarbon from "../../..";
 import CommandClass from "../../classes/CommandClass";
+import ytVideo from "../../classes/ytVideo";
 import getYTLinksFromQuery from "../../utility/getYTLinksFromQuery";
 
-var youtubesearchapi = require('youtube-search-api');
+let youtubesearchapi = require('youtube-search-api');
 
 
 @yt.errorCheck([
@@ -15,14 +16,14 @@ export default class yt extends CommandClass {
     protected static commandDescription: string = 'Outputs search results for a youtube search'
     protected static commandSyntax: string = 'yt <query>'
 
-    public async commandMain(message: Message, client: HydroCarbon): Promise<any> {
+    public async commandMain(message: Message, client: HydroCarbon): Promise<void> {
         const query = yt.removePrefixFromString(message.content, client.PREFIX)
-        const links = await getYTLinksFromQuery(query)
+        const links: ytVideo[] = await getYTLinksFromQuery(query)
         let embed = new MessageEmbed()
         .setTitle(`Search results for ${query}`)
         .setColor('GREEN')
         for (let i = 0; i < links.length; i++) {
-            embed.addField(`Result ${i + 1}: ${links[i]['title']}`, links[i], false)
+            embed.addField(`Result ${i + 1}: ${links[i].title}`, links[i].URL, false)
         }
         message.channel.send(embed)
     }

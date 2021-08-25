@@ -19,7 +19,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const CommandClass_1 = require("../../classes/CommandClass");
 const getYTLinksFromQuery_1 = require("../../utility/getYTLinksFromQuery");
-var youtubesearchapi = require('youtube-search-api');
+let youtubesearchapi = require('youtube-search-api');
 let yt = yt_1 = class yt extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +29,7 @@ let yt = yt_1 = class yt extends CommandClass_1.default {
                 .setTitle(`Search results for ${query}`)
                 .setColor('GREEN');
             for (let i = 0; i < links.length; i++) {
-                embed.addField(`Result ${i + 1}: ${links[i]['title']}`, links[i], false);
+                embed.addField(`Result ${i + 1}: ${links[i].title}`, links[i].URL, false);
             }
             message.channel.send(embed);
         });
@@ -44,4 +44,3 @@ yt = yt_1 = __decorate([
     ])
 ], yt);
 exports.default = yt;
-``;

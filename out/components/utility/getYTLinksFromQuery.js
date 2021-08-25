@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const constructYTLinkFromVideoID_1 = require("./constructYTLinkFromVideoID");
 const youtubesearchapi = require('youtube-search-api');
+const ytVideo_1 = require("../classes/ytVideo");
 function getYTLinksFromQuery(query) {
     return __awaiter(this, void 0, void 0, function* () {
         const resultsObject = yield youtubesearchapi.GetListByKeyword(query);
@@ -18,8 +19,10 @@ function getYTLinksFromQuery(query) {
         const results = resultsObject['items'];
         let links = [];
         for (let i = 0; i < results.length; i++) {
+            const URL = constructYTLinkFromVideoID_1.default(results[i]['id']);
+            const video = new ytVideo_1.default(URL, results[i]['title'], results[i]['thumbnail']);
             if (results[i]['type'] == 'video')
-                links.push(constructYTLinkFromVideoID_1.default(results[i]['id']));
+                links.push(video);
         }
         return links;
     });
