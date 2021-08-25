@@ -29,7 +29,7 @@ let yt = yt_1 = class yt extends CommandClass_1.default {
                 .setTitle(`Search results for ${query}`)
                 .setColor('GREEN');
             for (let i = 0; i < links.length; i++) {
-                embed.addField(`Result ${i + 1}`, links[i], false);
+                embed.addField(`Result ${i + 1}: ${links[i]['title']}`, links[i], false);
             }
             message.channel.send(embed);
         });
