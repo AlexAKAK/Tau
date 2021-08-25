@@ -3,6 +3,8 @@ import { DMChannel, Guild, GuildMember, Message, MessageEmbed, NewsChannel, Text
 import * as errorClasses from "./Errors"
 import HydroCarbon from '../../index'
 import {ERROR, ERROR_METACLASS} from './Errors'
+import errorColor from "../utility/embeds/errorColor"
+import defaultColor from "../utility/embeds/defaultColor"
 const fs = require('fs')
 
 /* make the err list definable as a static property of the CommandClass subclass, then use .class to
@@ -94,7 +96,7 @@ export default abstract class CommandClass {
     protected static sendErrMessage(channel: TextChannel | NewsChannel | DMChannel, errMessage: string) {
         sendEmbed(channel, {
             title: errMessage,
-            color: '#FFA500',
+            color: errorColor,
             deleteTimeout: 5000
 
         })
@@ -105,7 +107,7 @@ export default abstract class CommandClass {
         // message is a discord.message, kwargs is a dictionary
     
         let embed = new MessageEmbed()
-        if (kwargs['color']) embed.setColor(kwargs['color'])
+        /*if (kwargs['color'])*/ embed.setColor(defaultColor)
         if (kwargs['title']) embed.setTitle(`${kwargs['title']}`)
         if (kwargs['image']) embed.setImage(`${kwargs['image']}`)
     
@@ -181,7 +183,7 @@ export default abstract class CommandClass {
                         if (rolePresent) oldCommandMain(message, client)
                         else sendEmbed(message.channel, {
                             title: `You do not have the required permissions to use the ${commandName} command, ${message.author.tag}.`,
-                            color: '#0000ff',
+                            color: errorColor,
                             deleteTimeout: 5000,
                         })
                     }
@@ -200,7 +202,7 @@ export default abstract class CommandClass {
             if (message.author.id == '536235243938643998') oldCommandMain(message, client)
             else sendEmbed(message.channel,{
                 title: `This command is unstable. At this time, only Alex AK may use this command`,
-                color: '#ff0000',
+                color: errorColor,
                 deleteTimout: 5000
             })
 
@@ -282,7 +284,7 @@ export default abstract class CommandClass {
     }
 
     // decorator factory
-    /**
+    /*
      * @param time time of cooldown in ms
      * @returns boolean
      */
@@ -311,7 +313,7 @@ export default abstract class CommandClass {
                 else {
                     sendEmbed(message.channel, {
                         title: `That command is on cooldown, ${message.author.tag}.`,
-                        color: 'RED',
+                        color: errorColor,
                         deleteTimeout: 5000
                     })
                 }

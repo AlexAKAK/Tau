@@ -8,6 +8,7 @@ const {randomColor} = require('../hexColors')
 const { green, bold, orange, yellow } = require('../textFormatting')
 
 import getAudio from "./../getAudio"
+import defaultColor from "./defaultColor"
 
 // make this an async function to avoid having to declare the promise
 async function createNowPlayingEmbedPromise(url: string, message: any /*discord.Message*/) {
@@ -29,7 +30,7 @@ async function createNowPlayingEmbedPromise(url: string, message: any /*discord.
     
     const author = message.client.queueMap[message.guild.id].playing.author.tag
     nowPlayingEmbed
-    .setColor(randomColor())
+    .setColor(defaultColor)
     .setTitle(`Now Playing: ${info['videoDetails']['title']}`)
     .setURL(url)
     .addField(`Queued by: ***${author}***`, `Length: ***${timeToDisplay}***`) // used to be timeToDisplay

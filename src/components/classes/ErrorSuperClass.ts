@@ -1,4 +1,6 @@
-import { Message, TextChannel, NewsChannel, DMChannel } from "discord.js"
+import { Message, TextChannel, NewsChannel, DMChannel, MessageEmbed } from "discord.js"
+import defaultColor from "../utility/embeds/defaultColor"
+import errorColor from "../utility/embeds/errorColor"
 const sendEmbed = require('./../utility/embeds/sendEmbed')
 
 export default abstract class ErrorClass {
@@ -13,15 +15,43 @@ export default abstract class ErrorClass {
         return message.content.split(' ')
     }
 
-    
+    /*
     sendErrMessage(channel: TextChannel | NewsChannel | DMChannel, errMessage: string) {
-        sendEmbed(channel, {
-            title: errMessage,
-            color: '#FFA500',
-            deleteTimeout: 5000
-
-        })
+        let embed = new MessageEmbed()
+        embed.setColor(errorColor)
+        embed.setTitle(errMessage)
     }
+    */
+
+    sendErrMessage(channel: TextChannel|DMChannel, message: string) {
+        // message is a discord.message, kwargs is a dictionary
+    
+        let embed = new MessageEmbed()
+        /*if (kwargs['color'])*/ embed.setColor(errorColor)
+        embed.setTitle(message)
+    
+        embed.setTimestamp()
+        
+     
+        // sends the embed message, then returns a promise that resolves to the message.
+        const sentMessagePromise = channel.send(embed)
+        // if there's a deleteTimeout specified
+        sentMessagePromise
+        .then(message => {
+            setTimeout(() => {
+                if (!message.deleted) message.delete()
+            }, 5000)
+        })
+
+
+
+
+        return sentMessagePromise
+    
+        
+    
+    }
+    
 
     
     abstract checkPresence(message: Message): boolean

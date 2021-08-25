@@ -1,0 +1,1 @@
+export default '#FF6F61'

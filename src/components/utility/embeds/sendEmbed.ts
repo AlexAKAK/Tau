@@ -1,4 +1,5 @@
-import { MessageEmbed, TextChannel } from 'discord.js'
+import { DMChannel, MessageEmbed, TextChannel } from 'discord.js'
+import defaultColor from './defaultColor'
 export {}
 // Figure out the directory
 
@@ -7,12 +8,12 @@ function sendEmbed(channel: TextChannel, kwargs: any) {
     // message is a discord.message, kwargs is a dictionary
 
     let embed = new MessageEmbed()
-    if (kwargs['color']) embed.setColor(kwargs['color'])
+    /*if (kwargs['color'])*/ /*embed.setColor(kwargs['color'])*/ embed.setColor(defaultColor)
     if (kwargs['title']) embed.setTitle(`${kwargs['title']}`)
     if (kwargs['image']) embed.setImage(`${kwargs['image']}`)
 
     // the elements in kwargs['fields'] are dictionaries
-    if(kwargs['fields']) {////////////////////////////////////////////////////////////////
+    if(kwargs['fields']) {
 
         for (let i = 0; i < kwargs['fields'].length; i++) {
             const name = kwargs['fields'][i]['name']
@@ -55,5 +56,17 @@ function sendEmbed(channel: TextChannel, kwargs: any) {
 }
 
 
+// possible candidate for a new sendEmbed function
+/*
+function sendEmbed(channel: TextChannel|DMChannel, kwargs: object) {
+    let embed: string = '\`\`\`'
+
+    if (kwargs['title']) embed += `${kwargs['title']}\n`
+
+
+
+    embed += '\`\`\`' // add the end of the text block
+}
+*/
 
 module.exports = sendEmbed

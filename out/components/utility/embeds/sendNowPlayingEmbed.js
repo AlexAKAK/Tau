@@ -15,6 +15,7 @@ const textFormatting = require('../textFormatting');
 const getYoutubeVideoThumbnail = require('../getYoutubeVideoThumbnail');
 const { randomColor } = require('../hexColors');
 const { green, bold, orange, yellow } = require('../textFormatting');
+const defaultColor_1 = require("./defaultColor");
 // make this an async function to avoid having to declare the promise
 function createNowPlayingEmbedPromise(url, message /*discord.Message*/) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -35,7 +36,7 @@ function createNowPlayingEmbedPromise(url, message /*discord.Message*/) {
         }
         const author = message.client.queueMap[message.guild.id].playing.author.tag;
         nowPlayingEmbed
-            .setColor(randomColor())
+            .setColor(defaultColor_1.default)
             .setTitle(`Now Playing: ${info['videoDetails']['title']}`)
             .setURL(url)
             .addField(`Queued by: ***${author}***`, `Length: ***${timeToDisplay}***`) // used to be timeToDisplay

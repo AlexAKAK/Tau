@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const errorClasses = require("./Errors");
+const errorColor_1 = require("../utility/embeds/errorColor");
+const defaultColor_1 = require("../utility/embeds/defaultColor");
 const fs = require('fs');
 /* make the err list definable as a static property of the CommandClass subclass, then use .class to
 retrieve the class. After, use that to call CommandClass.constructor (super, in context).
@@ -35,15 +37,14 @@ class CommandClass {
     static sendErrMessage(channel, errMessage) {
         sendEmbed(channel, {
             title: errMessage,
-            color: '#FFA500',
+            color: errorColor_1.default,
             deleteTimeout: 5000
         });
     }
     static sendEmbed(channel, kwargs) {
         // message is a discord.message, kwargs is a dictionary
         let embed = new discord_js_1.MessageEmbed();
-        if (kwargs['color'])
-            embed.setColor(kwargs['color']);
+        /*if (kwargs['color'])*/ embed.setColor(defaultColor_1.default);
         if (kwargs['title'])
             embed.setTitle(`${kwargs['title']}`);
         if (kwargs['image'])
@@ -96,7 +97,7 @@ class CommandClass {
                 else
                     sendEmbed(message.channel, {
                         title: `You do not have the required permissions to use the ${commandName} command, ${message.author.tag}.`,
-                        color: '#0000ff',
+                        color: errorColor_1.default,
                         deleteTimeout: 5000,
                     });
             });
@@ -112,7 +113,7 @@ class CommandClass {
             else
                 sendEmbed(message.channel, {
                     title: `This command is unstable. At this time, only Alex AK may use this command`,
-                    color: '#ff0000',
+                    color: errorColor_1.default,
                     deleteTimout: 5000
                 });
             target.prototype.commandMain = newCommandMain;
@@ -174,7 +175,7 @@ class CommandClass {
         return true;
     }
     // decorator factory
-    /**
+    /*
      * @param time time of cooldown in ms
      * @returns boolean
      */
@@ -198,7 +199,7 @@ class CommandClass {
                 else {
                     sendEmbed(message.channel, {
                         title: `That command is on cooldown, ${message.author.tag}.`,
-                        color: 'RED',
+                        color: errorColor_1.default,
                         deleteTimeout: 5000
                     });
                 }

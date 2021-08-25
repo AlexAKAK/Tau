@@ -13,7 +13,7 @@ export default class ytchannel extends CommandClass {
             let embed = new MessageEmbed()
             embed.setTitle(`Result for: ${query}`)
             embed.addField(`\`\`\`Channel name\`\`\``, `\`\`\`${channel.name}\`\`\``, false)
-            embed.addField('\`\`\`URL\`\`\`', `\`\`\`channel.URL\`\`\``, false)
+            embed.addField('\`\`\`URL\`\`\`', `\`\`\`${channel.URL}\`\`\``, false)
             embed.setURL(channel.URL)
             embed.setThumbnail(`https:${channel.thumbnail['thumbnails'][1]['url']}`)
             embed.setTimestamp()
