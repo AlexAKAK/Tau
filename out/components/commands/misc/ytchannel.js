@@ -9,10 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
 const CommandClass_1 = require("../../classes/CommandClass");
+const getYTChannelFromQuery_1 = require("../../utility/getYTChannelFromQuery");
 class ytchannel extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            const query = ytchannel.removePrefixAndCommandFromString(message.content, client.PREFIX);
+            const channel = yield getYTChannelFromQuery_1.default(query);
+            if (channel == null)
+                ytchannel.sendErrMessage(message.channel, `There are no channel results for: ${query}`);
+            else {
+                let embed = new discord_js_1.MessageEmbed();
+                embed.setTitle(`Result for: ${query}`);
+                embed.addField(`\`\`\`css\nChannel name\n\`\`\``, `\`\`\`${channel.name}\`\`\``, false);
+                embed.addField('\`\`\`URL\`\`\`', `\`\`\`${channel.URL}\`\`\``, false);
+                embed.setURL(channel.URL);
+                embed.setThumbnail(`https:${channel.thumbnail['thumbnails'][1]['url']}`);
+                embed.setTimestamp();
+                embed.setColor('GREEN');
+                message.channel.send(embed);
+            }
         });
     }
 }

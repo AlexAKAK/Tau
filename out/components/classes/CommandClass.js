@@ -29,6 +29,9 @@ class CommandClass {
     static removePrefixFromString(s, prefix) {
         return s.substring(prefix.length + 2);
     }
+    static removePrefixAndCommandFromString(s, prefix) {
+        return s.substring(s.indexOf(' '));
+    }
     static sendErrMessage(channel, errMessage) {
         sendEmbed(channel, {
             title: errMessage,

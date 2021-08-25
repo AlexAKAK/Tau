@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const ytChannel_1 = require("../classes/ytChannel");
 const youtubesearchapi = require('youtube-search-api');
 function getYTChannelFromQuery(query) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -17,8 +18,9 @@ function getYTChannelFromQuery(query) {
         const results = resultsObject['items'];
         for (let i = 0; i < results.length; i++) {
             if (results[i]['type'] == 'channel')
-                return ``;
+                return new ytChannel_1.default(results[i]['title'], `https://www.youtube.com/channel/${results[i]['id']}`, results[i]['thumbnail']);
         }
+        return null;
     });
 }
 exports.default = getYTChannelFromQuery;

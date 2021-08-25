@@ -37,6 +37,7 @@ const pt_1 = require("./components/science/pt");
 const transcribe_1 = require("./components/science/transcribe");
 const translate_1 = require("./components/science/translate");
 const yt_1 = require("./components/commands/misc/yt");
+const ytchannel_1 = require("./components/commands/misc/ytchannel");
 // import config
 const config = require('./../config.json');
 class HydroCarbon extends discord_js_1.Client {
@@ -75,7 +76,8 @@ class HydroCarbon extends discord_js_1.Client {
             pt_1.default,
             transcribe_1.default,
             translate_1.default,
-            yt_1.default
+            yt_1.default,
+            ytchannel_1.default
         ];
         this.DM_COMMANDS = [
             help_1.default,
@@ -85,7 +87,8 @@ class HydroCarbon extends discord_js_1.Client {
             pt_1.default,
             transcribe_1.default,
             translate_1.default,
-            yt_1.default
+            yt_1.default,
+            ytchannel_1.default
         ];
         // / commands
         // events

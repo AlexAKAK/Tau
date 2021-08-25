@@ -8,8 +8,8 @@ each object within that array represents a search result, each having an id.
 
 var youtubesearchapi = require('youtube-search-api');
 
-youtubesearchapi.GetListByKeyword("among us")
-.then(results => console.log(results.items))
+youtubesearchapi.GetListByKeyword("pewdiepie")
+.then(results => console.log(results.items[1]['thumbnail']['thumbnails'][0]['url']))
 
 // https://www.youtube.com/watch?v=yEupsNjoDUY
 

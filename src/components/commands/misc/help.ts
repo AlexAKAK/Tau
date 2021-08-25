@@ -33,6 +33,7 @@ import transcribe from "../../science/transcribe"
 import translate from "../../science/translate"
 import pt from "../../science/pt"
 import yt from "./yt"
+import ytchannel from "./ytchannel"
 
 /*
 // utilities
@@ -84,7 +85,8 @@ const commands = [
     transcribe,
     translate,
     pt,
-    yt
+    yt,
+    ytchannel
 ]
 
 
