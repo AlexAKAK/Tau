@@ -2,6 +2,7 @@ import { Message, MessageEmbed } from "discord.js";
 import HydroCarbon from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import ytVideo from "../../classes/ytVideo";
+import textBlock from "../../utility/embeds/textBlock";
 import getYTLinksFromQuery from "../../utility/getYTLinksFromQuery";
 
 let youtubesearchapi = require('youtube-search-api');
@@ -20,10 +21,10 @@ export default class yt extends CommandClass {
         const query = yt.removePrefixFromString(message.content, client.PREFIX)
         const links: ytVideo[] = await getYTLinksFromQuery(query)
         let embed = new MessageEmbed()
-        .setTitle(`Search results for ${query}`)
+        .setTitle(textBlock(`Search results for ${query}`))
         .setColor('GREEN')
         for (let i = 0; i < links.length; i++) {
-            embed.addField(`Result ${i + 1}: ${links[i].title}`, links[i].URL, false)
+            embed.addField(textBlock(`Result ${i + 1}: ${links[i].title}`), links[i].URL, false)
         }
         message.channel.send(embed)
     }

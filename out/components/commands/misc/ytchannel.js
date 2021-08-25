@@ -22,8 +22,8 @@ class ytchannel extends CommandClass_1.default {
             else {
                 let embed = new discord_js_1.MessageEmbed();
                 embed.setTitle(`Result for: ${query}`);
-                embed.addField(`\`\`\`css\nChannel name\n\`\`\``, `\`\`\`${channel.name}\`\`\``, false);
-                embed.addField('\`\`\`URL\`\`\`', `\`\`\`${channel.URL}\`\`\``, false);
+                embed.addField(`\`\`\`Channel name\`\`\``, `\`\`\`${channel.name}\`\`\``, false);
+                embed.addField('\`\`\`URL\`\`\`', `\`\`\`channel.URL\`\`\``, false);
                 embed.setURL(channel.URL);
                 embed.setThumbnail(`https:${channel.thumbnail['thumbnails'][1]['url']}`);
                 embed.setTimestamp();
