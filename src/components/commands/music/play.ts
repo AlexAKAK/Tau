@@ -209,10 +209,17 @@ export default class play extends CommandClass {
     static async spotify(message: Message, client: HydroCarbon) {
         const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
         console.log(spotifyURL)
+        console.log(spotifyURL)
+        console.log(spotifyURL)
+        console.log(spotifyURL)
+        console.log(spotifyURL)
+        console.log(spotifyURL)
+
+        
         //
         // change this back to the original link in a bit //
         //
-        const infos = await spdl.getInfo('https://open.spotify.com/track/7r0HynjNIw6GR9DrKIysmC?si=02dde91ba11f4cf0L')
+        const infos = await spdl.getInfo(spotifyURL)
         console.log(infos)
         const artistAndName = infos.artist + " " + infos.title
         const searchResults = await ytsr(artistAndName, { limit: 1 })

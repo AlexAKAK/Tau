@@ -187,10 +187,15 @@ let play = play_1 = class play extends CommandClass_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const spotifyURL = play_1.removePrefixAndCommandFromString(message.content, client.PREFIX);
             console.log(spotifyURL);
+            console.log(spotifyURL);
+            console.log(spotifyURL);
+            console.log(spotifyURL);
+            console.log(spotifyURL);
+            console.log(spotifyURL);
             //
             // change this back to the original link in a bit //
             //
-            const infos = yield spdl.getInfo('https://open.spotify.com/track/7r0HynjNIw6GR9DrKIysmC?si=02dde91ba11f4cf0L');
+            const infos = yield spdl.getInfo(spotifyURL);
             console.log(infos);
             const artistAndName = infos.artist + " " + infos.title;
             const searchResults = yield ytsr(artistAndName, { limit: 1 });

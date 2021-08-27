@@ -90,7 +90,7 @@ export default abstract class CommandClass {
         return s.substring(prefix.length + 2)
     }
     protected static removePrefixAndCommandFromString(s: string, prefix: string) {
-        return s.substring(s.indexOf(' '))
+        return s.substring(s.indexOf(' ') + 1)
     }
 
     protected static sendErrMessage(channel: TextChannel | NewsChannel | DMChannel, errMessage: string) {

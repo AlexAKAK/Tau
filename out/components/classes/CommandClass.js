@@ -32,7 +32,7 @@ class CommandClass {
         return s.substring(prefix.length + 2);
     }
     static removePrefixAndCommandFromString(s, prefix) {
-        return s.substring(s.indexOf(' '));
+        return s.substring(s.indexOf(' ') + 1);
     }
     static sendErrMessage(channel, errMessage) {
         sendEmbed(channel, {
