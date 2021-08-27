@@ -10,9 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/collection": "^0.1.6",
+    "discord-buttons": "^4.0.0",
     "discord-tts": "^1.0.3",
     "discord-ytdl-core": "^5.0.2",
     "discord.js": "^12.5.1",
+    "discord.js-buttons": "^1.0.0",
     "discordjs-ytdl": "^2.2.0",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",

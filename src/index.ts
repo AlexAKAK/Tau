@@ -1,5 +1,5 @@
 // import dependencies
-import { Client, Guild, GuildMember, Message, VoiceState } from "discord.js";
+import { Client, Guild, GuildMember, Message, MessageReaction, VoiceState } from "discord.js";
 
 // import commands 
 import help from './components/commands/misc/help'
@@ -37,6 +37,9 @@ import translate from "./components/science/translate";
 import McGame from "./components/commands/games/mc/classes/McGame";
 import yt from "./components/commands/misc/yt";
 import ytchannel from "./components/commands/misc/ytchannel";
+import { MessageButton } from "discord-buttons";
+
+const disbut = require('discord.js-buttons')
 
 // import config
 const config: object = require('./../config.json')
@@ -198,4 +201,15 @@ export default class HydroCarbon extends Client {
 // Running the bot
 const client: HydroCarbon = new HydroCarbon();
 client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mykagyy_X6_xh5QpXrJbHmwn4Z0')
+disbut(<Client> client)
 
+
+client.on('clickButton', async (button: any) => {
+    if (button.id === 'skip') await skip.prototype.commandMain(button, client)
+
+
+
+
+
+    button.defer()
+});

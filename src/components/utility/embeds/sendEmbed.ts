@@ -1,4 +1,4 @@
-import { DMChannel, MessageEmbed, TextChannel } from 'discord.js'
+import { DMChannel, Message, MessageEmbed, TextChannel } from 'discord.js'
 import defaultColor from './defaultColor'
 export {}
 // Figure out the directory
@@ -38,7 +38,14 @@ function sendEmbed(channel: TextChannel, kwargs: any) {
     
  
     // sends the embed message, then returns a promise that resolves to the message.
-    const sentMessagePromise = channel.send(embed)
+    let sentMessagePromise: Promise<Message>
+    // @ts-ignore
+    if (kwargs['buttons']) sentMessagePromise = channel.send(embed, {
+        buttons: [
+            kwargs['buttons']
+        ]
+    })
+    else sentMessagePromise = channel.send(embed)
     // if there's a deleteTimeout specified
     sentMessagePromise
     .then((message) => {

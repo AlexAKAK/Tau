@@ -28,7 +28,16 @@ function sendEmbed(channel, kwargs) {
     //    else if (typeof kwargs['deleteTimeout'] == Number) timeout = kwargs['deleteTimeout']
     embed.setTimestamp();
     // sends the embed message, then returns a promise that resolves to the message.
-    const sentMessagePromise = channel.send(embed);
+    let sentMessagePromise;
+    // @ts-ignore
+    if (kwargs['buttons'])
+        sentMessagePromise = channel.send(embed, {
+            buttons: [
+                kwargs['buttons']
+            ]
+        });
+    else
+        sentMessagePromise = channel.send(embed);
     // if there's a deleteTimeout specified
     sentMessagePromise
         .then((message) => {

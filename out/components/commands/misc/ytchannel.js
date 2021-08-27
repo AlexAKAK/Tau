@@ -34,3 +34,6 @@ class ytchannel extends CommandClass_1.default {
     }
 }
 exports.default = ytchannel;
+ytchannel.commandCategory = 'misc';
+ytchannel.commandDescription = 'Displays a Youtube channel';
+ytchannel.commandSyntax = 'ytchannel <query>';

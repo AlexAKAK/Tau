@@ -38,6 +38,7 @@ const transcribe_1 = require("./components/science/transcribe");
 const translate_1 = require("./components/science/translate");
 const yt_1 = require("./components/commands/misc/yt");
 const ytchannel_1 = require("./components/commands/misc/ytchannel");
+const disbut = require('discord.js-buttons');
 // import config
 const config = require('./../config.json');
 class HydroCarbon extends discord_js_1.Client {
@@ -179,3 +180,9 @@ exports.default = HydroCarbon;
 // Running the bot
 const client = new HydroCarbon();
 client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mykagyy_X6_xh5QpXrJbHmwn4Z0');
+disbut(client);
+client.on('clickButton', (button) => __awaiter(void 0, void 0, void 0, function* () {
+    if (button.id === 'skip')
+        yield skip_1.default.prototype.commandMain(button, client);
+    button.defer();
+}));

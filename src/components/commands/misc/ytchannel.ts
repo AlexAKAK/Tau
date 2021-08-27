@@ -5,6 +5,12 @@ import ytChannel from "../../classes/ytChannel";
 import getYTChannelFromQuery from "../../utility/getYTChannelFromQuery";
 
 export default class ytchannel extends CommandClass {
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = 'Displays a Youtube channel'
+    protected static commandSyntax: string = 'ytchannel <query>'
+
+
+
     public async commandMain(message: Message, client: HydroCarbon): Promise<any> {
         const query: string = ytchannel.removePrefixAndCommandFromString(message.content, client.PREFIX)
         const channel: ytChannel = await getYTChannelFromQuery(query)
@@ -20,7 +26,6 @@ export default class ytchannel extends CommandClass {
             embed.setColor('GREEN')
             message.channel.send(embed)
         }
-
     }
     
 }

@@ -16,6 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var queue_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+const discord_buttons_1 = require("discord-buttons");
 const CommandClass_1 = require("../../classes/CommandClass");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { lightBlue } = require('./../../utility/hexColors');
@@ -43,11 +44,18 @@ let queue = queue_1 = class queue extends CommandClass_1.default {
             if (fields[0] != undefined && fields[0] != null) {
                 fields[0]['name'] = 'Currently Playing:';
             }
+            let buttons = [];
+            const skipButton = new discord_buttons_1.MessageButton();
+            skipButton.setStyle('blurple');
+            skipButton.setID('skip');
+            skipButton.setLabel('skip');
+            buttons.push(skipButton);
             sendEmbed(message.channel, {
-                title: '** [Queue] **',
+                title: '\`\`\`[Queue]\`\`\`',
                 color: randomColor(),
                 fields: fields,
                 deleteTimeout: 5000,
+                buttons: [skipButton]
             });
             return false;
         });

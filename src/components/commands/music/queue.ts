@@ -1,6 +1,9 @@
-import { Message } from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
+import { MessageButton } from "discord-buttons";
 import HydroCarbon from "../../../index";
 import CommandClass from '../../classes/CommandClass'
+import makeButton from "../../utility/buttons/makeButton";
+import defaultColor from "../../utility/embeds/defaultColor";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const {lightBlue} = require('./../../utility/hexColors');
@@ -48,11 +51,25 @@ export default class queue extends CommandClass {
             fields[0]['name'] = 'Currently Playing:'
         }
 
-        sendEmbed(message.channel, {
-            title: '** [Queue] **',
-            color: randomColor(),
-            fields: fields,
-            deleteTimeout: 5000,
+        let buttons: MessageButton[] = []
+        const skipButton = new MessageButton()
+        skipButton.setStyle('blurple')
+        skipButton.setID('skip')
+        
+        skipButton.setLabel('skip')
+
+        buttons.push(skipButton)
+
+        // working here
+        const embed = new MessageEmbed()
+        embed.setColor(defaultColor)
+        embed.setTimestamp()
+
+
+        message.channel.send('button', {
+            buttons: [
+                skipButton
+            ]
         })
 
         return false
