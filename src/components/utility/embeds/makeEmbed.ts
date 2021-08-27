@@ -1,6 +1,6 @@
 const {MessageEmbed} = require('discord.js')
-export {}
-function makeEmbed(kwargs: any) {
+
+export default function makeEmbed(kwargs: any) {
     // message is a discord.message, kwargs is a dictionary
 
     let embed = new MessageEmbed()
@@ -35,5 +35,3 @@ function makeEmbed(kwargs: any) {
     return embed
 
 }
-
-module.exports = {makeEmbed}

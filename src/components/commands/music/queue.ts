@@ -4,6 +4,7 @@ import HydroCarbon from "../../../index";
 import CommandClass from '../../classes/CommandClass'
 import makeButton from "../../utility/buttons/makeButton";
 import defaultColor from "../../utility/embeds/defaultColor";
+import makeEmbed from "../../utility/embeds/makeEmbed";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const {lightBlue} = require('./../../utility/hexColors');
@@ -61,15 +62,19 @@ export default class queue extends CommandClass {
         buttons.push(skipButton)
 
         // working here
-        const embed = new MessageEmbed()
-        embed.setColor(defaultColor)
-        embed.setTimestamp()
+        const embed: MessageEmbed = makeEmbed({
+            title: '** [Queue] **',
+            color: defaultColor,
+            fields: fields,
+            deleteTimeout: 5000,
+        })
+        
 
-
-        message.channel.send('button', {
+        message.channel.send({
             buttons: [
                 skipButton
-            ]
+            ],
+            embed: embed
         })
 
         return false

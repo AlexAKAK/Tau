@@ -28,4 +28,4 @@ function makeEmbed(kwargs) {
     embed.setTimestamp();
     return embed;
 }
-module.exports = { makeEmbed };
+exports.default = makeEmbed;

@@ -18,6 +18,8 @@ var queue_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_buttons_1 = require("discord-buttons");
 const CommandClass_1 = require("../../classes/CommandClass");
+const defaultColor_1 = require("../../utility/embeds/defaultColor");
+const makeEmbed_1 = require("../../utility/embeds/makeEmbed");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { lightBlue } = require('./../../utility/hexColors');
 const { randomColor } = require('./.././../utility/hexColors');
@@ -50,12 +52,18 @@ let queue = queue_1 = class queue extends CommandClass_1.default {
             skipButton.setID('skip');
             skipButton.setLabel('skip');
             buttons.push(skipButton);
-            sendEmbed(message.channel, {
-                title: '\`\`\`[Queue]\`\`\`',
-                color: randomColor(),
+            // working here
+            const embed = makeEmbed_1.default({
+                title: '** [Queue] **',
+                color: defaultColor_1.default,
                 fields: fields,
                 deleteTimeout: 5000,
-                buttons: [skipButton]
+            });
+            message.channel.send({
+                buttons: [
+                    skipButton
+                ],
+                embed: embed
             });
             return false;
         });
