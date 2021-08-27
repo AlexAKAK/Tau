@@ -30,7 +30,7 @@ export default class stop extends CommandClass {
             // send the embed
             sendEmbed(message.channel, {
                 color: lightBlue,
-                title: `I stopped playing, ${message.author.tag}.`,
+                title: `I stopped playing.`,
                 deleteTimeout: 5000,
             })
     

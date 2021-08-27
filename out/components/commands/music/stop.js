@@ -29,7 +29,7 @@ let stop = stop_1 = class stop extends CommandClass_1.default {
             // send the embed
             sendEmbed(message.channel, {
                 color: lightBlue,
-                title: `I stopped playing, ${message.author.tag}.`,
+                title: `I stopped playing.`,
                 deleteTimeout: 5000,
             });
             return false;

@@ -200,16 +200,18 @@ export default class HydroCarbon extends Client {
 
 // Running the bot
 const client: HydroCarbon = new HydroCarbon();
-client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mykagyy_X6_xh5QpXrJbHmwn4Z0')
+client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mMMtiZeWHv2lcX1NrBM8RetDtag')
 disbut(<Client> client)
 
 
 client.on('clickButton', async (button: any) => {
     if (button.id === 'skip') await skip.prototype.commandMain(button, client)
-
+    if (button.id === 'restart') await restart.prototype.commandMain(button, client)
+    if (button.id === 'stop') await stop.prototype.commandMain(button, client)
 
 
 
 
     button.defer()
+    button.message.delete()
 });

@@ -5,6 +5,9 @@ import CommandClass from '../../classes/CommandClass'
 import makeButton from "../../utility/buttons/makeButton";
 import defaultColor from "../../utility/embeds/defaultColor";
 import makeEmbed from "../../utility/embeds/makeEmbed";
+import makeSkipButton from "../../utility/buttons/makeSkipButton";
+import makeRestartButton from "../../utility/buttons/makeRestartButton";
+import makeStopButton from "../../utility/buttons/makeStopButton";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const {lightBlue} = require('./../../utility/hexColors');
@@ -53,13 +56,11 @@ export default class queue extends CommandClass {
         }
 
         let buttons: MessageButton[] = []
-        const skipButton = new MessageButton()
-        skipButton.setStyle('blurple')
-        skipButton.setID('skip')
         
-        skipButton.setLabel('skip')
 
-        buttons.push(skipButton)
+        buttons.push(makeSkipButton())
+        buttons.push(makeRestartButton())
+        buttons.push(makeStopButton())
 
         // working here
         const embed: MessageEmbed = makeEmbed({
@@ -71,9 +72,7 @@ export default class queue extends CommandClass {
         
 
         message.channel.send({
-            buttons: [
-                skipButton
-            ],
+            buttons: buttons,
             embed: embed
         })
 

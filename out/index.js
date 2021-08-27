@@ -179,10 +179,15 @@ class HydroCarbon extends discord_js_1.Client {
 exports.default = HydroCarbon;
 // Running the bot
 const client = new HydroCarbon();
-client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mykagyy_X6_xh5QpXrJbHmwn4Z0');
+client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mMMtiZeWHv2lcX1NrBM8RetDtag');
 disbut(client);
 client.on('clickButton', (button) => __awaiter(void 0, void 0, void 0, function* () {
     if (button.id === 'skip')
         yield skip_1.default.prototype.commandMain(button, client);
+    if (button.id === 'restart')
+        yield restart_1.default.prototype.commandMain(button, client);
+    if (button.id === 'stop')
+        yield stop_1.default.prototype.commandMain(button, client);
     button.defer();
+    button.message.delete();
 }));
