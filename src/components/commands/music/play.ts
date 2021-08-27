@@ -13,6 +13,8 @@ import { ERROR } from "../../classes/Errors";
 import getAudio from "./../../utility/getAudio"
 export {}
 
+const spdl = require('spdl-core')
+const ytsr = require('ytsr')
 
 @play.alias(['p'])
 
@@ -104,7 +106,7 @@ export default class play extends CommandClass {
                 queue: [],
             }   
                     // add the voice channel as a key in client.queueMap  
-    //return false
+            //return false
 
 
             // STEP 2c
@@ -170,15 +172,69 @@ export default class play extends CommandClass {
         else play.kwQueueAdd(message, client, audio, url)
     }
 
+    static async spotifyPlay(message: Message, client: HydroCarbon, audio: any, url: string) {
+        const infoy = await getInfo(url)
+        if (infoy == null || infoy == undefined) play.handleNoVideoFound(message)
+        client.queueMap[message.guild.id] = {
+            playing: {
+                audio: audio,
+                url: url,
+                songName: infoy['videoDetails']['title'],
+                author: message.author
+                                
+            },
+            queue: [],
+        }
+        
+    }
+
+    static async spotifyAdd(message: Message, client: HydroCarbon, audio: any, url: string) {
+        const info = await getInfo(url)
+        client.queueMap[message.guild.id]['queue'].push({
+            audio: audio,
+            url: url,
+            songName: info['videoDetails']['title'],
+            author: message.author
+        })
+
+        sendEmbed(message.channel, {
+            title: `Added to queue: ${info['videoDetails']['title']}`,
+            color: randomColor(),
+            deleteTimeout: 5000,
+        }) // end of sendEmbed()
+        
+        //return false 
+    }
+
+    static async spotify(message: Message, client: HydroCarbon) {
+        const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
+        console.log(spotifyURL)
+        //
+        // change this back to the original link in a bit //
+        //
+        const infos = await spdl.getInfo('https://open.spotify.com/track/7r0HynjNIw6GR9DrKIysmC?si=02dde91ba11f4cf0L')
+        console.log(infos)
+        const artistAndName = infos.artist + " " + infos.title
+        const searchResults = await ytsr(artistAndName, { limit: 1 })
+        console.log(searchResults)
+        const ytURL = searchResults.items[0].url
+        const audio = ytdl(ytURL)
+
+        console.log(`dispatcher ${message.guild.me.voice.connection.dispatcher}`)
+
+        if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, ytURL)           
+        else play.kwQueueAdd(message, client, audio, ytURL)
+    }
+
 
     public async commandMain(message: Message, client: HydroCarbon) {
         const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
-        const isSpotifyLink = false
+        var re = /((open|play)\.spotify\.com\/)/
+        const isSpotifyLink = re.test(play.removePrefixAndCommandFromString(message.content, client.PREFIX))
+        console.log(isSpotifyLink)
+        
         if (isYTLink) play.yt(message, client)
-        if (isSpotifyLink) play.spotify(message, client)
-
-
-
+        else if (isSpotifyLink) play.spotify(message, client)
         else play.kw(message, client)
 
     }
@@ -191,11 +247,6 @@ export default class play extends CommandClass {
             color: 'RED',
             deleteTimeout: 5000
         })
-
-    }
-
-
-    static spotify(message: Message, client: HydroCarbon) {
 
     }
   

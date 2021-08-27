@@ -24,6 +24,8 @@ const { red, randomColor } = require('./../../utility/hexColors');
 const playAudio = require('./../../utility/playAudio');
 const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
 const getAudio_1 = require("./../../utility/getAudio");
+const spdl = require('spdl-core');
+const ytsr = require('ytsr');
 let play = play_1 = class play extends CommandClass_1.default {
     static ytQueueAdd(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -148,13 +150,69 @@ let play = play_1 = class play extends CommandClass_1.default {
                 play_1.kwQueueAdd(message, client, audio, url);
         });
     }
+    static spotifyPlay(message, client, audio, url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const infoy = yield getInfo(url);
+            if (infoy == null || infoy == undefined)
+                play_1.handleNoVideoFound(message);
+            client.queueMap[message.guild.id] = {
+                playing: {
+                    audio: audio,
+                    url: url,
+                    songName: infoy['videoDetails']['title'],
+                    author: message.author
+                },
+                queue: [],
+            };
+        });
+    }
+    static spotifyAdd(message, client, audio, url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const info = yield getInfo(url);
+            client.queueMap[message.guild.id]['queue'].push({
+                audio: audio,
+                url: url,
+                songName: info['videoDetails']['title'],
+                author: message.author
+            });
+            sendEmbed(message.channel, {
+                title: `Added to queue: ${info['videoDetails']['title']}`,
+                color: randomColor(),
+                deleteTimeout: 5000,
+            }); // end of sendEmbed()
+            //return false 
+        });
+    }
+    static spotify(message, client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const spotifyURL = play_1.removePrefixAndCommandFromString(message.content, client.PREFIX);
+            console.log(spotifyURL);
+            //
+            // change this back to the original link in a bit //
+            //
+            const infos = yield spdl.getInfo('https://open.spotify.com/track/7r0HynjNIw6GR9DrKIysmC?si=02dde91ba11f4cf0L');
+            console.log(infos);
+            const artistAndName = infos.artist + " " + infos.title;
+            const searchResults = yield ytsr(artistAndName, { limit: 1 });
+            console.log(searchResults);
+            const ytURL = searchResults.items[0].url;
+            const audio = ytdl(ytURL);
+            console.log(`dispatcher ${message.guild.me.voice.connection.dispatcher}`);
+            if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined)
+                play_1.kwPlay(message, client, audio, ytURL);
+            else
+                play_1.kwQueueAdd(message, client, audio, ytURL);
+        });
+    }
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
             const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?');
-            const isSpotifyLink = false;
+            var re = /((open|play)\.spotify\.com\/)/;
+            const isSpotifyLink = re.test(play_1.removePrefixAndCommandFromString(message.content, client.PREFIX));
+            console.log(isSpotifyLink);
             if (isYTLink)
                 play_1.yt(message, client);
-            if (isSpotifyLink)
+            else if (isSpotifyLink)
                 play_1.spotify(message, client);
             else
                 play_1.kw(message, client);
@@ -168,8 +226,6 @@ let play = play_1 = class play extends CommandClass_1.default {
                 deleteTimeout: 5000
             });
         });
-    }
-    static spotify(message, client) {
     }
 };
 play.commandCategory = 'music';
