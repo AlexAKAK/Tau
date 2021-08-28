@@ -1,5 +1,5 @@
 // import dependencies
-import { Client, Guild, GuildMember, Message, MessageReaction, VoiceState } from "discord.js";
+import { Client, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState } from "discord.js";
 
 // import commands 
 import help from './components/commands/misc/help'
@@ -37,7 +37,7 @@ import translate from "./components/science/translate";
 import McGame from "./components/commands/games/mc/classes/McGame";
 import yt from "./components/commands/misc/yt";
 import ytchannel from "./components/commands/misc/ytchannel";
-import { MessageButton } from "discord-buttons";
+import { MessageButton, MessageButtonStyles } from "discord-buttons";
 
 const disbut = require('discord.js-buttons')
 
@@ -208,10 +208,9 @@ client.on('clickButton', async (button: any) => {
     if (button.id === 'skip') await skip.prototype.commandMain(button, client)
     if (button.id === 'restart') await restart.prototype.commandMain(button, client)
     if (button.id === 'stop') await stop.prototype.commandMain(button, client)
-
+    if (button.id === 'queue') await queue.prototype.commandMain(button, client)
 
 
 
     button.defer()
-    button.message.delete()
 });

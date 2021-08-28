@@ -8,9 +8,6 @@ const {red, green, lightBlue} = require('./../../utility/hexColors')
 import CommandClass from '../../classes/CommandClass'
  
 
-
-
-
 @stop.errorCheck([
     stop.CLIENT_NOT_IN_VC_ERR, 
     stop.CLIENT_NOT_PLAYING_ANYTHING_ERR

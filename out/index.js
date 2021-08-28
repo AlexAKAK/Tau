@@ -188,6 +188,7 @@ client.on('clickButton', (button) => __awaiter(void 0, void 0, void 0, function*
         yield restart_1.default.prototype.commandMain(button, client);
     if (button.id === 'stop')
         yield stop_1.default.prototype.commandMain(button, client);
+    if (button.id === 'queue')
+        yield queue_1.default.prototype.commandMain(button, client);
     button.defer();
-    button.message.delete();
 }));

@@ -8,6 +8,7 @@ import makeEmbed from "../../utility/embeds/makeEmbed";
 import makeSkipButton from "../../utility/buttons/makeSkipButton";
 import makeRestartButton from "../../utility/buttons/makeRestartButton";
 import makeStopButton from "../../utility/buttons/makeStopButton";
+import makeQueueButton from "../../utility/buttons/makeQueueButton";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const {lightBlue} = require('./../../utility/hexColors');
@@ -61,6 +62,7 @@ export default class queue extends CommandClass {
         buttons.push(makeSkipButton())
         buttons.push(makeRestartButton())
         buttons.push(makeStopButton())
+        buttons.push(makeQueueButton())
 
         // working here
         const embed: MessageEmbed = makeEmbed({
