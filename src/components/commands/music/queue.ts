@@ -50,7 +50,7 @@ export default class queue extends CommandClass {
                 })
             else fields.push({
                 name: `${i + 2}:`,
-                value: 'LOADING'
+                value: 'Spotify Playlist Song'
             })
         }
 

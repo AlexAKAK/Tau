@@ -245,7 +245,9 @@ let play = play_1 = class play extends CommandClass_1.default {
                         type: 'spotify',
                         author: message.author
                     });
-                    play_1.loadUnloadedSongs(message, client);
+                    // add back later
+                    const length = client.queueMap[message.guild.id]['queue'].length;
+                    play_1.loadSong(message, client, client.queueMap[message.guild.id]['queue'][length - 1]);
                 }
             }
             /*
@@ -280,16 +282,14 @@ let play = play_1 = class play extends CommandClass_1.default {
             });
         });
     }
-    static loadUnloadedSongs(message, client) {
+    static loadSong(message, client, song) {
         return __awaiter(this, void 0, void 0, function* () {
-            for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
-                if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
-                    const data = yield getYTLinkFromSpotifyLink_1.default(client.queueMap[message.guild.id]['queue'][i]['url']);
-                    client.queueMap[message.guild.id]['queue'][i]['url'] = data['url'];
-                    client.queueMap[message.guild.id]['queue'][i]['audio'] = data['audio'];
-                    client.queueMap[message.guild.id]['queue'][i]['songName'] = data['songName'];
-                    client.queueMap[message.guild.id]['queue'][i]['type'] = undefined;
-                }
+            if (song['type'] == 'spotify') {
+                const data = yield getYTLinkFromSpotifyLink_1.default(song['url']);
+                song['url'] = data['url'];
+                song['audio'] = data['audio'];
+                song['songName'] = data['songName'];
+                song['type'] = undefined;
             }
         });
     }
