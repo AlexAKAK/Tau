@@ -11,7 +11,7 @@ const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoUR
 import HydroCarbon from './../../../index'
 import { ERROR } from "../../classes/Errors";
 import getAudio from "./../../utility/getAudio"
-import { InternalSymbolName } from "typescript";
+import { collapseTextChangeRangesAcrossMultipleVersions, InternalSymbolName } from "typescript";
 import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink";
 export {}
 const {getData} = require('spotify-url-info')
@@ -252,9 +252,11 @@ export default class play extends CommandClass {
             if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
                 console.log('dispatcher is null')
                 const songData = await getYTLinkFromSpotifyLink(tracks[i])
+                
                 client.queueMap[message.guild.id] = {
                     playing: {
-                        url: tracks[i],
+
+                        url: songData['url'],
                         author: message.author,
                         audio: songData['audio'],
                         songName: songData['songName']

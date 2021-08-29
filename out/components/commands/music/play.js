@@ -229,7 +229,7 @@ let play = play_1 = class play extends CommandClass_1.default {
                     const songData = yield getYTLinkFromSpotifyLink_1.default(tracks[i]);
                     client.queueMap[message.guild.id] = {
                         playing: {
-                            url: tracks[i],
+                            url: songData['url'],
                             author: message.author,
                             audio: songData['audio'],
                             songName: songData['songName']

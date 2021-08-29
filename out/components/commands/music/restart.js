@@ -24,6 +24,7 @@ const CommandClass_1 = require("../../classes/CommandClass");
 let restart = restart_1 = class restart extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(client.queueMap[message.guild.id].playing.url);
             const audio = yield ytdl(client.queueMap[message.guild.id].playing.url);
             if (message.guild.me.voice.connection.dispatcher != null)
                 message.guild.me.voice.connection.dispatcher.destroy();
