@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const getYTLinkFromSpotifyLink_1 = require("./spotify/getYTLinkFromSpotifyLink");
 const playAudio = require('./playAudio');
 const ytdl = require('discord-ytdl-core');
 const sendNowPlayingEmbed = require('./embeds/sendNowPlayingEmbed');
@@ -38,6 +39,14 @@ function checkQueueThenHandle(message, connection) {
         // if the song won't loop, and there is a next song in the queue
         else if (client.queueMap[message.guild.id]['queue'][0]) {
             console.log('else if');
+            if (client.queueMap[message.guild.id]['queue'][0]['type'] == 'spotify') {
+                const songInfo = yield getYTLinkFromSpotifyLink_1.default(client.queueMap[message.guild.id]['queue'][0]['url']);
+                client.queueMap[message.guild.id]['queue'][0]['audio'] = songInfo['audio'];
+                client.queueMap[message.guild.id]['queue'][0]['url'] = songInfo['url']; // switch the spotify url to the youtube url
+                client.queueMap[message.guild.id]['queue'][0]['songName'] = songInfo['songName'];
+                client.queueMap[message.guild.id]['queue'][0]['type'] = undefined;
+                // the song becomes like the rest, after being processed for the first time
+            }
             const audio = client.queueMap[message.guild.id]['queue'][0]['audio'];
             const url = client.queueMap[message.guild.id]['queue'][0]['url'];
             const dispatcher = connection.play(audio, { volume: 0.05 });

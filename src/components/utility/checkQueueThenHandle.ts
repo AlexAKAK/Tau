@@ -1,4 +1,5 @@
 import { Message, VoiceConnection } from "discord.js";
+import getYTLinkFromSpotifyLink from "./spotify/getYTLinkFromSpotifyLink";
 
 /* 
 How handling a [!play <url>] will work
@@ -52,6 +53,15 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
     // if the song won't loop, and there is a next song in the queue
     else if (client.queueMap[message.guild.id]['queue'][0]) {
         console.log('else if')
+        if (client.queueMap[message.guild.id]['queue'][0]['type'] == 'spotify') {
+            const songInfo = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][0]['url'])
+            client.queueMap[message.guild.id]['queue'][0]['audio'] = songInfo['audio']
+            client.queueMap[message.guild.id]['queue'][0]['url'] = songInfo['url'] // switch the spotify url to the youtube url
+            client.queueMap[message.guild.id]['queue'][0]['songName'] = songInfo['songName']
+            client.queueMap[message.guild.id]['queue'][0]['type'] = undefined
+            // the song becomes like the rest, after being processed for the first time
+        }
+    
         const audio = client.queueMap[message.guild.id]['queue'][0]['audio']
         const url = client.queueMap[message.guild.id]['queue'][0]['url']
         

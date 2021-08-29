@@ -11,7 +11,10 @@ const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoUR
 import HydroCarbon from './../../../index'
 import { ERROR } from "../../classes/Errors";
 import getAudio from "./../../utility/getAudio"
+import { InternalSymbolName } from "typescript";
+import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink";
 export {}
+const {getData} = require('spotify-url-info')
 
 const spdl = require('spdl-core')
 const ytsr = require('ytsr')
@@ -104,7 +107,7 @@ export default class play extends CommandClass {
                                 
             },
                 queue: [],
-            }   
+        }   
                     // add the voice channel as a key in client.queueMap  
             //return false
 
@@ -147,7 +150,7 @@ export default class play extends CommandClass {
         */
     // start working here
     
-        if (message.guild.me.voice.connection.dispatcher != null || message.guild.me.voice.connection.dispatcher != undefined) play.ytPlay(message, client)           
+        if (message.guild.me.voice.connection.dispatcher != null || message.guild.me.voice.connection.dispatcher != undefined) await play.ytPlay(message, client)           
         else play.ytQueueAdd(message, client)
     }
     static async kw(message: Message, client: HydroCarbon) {
@@ -209,11 +212,17 @@ export default class play extends CommandClass {
     static async spotify(message: Message, client: HydroCarbon) {
         const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
         console.log(spotifyURL)
-        console.log(spotifyURL)
-        console.log(spotifyURL)
-        console.log(spotifyURL)
-        console.log(spotifyURL)
-        console.log(spotifyURL)
+        const firstSearch: object = await getData(spotifyURL)
+        if (firstSearch['tracks'] != undefined) {
+            let trackUrls: string[] = []
+            for (let i = 0; i < firstSearch['tracks']['items'].length; i++) {
+                
+                if (firstSearch['tracks']['items'][i]['track'] == null){} else trackUrls.push(firstSearch['tracks']['items'][i]['track']['external_urls']['spotify'])
+            }
+
+            await play.spotifyPlaylist(message, client, trackUrls)
+            return
+        }
 
         
         //
@@ -233,13 +242,59 @@ export default class play extends CommandClass {
         else play.kwQueueAdd(message, client, audio, ytURL)
     }
 
+    static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: string[]) {
+        console.log('spotify playlist')
+        console.log(tracks)
+
+        let playing: boolean = false
+        for (let i = 0; i < tracks.length; i++) {
+            if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
+                console.log('dispatcher is null')
+                const songData = await getYTLinkFromSpotifyLink(tracks[i])
+                client.queueMap[message.guild.id] = {
+                    playing: {
+                    url: tracks[i],
+                    author: message.author,
+                    audio: songData['audio'],
+                    songName: songData['songName']
+                                    
+                },
+                    queue: [],
+                }
+
+                playing = true
+                
+                await playAudio(songData['audio'], message.member.voice.channel, songData['url'], message)
+            }                
+            
+            else {
+                client.queueMap[message.guild.id]['queue'].push({
+                   
+                    url: tracks[i],
+                    type: 'spotify',
+                    author: message.author
+                })    
+            }
+        }
+
+        /*
+        for (let i = 0; i < tracks.length; i++) {
+            const audio = ytdl(ytTracks[i])
+            if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, ytTracks[i])           
+            else play.kwQueueAdd(message, client, audio, ytTracks[i])
+            
+        }
+        */
+        
+
+    }
+
 
     public async commandMain(message: Message, client: HydroCarbon) {
         const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
-        var re = /((open|play)\.spotify\.com\/)/
+        const re = /((open|play)\.spotify\.com\/)/
         const isSpotifyLink = re.test(play.removePrefixAndCommandFromString(message.content, client.PREFIX))
-        console.log(isSpotifyLink)
-        
+    
         if (isYTLink) play.yt(message, client)
         else if (isSpotifyLink) play.spotify(message, client)
         else play.kw(message, client)

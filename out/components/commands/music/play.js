@@ -24,6 +24,8 @@ const { red, randomColor } = require('./../../utility/hexColors');
 const playAudio = require('./../../utility/playAudio');
 const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
 const getAudio_1 = require("./../../utility/getAudio");
+const getYTLinkFromSpotifyLink_1 = require("../../utility/spotify/getYTLinkFromSpotifyLink");
+const { getData } = require('spotify-url-info');
 const spdl = require('spdl-core');
 const ytsr = require('ytsr');
 let play = play_1 = class play extends CommandClass_1.default {
@@ -125,7 +127,7 @@ let play = play_1 = class play extends CommandClass_1.default {
             */
             // start working here
             if (message.guild.me.voice.connection.dispatcher != null || message.guild.me.voice.connection.dispatcher != undefined)
-                play_1.ytPlay(message, client);
+                yield play_1.ytPlay(message, client);
             else
                 play_1.ytQueueAdd(message, client);
         });
@@ -187,11 +189,17 @@ let play = play_1 = class play extends CommandClass_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const spotifyURL = play_1.removePrefixAndCommandFromString(message.content, client.PREFIX);
             console.log(spotifyURL);
-            console.log(spotifyURL);
-            console.log(spotifyURL);
-            console.log(spotifyURL);
-            console.log(spotifyURL);
-            console.log(spotifyURL);
+            const firstSearch = yield getData(spotifyURL);
+            if (firstSearch['tracks'] != undefined) {
+                let trackUrls = [];
+                for (let i = 0; i < firstSearch['tracks']['items'].length; i++) {
+                    if (firstSearch['tracks']['items'][i]['track'] == null) { }
+                    else
+                        trackUrls.push(firstSearch['tracks']['items'][i]['track']['external_urls']['spotify']);
+                }
+                yield play_1.spotifyPlaylist(message, client, trackUrls);
+                return;
+            }
             //
             // change this back to the original link in a bit //
             //
@@ -209,12 +217,50 @@ let play = play_1 = class play extends CommandClass_1.default {
                 play_1.kwQueueAdd(message, client, audio, ytURL);
         });
     }
+    static spotifyPlaylist(message, client, tracks) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log('spotify playlist');
+            console.log(tracks);
+            let playing = false;
+            for (let i = 0; i < tracks.length; i++) {
+                if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
+                    console.log('dispatcher is null');
+                    const songData = yield getYTLinkFromSpotifyLink_1.default(tracks[i]);
+                    client.queueMap[message.guild.id] = {
+                        playing: {
+                            url: tracks[i],
+                            author: message.author,
+                            audio: songData['audio'],
+                            songName: songData['songName']
+                        },
+                        queue: [],
+                    };
+                    playing = true;
+                    yield playAudio(songData['audio'], message.member.voice.channel, songData['url'], message);
+                }
+                else {
+                    client.queueMap[message.guild.id]['queue'].push({
+                        url: tracks[i],
+                        type: 'spotify',
+                        author: message.author
+                    });
+                }
+            }
+            /*
+            for (let i = 0; i < tracks.length; i++) {
+                const audio = ytdl(ytTracks[i])
+                if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, ytTracks[i])
+                else play.kwQueueAdd(message, client, audio, ytTracks[i])
+                
+            }
+            */
+        });
+    }
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
             const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?');
-            var re = /((open|play)\.spotify\.com\/)/;
+            const re = /((open|play)\.spotify\.com\/)/;
             const isSpotifyLink = re.test(play_1.removePrefixAndCommandFromString(message.content, client.PREFIX));
-            console.log(isSpotifyLink);
             if (isYTLink)
                 play_1.yt(message, client);
             else if (isSpotifyLink)

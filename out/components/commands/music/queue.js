@@ -29,7 +29,6 @@ const { randomColor } = require('./.././../utility/hexColors');
 let queue = queue_1 = class queue extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('queue.commandMain');
             const playing = client.queueMap[message.guild.id]['playing']; // dict
             const serverQueue = client.queueMap[message.guild.id]['queue']; // array
             // make fields
@@ -40,10 +39,16 @@ let queue = queue_1 = class queue extends CommandClass_1.default {
                 }];
             // add the rest of the queue
             for (let i = 0; i < serverQueue.length; i++) {
-                fields.push({
-                    name: `${i + 2}:`,
-                    value: serverQueue[i]['songName']
-                });
+                if (serverQueue[i]['songName'] != undefined)
+                    fields.push({
+                        name: `${i + 2}:`,
+                        value: serverQueue[i]['songName']
+                    });
+                else
+                    fields.push({
+                        name: `${i + 2}:`,
+                        value: serverQueue[i]['url']
+                    });
             }
             // if there is a leading element in serverQueue, change the name
             if (fields[0] != undefined && fields[0] != null) {

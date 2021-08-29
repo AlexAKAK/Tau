@@ -45,7 +45,6 @@ const disbut = require('discord.js-buttons')
 const config: object = require('./../config.json')
 type GameObject = McGame
 export default class HydroCarbon extends Client {
-    
 
     // property declarations
     public on: any

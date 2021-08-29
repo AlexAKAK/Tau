@@ -31,8 +31,6 @@ export default class queue extends CommandClass {
 
     public async commandMain(message: Message, client: HydroCarbon) {
 
-        console.log('queue.commandMain')
-
         const playing = client.queueMap[message.guild.id]['playing'] // dict
         const serverQueue = client.queueMap[message.guild.id]['queue'] // array
 
@@ -45,9 +43,14 @@ export default class queue extends CommandClass {
         
         // add the rest of the queue
         for (let i = 0; i < serverQueue.length; i++) {
-            fields.push({
+            if (serverQueue[i]['songName'] != undefined)
+                fields.push({
+                    name: `${i + 2}:`,
+                    value: serverQueue[i]['songName']
+                })
+            else fields.push({
                 name: `${i + 2}:`,
-                value: serverQueue[i]['songName']
+                value: serverQueue[i]['url']
             })
         }
 
