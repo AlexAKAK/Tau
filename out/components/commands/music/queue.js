@@ -47,7 +47,7 @@ let queue = queue_1 = class queue extends CommandClass_1.default {
                 else
                     fields.push({
                         name: `${i + 2}:`,
-                        value: serverQueue[i]['url']
+                        value: 'LOADING'
                     });
             }
             // if there is a leading element in serverQueue, change the name

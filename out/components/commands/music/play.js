@@ -155,12 +155,13 @@ let play = play_1 = class play extends CommandClass_1.default {
     static spotifyPlay(message, client, audio, url) {
         return __awaiter(this, void 0, void 0, function* () {
             const infoy = yield getInfo(url);
+            const songData = yield getYTLinkFromSpotifyLink_1.default(url);
             if (infoy == null || infoy == undefined)
                 play_1.handleNoVideoFound(message);
             client.queueMap[message.guild.id] = {
                 playing: {
                     audio: audio,
-                    url: url,
+                    url: songData['url'],
                     songName: infoy['videoDetails']['title'],
                     author: message.author
                 },
@@ -244,6 +245,7 @@ let play = play_1 = class play extends CommandClass_1.default {
                         type: 'spotify',
                         author: message.author
                     });
+                    play_1.loadUnloadedSongs(message, client);
                 }
             }
             /*
@@ -276,6 +278,19 @@ let play = play_1 = class play extends CommandClass_1.default {
                 color: 'RED',
                 deleteTimeout: 5000
             });
+        });
+    }
+    static loadUnloadedSongs(message, client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
+                if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
+                    const data = yield getYTLinkFromSpotifyLink_1.default(client.queueMap[message.guild.id]['queue'][i]['url']);
+                    client.queueMap[message.guild.id]['queue'][i]['url'] = data['url'];
+                    client.queueMap[message.guild.id]['queue'][i]['audio'] = data['audio'];
+                    client.queueMap[message.guild.id]['queue'][i]['songName'] = data['songName'];
+                    client.queueMap[message.guild.id]['queue'][i]['type'] = undefined;
+                }
+            }
         });
     }
 };

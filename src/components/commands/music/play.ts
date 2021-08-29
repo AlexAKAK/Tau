@@ -177,11 +177,12 @@ export default class play extends CommandClass {
 
     static async spotifyPlay(message: Message, client: HydroCarbon, audio: any, url: string) {
         const infoy = await getInfo(url)
+        const songData = await getYTLinkFromSpotifyLink(url)
         if (infoy == null || infoy == undefined) play.handleNoVideoFound(message)
         client.queueMap[message.guild.id] = {
             playing: {
                 audio: audio,
-                url: url,
+                url: songData['url'],
                 songName: infoy['videoDetails']['title'],
                 author: message.author
                                 
@@ -253,12 +254,12 @@ export default class play extends CommandClass {
                 const songData = await getYTLinkFromSpotifyLink(tracks[i])
                 client.queueMap[message.guild.id] = {
                     playing: {
-                    url: tracks[i],
-                    author: message.author,
-                    audio: songData['audio'],
-                    songName: songData['songName']
+                        url: tracks[i],
+                        author: message.author,
+                        audio: songData['audio'],
+                        songName: songData['songName']
                                     
-                },
+                    },
                     queue: [],
                 }
 
@@ -273,7 +274,8 @@ export default class play extends CommandClass {
                     url: tracks[i],
                     type: 'spotify',
                     author: message.author
-                })    
+                })
+                play.loadUnloadedSongs(message, client)
             }
         }
 
@@ -286,7 +288,7 @@ export default class play extends CommandClass {
         }
         */
         
-
+        
     }
 
 
@@ -311,7 +313,18 @@ export default class play extends CommandClass {
         })
 
     }
+
+    static async loadUnloadedSongs(message: Message, client: HydroCarbon) {
+        for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
+            if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
+                const data: object = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][i]['url'])
+                client.queueMap[message.guild.id]['queue'][i]['url'] = data['url']
+                client.queueMap[message.guild.id]['queue'][i]['audio'] = data['audio']
+                client.queueMap[message.guild.id]['queue'][i]['songName'] = data['songName']
+                client.queueMap[message.guild.id]['queue'][i]['type'] = undefined
+            }
+        }
   
+    }
+
 }
-
-
