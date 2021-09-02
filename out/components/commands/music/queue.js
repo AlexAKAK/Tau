@@ -17,12 +17,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var queue_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
-const defaultColor_1 = require("../../utility/embeds/defaultColor");
-const makeEmbed_1 = require("../../utility/embeds/makeEmbed");
-const makeSkipButton_1 = require("../../utility/buttons/makeSkipButton");
-const makeRestartButton_1 = require("../../utility/buttons/makeRestartButton");
-const makeStopButton_1 = require("../../utility/buttons/makeStopButton");
-const makeQueueButton_1 = require("../../utility/buttons/makeQueueButton");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { lightBlue } = require('./../../utility/hexColors');
 const { randomColor } = require('./.././../utility/hexColors');
@@ -47,28 +41,38 @@ let queue = queue_1 = class queue extends CommandClass_1.default {
                 else
                     fields.push({
                         name: `${i + 2}:`,
-                        value: 'Spotify Playlist Song'
+                        value: serverQueue[i]['playlistName']
                     });
             }
             // if there is a leading element in serverQueue, change the name
             if (fields[0] != undefined && fields[0] != null) {
                 fields[0]['name'] = 'Currently Playing:';
             }
+            let text = '\`\`\`css\n';
+            for (let i = 0; i < fields.length; i++) {
+                text += `${fields[i].name}: ${fields[i].value}\n`;
+            }
+            text = text.substring(0, 1990);
+            text += '\`\`\`';
             let buttons = [];
-            buttons.push(makeSkipButton_1.default());
-            buttons.push(makeRestartButton_1.default());
-            buttons.push(makeStopButton_1.default());
-            buttons.push(makeQueueButton_1.default());
+            // buttons
+            /*
+             buttons.push(makeSkipButton())
+             buttons.push(makeRestartButton())
+             buttons.push(makeStopButton())
+             buttons.push(makeQueueButton())
+            */
             // working here
-            const embed = makeEmbed_1.default({
+            /*
+            const embed: MessageEmbed = makeEmbed({
                 title: '** [Queue] **',
-                color: defaultColor_1.default,
+                color: defaultColor,
                 fields: fields,
                 deleteTimeout: 5000,
-            });
-            message.channel.send({
-                buttons: buttons,
-                embed: embed
+            })
+            */
+            message.channel.send(text, {
+                buttons: buttons
             });
             return false;
         });

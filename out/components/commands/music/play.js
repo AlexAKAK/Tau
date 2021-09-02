@@ -192,13 +192,14 @@ let play = play_1 = class play extends CommandClass_1.default {
             console.log(spotifyURL);
             const firstSearch = yield getData(spotifyURL);
             if (firstSearch['tracks'] != undefined) {
+                const playlistName = firstSearch['name'];
                 let trackUrls = [];
                 for (let i = 0; i < firstSearch['tracks']['items'].length; i++) {
                     if (firstSearch['tracks']['items'][i]['track'] == null) { }
                     else
                         trackUrls.push(firstSearch['tracks']['items'][i]['track']['external_urls']['spotify']);
                 }
-                yield play_1.spotifyPlaylist(message, client, trackUrls);
+                yield play_1.spotifyPlaylist(message, client, trackUrls, playlistName);
                 return;
             }
             //
@@ -218,7 +219,7 @@ let play = play_1 = class play extends CommandClass_1.default {
                 play_1.kwQueueAdd(message, client, audio, ytURL);
         });
     }
-    static spotifyPlaylist(message, client, tracks) {
+    static spotifyPlaylist(message, client, tracks, playlistName) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('spotify playlist');
             console.log(tracks);
@@ -232,7 +233,8 @@ let play = play_1 = class play extends CommandClass_1.default {
                             url: songData['url'],
                             author: message.author,
                             audio: songData['audio'],
-                            songName: songData['songName']
+                            songName: songData['songName'],
+                            playlistName: playlistName
                         },
                         queue: [],
                     };
@@ -243,11 +245,11 @@ let play = play_1 = class play extends CommandClass_1.default {
                     client.queueMap[message.guild.id]['queue'].push({
                         url: tracks[i],
                         type: 'spotify',
-                        author: message.author
+                        author: message.author,
+                        playlistName: playlistName
                     });
                     // add back later
                     const length = client.queueMap[message.guild.id]['queue'].length;
-                    play_1.loadSong(message, client, client.queueMap[message.guild.id]['queue'][length - 1]);
                 }
             }
             /*
@@ -290,6 +292,19 @@ let play = play_1 = class play extends CommandClass_1.default {
                 song['audio'] = data['audio'];
                 song['songName'] = data['songName'];
                 song['type'] = undefined;
+            }
+        });
+    }
+    static loadAllSongs(message, client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
+                if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
+                    const data = yield getYTLinkFromSpotifyLink_1.default(client.queueMap[message.guild.id]['queue'][i]['url']);
+                    client.queueMap[message.guild.id]['queue'][i]['url'] = data['url'];
+                    client.queueMap[message.guild.id]['queue'][i]['audio'] = data['audio'];
+                    client.queueMap[message.guild.id]['queue'][i]['songName'] = data['songName'];
+                    client.queueMap[message.guild.id]['queue'][i]['type'] = undefined;
+                }
             }
         });
     }

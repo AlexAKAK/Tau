@@ -215,13 +215,15 @@ export default class play extends CommandClass {
         console.log(spotifyURL)
         const firstSearch: object = await getData(spotifyURL)
         if (firstSearch['tracks'] != undefined) {
+            const playlistName = firstSearch['name']
             let trackUrls: string[] = []
             for (let i = 0; i < firstSearch['tracks']['items'].length; i++) {
                 
                 if (firstSearch['tracks']['items'][i]['track'] == null){} else trackUrls.push(firstSearch['tracks']['items'][i]['track']['external_urls']['spotify'])
             }
+            
 
-            await play.spotifyPlaylist(message, client, trackUrls)
+            await play.spotifyPlaylist(message, client, trackUrls, playlistName)
             return
         }
 
@@ -243,7 +245,7 @@ export default class play extends CommandClass {
         else play.kwQueueAdd(message, client, audio, ytURL)
     }
 
-    static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: string[]) {
+    static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: string[], playlistName: string) {
         console.log('spotify playlist')
         console.log(tracks)
 
@@ -259,7 +261,8 @@ export default class play extends CommandClass {
                         url: songData['url'],
                         author: message.author,
                         audio: songData['audio'],
-                        songName: songData['songName']
+                        songName: songData['songName'],
+                        playlistName: playlistName
                                     
                     },
                     queue: [],
@@ -275,11 +278,11 @@ export default class play extends CommandClass {
                    
                     url: tracks[i],
                     type: 'spotify',
-                    author: message.author
+                    author: message.author,
+                    playlistName: playlistName
                 })
                 // add back later
                 const length = client.queueMap[message.guild.id]['queue'].length
-                play.loadSong(message, client, client.queueMap[message.guild.id]['queue'][length - 1])
             }
         }
 
@@ -327,7 +330,19 @@ export default class play extends CommandClass {
                 song['type'] = undefined
             }
     }
-  
+    
+    static async loadAllSongs(message: Message, client: HydroCarbon) {
+        for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
+            if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
+                const data: object = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][i]['url'])
+                client.queueMap[message.guild.id]['queue'][i]['url'] = data['url']
+                client.queueMap[message.guild.id]['queue'][i]['audio'] = data['audio']
+                client.queueMap[message.guild.id]['queue'][i]['songName'] = data['songName']
+                client.queueMap[message.guild.id]['queue'][i]['type'] = undefined
+            }
+        }
+    }
+    
     
 
 }

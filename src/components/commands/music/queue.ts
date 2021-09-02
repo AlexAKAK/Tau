@@ -34,6 +34,7 @@ export default class queue extends CommandClass {
         const playing = client.queueMap[message.guild.id]['playing'] // dict
         const serverQueue = client.queueMap[message.guild.id]['queue'] // array
 
+        
         // make fields
         // add the playing song, immediately
         let fields = [{
@@ -50,35 +51,45 @@ export default class queue extends CommandClass {
                 })
             else fields.push({
                 name: `${i + 2}:`,
-                value: 'Spotify Playlist Song'
+                value: serverQueue[i]['playlistName']
             })
         }
-
+        
         // if there is a leading element in serverQueue, change the name
         if (fields[0] != undefined && fields[0] != null) {
             fields[0]['name'] = 'Currently Playing:'
         }
+        
+       let text: string = '\`\`\`css\n'
+       for (let i = 0; i < fields.length; i++) {
+           text += `${fields[i].name}: ${fields[i].value}\n`
+       }
+       text = text.substring(0, 1990)
+       text += '\`\`\`'
 
         let buttons: MessageButton[] = []
         
 
+        // buttons
+       /*
         buttons.push(makeSkipButton())
         buttons.push(makeRestartButton())
         buttons.push(makeStopButton())
         buttons.push(makeQueueButton())
+       */
 
         // working here
+        /*
         const embed: MessageEmbed = makeEmbed({
             title: '** [Queue] **',
             color: defaultColor,
             fields: fields,
             deleteTimeout: 5000,
         })
-        
+        */
 
-        message.channel.send({
-            buttons: buttons,
-            embed: embed
+        message.channel.send(text, {
+            buttons: buttons
         })
 
         return false
