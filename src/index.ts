@@ -38,6 +38,7 @@ import McGame from "./components/commands/games/mc/classes/McGame";
 import yt from "./components/commands/misc/yt";
 import ytchannel from "./components/commands/misc/ytchannel";
 import { MessageButton, MessageButtonStyles } from "discord-buttons";
+import shuffle from "./components/commands/music/shuffle";
 
 const disbut = require('discord.js-buttons')
 
@@ -76,6 +77,7 @@ export default class HydroCarbon extends Client {
             clear,
             join,
             leave,
+            shuffle,
             gif,
             meme,
             bal,

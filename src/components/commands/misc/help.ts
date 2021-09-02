@@ -34,6 +34,7 @@ import translate from "../../science/translate"
 import pt from "../../science/pt"
 import yt from "./yt"
 import ytchannel from "./ytchannel"
+import shuffle from "../music/shuffle"
 
 /*
 // utilities
@@ -73,6 +74,7 @@ const commands = [
     report,
     join,
     leave,
+    shuffle,
     loop,
     play,
     queue,

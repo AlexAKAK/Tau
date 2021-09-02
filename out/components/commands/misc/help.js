@@ -45,6 +45,7 @@ const translate_1 = require("../../science/translate");
 const pt_1 = require("../../science/pt");
 const yt_1 = require("./yt");
 const ytchannel_1 = require("./ytchannel");
+const shuffle_1 = require("../music/shuffle");
 /*
 // utilities
 import getDirectories from "../../utility/getDirectories"
@@ -83,6 +84,7 @@ const commands = [
     report_1.default,
     join_1.default,
     leave_1.default,
+    shuffle_1.default,
     loop_1.default,
     play_1.default,
     queue_1.default,

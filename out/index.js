@@ -38,6 +38,7 @@ const transcribe_1 = require("./components/science/transcribe");
 const translate_1 = require("./components/science/translate");
 const yt_1 = require("./components/commands/misc/yt");
 const ytchannel_1 = require("./components/commands/misc/ytchannel");
+const shuffle_1 = require("./components/commands/music/shuffle");
 const disbut = require('discord.js-buttons');
 // import config
 const config = require('./../config.json');
@@ -63,6 +64,7 @@ class HydroCarbon extends discord_js_1.Client {
             clear_1.default,
             join_1.default,
             leave_1.default,
+            shuffle_1.default,
             gif_1.default,
             meme_1.default,
             bal_1.default,
