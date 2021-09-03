@@ -293,6 +293,7 @@ export default class play extends CommandClass {
                 const length = client.queueMap[message.guild.id]['queue'].length
 
             }
+            // play.loadAllSongs(message, client)
             
            
         }
@@ -305,6 +306,8 @@ export default class play extends CommandClass {
             
         }
         */
+
+
         
         
     }

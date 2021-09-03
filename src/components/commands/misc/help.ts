@@ -35,81 +35,65 @@ import pt from "../../science/pt"
 import yt from "./yt"
 import ytchannel from "./ytchannel"
 import shuffle from "../music/shuffle"
-
-/*
-// utilities
-import getDirectories from "../../utility/getDirectories"
-const path = require('path')
-
-// each folder for a command categorys
-const commandCategories: string[] = getDirectories(`${__dirname}/../`)
-let commandsByCategory: object = {}
-// load each command into the correct category
+import defaultColor from "../../utility/embeds/defaultColor"
+import errorColor from "../../utility/embeds/errorColor"
+import allCommands from "../../commandCategories/allCommands"
+// all commands organized by category
+import CommandCategory from "../../classes/CommandCategory"
 
 
-for (let i = 0; i < commandCategories.length; i++) {
-    let commandsForThisCategory: string[] = getDirectories(`${__dirname}/../${commandCategories[i]}`)
-    let commandClassArray: Function[] = [];
-    
-    for (let j = 0; j < commandsForThisCategory.length; j++) {
-        commandClassArray.push(require(`${__dirname}/../${commandCategories[i]}/${commandsForThisCategory[j]}`))
-    }
 
-    // add the commands to the object
-    commandsByCategory[commandCategories[i]] = commandClassArray
-}
 
-const miscCommands: string[] = getDirectories(path.resolve(__dirname, './../misc'))
 
-*/
-const commands = [
-    bal,
-    hack,
-    mine,
-    walletcreate,
-    announce,
-    clear,
-    gif,
-    meme,
-    report,
-    join,
-    leave,
-    shuffle,
-    loop,
-    play,
-    queue,
-    restart,
-    skip,
-    stop,
-    currentgame,
-    stopgame,
-    mc,
-    transcribe,
-    translate,
-    pt,
-    yt,
-    ytchannel
-]
 
 
 @help.alias(['h'])
 export default class help extends CommandClass {
+    // all commands array
+    private static commands: any[] = []
+    
+
+    //console.log(commands)
+
+
+    private static categories: string[] = []
+    
+    
     
     public async commandMain(message: Message, client: HydroCarbon) {
+        console.log(help.commands)
+        for (let i = 0; i < allCommands.length; i++) {
+                for (let j = 0; j < allCommands[i].commands.length; j++) {
+                    help.commands.push(allCommands[i].commands[j])
+                }
+            }
+
+        for (const category of allCommands) {
+                help.categories.push(category.name)
+            }
+
+
+
         const args = help.splitArgsWithoutCommandCall(message)
         if (args.length == 0) help.noArgsMain(message, client)
         else help.argsMain(message, client)
     }
 
     private static async noArgsMain(message: Message, client: HydroCarbon): Promise<void> {
+    
         const embed = new MessageEmbed()
-        .setColor('GREEN')
-        .setTimestamp()  
-        commands.forEach(
-            function(command: any){
-                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, true)
-            }
-        )
+        .setTitle('\`\`\`To see available commands, type: ak!help <category/command>\`\`\`')
+        .setColor(defaultColor)
+        .setTimestamp()
+
+        for (let i = 0; i < allCommands.length; i++) {
+            
+            //embed.addField(`\`\`\`${client.PREFIX}${allCommands[i].commandSyntax}\`\`\``, `\`\`\`${help.commands[i].commandCategory}: ${help.commands[i].commandDescription}\`\`\``, true)
+            embed.addField(`\`\`\`${allCommands[i].name}\`\`\``, `\`\`\`${allCommands[i].description}\`\`\``, true)
+            
+
+        }
+        
 
 
         const sentMessage = await message.channel.send(embed)
@@ -120,11 +104,35 @@ export default class help extends CommandClass {
     }
 
     private static async argsMain(message: Message, client: HydroCarbon): Promise<void> {
-        const commandName = help.splitArgsWithoutCommandCall(message)[0]
+     
+        const arg = help.splitArgsWithoutCommandCall(message)[0].toLowerCase()
+        if (help.categories.indexOf(arg) != -1) help.argsMainCategory(message, client, arg)
+        else help.argsMainCommand(message, client)
+
+    }
+    private static async argsMainCategory(message: Message, client: HydroCarbon, category: string): Promise<void> {
+        for (const _category of allCommands) 
+        {
+            if (_category.name == category) 
+            {
+                const embed = new MessageEmbed()
+                embed.setTimestamp()
+                embed.setColor(defaultColor)
+                embed.setTitle(`\`\`\`Command Category: ${_category.name}\`\`\``)
+                for (const command of _category.commands) {
+                    embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandDescription}\`\`\``, true)
+                }
+                message.channel.send(embed)
+            }
+        }
+    }
+
+    private static async argsMainCommand(message: Message, client: HydroCarbon): Promise<void> {
+        const commandName = help.splitArgsWithoutCommandCall(message)[0].toLowerCase()
         if (!help.checkIfCommandNameIsValid(commandName)) {
             help.sendEmbed(<TextChannel|DMChannel> message.channel, {
                 title: `Invalid command name, ${message.author.tag}.`,
-                color: 'RED',
+                color: errorColor,
                 deleteTimeout: 5000
             })
             return
@@ -133,8 +141,8 @@ export default class help extends CommandClass {
         const command: any = help.getCommand(help.splitArgsWithoutCommandCall(message)[0])
         const embed = new MessageEmbed()
         .setTimestamp()
-        .setColor('GREEN')
-        .addField(`Usage: ${command.commandSyntax}`, `Description: ${command.commandDescription}`, false)
+        .setColor(defaultColor)
+        .addField(`\`\`\`Usage: ${command.commandSyntax}\`\`\``, `\`\`\`Description: ${command.commandDescription}\`\`\``, false)
 
         message.channel.send(embed)
         
@@ -144,7 +152,7 @@ export default class help extends CommandClass {
 
     private static checkIfCommandNameIsValid(commandName: string): boolean {
         let valid: boolean = false;
-        commands.forEach(function(command: any) {
+        help.commands.forEach(function(command: any) {
             if (command.name == commandName) valid = true
         })
 
@@ -153,7 +161,7 @@ export default class help extends CommandClass {
 
     private static getCommand(commandName: string): Function {
         let command: Function = null
-        commands.forEach(function(_command: any) {
+        help.commands.forEach(function(_command: any) {
             if (_command.name == commandName) command = _command
         })
         return command

@@ -19,90 +19,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 //const CommandClass = require('../classes/CommandClass')
 const CommandClass_1 = require("../../classes/CommandClass");
-// import commands
-const bal_1 = require("../currency/bal");
-const hack_1 = require("../currency/hack");
-const mine_1 = require("../currency/mine");
-const walletcreate_1 = require("../currency/walletcreate");
-const announce_1 = require("./announce");
-const clear_1 = require("./clear");
-const gif_1 = require("./gif");
-const meme_1 = require("./meme");
-const report_1 = require("./report");
-const join_1 = require("../music/join");
-const leave_1 = require("../music/leave");
-const loop_1 = require("../music/loop");
-const play_1 = require("../music/play");
-const queue_1 = require("../music/queue");
-const restart_1 = require("../music/restart");
-const skip_1 = require("../music/skip");
-const stop_1 = require("../music/stop");
-const currentgame_1 = require("../games/currentgame");
-const stopgame_1 = require("../games/stopgame");
-const mc_1 = require("../games/mc/mc");
-const transcribe_1 = require("../../science/transcribe");
-const translate_1 = require("../../science/translate");
-const pt_1 = require("../../science/pt");
-const yt_1 = require("./yt");
-const ytchannel_1 = require("./ytchannel");
-const shuffle_1 = require("../music/shuffle");
-/*
-// utilities
-import getDirectories from "../../utility/getDirectories"
-const path = require('path')
-
-// each folder for a command categorys
-const commandCategories: string[] = getDirectories(`${__dirname}/../`)
-let commandsByCategory: object = {}
-// load each command into the correct category
-
-
-for (let i = 0; i < commandCategories.length; i++) {
-    let commandsForThisCategory: string[] = getDirectories(`${__dirname}/../${commandCategories[i]}`)
-    let commandClassArray: Function[] = [];
-    
-    for (let j = 0; j < commandsForThisCategory.length; j++) {
-        commandClassArray.push(require(`${__dirname}/../${commandCategories[i]}/${commandsForThisCategory[j]}`))
-    }
-
-    // add the commands to the object
-    commandsByCategory[commandCategories[i]] = commandClassArray
-}
-
-const miscCommands: string[] = getDirectories(path.resolve(__dirname, './../misc'))
-
-*/
-const commands = [
-    bal_1.default,
-    hack_1.default,
-    mine_1.default,
-    walletcreate_1.default,
-    announce_1.default,
-    clear_1.default,
-    gif_1.default,
-    meme_1.default,
-    report_1.default,
-    join_1.default,
-    leave_1.default,
-    shuffle_1.default,
-    loop_1.default,
-    play_1.default,
-    queue_1.default,
-    restart_1.default,
-    skip_1.default,
-    stop_1.default,
-    currentgame_1.default,
-    stopgame_1.default,
-    mc_1.default,
-    transcribe_1.default,
-    translate_1.default,
-    pt_1.default,
-    yt_1.default,
-    ytchannel_1.default
-];
+const defaultColor_1 = require("../../utility/embeds/defaultColor");
+const errorColor_1 = require("../../utility/embeds/errorColor");
+const allCommands_1 = require("../../commandCategories/allCommands");
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(help_1.commands);
+            for (let i = 0; i < allCommands_1.default.length; i++) {
+                for (let j = 0; j < allCommands_1.default[i].commands.length; j++) {
+                    help_1.commands.push(allCommands_1.default[i].commands[j]);
+                }
+            }
+            for (const category of allCommands_1.default) {
+                help_1.categories.push(category.name);
+            }
             const args = help_1.splitArgsWithoutCommandCall(message);
             if (args.length == 0)
                 help_1.noArgsMain(message, client);
@@ -113,11 +44,13 @@ let help = help_1 = class help extends CommandClass_1.default {
     static noArgsMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
             const embed = new discord_js_1.MessageEmbed()
-                .setColor('GREEN')
+                .setTitle('\`\`\`To see available commands, type: ak!help <category/command>\`\`\`')
+                .setColor(defaultColor_1.default)
                 .setTimestamp();
-            commands.forEach(function (command) {
-                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, true);
-            });
+            for (let i = 0; i < allCommands_1.default.length; i++) {
+                //embed.addField(`\`\`\`${client.PREFIX}${allCommands[i].commandSyntax}\`\`\``, `\`\`\`${help.commands[i].commandCategory}: ${help.commands[i].commandDescription}\`\`\``, true)
+                embed.addField(`\`\`\`${allCommands_1.default[i].name}\`\`\``, `\`\`\`${allCommands_1.default[i].description}\`\`\``, true);
+            }
             const sentMessage = yield message.channel.send(embed);
             setTimeout(function () {
                 if (!sentMessage['deleted'])
@@ -127,11 +60,36 @@ let help = help_1 = class help extends CommandClass_1.default {
     }
     static argsMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            const commandName = help_1.splitArgsWithoutCommandCall(message)[0];
+            const arg = help_1.splitArgsWithoutCommandCall(message)[0].toLowerCase();
+            if (help_1.categories.indexOf(arg) != -1)
+                help_1.argsMainCategory(message, client, arg);
+            else
+                help_1.argsMainCommand(message, client);
+        });
+    }
+    static argsMainCategory(message, client, category) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (const _category of allCommands_1.default) {
+                if (_category.name == category) {
+                    const embed = new discord_js_1.MessageEmbed();
+                    embed.setTimestamp();
+                    embed.setColor(defaultColor_1.default);
+                    embed.setTitle(`\`\`\`Command Category: ${_category.name}\`\`\``);
+                    for (const command of _category.commands) {
+                        embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandDescription}\`\`\``, true);
+                    }
+                    message.channel.send(embed);
+                }
+            }
+        });
+    }
+    static argsMainCommand(message, client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const commandName = help_1.splitArgsWithoutCommandCall(message)[0].toLowerCase();
             if (!help_1.checkIfCommandNameIsValid(commandName)) {
                 help_1.sendEmbed(message.channel, {
                     title: `Invalid command name, ${message.author.tag}.`,
-                    color: 'RED',
+                    color: errorColor_1.default,
                     deleteTimeout: 5000
                 });
                 return;
@@ -139,14 +97,14 @@ let help = help_1 = class help extends CommandClass_1.default {
             const command = help_1.getCommand(help_1.splitArgsWithoutCommandCall(message)[0]);
             const embed = new discord_js_1.MessageEmbed()
                 .setTimestamp()
-                .setColor('GREEN')
-                .addField(`Usage: ${command.commandSyntax}`, `Description: ${command.commandDescription}`, false);
+                .setColor(defaultColor_1.default)
+                .addField(`\`\`\`Usage: ${command.commandSyntax}\`\`\``, `\`\`\`Description: ${command.commandDescription}\`\`\``, false);
             message.channel.send(embed);
         });
     }
     static checkIfCommandNameIsValid(commandName) {
         let valid = false;
-        commands.forEach(function (command) {
+        help_1.commands.forEach(function (command) {
             if (command.name == commandName)
                 valid = true;
         });
@@ -154,13 +112,17 @@ let help = help_1 = class help extends CommandClass_1.default {
     }
     static getCommand(commandName) {
         let command = null;
-        commands.forEach(function (_command) {
+        help_1.commands.forEach(function (_command) {
             if (_command.name == commandName)
                 command = _command;
         });
         return command;
     }
 };
+// all commands array
+help.commands = [];
+//console.log(commands)
+help.categories = [];
 help = help_1 = __decorate([
     help_1.alias(['h'])
 ], help);

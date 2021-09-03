@@ -202,10 +202,10 @@ export default class HydroCarbon extends Client {
 
 // Running the bot
 const client: HydroCarbon = new HydroCarbon();
-client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mMMtiZeWHv2lcX1NrBM8RetDtag')
+client.login('ODgzNDA5NDM5NDE4MzU1NzIz.YTJhJw.5Z1QZr9W1l9O1cS0g4erzi4hHk8')
 disbut(<Client> client)
 
-
+// buttons
 client.on('clickButton', async (button: any) => {
     if (button.id === 'skip'&&buttonErrorChecking.skip(button) == false) {
         buttonErrorChecking.skip(button)

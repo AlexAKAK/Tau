@@ -8,9 +8,9 @@ int main(void) {
     system("tsc --outdir out");
     printf("%s", "[Executing index.js]\n");
     
-    while(1) {
+    //while(1) {
         system("node out/index.js");
-    }
+    //}
 
     return 0;
 }

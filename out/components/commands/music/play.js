@@ -261,6 +261,7 @@ let play = play_1 = class play extends CommandClass_1.default {
                             // add back later
                             const length = client.queueMap[message.guild.id]['queue'].length;
                         }
+                // play.loadAllSongs(message, client)
             }
             /*
             for (let i = 0; i < tracks.length; i++) {
