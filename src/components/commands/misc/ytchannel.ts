@@ -2,7 +2,12 @@ import { Message, MessageEmbed } from "discord.js";
 import HydroCarbon from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import ytChannel from "../../classes/ytChannel";
+import defaultColor from "../../utility/embeds/defaultColor";
 import getYTChannelFromQuery from "../../utility/getYTChannelFromQuery";
+
+@ytchannel.errorCheck([
+    ytchannel.MISSING_ARGS_ERR_METACLASS(2)
+])
 
 export default class ytchannel extends CommandClass {
     protected static commandCategory: string = 'misc'
@@ -23,7 +28,7 @@ export default class ytchannel extends CommandClass {
             embed.setURL(channel.URL)
             embed.setThumbnail(`https:${channel.thumbnail['thumbnails'][1]['url']}`)
             embed.setTimestamp()
-            embed.setColor('GREEN')
+            embed.setColor(defaultColor)
             message.channel.send(embed)
         }
     }

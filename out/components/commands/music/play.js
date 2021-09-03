@@ -224,6 +224,10 @@ let play = play_1 = class play extends CommandClass_1.default {
     }
     static spotifyPlaylist(message, client, tracks, playlistName) {
         return __awaiter(this, void 0, void 0, function* () {
+            sendEmbed(message.channel, {
+                title: `Loading Spotify Playlist: ${playlistName}`,
+                deleteTimeout: 5000
+            });
             console.log('spotify playlist');
             console.log(tracks);
             let playing = false;

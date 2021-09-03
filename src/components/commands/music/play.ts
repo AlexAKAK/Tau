@@ -248,6 +248,10 @@ export default class play extends CommandClass {
     }
 
     private static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: object[], playlistName: string) {
+        sendEmbed(message.channel, {
+            title: `Loading Spotify Playlist: ${playlistName}`,
+            deleteTimeout: 5000
+        })
         console.log('spotify playlist')
         console.log(tracks)
 
@@ -287,6 +291,7 @@ export default class play extends CommandClass {
                 })
                 // add back later
                 const length = client.queueMap[message.guild.id]['queue'].length
+
             }
             
            
