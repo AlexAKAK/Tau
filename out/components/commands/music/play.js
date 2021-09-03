@@ -139,7 +139,7 @@ let play = play_1 = class play extends CommandClass_1.default {
             const url = yield getYoutubeVideoUrlFromKeyword(keyWords);
             if (url == null) {
                 sendEmbed(message.channel, {
-                    title: `no videos found, ${message.author.tag}`,
+                    title: `No videos found for: ${keyWords}`,
                     color: randomColor(),
                     deleteTimeout: 5000,
                 });

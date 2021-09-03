@@ -14,10 +14,13 @@ function getYoutubeVideoUrlFromKeyword(keyWords) {
         ytSearch(keyWords, opts, (err, results) => {
             if (err) {
                 console.log(err);
-                reject(err);
+                return null;
             }
             else {
-                resolve(results[0]['link']);
+                if (results.length == 0)
+                    resolve(null);
+                else
+                    resolve(results[0]['link']);
             }
         });
     });

@@ -153,14 +153,14 @@ export default class play extends CommandClass {
         if (message.guild.me.voice.connection.dispatcher != null || message.guild.me.voice.connection.dispatcher != undefined) await play.ytPlay(message, client)           
         else play.ytQueueAdd(message, client)
     }
-    static async kw(message: Message, client: HydroCarbon) {
+    private static async kw(message: Message, client: HydroCarbon) {
         console.log('kw')
         const keyWords = message.content.substring(message.content.indexOf(' ') + 1)
     
         const url = await getYoutubeVideoUrlFromKeyword(keyWords)
         if (url == null) {
             sendEmbed(message.channel, {
-                title: `no videos found, ${message.author.tag}`,
+                title: `No videos found for: ${keyWords}`,
                 color: randomColor(),
                 deleteTimeout: 5000,
                 
@@ -175,7 +175,7 @@ export default class play extends CommandClass {
         else play.kwQueueAdd(message, client, audio, url)
     }
 
-    static async spotifyPlay(message: Message, client: HydroCarbon, audio: any, url: string) {
+    private static async spotifyPlay(message: Message, client: HydroCarbon, audio: any, url: string) {
         const infoy = await getInfo(url)
         const songData = await getYTLinkFromSpotifyLink(url)
         if (infoy == null || infoy == undefined) play.handleNoVideoFound(message)
@@ -192,7 +192,7 @@ export default class play extends CommandClass {
         
     }
 
-    static async spotifyAdd(message: Message, client: HydroCarbon, audio: any, url: string) {
+    private static async spotifyAdd(message: Message, client: HydroCarbon, audio: any, url: string) {
         const info = await getInfo(url)
         client.queueMap[message.guild.id]['queue'].push({
             audio: audio,
@@ -210,7 +210,7 @@ export default class play extends CommandClass {
         //return false 
     }
 
-    static async spotify(message: Message, client: HydroCarbon) {
+    private static async spotify(message: Message, client: HydroCarbon) {
         const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
         console.log(spotifyURL)
         const firstSearch: object = await getData(spotifyURL)
@@ -245,7 +245,7 @@ export default class play extends CommandClass {
         else play.kwQueueAdd(message, client, audio, ytURL)
     }
 
-    static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: string[], playlistName: string) {
+    private static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: string[], playlistName: string) {
         console.log('spotify playlist')
         console.log(tracks)
 
@@ -309,10 +309,10 @@ export default class play extends CommandClass {
         else play.kw(message, client)
 
     }
-
+22
     
 
-    static async handleNoVideoFound(message: Message) {
+    private static async handleNoVideoFound(message: Message) {
         sendEmbed(message.channel, {
             title: `No video results found, ${message.author.tag}.`,
             color: 'RED',
@@ -321,7 +321,7 @@ export default class play extends CommandClass {
 
     }
 
-    static async loadSong(message: Message, client: HydroCarbon, song: object) {
+    private static async loadSong(message: Message, client: HydroCarbon, song: object) {
             if (song['type'] == 'spotify') {
                 const data: object = await getYTLinkFromSpotifyLink(song['url'])
                 song['url'] = data['url']
@@ -331,7 +331,7 @@ export default class play extends CommandClass {
             }
     }
     
-    static async loadAllSongs(message: Message, client: HydroCarbon) {
+    private static async loadAllSongs(message: Message, client: HydroCarbon) {
         for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
             if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
                 const data: object = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][i]['url'])

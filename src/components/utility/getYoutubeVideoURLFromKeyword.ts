@@ -11,17 +11,18 @@ const opts = {
 // / config
 
 // the function
-function getYoutubeVideoUrlFromKeyword(keyWords: any) {
+function getYoutubeVideoUrlFromKeyword(keyWords: string): Promise<unknown> {
     // keyWords: string
 
     const urlPromise = new Promise(function(resolve, reject) {
         ytSearch(keyWords, opts, (err: Error, results: any[]) => {
             if (err) {
                 console.log(err)
-                reject(err)
+                return null
             }
             else {
-                resolve(results[0]['link'])
+                if (results.length == 0) resolve(null)
+                else resolve(results[0]['link'])
             }
         })
 

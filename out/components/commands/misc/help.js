@@ -120,7 +120,7 @@ let help = help_1 = class help extends CommandClass_1.default {
                 .setColor('GREEN')
                 .setTimestamp();
             commands.forEach(function (command) {
-                embed.addField(`${client.PREFIX}${command.commandSyntax}`, `${command.commandCategory}: ${command.commandDescription}`, false);
+                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, false);
             });
             const sentMessage = yield message.channel.send(embed);
             setTimeout(function () {

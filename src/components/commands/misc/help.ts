@@ -111,7 +111,7 @@ export default class help extends CommandClass {
         .setTimestamp()  
         commands.forEach(
             function(command: any){
-                embed.addField(`${client.PREFIX}${command.commandSyntax}`, `${command.commandCategory}: ${command.commandDescription}`, false)
+                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, false)
             }
         )
 

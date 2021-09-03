@@ -1,13 +1,4 @@
-function test() {
-    console.log('aeaegaeg')
-}
+const ytsr = require('ytsr')
 
-/**
- * 
- * @param {string} a 
- */
-function test(a) {
-    console.log(a)
-}
 
-test()
+ytsr('mcjuuggernuggets', {type: 'video'}).then(data => console.log(data.items[0]))
