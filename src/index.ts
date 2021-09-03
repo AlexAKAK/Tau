@@ -39,6 +39,7 @@ import yt from "./components/commands/misc/yt";
 import ytchannel from "./components/commands/misc/ytchannel";
 import { MessageButton, MessageButtonStyles } from "discord-buttons";
 import shuffle from "./components/commands/music/shuffle";
+import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
 
 const disbut = require('discord.js-buttons')
 
@@ -206,12 +207,19 @@ disbut(<Client> client)
 
 
 client.on('clickButton', async (button: any) => {
-    if (button.id === 'skip') await skip.prototype.commandMain(button, client)
-    if (button.id === 'restart') await restart.prototype.commandMain(button, client)
-    if (button.id === 'stop') await stop.prototype.commandMain(button, client)
-    if (button.id === 'queue') await queue.prototype.commandMain(button, client)
-
-
+    if (button.id === 'skip'&&buttonErrorChecking.skip(button) == false) {
+        buttonErrorChecking.skip(button)
+        await skip.prototype.commandMain(button, client)
+    }
+    if (button.id === 'restart'&&buttonErrorChecking.restart(button) == false) {
+        await restart.prototype.commandMain(button, client)
+    }
+    if (button.id === 'stop'&&buttonErrorChecking.stop(button) == false) {
+        await stop.prototype.commandMain(button, client)
+    }
+    if (button.id === 'queue'&&buttonErrorChecking.queue(button) == false) {
+        await queue.prototype.commandMain(button, client)
+    }
 
     button.defer()
 });

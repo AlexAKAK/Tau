@@ -17,6 +17,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var queue_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
+const makeSkipButton_1 = require("../../utility/buttons/makeSkipButton");
+const makeRestartButton_1 = require("../../utility/buttons/makeRestartButton");
+const makeStopButton_1 = require("../../utility/buttons/makeStopButton");
+const makeQueueButton_1 = require("../../utility/buttons/makeQueueButton");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { lightBlue } = require('./../../utility/hexColors');
 const { randomColor } = require('./.././../utility/hexColors');
@@ -56,12 +60,10 @@ let queue = queue_1 = class queue extends CommandClass_1.default {
             text += '\`\`\`';
             let buttons = [];
             // buttons
-            /*
-             buttons.push(makeSkipButton())
-             buttons.push(makeRestartButton())
-             buttons.push(makeStopButton())
-             buttons.push(makeQueueButton())
-            */
+            buttons.push(makeSkipButton_1.default());
+            buttons.push(makeRestartButton_1.default());
+            buttons.push(makeStopButton_1.default());
+            buttons.push(makeQueueButton_1.default());
             // working here
             /*
             const embed: MessageEmbed = makeEmbed({

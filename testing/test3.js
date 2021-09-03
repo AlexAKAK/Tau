@@ -1,3 +1,13 @@
-const spdl = require('spotify-url-info')
-spdl.getData('https://open.spotify.com/playlist/23HmhAZieytXqMt7FvSiZO')
-.then(data => console.log(data.name))
+function test() {
+    console.log('aeaegaeg')
+}
+
+/**
+ * 
+ * @param {string} a 
+ */
+function test(a) {
+    console.log(a)
+}
+
+test()

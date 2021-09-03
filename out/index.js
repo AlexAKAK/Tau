@@ -39,6 +39,7 @@ const translate_1 = require("./components/science/translate");
 const yt_1 = require("./components/commands/misc/yt");
 const ytchannel_1 = require("./components/commands/misc/ytchannel");
 const shuffle_1 = require("./components/commands/music/shuffle");
+const buttonErrorChecking_1 = require("./components/utility/buttons/buttonErrorChecking");
 const disbut = require('discord.js-buttons');
 // import config
 const config = require('./../config.json');
@@ -184,13 +185,18 @@ const client = new HydroCarbon();
 client.login('ODI2MjQ3MTYwNDQ2MDU4NTA3.YGJsoQ.mMMtiZeWHv2lcX1NrBM8RetDtag');
 disbut(client);
 client.on('clickButton', (button) => __awaiter(void 0, void 0, void 0, function* () {
-    if (button.id === 'skip')
+    if (button.id === 'skip' && buttonErrorChecking_1.default.skip(button) == false) {
+        buttonErrorChecking_1.default.skip(button);
         yield skip_1.default.prototype.commandMain(button, client);
-    if (button.id === 'restart')
+    }
+    if (button.id === 'restart' && buttonErrorChecking_1.default.restart(button) == false) {
         yield restart_1.default.prototype.commandMain(button, client);
-    if (button.id === 'stop')
+    }
+    if (button.id === 'stop' && buttonErrorChecking_1.default.stop(button) == false) {
         yield stop_1.default.prototype.commandMain(button, client);
-    if (button.id === 'queue')
+    }
+    if (button.id === 'queue' && buttonErrorChecking_1.default.queue(button) == false) {
         yield queue_1.default.prototype.commandMain(button, client);
+    }
     button.defer();
 }));

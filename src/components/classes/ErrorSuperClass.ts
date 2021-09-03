@@ -1,15 +1,20 @@
+import { MessageButton } from "discord-buttons"
 import { Message, TextChannel, NewsChannel, DMChannel, MessageEmbed } from "discord.js"
 import defaultColor from "../utility/embeds/defaultColor"
 import errorColor from "../utility/embeds/errorColor"
 const sendEmbed = require('./../utility/embeds/sendEmbed')
 
 export default abstract class ErrorClass {
-    getCommandName(message: Message) {
+    getCommandName(message: Message): string {
         const unCutCommand = message.content.split(' ')[0]
         const commandName = unCutCommand.substring(3, unCutCommand.length)
 
         return commandName
     }
+
+    
+
+    
 
     splitArgs(message: Message) {
         return message.content.split(' ')

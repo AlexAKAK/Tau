@@ -71,12 +71,12 @@ export default class queue extends CommandClass {
         
 
         // buttons
-       /*
+       
         buttons.push(makeSkipButton())
         buttons.push(makeRestartButton())
         buttons.push(makeStopButton())
         buttons.push(makeQueueButton())
-       */
+       
 
         // working here
         /*
