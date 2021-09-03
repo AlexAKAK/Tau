@@ -96,10 +96,6 @@ const commands = [
 export default class help extends CommandClass {
     
     public async commandMain(message: Message, client: HydroCarbon) {
-        /*console.log(commandCategories)
-        console.log(miscCommands)
-        console.log(path.resolve(__dirname, './../misc'))
-        */
         const args = help.splitArgsWithoutCommandCall(message)
         if (args.length == 0) help.noArgsMain(message, client)
         else help.argsMain(message, client)
@@ -111,7 +107,7 @@ export default class help extends CommandClass {
         .setTimestamp()  
         commands.forEach(
             function(command: any){
-                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, false)
+                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, true)
             }
         )
 
@@ -120,7 +116,7 @@ export default class help extends CommandClass {
         
         setTimeout(function() {
             if (!sentMessage['deleted']) sentMessage.delete()
-        }, 10000)
+        }, 20000)
     }
 
     private static async argsMain(message: Message, client: HydroCarbon): Promise<void> {

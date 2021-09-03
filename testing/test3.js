@@ -1,4 +1,5 @@
-const ytsr = require('ytsr')
+const spdl = require('spotify-url-info')
 
 
-ytsr('mcjuuggernuggets', {type: 'video'}).then(data => console.log(data.items[0]))
+
+spdl.getData('https://open.spotify.com/album/1pxED0aW8v0PpojjpJQUkC').then(tracks => console.log(tracks))

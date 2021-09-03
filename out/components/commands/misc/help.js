@@ -103,10 +103,6 @@ const commands = [
 let help = help_1 = class help extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            /*console.log(commandCategories)
-            console.log(miscCommands)
-            console.log(path.resolve(__dirname, './../misc'))
-            */
             const args = help_1.splitArgsWithoutCommandCall(message);
             if (args.length == 0)
                 help_1.noArgsMain(message, client);
@@ -120,13 +116,13 @@ let help = help_1 = class help extends CommandClass_1.default {
                 .setColor('GREEN')
                 .setTimestamp();
             commands.forEach(function (command) {
-                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, false);
+                embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandCategory}: ${command.commandDescription}\`\`\``, true);
             });
             const sentMessage = yield message.channel.send(embed);
             setTimeout(function () {
                 if (!sentMessage['deleted'])
                     sentMessage.delete();
-            }, 10000);
+            }, 20000);
         });
     }
     static argsMain(message, client) {
