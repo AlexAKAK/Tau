@@ -25,7 +25,7 @@ const playAudio = require('./../../utility/playAudio');
 const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
 const getAudio_1 = require("./../../utility/getAudio");
 const getYTLinkFromSpotifyLink_1 = require("../../utility/spotify/getYTLinkFromSpotifyLink");
-const { getData } = require('spotify-url-info');
+const { getData, getTracks } = require('spotify-url-info');
 const spdl = require('spdl-core');
 const ytsr = require('ytsr');
 let play = play_1 = class play extends CommandClass_1.default {
@@ -193,13 +193,16 @@ let play = play_1 = class play extends CommandClass_1.default {
             const firstSearch = yield getData(spotifyURL);
             if (firstSearch['tracks'] != undefined) {
                 const playlistName = firstSearch['name'];
+                const tracks = yield getTracks(spotifyURL);
                 let trackUrls = [];
+                /*
                 for (let i = 0; i < firstSearch['tracks']['items'].length; i++) {
-                    if (firstSearch['tracks']['items'][i]['track'] == null) { }
-                    else
-                        trackUrls.push(firstSearch['tracks']['items'][i]['track']['external_urls']['spotify']);
+                    
+                    if (firstSearch['tracks']['items'][i]['track'] == null){} else trackUrls.push(firstSearch['tracks']['items'][i]['track']['external_urls']['spotify'])
                 }
-                yield play_1.spotifyPlaylist(message, client, trackUrls, playlistName);
+                
+                */
+                yield play_1.spotifyPlaylist(message, client, tracks, playlistName);
                 return;
             }
             //
@@ -225,32 +228,35 @@ let play = play_1 = class play extends CommandClass_1.default {
             console.log(tracks);
             let playing = false;
             for (let i = 0; i < tracks.length; i++) {
-                if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
-                    console.log('dispatcher is null');
-                    const songData = yield getYTLinkFromSpotifyLink_1.default(tracks[i]);
-                    client.queueMap[message.guild.id] = {
-                        playing: {
-                            url: songData['url'],
-                            author: message.author,
-                            audio: songData['audio'],
-                            songName: songData['songName'],
-                            playlistName: playlistName
-                        },
-                        queue: [],
-                    };
-                    playing = true;
-                    yield playAudio(songData['audio'], message.member.voice.channel, songData['url'], message);
-                }
-                else {
-                    client.queueMap[message.guild.id]['queue'].push({
-                        url: tracks[i],
-                        type: 'spotify',
-                        author: message.author,
-                        playlistName: playlistName
-                    });
-                    // add back later
-                    const length = client.queueMap[message.guild.id]['queue'].length;
-                }
+                // if the track is explicit, don't add it or play it. Trying to play an explicit track crashes the bot
+                if (tracks[i] != null)
+                    if (tracks[i]['explicit'] == false)
+                        if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
+                            console.log('dispatcher is null');
+                            const songData = yield getYTLinkFromSpotifyLink_1.default(tracks[i]['external_urls']['spotify']); // change here
+                            client.queueMap[message.guild.id] = {
+                                playing: {
+                                    url: songData['url'],
+                                    author: message.author,
+                                    audio: songData['audio'],
+                                    songName: songData['songName'],
+                                    playlistName: playlistName
+                                },
+                                queue: [],
+                            };
+                            playing = true;
+                            yield playAudio(songData['audio'], message.member.voice.channel, songData['url'], message);
+                        }
+                        else {
+                            client.queueMap[message.guild.id]['queue'].push({
+                                url: tracks[i]['external_urls']['spotify'],
+                                type: 'spotify',
+                                author: message.author,
+                                playlistName: playlistName
+                            });
+                            // add back later
+                            const length = client.queueMap[message.guild.id]['queue'].length;
+                        }
             }
             /*
             for (let i = 0; i < tracks.length; i++) {

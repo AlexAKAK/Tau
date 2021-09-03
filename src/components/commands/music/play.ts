@@ -14,7 +14,7 @@ import getAudio from "./../../utility/getAudio"
 import { collapseTextChangeRangesAcrossMultipleVersions, InternalSymbolName } from "typescript";
 import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink";
 export {}
-const {getData} = require('spotify-url-info')
+const {getData, getTracks} = require('spotify-url-info')
 
 const spdl = require('spdl-core')
 const ytsr = require('ytsr')
@@ -216,14 +216,16 @@ export default class play extends CommandClass {
         const firstSearch: object = await getData(spotifyURL)
         if (firstSearch['tracks'] != undefined) {
             const playlistName = firstSearch['name']
+            const tracks: object[] = await getTracks(spotifyURL)
             let trackUrls: string[] = []
+            /*
             for (let i = 0; i < firstSearch['tracks']['items'].length; i++) {
                 
                 if (firstSearch['tracks']['items'][i]['track'] == null){} else trackUrls.push(firstSearch['tracks']['items'][i]['track']['external_urls']['spotify'])
             }
             
-
-            await play.spotifyPlaylist(message, client, trackUrls, playlistName)
+            */
+            await play.spotifyPlaylist(message, client, tracks, playlistName)
             return
         }
 
@@ -245,15 +247,17 @@ export default class play extends CommandClass {
         else play.kwQueueAdd(message, client, audio, ytURL)
     }
 
-    private static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: string[], playlistName: string) {
+    private static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: object[], playlistName: string) {
         console.log('spotify playlist')
         console.log(tracks)
 
         let playing: boolean = false
         for (let i = 0; i < tracks.length; i++) {
-            if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
+            // if the track is explicit, don't add it or play it. Trying to play an explicit track crashes the bot
+            
+            if (tracks[i] != null) if (tracks[i]['explicit'] == false) if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
                 console.log('dispatcher is null')
-                const songData = await getYTLinkFromSpotifyLink(tracks[i])
+                const songData = await getYTLinkFromSpotifyLink(tracks[i]['external_urls']['spotify']) // change here
                 
                 client.queueMap[message.guild.id] = {
                     playing: {
@@ -276,7 +280,7 @@ export default class play extends CommandClass {
             else {
                 client.queueMap[message.guild.id]['queue'].push({
                    
-                    url: tracks[i],
+                    url: tracks[i]['external_urls']['spotify'],
                     type: 'spotify',
                     author: message.author,
                     playlistName: playlistName
@@ -284,6 +288,8 @@ export default class play extends CommandClass {
                 // add back later
                 const length = client.queueMap[message.guild.id]['queue'].length
             }
+            
+           
         }
 
         /*

@@ -2,4 +2,4 @@ const spdl = require('spotify-url-info')
 
 
 
-spdl.getData('https://open.spotify.com/album/1pxED0aW8v0PpojjpJQUkC').then(tracks => console.log(tracks))
+spdl.getTracks('https://open.spotify.com/playlist/2AMSyBkXMTXMhIs7Co5MPq').then(tracks => console.log(tracks[0]['explicit']))
