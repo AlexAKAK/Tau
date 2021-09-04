@@ -15,7 +15,7 @@ async function createNowPlayingEmbedPromise(url: string, message: any /*discord.
     
     const info = await getInfo(url)
     let nowPlayingEmbed = new MessageEmbed()
-
+    /*
     const lengthSeconds = info.videoDetails.lengthSeconds
     const minutes = Math.floor(info.videoDetails.lengthSeconds/60)
     const seconds = info.videoDetails.lengthSeconds-Math.floor(info.videoDetails.lengthSeconds/60)*60
@@ -26,14 +26,15 @@ async function createNowPlayingEmbedPromise(url: string, message: any /*discord.
         // add an extra 0 if the seconds are < 10
         if (seconds < 10) timeToDisplay = `${minutes}:0${seconds}`
         else timeToDisplay = `${minutes}:${seconds}`
-    } 
+    }
+    */
     
     const author = message.client.queueMap[message.guild.id].playing.author.tag
     nowPlayingEmbed
     .setColor(defaultColor)
     .setTitle(`Now Playing: ${info['videoDetails']['title']}`)
     .setURL(url)
-    .addField(`Queued by: ***${author}***`, `Length: ***${timeToDisplay}***`) // used to be timeToDisplay
+    .addField(`\`\`\`Queued by: ${author}\`\`\``, `${url}`) // used to be timeToDisplay
     .setImage(getYoutubeVideoThumbnail(url))
     .setTimestamp()
             

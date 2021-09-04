@@ -21,25 +21,25 @@ function createNowPlayingEmbedPromise(url, message /*discord.Message*/) {
     return __awaiter(this, void 0, void 0, function* () {
         const info = yield getInfo(url);
         let nowPlayingEmbed = new MessageEmbed();
-        const lengthSeconds = info.videoDetails.lengthSeconds;
-        const minutes = Math.floor(info.videoDetails.lengthSeconds / 60);
-        const seconds = info.videoDetails.lengthSeconds - Math.floor(info.videoDetails.lengthSeconds / 60) * 60;
+        /*
+        const lengthSeconds = info.videoDetails.lengthSeconds
+        const minutes = Math.floor(info.videoDetails.lengthSeconds/60)
+        const seconds = info.videoDetails.lengthSeconds-Math.floor(info.videoDetails.lengthSeconds/60)*60
+    
         let timeToDisplay;
-        if (lengthSeconds == 0)
-            timeToDisplay = "livestream";
+        if (lengthSeconds == 0) timeToDisplay = "livestream"
         else {
             // add an extra 0 if the seconds are < 10
-            if (seconds < 10)
-                timeToDisplay = `${minutes}:0${seconds}`;
-            else
-                timeToDisplay = `${minutes}:${seconds}`;
+            if (seconds < 10) timeToDisplay = `${minutes}:0${seconds}`
+            else timeToDisplay = `${minutes}:${seconds}`
         }
+        */
         const author = message.client.queueMap[message.guild.id].playing.author.tag;
         nowPlayingEmbed
             .setColor(defaultColor_1.default)
             .setTitle(`Now Playing: ${info['videoDetails']['title']}`)
             .setURL(url)
-            .addField(`Queued by: ***${author}***`, `Length: ***${timeToDisplay}***`) // used to be timeToDisplay
+            .addField(`\`\`\`Queued by: ${author}\`\`\``, `${url}`) // used to be timeToDisplay
             .setImage(getYoutubeVideoThumbnail(url))
             .setTimestamp();
         return nowPlayingEmbed;
