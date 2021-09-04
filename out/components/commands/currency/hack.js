@@ -17,7 +17,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var hack_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
+const defaultColor_1 = require("../../utility/embeds/defaultColor");
+const getRandomInt_1 = require("../../utility/getRandomInt");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
+const wallets = require('./../../../../data/wallets.json');
 let hack = hack_1 = class hack extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -32,18 +35,25 @@ let hack = hack_1 = class hack extends CommandClass_1.default {
                 });
                 return;
             }
+            if (wallets[playerId] == undefined) {
+                sendEmbed(message.channel, {
+                    title: `That player doesn't have a wallet, ${message.author.tag}.`,
+                    color: defaultColor_1.default,
+                    deleteTimeout: 5000
+                });
+                return;
+            }
             const member = hack_1.getMember(playerId, message.guild);
-            let amountToSteal;
-            amountToSteal = 100;
             if (member == undefined || member == null)
                 hack_1.sendEmbed(message.channel, {
                     title: `No user found.`,
                     color: 'RED',
                     deleteTimeout: 5000
                 });
-            hack_1.stealCoin(message.author.id, playerId, amountToSteal);
+            const amount = getRandomInt_1.default(2000);
+            hack_1.stealCoin(message.author.id, playerId, amount);
             sendEmbed(message.channel, {
-                title: `${message.author.tag} stole ${amountToSteal} BrysonCoin from ${member.user.tag}!`,
+                title: `${message.author.tag} stole ${amount} BrysonCoin from ${member.user.tag}!`,
                 color: 'RED',
                 deleteTimeout: 10000
             });

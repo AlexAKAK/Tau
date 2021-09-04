@@ -158,7 +158,7 @@ class CommandClass {
     // for currency
     static stealCoin(recipientId, victimId, amount) {
         // returns true if successful. Else, returns false
-        // first check if botht the recipient and the victim have wallets
+        // first check if both the recipient and the victim have wallets
         // load the wallets
         const wallets = require('./../../../data/wallets.json');
         if (wallets[recipientId] == undefined)

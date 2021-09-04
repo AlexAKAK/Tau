@@ -17,6 +17,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var mine_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
+const defaultColor_1 = require("../../utility/embeds/defaultColor");
+const getRandomInt_1 = require("../../utility/getRandomInt");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const fs = require('fs');
 let mine = mine_1 = class mine extends CommandClass_1.default {
@@ -40,7 +42,8 @@ let mine = mine_1 = class mine extends CommandClass_1.default {
                     deleteTimeout: 5000
                 });
             else {
-                wallets[message.author.id] += 100;
+                const amount = getRandomInt_1.default(1000);
+                wallets[message.author.id] += amount;
                 const logPath = require('path').resolve(__dirname, './../../../../data/wallets.json');
                 const jsonString = JSON.stringify(wallets);
                 fs.writeFile(logPath, jsonString, err => {
@@ -51,8 +54,8 @@ let mine = mine_1 = class mine extends CommandClass_1.default {
                     //file written successfully
                 });
                 sendEmbed(message.channel, {
-                    title: `${message.author.tag} mined 0.00001 BrysonCoin!`,
-                    color: 'GREEN',
+                    title: `${message.author.tag} mined ${amount} AK Coin`,
+                    color: defaultColor_1.default,
                     deleteTimeout: 5000
                 });
                 mine_1.mostRecentMine[message.author.id] = Date.now();

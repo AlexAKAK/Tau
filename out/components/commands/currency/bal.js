@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
+const defaultColor_1 = require("../../utility/embeds/defaultColor");
 //import readJson from "../../utility/readJson";
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const fs = require('fs');
@@ -24,13 +25,13 @@ class bal extends CommandClass_1.default {
             if (wallets[message.author.id] == undefined)
                 sendEmbed(message.channel, {
                     title: `${message.author.tag}, you do not have a wallet! You can make one using the walletcreate command.`,
-                    color: 'GREEN',
+                    color: defaultColor_1.default,
                     deleteTimeout: 5000
                 });
             else if (args.length == 0)
                 sendEmbed(message.channel, {
-                    title: `${message.author.tag}'s balance is ${wallets[message.author.id]} BrysonCoin.`,
-                    color: 'GREEN',
+                    title: `${message.author.tag}'s balance is ${wallets[message.author.id]} AK Coin.`,
+                    color: defaultColor_1.default,
                     deleteTimeout: 5000
                 });
             else if (args.length == 1) {
@@ -40,13 +41,13 @@ class bal extends CommandClass_1.default {
                 if (balance == undefined)
                     sendEmbed(message.channel, {
                         title: `${member.user.tag} does not have a wallet.`,
-                        color: 'GREEN',
+                        color: defaultColor_1.default,
                         deleteTimeout: 5000
                     });
                 else
                     sendEmbed(message.channel, {
-                        title: `${member.user.tag}'s balance is ${wallets[member.user.id]} BrysonCoin.`,
-                        color: 'GREEN',
+                        title: `${member.user.tag}'s balance is ${wallets[member.user.id]} AK Coin.`,
+                        color: defaultColor_1.default,
                         deleteTimeout: 5000
                     });
             }

@@ -2,6 +2,8 @@ import { GuildMember } from "discord.js";
 import { Message } from "discord.js";
 import HydroCarbon from "../../..";
 import CommandClass from "../../classes/CommandClass"
+import defaultColor from "../../utility/embeds/defaultColor";
+import getRandomInt from "../../utility/getRandomInt";
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const fs = require('fs')
 
@@ -37,7 +39,8 @@ export default class mine extends CommandClass {
             deleteTimeout: 5000
         })
         else {
-            wallets[message.author.id] += 100
+            const amount: number = getRandomInt(1000)
+            wallets[message.author.id] += amount
             const logPath = require('path').resolve(__dirname, './../../../../data/wallets.json')
             const jsonString: string = JSON.stringify(wallets)
             fs.writeFile(logPath, jsonString, err => {
@@ -49,8 +52,8 @@ export default class mine extends CommandClass {
             })
 
             sendEmbed(message.channel, {
-                title: `${message.author.tag} mined 0.00001 BrysonCoin!`,
-                color: 'GREEN',
+                title: `${message.author.tag} mined ${amount} AK Coin`,
+                color: defaultColor,
                 deleteTimeout: 5000
             })
 

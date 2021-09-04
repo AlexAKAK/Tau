@@ -1,9 +1,11 @@
 import { GuildMember, Message, TextChannel } from "discord.js";
 import HydroCarbon from "../../..";
 import CommandClass from "../../classes/CommandClass";
+import defaultColor from "../../utility/embeds/defaultColor";
+import getRandomInt from "../../utility/getRandomInt";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
-
+const wallets = require('./../../../../data/wallets.json')
 @hack.errorCheck([hack.MISSING_ARGS_ERR_2])
 
 //1 hour
@@ -32,21 +34,34 @@ export default class hack extends CommandClass {
             return;
         }
 
+
+        
+
+        if (wallets[playerId] == undefined) {
+            sendEmbed(message.channel, {
+                title: `That player doesn't have a wallet, ${message.author.tag}.`,
+                color: defaultColor,
+                deleteTimeout: 5000
+            })
+            return;
+        }
+
         const member: GuildMember = hack.getMember(playerId, message.guild)
 
-        let amountToSteal: number;
-        amountToSteal = 100
+        
 
         if (member == undefined || member == null) hack.sendEmbed(<TextChannel> message.channel, {
             title: `No user found.`,
             color: 'RED',
             deleteTimeout: 5000
         })
+        
+        const amount: number = getRandomInt(2000)
 
-        hack.stealCoin(message.author.id, playerId, amountToSteal)
+        hack.stealCoin(message.author.id, playerId, amount)
 
         sendEmbed(message.channel, {
-            title: `${message.author.tag} stole ${amountToSteal} BrysonCoin from ${member.user.tag}!`,
+            title: `${message.author.tag} stole ${amount} BrysonCoin from ${member.user.tag}!`,
             color: 'RED',
             deleteTimeout: 10000
         })

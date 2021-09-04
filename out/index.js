@@ -13,33 +13,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 // import commands 
 const help_1 = require("./components/commands/misc/help");
-const play_1 = require("./components/commands/music/play");
 const stop_1 = require("./components/commands/music/stop");
 const skip_1 = require("./components/commands/music/skip");
 const queue_1 = require("./components/commands/music/queue");
-const clear_1 = require("./components/commands/misc/clear");
 const restart_1 = require("./components/commands/music/restart");
-const join_1 = require("./components/commands/music/join");
-const leave_1 = require("./components/commands/music/leave");
-const gif_1 = require("./components/commands/misc/gif");
-const loop_1 = require("./components/commands/music/loop");
-const meme_1 = require("./components/commands/misc/meme");
-const bal_1 = require("./components/commands/currency/bal");
-const walletcreate_1 = require("./components/commands/currency/walletcreate");
-const mine_1 = require("./components/commands/currency/mine");
-const report_1 = require("./components/commands/misc/report");
-const hack_1 = require("./components/commands/currency/hack");
-const announce_1 = require("./components/commands/misc/announce");
-const mc_1 = require("./components/commands/games/mc/mc");
-const stopgame_1 = require("./components/commands/games/stopgame");
-const currentgame_1 = require("./components/commands/games/currentgame");
-const pt_1 = require("./components/science/pt");
-const transcribe_1 = require("./components/science/transcribe");
-const translate_1 = require("./components/science/translate");
-const yt_1 = require("./components/commands/misc/yt");
-const ytchannel_1 = require("./components/commands/misc/ytchannel");
-const shuffle_1 = require("./components/commands/music/shuffle");
 const buttonErrorChecking_1 = require("./components/utility/buttons/buttonErrorChecking");
+const allCommands_1 = require("./components/commandCategories/allCommands");
 const disbut = require('discord.js-buttons');
 // import config
 const config = require('./../config.json');
@@ -54,45 +33,15 @@ class HydroCarbon extends discord_js_1.Client {
         this.queueMap = new Map();
         // / data holders
         // commands
-        this.TEXT_CHANNEL_COMMANDS = [
-            help_1.default,
-            play_1.default,
-            stop_1.default,
-            queue_1.default,
-            skip_1.default,
-            loop_1.default,
-            restart_1.default,
-            clear_1.default,
-            join_1.default,
-            leave_1.default,
-            shuffle_1.default,
-            gif_1.default,
-            meme_1.default,
-            bal_1.default,
-            walletcreate_1.default,
-            mine_1.default,
-            report_1.default,
-            hack_1.default,
-            announce_1.default,
-            mc_1.default,
-            stopgame_1.default,
-            currentgame_1.default,
-            pt_1.default,
-            transcribe_1.default,
-            translate_1.default,
-            yt_1.default,
-            ytchannel_1.default
-        ];
+        this.TEXT_CHANNEL_COMMANDS = [];
+        for (let i = 0; i < allCommands_1.default.length; i++) {
+            for (let j = 0; j < allCommands_1.default[i].commands.length; j++) {
+                this.TEXT_CHANNEL_COMMANDS.push(allCommands_1.default[i].commands[j]);
+            }
+        }
+        this.TEXT_CHANNEL_COMMANDS.push(help_1.default);
         this.DM_COMMANDS = [
             help_1.default,
-            mc_1.default,
-            stopgame_1.default,
-            currentgame_1.default,
-            pt_1.default,
-            transcribe_1.default,
-            translate_1.default,
-            yt_1.default,
-            ytchannel_1.default
         ];
         // / commands
         // events

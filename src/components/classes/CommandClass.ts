@@ -261,7 +261,7 @@ export default abstract class CommandClass {
     protected static stealCoin(recipientId: string, victimId: string, amount: number): boolean {
         // returns true if successful. Else, returns false
 
-        // first check if botht the recipient and the victim have wallets
+        // first check if both the recipient and the victim have wallets
         // load the wallets
         const wallets = require('./../../../data/wallets.json')
 

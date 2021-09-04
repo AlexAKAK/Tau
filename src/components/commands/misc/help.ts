@@ -66,7 +66,7 @@ export default class help extends CommandClass {
                 for (let j = 0; j < allCommands[i].commands.length; j++) {
                     help.commands.push(allCommands[i].commands[j])
                 }
-            }
+        }
 
         for (const category of allCommands) {
                 help.categories.push(category.name)

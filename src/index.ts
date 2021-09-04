@@ -40,6 +40,7 @@ import ytchannel from "./components/commands/misc/ytchannel";
 import { MessageButton, MessageButtonStyles } from "discord-buttons";
 import shuffle from "./components/commands/music/shuffle";
 import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
+import allCommands from "./components/commandCategories/allCommands";
 
 const disbut = require('discord.js-buttons')
 
@@ -68,36 +69,18 @@ export default class HydroCarbon extends Client {
         // / data holders
         // commands
         this.TEXT_CHANNEL_COMMANDS = [
-            help,
-            play,
-            stop,
-            queue,
-            skip,
-            loop,
-            restart,
-            clear,
-            join,
-            leave,
-            shuffle,
-            gif,
-            meme,
-            bal,
-            walletcreate,
-            mine,
-            report,
-            hack,
-            announce,
-            mc,
-            stopgame,
-            currentgame,
-            pt,
-            transcribe,
-            translate,
-            yt,
-            ytchannel
+            
         ]
+        for (let i = 0; i < allCommands.length; i++) {
+                for (let j = 0; j < allCommands[i].commands.length; j++) {
+                    this.TEXT_CHANNEL_COMMANDS.push(allCommands[i].commands[j])
+                }
+        }
+        this.TEXT_CHANNEL_COMMANDS.push(help)
+
         this.DM_COMMANDS = [
             help,
+            /*
             mc,
             stopgame,
             currentgame,
@@ -106,6 +89,7 @@ export default class HydroCarbon extends Client {
             translate,
             yt,
             ytchannel
+            */
         ]
         // / commands
         
