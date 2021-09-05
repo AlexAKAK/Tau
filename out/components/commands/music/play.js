@@ -33,93 +33,121 @@ let play = play_1 = class play extends CommandClass_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const args = play_1.splitArgs(message);
             const url = args[1];
-            const info = yield getInfo(url);
-            const audio = getAudio_1.default(url);
-            // add the song to the queue of the voice channel
-            client.queueMap[message.guild.id]['queue'].push({
-                audio: audio,
-                url: url,
-                songName: info['videoDetails']['title'],
-                author: message.author,
+            let info;
+            getInfo(url)
+                .then(info => {
+                const audio = getAudio_1.default(url);
+                client.queueMap[message.guild.id]['queue'].push({
+                    audio: audio,
+                    url: url,
+                    songName: info['videoDetails']['title'],
+                    author: message.author,
+                });
+                sendEmbed(message.channel, {
+                    title: `Added to queue: ${info['videoDetails']['title']}`,
+                    color: randomColor(),
+                    deleteTimeout: 5000,
+                }); // end of sendEmbed()
+            })
+                .catch(err => {
+                play_1.videoCannotBeAccessed(message, client);
+                return;
             });
-            sendEmbed(message.channel, {
-                title: `Added to queue: ${info['videoDetails']['title']}`,
-                color: randomColor(),
-                deleteTimeout: 5000,
-            }); // end of sendEmbed()
+            // add the song to the queue of the voice channel
             return false;
         });
     }
     static ytPlay(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('ytPlay');
             const args = play_1.splitArgs(message);
             const url = args[1];
-            const info = yield getInfo(url);
-            if (info == null || info == undefined) {
-                sendEmbed(message.channel, {
-                    title: 'No videos found',
-                    color: 'Red',
-                    deleteTimeout: 5000
-                });
-            }
-            const audio = yield getAudio_1.default(url);
-            yield playAudio(audio, message.member.voice.channel, url, message);
-            client.queueMap[message.guild.id] = {
-                playing: {
-                    audio: audio,
-                    url: url,
-                    songName: info['videoDetails']['title'],
-                    author: message.author
-                },
-                queue: [],
-            };
-            // add the voice channel as a key in client.queueMap  
-            return false;
+            let info;
+            getInfo(url)
+                .then((info) => __awaiter(this, void 0, void 0, function* () {
+                if (info == null || info == undefined) {
+                    sendEmbed(message.channel, {
+                        title: 'No videos found',
+                        color: 'Red',
+                        deleteTimeout: 5000
+                    });
+                }
+                const audio = yield getAudio_1.default(url);
+                yield playAudio(audio, message.member.voice.channel, url, message);
+                client.queueMap[message.guild.id] = {
+                    playing: {
+                        audio: audio,
+                        url: url,
+                        songName: info['videoDetails']['title'],
+                        author: message.author
+                    },
+                    queue: [],
+                };
+                // add the voice channel as a key in client.queueMap  
+                return false;
+            }))
+                .catch(err => {
+                play_1.videoCannotBeAccessed(message, client);
+                return;
+            });
         });
     }
     static kwPlay(message, client, audio, url) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('kwPlay');
-            const info = yield getInfo(url);
-            if (info == null || info == undefined)
-                play_1.handleNoVideoFound(message);
-            // playAudio(message.client, audio, message.channel, message.author.voice.channel)
-            yield playAudio(audio, message.member.voice.channel, url, message);
-            client.queueMap[message.guild.id] = {
-                playing: {
-                    audio: audio,
-                    url: url,
-                    songName: info['videoDetails']['title'],
-                    author: message.author
-                },
-                queue: [],
-            };
-            // add the voice channel as a key in client.queueMap  
-            //return false
-            // STEP 2c
-            return false;
+            let info;
+            getInfo(url)
+                .then((info) => __awaiter(this, void 0, void 0, function* () {
+                if (info == null || info == undefined)
+                    play_1.handleNoVideoFound(message);
+                // playAudio(message.client, audio, message.channel, message.author.voice.channel)
+                yield playAudio(audio, message.member.voice.channel, url, message);
+                client.queueMap[message.guild.id] = {
+                    playing: {
+                        audio: audio,
+                        url: url,
+                        songName: info['videoDetails']['title'],
+                        author: message.author
+                    },
+                    queue: [],
+                };
+                // add the voice channel as a key in client.queueMap  
+                //return false
+                // STEP 2c
+                return false;
+            }))
+                .catch(err => {
+                play_1.videoCannotBeAccessed(message, client);
+                return;
+            });
         });
     }
     static kwQueueAdd(message, client, audio, url) {
         return __awaiter(this, void 0, void 0, function* () {
-            const info = yield getInfo(url);
-            // add the song to the queue of the voice channel
-            client.queueMap[message.guild.id]['queue'].push({
-                audio: audio,
-                url: url,
-                songName: info['videoDetails']['title'],
-                author: message.author
+            getInfo(url)
+                .then((info) => __awaiter(this, void 0, void 0, function* () {
+                client.queueMap[message.guild.id]['queue'].push({
+                    audio: audio,
+                    url: url,
+                    songName: info['videoDetails']['title'],
+                    author: message.author
+                });
+                sendEmbed(message.channel, {
+                    title: `Added to queue: ${info['videoDetails']['title']}`,
+                    color: randomColor(),
+                    deleteTimeout: 5000,
+                }); // end of sendEmbed()
+                //return false
+            }))
+                .catch(err => {
+                play_1.videoCannotBeAccessed(message, client);
+                return;
             });
-            sendEmbed(message.channel, {
-                title: `Added to queue: ${info['videoDetails']['title']}`,
-                color: randomColor(),
-                deleteTimeout: 5000,
-            }); // end of sendEmbed()
-            //return false 
         });
     }
     static yt(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('yt');
             /*
             -if connection is defined/nonnull
             -if the dispatcher is defined/nonull
@@ -136,7 +164,15 @@ let play = play_1 = class play extends CommandClass_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('kw');
             const keyWords = message.content.substring(message.content.indexOf(' ') + 1);
-            const url = yield getYoutubeVideoUrlFromKeyword(keyWords);
+            let url;
+            try {
+                url = yield getYoutubeVideoUrlFromKeyword(keyWords);
+            }
+            catch (_a) {
+                play_1.videoCannotBeAccessed(message, client);
+                return;
+            }
+            console.log('got info');
             if (url == null) {
                 sendEmbed(message.channel, {
                     title: `No videos found for: ${keyWords}`,
@@ -145,11 +181,16 @@ let play = play_1 = class play extends CommandClass_1.default {
                 });
                 return true;
             }
-            const audio = yield getAudio_1.default(url);
-            if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined)
-                play_1.kwPlay(message, client, audio, url);
-            else
-                play_1.kwQueueAdd(message, client, audio, url);
+            try {
+                const audio = yield getAudio_1.default(url);
+                if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined)
+                    play_1.kwPlay(message, client, audio, url);
+                else
+                    play_1.kwQueueAdd(message, client, audio, url);
+            }
+            catch (_b) {
+                play_1.videoCannotBeAccessed(message, client);
+            }
         });
     }
     static spotifyPlay(message, client, audio, url) {
@@ -317,6 +358,12 @@ let play = play_1 = class play extends CommandClass_1.default {
                     client.queueMap[message.guild.id]['queue'][i]['type'] = undefined;
                 }
             }
+        });
+    }
+    static videoCannotBeAccessed(message, client) {
+        play_1.sendEmbed(message.channel, {
+            title: `That video cannot be accessed anonymously, and is likely age-restricted, ${message.author.tag}.`,
+            deleteTimeout: 5000
         });
     }
 };

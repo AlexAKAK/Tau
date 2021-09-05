@@ -5,7 +5,7 @@ const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { red, randomColor } = require('./../../utility/hexColors');
 import checkQueueThenHandle = require('./../../utility/checkQueueThenHandle');
 const playAudio = require('./../../utility/playAudio');
-import { Client, Message } from 'discord.js';
+import { Client, Message, TextChannel } from 'discord.js';
 const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
 //const CommandClass = require('../classes/CommandClass');
 import HydroCarbon from './../../../index'
@@ -38,54 +38,90 @@ export default class play extends CommandClass {
     static async ytQueueAdd(message: Message, client: HydroCarbon) {
         const args = play.splitArgs(message)
         const url = args[1]
-        const info = await getInfo(url)
-        const audio = getAudio(url)
+        let info: object;
+        getInfo(url)
+        .then(info => 
+        {
+            const audio = getAudio(url)
+            client.queueMap[message.guild.id]['queue'].push({
+                        audio: audio,
+                        url: url,
+                        songName: info['videoDetails']['title'],
+                        author: message.author,
+                                        
+                    })
+
+                    sendEmbed(message.channel, {
+                        title: `Added to queue: ${info['videoDetails']['title']}`,
+                        color: randomColor(),
+                        deleteTimeout: 5000,
+                                        
+
+                    }) // end of sendEmbed()
+
+
+
+        })
+        .catch(err => {
+            play.videoCannotBeAccessed(message, client)
+            return
+        })
+        
+
+
+
+
 
         // add the song to the queue of the voice channel
-        client.queueMap[message.guild.id]['queue'].push({
-            audio: audio,
-            url: url,
-            songName: info['videoDetails']['title'],
-            author: message.author,
-                            
-        })
-
-        sendEmbed(message.channel, {
-            title: `Added to queue: ${info['videoDetails']['title']}`,
-            color: randomColor(),
-            deleteTimeout: 5000,
-                            
-
-        }) // end of sendEmbed()
+        
                     
         return false
     }
     static async ytPlay(message: Message, client: HydroCarbon) {
+        console.log('ytPlay')
         const args = play.splitArgs(message)
         const url = args[1]
-        const info = await getInfo(url)
-        if (info == null || info == undefined) {
-            sendEmbed(message.channel, {
-                title: 'No videos found',
-                color: 'Red',
-                deleteTimeout: 5000
-            })
-        }
-        const audio = await getAudio(url)
+        let info: object;
+        getInfo(url)
+        .then(async info =>
+        {
+            if (info == null || info == undefined) {
+                        sendEmbed(message.channel, {
+                            title: 'No videos found',
+                            color: 'Red',
+                            deleteTimeout: 5000
+                        })
+                    }
+                    const audio = await getAudio(url)
 
-    await playAudio(audio, message.member.voice.channel, url, message)
-        client.queueMap[message.guild.id] = {
-            playing: {
-                audio: audio,
-                url: url,
-                songName: info['videoDetails']['title'],
-                author: message.author
-                                
-            },
-            queue: [],
-        }   
-                    // add the voice channel as a key in client.queueMap  
-    return false
+                await playAudio(audio, message.member.voice.channel, url, message)
+                    client.queueMap[message.guild.id] = {
+                        playing: {
+                            audio: audio,
+                            url: url,
+                            songName: info['videoDetails']['title'],
+                            author: message.author
+                                            
+                        },
+                        queue: [],
+                    }   
+                                // add the voice channel as a key in client.queueMap  
+                return false
+
+        })
+        .catch(err =>
+        {
+            play.videoCannotBeAccessed(message, client)
+            return
+        })
+
+        
+            
+       
+        
+            
+        
+        
     }
 
     
@@ -93,55 +129,78 @@ export default class play extends CommandClass {
 
         console.log('kwPlay')
 
-        const info = await getInfo(url)
-        if (info == null || info == undefined) play.handleNoVideoFound(message)
+        let info: object;
+        getInfo(url)
+        .then(async info => 
+        {
+            if (info == null || info == undefined) play.handleNoVideoFound(message)
 
-        // playAudio(message.client, audio, message.channel, message.author.voice.channel)
-        await playAudio(audio, message.member.voice.channel, url, message)
-        client.queueMap[message.guild.id] = {
-            playing: {
-            audio: audio,
-            url: url,
-            songName: info['videoDetails']['title'],
-            author: message.author
-                                
-            },
-                queue: [],
-        }   
-                    // add the voice channel as a key in client.queueMap  
-            //return false
+                    // playAudio(message.client, audio, message.channel, message.author.voice.channel)
+                    await playAudio(audio, message.member.voice.channel, url, message)
+                    client.queueMap[message.guild.id] = {
+                        playing: {
+                        audio: audio,
+                        url: url,
+                        songName: info['videoDetails']['title'],
+                        author: message.author
+                                            
+                        },
+                            queue: [],
+                    }   
+                                // add the voice channel as a key in client.queueMap  
+                        //return false
 
 
-            // STEP 2c
+                        // STEP 2c
 
 
-        return false
+                    return false
+        })
+        .catch(err => 
+        {
+            play.videoCannotBeAccessed(message, client)
+            return
+        })
+        
+        
+        
             
             
     }
 
 
-    static async kwQueueAdd(message: Message, client: HydroCarbon, audio: any, url: string){
-        const info = await getInfo(url)
-            // add the song to the queue of the voice channel
-        client.queueMap[message.guild.id]['queue'].push({
-            audio: audio,
-            url: url,
-            songName: info['videoDetails']['title'],
-            author: message.author
-        })
+    static async kwQueueAdd(message: Message, client: HydroCarbon, audio: any, url: string) {
+        getInfo(url)
+        .then(async info => 
+        {
+            client.queueMap[message.guild.id]['queue'].push({
+                        audio: audio,
+                        url: url,
+                        songName: info['videoDetails']['title'],
+                        author: message.author
+                    })
 
-        sendEmbed(message.channel, {
-            title: `Added to queue: ${info['videoDetails']['title']}`,
-            color: randomColor(),
-            deleteTimeout: 5000,
-        }) // end of sendEmbed()
+                    sendEmbed(message.channel, {
+                        title: `Added to queue: ${info['videoDetails']['title']}`,
+                        color: randomColor(),
+                        deleteTimeout: 5000,
+                    }) // end of sendEmbed()
+                    
+                    //return false
+        })
+        .catch(err => 
+        {
+            play.videoCannotBeAccessed(message, client)
+            return
+        })
         
-        //return false 
+            
+         
 
     }
 
     static async yt(message: Message, client: HydroCarbon) {
+        console.log('yt')
     
         /*
         -if connection is defined/nonnull
@@ -156,8 +215,15 @@ export default class play extends CommandClass {
     private static async kw(message: Message, client: HydroCarbon) {
         console.log('kw')
         const keyWords = message.content.substring(message.content.indexOf(' ') + 1)
-    
-        const url = await getYoutubeVideoUrlFromKeyword(keyWords)
+        let url: string
+        try {
+            url = await getYoutubeVideoUrlFromKeyword(keyWords)
+        }
+        catch {
+            play.videoCannotBeAccessed(message, client)
+            return
+        }
+        console.log('got info')
         if (url == null) {
             sendEmbed(message.channel, {
                 title: `No videos found for: ${keyWords}`,
@@ -169,10 +235,17 @@ export default class play extends CommandClass {
             return true
         }
 
-        const audio = await getAudio(url)
+        try {
+            const audio = await getAudio(url)
+            if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, url)
+            else play.kwQueueAdd(message, client, audio, url)
+        }
+        catch {
+            play.videoCannotBeAccessed(message, client)
+        }
+        
 
-        if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, url)
-        else play.kwQueueAdd(message, client, audio, url)
+        
     }
 
     private static async spotifyPlay(message: Message, client: HydroCarbon, audio: any, url: string) {
@@ -355,6 +428,13 @@ export default class play extends CommandClass {
                 client.queueMap[message.guild.id]['queue'][i]['type'] = undefined
             }
         }
+    }
+
+    private static videoCannotBeAccessed(message: Message, client: HydroCarbon): void {
+        play.sendEmbed(<TextChannel> message.channel, {
+            title: `That video cannot be accessed anonymously, and is likely age-restricted, ${message.author.tag}.`,
+            deleteTimeout: 5000
+        })
     }
     
     
