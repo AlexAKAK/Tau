@@ -21,6 +21,7 @@ const defaultColor_1 = require("../../utility/embeds/defaultColor");
 const getRandomInt_1 = require("../../utility/getRandomInt");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const wallets = require('./../../../../data/wallets.json');
+const ONE_HOUR = 3600000;
 let hack = hack_1 = class hack extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -65,9 +66,7 @@ hack.commandCategory = 'currency';
 hack.commandDescription = 'you steal currency from another user';
 hack.commandSyntax = 'hack <user>';
 hack = hack_1 = __decorate([
-    hack_1.errorCheck([hack_1.MISSING_ARGS_ERR_2])
-    //1 hour
-    ,
-    hack_1.memberCooldown(3600000)
+    hack_1.errorCheck([hack_1.MISSING_ARGS_ERR_2]),
+    hack_1.memberCooldown(ONE_HOUR)
 ], hack);
 exports.default = hack;

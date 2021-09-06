@@ -1,43 +1,14 @@
 // import dependencies
 import { Client, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState } from "discord.js";
 
-// import commands 
+// import button commands
 import help from './components/commands/misc/help'
-import play from './components/commands/music/play'
 import stop from './components/commands/music/stop'
 import skip from './components/commands/music/skip'
 import queue from './components/commands/music/queue'
-import clear from './components/commands/misc/clear'
 import restart from './components/commands/music/restart'
-import join from './components/commands/music/join'
-import leave from './components/commands/music/leave'
-import gif from './components/commands/misc/gif'
-import loop from './components/commands/music/loop'
-import meme from './components/commands/misc/meme'
 
-
-import bal from './components/commands/currency/bal'
-import walletcreate from './components/commands/currency/walletcreate'
-import mine from './components/commands/currency/mine'
-
-import report from './components/commands/misc/report'
-import hack from "./components/commands/currency/hack";
-
-import announce from "./components/commands/misc/announce";
-
-import mc from "./components/commands/games/mc/mc";
-import stopgame from "./components/commands/games/stopgame";
-import currentgame from "./components/commands/games/currentgame";
-
-import pt from "./components/science/pt";
-import transcribe from "./components/science/transcribe";
-import translate from "./components/science/translate";
-// import games
 import McGame from "./components/commands/games/mc/classes/McGame";
-import yt from "./components/commands/misc/yt";
-import ytchannel from "./components/commands/misc/ytchannel";
-import { MessageButton, MessageButtonStyles } from "discord-buttons";
-import shuffle from "./components/commands/music/shuffle";
 import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
 import allCommands from "./components/commandCategories/allCommands";
 
@@ -113,8 +84,6 @@ export default class Tau extends Client {
     }
 
     async handleMessage(message: Message) {
-        // Jawn cannot talk
-        if (message.author.id == '289850597568675841') return
 
       if (message.channel.type === 'text') this.handleMessageFromTextChannel(message)
       else if (message.channel.type === 'dm') this.handleMessageFromDMChannel(message)
@@ -187,7 +156,7 @@ export default class Tau extends Client {
 
 // Running the bot
 const client: Tau = new Tau();
-client.login('ODg0MjI0NjQ0OTUxOTczODk5.YTVYXw._1OF-FmFhumJ7oO7oOH8_FswpV0')
+client.login(config['token'])
 disbut(<Client> client)
 
 // buttons

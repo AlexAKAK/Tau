@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 // import dependencies
 const discord_js_1 = require("discord.js");
-// import commands 
+// import button commands
 const help_1 = require("./components/commands/misc/help");
 const stop_1 = require("./components/commands/music/stop");
 const skip_1 = require("./components/commands/music/skip");
@@ -42,6 +42,16 @@ class Tau extends discord_js_1.Client {
         this.TEXT_CHANNEL_COMMANDS.push(help_1.default);
         this.DM_COMMANDS = [
             help_1.default,
+            /*
+            mc,
+            stopgame,
+            currentgame,
+            pt,
+            transcribe,
+            translate,
+            yt,
+            ytchannel
+            */
         ];
         // / commands
         // events
@@ -62,9 +72,6 @@ class Tau extends discord_js_1.Client {
     }
     handleMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Jawn cannot talk
-            if (message.author.id == '289850597568675841')
-                return;
             if (message.channel.type === 'text')
                 this.handleMessageFromTextChannel(message);
             else if (message.channel.type === 'dm')
@@ -134,7 +141,7 @@ class Tau extends discord_js_1.Client {
 exports.default = Tau;
 // Running the bot
 const client = new Tau();
-client.login('ODg0MjI0NjQ0OTUxOTczODk5.YTVYXw._1OF-FmFhumJ7oO7oOH8_FswpV0');
+client.login(config['token']);
 disbut(client);
 // buttons
 client.on('clickButton', (button) => __awaiter(void 0, void 0, void 0, function* () {
