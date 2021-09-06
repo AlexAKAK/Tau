@@ -53,7 +53,7 @@ let hack = hack_1 = class hack extends CommandClass_1.default {
             const amount = getRandomInt_1.default(2000);
             hack_1.stealCoin(message.author.id, playerId, amount);
             sendEmbed(message.channel, {
-                title: `${message.author.tag} stole ${amount} BrysonCoin from ${member.user.tag}!`,
+                title: `${message.author.tag} stole ${amount} TauCoin from ${member.user.tag}!`,
                 color: 'RED',
                 deleteTimeout: 10000
             });

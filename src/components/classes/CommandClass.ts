@@ -1,7 +1,7 @@
 import { DMChannel, Guild, GuildMember, Message, MessageEmbed, NewsChannel, TextChannel } from "discord.js"
 
 import * as errorClasses from "./Errors"
-import HydroCarbon from '../../index'
+import Tau from '../../index'
 import {ERROR, ERROR_METACLASS} from './Errors'
 import errorColor from "../utility/embeds/errorColor"
 import defaultColor from "../utility/embeds/defaultColor"
@@ -38,7 +38,7 @@ export default abstract class CommandClass {
     protected static commandSyntax: string = ''
 
 
-    public abstract /*async*/ commandMain(message: Message, client: HydroCarbon): Promise<any>
+    public abstract /*async*/ commandMain(message: Message, client: Tau): Promise<any>
     // can be overriden
     protected static aliases: string[] = []
     // decorator factory
@@ -63,7 +63,7 @@ export default abstract class CommandClass {
             // the nondecorated commandMain method
             const oldCommandMain = commandConstructor.prototype.commandMain
     
-            const newCommandMain: Function = async function(message: Message, client: HydroCarbon) {
+            const newCommandMain: Function = async function(message: Message, client: Tau) {
                 if (checkErr(message) == false) {
                     oldCommandMain(message, client)
                     return false
@@ -172,7 +172,7 @@ export default abstract class CommandClass {
         return function(target: any) {
             // define the newCommandMain method
             const oldCommandMain = target.prototype.commandMain
-            const newCommandMain: Function = async (message: Message, client: HydroCarbon) => {
+            const newCommandMain: Function = async (message: Message, client: Tau) => {
                 const commandName = message.content.split(' ')[0].substring(1)
                     console.log('checking roles')
                         let rolePresent = false
@@ -198,7 +198,7 @@ export default abstract class CommandClass {
     protected static unStable(target: any) {
         const oldCommandMain = target.prototype.commandMain
 
-        const newCommandMain = async (message: Message, client: HydroCarbon) => {
+        const newCommandMain = async (message: Message, client: Tau) => {
             if (message.author.id == '536235243938643998') oldCommandMain(message, client)
             else sendEmbed(message.channel,{
                 title: `This command is unstable. At this time, only Alex AK may use this command`,
@@ -220,7 +220,7 @@ export default abstract class CommandClass {
     protected static SPECIAL(target: any) {
         const oldCommandMain = target.prototype.commandMain
 
-        const newCommandMain = async (message: Message, client: HydroCarbon) => {
+        const newCommandMain = async (message: Message, client: Tau) => {
             if (message.author.id == '536235243938643998') oldCommandMain(message, client)
             target.prototype.commandMain = newCommandMain
         }
@@ -295,7 +295,7 @@ export default abstract class CommandClass {
             const oldCommandMain = target.prototype.commandMain
             target.mostRecentUse = [];
 
-            const newCommandMain = (message: Message, client: HydroCarbon) => {
+            const newCommandMain = (message: Message, client: Tau) => {
                 const lastUseTime: number|undefined = target.mostRecentUse[message.author.id] // could be undefined
 
                 if (lastUseTime == undefined) {

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
+const defaultColor_1 = require("../../utility/embeds/defaultColor");
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const fs = require('fs');
 class walletcreate extends CommandClass_1.default {
@@ -21,7 +22,7 @@ class walletcreate extends CommandClass_1.default {
             if (wallets[message.author.id] != undefined)
                 sendEmbed(message.channel, {
                     title: `You already have a wallet, ${message.author.tag}.`,
-                    color: 'GREEN',
+                    color: defaultColor_1.default,
                     deleteTimeout: 5000
                 });
             else {
@@ -41,7 +42,7 @@ class walletcreate extends CommandClass_1.default {
                 });
                 sendEmbed(message.channel, {
                     title: `Wallet created, ${message.author.tag}!`,
-                    color: 'GREEN',
+                    color: defaultColor_1.default,
                     deleteTimeout: 5000
                 });
             }

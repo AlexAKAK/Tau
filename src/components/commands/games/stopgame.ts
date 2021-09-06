@@ -1,5 +1,5 @@
 import { DMChannel, Message, TextChannel } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import ErrorClass from "../../classes/ErrorSuperClass";
 
@@ -13,7 +13,7 @@ export default class stopgame extends CommandClass {
     protected static commandSyntax: string = 'stopgame'
 
 
-    async commandMain(message: Message, client: HydroCarbon): Promise<void> {
+    async commandMain(message: Message, client: Tau): Promise<void> {
         console.log(client.games)
         const newGame = client.games.get(message.channel.id)
         newGame.active = false

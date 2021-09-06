@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { LanguageServiceMode } from "typescript";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 const {blue} = require('./.././../utility/hexColors')
 import CommandClass from '../../classes/CommandClass'
 const {randomHi, randomBye} = require('./.././../utility/gifs')
@@ -16,7 +16,7 @@ export default class leave extends CommandClass {
     protected static commandDescription: string = 'I leave the voice channel I\'m in'
     protected static commandSyntax: string = 'leave'
 
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         message.guild.me.voice.channel.leave()
         //message.react('👋')
 

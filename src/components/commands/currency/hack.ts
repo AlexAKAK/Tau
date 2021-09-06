@@ -1,5 +1,5 @@
 import { GuildMember, Message, TextChannel } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import defaultColor from "../../utility/embeds/defaultColor";
 import getRandomInt from "../../utility/getRandomInt";
@@ -18,7 +18,7 @@ export default class hack extends CommandClass {
     protected static commandSyntax: string = 'hack <user>'
 
 
-    async commandMain(message: Message, client: HydroCarbon) {
+    async commandMain(message: Message, client: Tau) {
 
         const args = hack.splitArgsWithoutCommandCall(message)
 
@@ -61,7 +61,7 @@ export default class hack extends CommandClass {
         hack.stealCoin(message.author.id, playerId, amount)
 
         sendEmbed(message.channel, {
-            title: `${message.author.tag} stole ${amount} BrysonCoin from ${member.user.tag}!`,
+            title: `${message.author.tag} stole ${amount} TauCoin from ${member.user.tag}!`,
             color: 'RED',
             deleteTimeout: 10000
         })

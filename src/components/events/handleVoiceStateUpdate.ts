@@ -1,17 +1,17 @@
 import { Client, GuildMember, Message, StreamDispatcher, VoiceChannel, VoiceState } from "discord.js"
-import HydroCarbon from "../.."
+import Tau from "../.."
 const discordTTS = require('discord-tts');
 const onBroadcastFinish = require('./../utility/onBroadcastFinish')
 
 
 
-const playtts = function (text: string, client: HydroCarbon): void {
+const playtts = function (text: string, client: Tau): void {
     // check this
     const broadcast = client.voice.createBroadcast();
     broadcast.play(discordTTS.getVoiceStream(text));
 }
 
-async function handleVoiceStateUpdate(oldState: VoiceState, newState: VoiceState, client: HydroCarbon|Client): Promise<void> {
+async function handleVoiceStateUpdate(oldState: VoiceState, newState: VoiceState, client: Tau|Client): Promise<void> {
     /*const member = newState.member
     const clientInGuild = newState.guild.me
 

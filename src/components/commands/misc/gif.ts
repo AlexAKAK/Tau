@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 
 const Tenor = require("tenorjs").client({
     "Key": 'C6NWL8O6EVFW', // https://tenor.com/developer/keyregistration
@@ -24,7 +24,7 @@ export default class gif extends CommandClass {
     static fetch = require('node-fetch')
     static MISSING_ARGS_ERR_2 = gif.MISSING_ARGS_ERR_METACLASS(2)
 
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         const argsList = message.content.split(' ')
         let keywords: string = ""
 

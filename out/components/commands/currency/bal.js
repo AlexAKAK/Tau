@@ -30,7 +30,7 @@ class bal extends CommandClass_1.default {
                 });
             else if (args.length == 0)
                 sendEmbed(message.channel, {
-                    title: `${message.author.tag}'s balance is ${wallets[message.author.id]} AK Coin.`,
+                    title: `${message.author.tag}'s balance is ${wallets[message.author.id]} TauCoin.`,
                     color: defaultColor_1.default,
                     deleteTimeout: 5000
                 });
@@ -46,7 +46,7 @@ class bal extends CommandClass_1.default {
                     });
                 else
                     sendEmbed(message.channel, {
-                        title: `${member.user.tag}'s balance is ${wallets[member.user.id]} AK Coin.`,
+                        title: `${member.user.tag}'s balance is ${wallets[member.user.id]} TauCoin.`,
                         color: defaultColor_1.default,
                         deleteTimeout: 5000
                     });

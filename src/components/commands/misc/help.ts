@@ -1,51 +1,11 @@
 import { DMChannel, Message, TextChannel, MessageEmbed } from "discord.js"
-import HydroCarbon from "../../.."
+import Tau from "../../.."
 
 //const CommandClass = require('../classes/CommandClass')
 import CommandClass from '../../classes/CommandClass'
-
-// import commands
-import bal from "../currency/bal"
-import hack from "../currency/hack"
-import mine from "../currency/mine"
-import walletcreate from "../currency/walletcreate"
-
-import announce from "./announce"
-import clear from "./clear"
-import gif from "./gif"
-import meme from "./meme"
-import report from "./report"
-
-import join from "../music/join"
-import leave from "../music/leave"
-import loop from "../music/loop"
-import play from "../music/play"
-import queue from "../music/queue"
-import restart from "../music/restart"
-import skip from "../music/skip"
-import stop from "../music/stop"
-
-import currentgame from "../games/currentgame"
-import stopgame from "../games/stopgame"
-import mc from "../games/mc/mc"
-
-import transcribe from "../../science/transcribe"
-import translate from "../../science/translate"
-import pt from "../../science/pt"
-import yt from "./yt"
-import ytchannel from "./ytchannel"
-import shuffle from "../music/shuffle"
 import defaultColor from "../../utility/embeds/defaultColor"
 import errorColor from "../../utility/embeds/errorColor"
 import allCommands from "../../commandCategories/allCommands"
-// all commands organized by category
-import CommandCategory from "../../classes/CommandCategory"
-
-
-
-
-
-
 
 @help.alias(['h'])
 export default class help extends CommandClass {
@@ -60,7 +20,7 @@ export default class help extends CommandClass {
     
     
     
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         console.log(help.commands)
         for (let i = 0; i < allCommands.length; i++) {
                 for (let j = 0; j < allCommands[i].commands.length; j++) {
@@ -79,10 +39,10 @@ export default class help extends CommandClass {
         else help.argsMain(message, client)
     }
 
-    private static async noArgsMain(message: Message, client: HydroCarbon): Promise<void> {
+    private static async noArgsMain(message: Message, client: Tau): Promise<void> {
     
         const embed = new MessageEmbed()
-        .setTitle('\`\`\`To see available commands, type: ak!help <category/command>\`\`\`')
+        .setTitle(`\`\`\`To see available commands, type: ${client.PREFIX}help <category/command>\`\`\``)
         .setColor(defaultColor)
         .setTimestamp()
 
@@ -103,14 +63,14 @@ export default class help extends CommandClass {
         }, 20000)
     }
 
-    private static async argsMain(message: Message, client: HydroCarbon): Promise<void> {
+    private static async argsMain(message: Message, client: Tau): Promise<void> {
      
         const arg = help.splitArgsWithoutCommandCall(message)[0].toLowerCase()
         if (help.categories.indexOf(arg) != -1) help.argsMainCategory(message, client, arg)
         else help.argsMainCommand(message, client)
 
     }
-    private static async argsMainCategory(message: Message, client: HydroCarbon, category: string): Promise<void> {
+    private static async argsMainCategory(message: Message, client: Tau, category: string): Promise<void> {
         for (const _category of allCommands) 
         {
             if (_category.name == category) 
@@ -127,7 +87,7 @@ export default class help extends CommandClass {
         }
     }
 
-    private static async argsMainCommand(message: Message, client: HydroCarbon): Promise<void> {
+    private static async argsMainCommand(message: Message, client: Tau): Promise<void> {
         const commandName = help.splitArgsWithoutCommandCall(message)[0].toLowerCase()
         if (!help.checkIfCommandNameIsValid(commandName)) {
             help.sendEmbed(<TextChannel|DMChannel> message.channel, {

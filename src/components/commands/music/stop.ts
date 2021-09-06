@@ -1,5 +1,5 @@
 import { Message } from "discord.js"
-import HydroCarbon from "../../.."
+import Tau from "../../.."
 
 export {}
 const textFormatting = require('./../../utility/textFormatting')
@@ -19,7 +19,7 @@ export default class stop extends CommandClass {
     protected static commandSyntax: string = 'stop'
 
     
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
 
             // clear the server's queue
             client.queueMap.delete(message.guild.me.voice.connection.channel.id)

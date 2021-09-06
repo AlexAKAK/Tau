@@ -2,7 +2,7 @@ import { DiscordAPIError, DMChannel, Message, MessageEmbed, TextChannel } from "
 import mRNAGeneTranscript from './../classes/genetics/mRNAGeneTranscript'
 import CommandClass from "../classes/CommandClass";
 import aminoAcidSymbolToName from "./../classes/genetics/aminoAcidSymbolToName";
-import HydroCarbon from "../..";
+import Tau from "../..";
 
 @translate.errorCheck(translate.MISSING_ARGS_ERR_METACLASS(2))
 
@@ -10,7 +10,7 @@ export default class translate extends CommandClass {
     protected static commandCategory: string = 'science'
     protected static commandDescription: string = 'You translate a DNA strand'
     protected static commandSyntax: string = 'translate <DNA>'
-    async commandMain(message: Message, client: HydroCarbon) {
+    async commandMain(message: Message, client: Tau) {
         const seq = translate.splitArgsWithoutCommandCall(message )[0]
         
         const mRNA = new mRNAGeneTranscript(seq);

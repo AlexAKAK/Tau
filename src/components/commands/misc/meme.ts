@@ -1,5 +1,5 @@
 import { Message, TextChannel } from "discord.js"
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 const fetch = require('node-fetch')
 
@@ -10,7 +10,7 @@ export default class meme extends CommandClass {
     protected static commandDescription: string = 'A random meme is sent into the chat'
     protected static commandSyntax: string = 'meme'
     
-    async commandMain(message: Message, client: HydroCarbon) {
+    async commandMain(message: Message, client: Tau) {
 
         const memeFromReddit = await meme.getRandomMeme()  
         try {message.channel.send(memeFromReddit)}

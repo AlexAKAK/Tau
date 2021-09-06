@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
@@ -13,7 +13,7 @@ export default class report extends CommandClass {
 
     static MISSING_ARGS_ERR_3 = report.MISSING_ARGS_ERR_METACLASS(3)
 
-    async commandMain(message: Message, client: HydroCarbon) {
+    async commandMain(message: Message, client: Tau) {
         const args = report.splitArgsWithoutCommandCall(message)
         const playerName = args[0]
         let reason: string = ''

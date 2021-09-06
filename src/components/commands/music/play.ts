@@ -1,5 +1,5 @@
 import CommandClass from "./../../classes/CommandClass"
-const { getInfo } = require('ytdl-core')
+const { getInfo } = require('ytdl-core');
 const ytdl = require('ytdl-core');
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { red, randomColor } = require('./../../utility/hexColors');
@@ -8,12 +8,11 @@ const playAudio = require('./../../utility/playAudio');
 import { Client, Message, TextChannel } from 'discord.js';
 const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
 //const CommandClass = require('../classes/CommandClass');
-import HydroCarbon from './../../../index'
+import Tau from './../../../index'
 import { ERROR } from "../../classes/Errors";
 import getAudio from "./../../utility/getAudio"
 import { collapseTextChangeRangesAcrossMultipleVersions, InternalSymbolName } from "typescript";
 import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink";
-export {}
 const {getData, getTracks} = require('spotify-url-info')
 
 const spdl = require('spdl-core')
@@ -35,7 +34,7 @@ export default class play extends CommandClass {
 
     static MISSING_ARGS_ERR_2: ERROR = play.MISSING_ARGS_ERR_METACLASS(2)
 
-    static async ytQueueAdd(message: Message, client: HydroCarbon) {
+    static async ytQueueAdd(message: Message, client: Tau) {
         const args = play.splitArgs(message)
         const url = args[1]
         let info: object;
@@ -77,7 +76,7 @@ export default class play extends CommandClass {
                     
         return false
     }
-    static async ytPlay(message: Message, client: HydroCarbon) {
+    static async ytPlay(message: Message, client: Tau) {
         console.log('ytPlay')
         const args = play.splitArgs(message)
         const url = args[1]
@@ -125,7 +124,7 @@ export default class play extends CommandClass {
     }
 
     
-    static async kwPlay(message: Message, client: HydroCarbon, audio: any, url: string) {
+    static async kwPlay(message: Message, client: Tau, audio: any, url: string) {
 
         console.log('kwPlay')
 
@@ -169,7 +168,7 @@ export default class play extends CommandClass {
     }
 
 
-    static async kwQueueAdd(message: Message, client: HydroCarbon, audio: any, url: string) {
+    static async kwQueueAdd(message: Message, client: Tau, audio: any, url: string) {
         getInfo(url)
         .then(async info => 
         {
@@ -193,13 +192,10 @@ export default class play extends CommandClass {
             play.videoCannotBeAccessed(message, client)
             return
         })
-        
-            
-         
 
     }
 
-    static async yt(message: Message, client: HydroCarbon) {
+    static async yt(message: Message, client: Tau) {
         console.log('yt')
     
         /*
@@ -212,7 +208,7 @@ export default class play extends CommandClass {
         if (message.guild.me.voice.connection.dispatcher != null || message.guild.me.voice.connection.dispatcher != undefined) await play.ytPlay(message, client)           
         else play.ytQueueAdd(message, client)
     }
-    private static async kw(message: Message, client: HydroCarbon) {
+    private static async kw(message: Message, client: Tau) {
         console.log('kw')
         const keyWords = message.content.substring(message.content.indexOf(' ') + 1)
         let url: string
@@ -248,7 +244,7 @@ export default class play extends CommandClass {
         
     }
 
-    private static async spotifyPlay(message: Message, client: HydroCarbon, audio: any, url: string) {
+    private static async spotifyPlay(message: Message, client: Tau, audio: any, url: string) {
         const infoy = await getInfo(url)
         const songData = await getYTLinkFromSpotifyLink(url)
         if (infoy == null || infoy == undefined) play.handleNoVideoFound(message)
@@ -265,7 +261,7 @@ export default class play extends CommandClass {
         
     }
 
-    private static async spotifyAdd(message: Message, client: HydroCarbon, audio: any, url: string) {
+    private static async spotifyAdd(message: Message, client: Tau, audio: any, url: string) {
         const info = await getInfo(url)
         client.queueMap[message.guild.id]['queue'].push({
             audio: audio,
@@ -283,7 +279,7 @@ export default class play extends CommandClass {
         //return false 
     }
 
-    private static async spotify(message: Message, client: HydroCarbon) {
+    private static async spotify(message: Message, client: Tau) {
         const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
         console.log(spotifyURL)
         const firstSearch: object = await getData(spotifyURL)
@@ -320,7 +316,7 @@ export default class play extends CommandClass {
         else play.kwQueueAdd(message, client, audio, ytURL)
     }
 
-    private static async spotifyPlaylist(message: Message, client: HydroCarbon, tracks: object[], playlistName: string) {
+    private static async spotifyPlaylist(message: Message, client: Tau, tracks: object[], playlistName: string) {
         sendEmbed(message.channel, {
             title: `Loading Spotify Playlist: ${playlistName}`,
             deleteTimeout: 5000
@@ -386,7 +382,7 @@ export default class play extends CommandClass {
     }
 
 
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
         const re = /((open|play)\.spotify\.com\/)/
         const isSpotifyLink = re.test(play.removePrefixAndCommandFromString(message.content, client.PREFIX))
@@ -408,7 +404,7 @@ export default class play extends CommandClass {
 
     }
 
-    private static async loadSong(message: Message, client: HydroCarbon, song: object) {
+    private static async loadSong(message: Message, client: Tau, song: object) {
             if (song['type'] == 'spotify') {
                 const data: object = await getYTLinkFromSpotifyLink(song['url'])
                 song['url'] = data['url']
@@ -418,7 +414,7 @@ export default class play extends CommandClass {
             }
     }
     
-    private static async loadAllSongs(message: Message, client: HydroCarbon) {
+    private static async loadAllSongs(message: Message, client: Tau) {
         for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
             if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
                 const data: object = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][i]['url'])
@@ -430,7 +426,7 @@ export default class play extends CommandClass {
         }
     }
 
-    private static videoCannotBeAccessed(message: Message, client: HydroCarbon): void {
+    private static videoCannotBeAccessed(message: Message, client: Tau): void {
         play.sendEmbed(<TextChannel> message.channel, {
             title: `That video cannot be accessed anonymously, and is likely age-restricted, ${message.author.tag}.`,
             deleteTimeout: 5000

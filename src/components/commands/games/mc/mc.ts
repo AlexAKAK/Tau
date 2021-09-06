@@ -1,5 +1,5 @@
 import { DMChannel, Message, TextChannel } from "discord.js";
-import HydroCarbon from "../../../..";
+import Tau from "../../../..";
 import CommandClass from "../../../classes/CommandClass";
 import McGame from "./classes/McGame";
 import emojis from "../../../utility/emojis";
@@ -15,7 +15,7 @@ export default class mc extends CommandClass {
     protected static commandSyntax: string = 'mc'
 
 
-    async commandMain(message: Message, client: HydroCarbon): Promise<void> {
+    async commandMain(message: Message, client: Tau): Promise<void> {
         console.log('running mc')
         // creates the new game
         const gameBoard: McGame = new McGame(client, <TextChannel> message.channel);

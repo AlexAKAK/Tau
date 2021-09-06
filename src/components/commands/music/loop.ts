@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 
 import CommandClass from '../../classes/CommandClass'
 const { CLIENT_NOT_IN_VC_ERR, PLAYING_SONG_ALREADY_LOOPING_ERR } = require('./../../classes/Errors');
@@ -19,7 +19,7 @@ export default class loop extends CommandClass {
     protected static commandDescription: string = 'the currently playing song is set to loop after completion'
     protected static commandSyntax: string = 'loop'
     
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         client.queueMap[message.guild.me.voice.connection.channel.id]['playing']['loop'] = true
         sendEmbed(message.channel, {
             title: `looping ${client.queueMap[message.guild.me.voice.connection.channel.id]['playing']['songName']}`,

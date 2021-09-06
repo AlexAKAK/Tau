@@ -44,7 +44,7 @@ let help = help_1 = class help extends CommandClass_1.default {
     static noArgsMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
             const embed = new discord_js_1.MessageEmbed()
-                .setTitle('\`\`\`To see available commands, type: ak!help <category/command>\`\`\`')
+                .setTitle(`\`\`\`To see available commands, type: ${client.PREFIX}help <category/command>\`\`\``)
                 .setColor(defaultColor_1.default)
                 .setTimestamp();
             for (let i = 0; i < allCommands_1.default.length; i++) {

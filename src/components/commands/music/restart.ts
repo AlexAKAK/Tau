@@ -1,5 +1,5 @@
 import { Message, TextChannel } from "discord.js"
-import HydroCarbon from "../../../index"
+import Tau from "../../../index"
 
 const sendEmbed = require("./../../utility/embeds/sendEmbed")
 const { red, randomColor } = require("./../../utility/hexColors")
@@ -19,7 +19,7 @@ export default class restart extends CommandClass {
     protected static commandDescription: string = 'the currently playing song restarts'
     protected static commandSyntax: string = 'restart'
 
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         console.log(client.queueMap[message.guild.id].playing.url)
         const audio = await ytdl(client.queueMap[message.guild.id].playing.url)
         if (message.guild.me.voice.connection.dispatcher != null) message.guild.me.voice.connection.dispatcher.destroy()

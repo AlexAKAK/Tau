@@ -1,6 +1,6 @@
 import { GuildMember } from "discord.js";
 import { Message } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass"
 import defaultColor from "../../utility/embeds/defaultColor";
 import getRandomInt from "../../utility/getRandomInt";
@@ -18,7 +18,7 @@ export default class mine extends CommandClass {
     public static mostRecentMine: object = []
 
 
-    async commandMain(message: Message, client: HydroCarbon) {
+    async commandMain(message: Message, client: Tau) {
 
 
         // check if the message author is allowed to mine

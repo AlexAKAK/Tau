@@ -16,7 +16,6 @@ import loop from './components/commands/music/loop'
 import meme from './components/commands/misc/meme'
 
 
-
 import bal from './components/commands/currency/bal'
 import walletcreate from './components/commands/currency/walletcreate'
 import mine from './components/commands/currency/mine'
@@ -47,7 +46,7 @@ const disbut = require('discord.js-buttons')
 // import config
 const config: object = require('./../config.json')
 type GameObject = McGame
-export default class HydroCarbon extends Client {
+export default class Tau extends Client {
 
     // property declarations
     public on: any
@@ -114,6 +113,8 @@ export default class HydroCarbon extends Client {
     }
 
     async handleMessage(message: Message) {
+        // Jawn cannot talk
+        if (message.author.id == '289850597568675841') return
 
       if (message.channel.type === 'text') this.handleMessageFromTextChannel(message)
       else if (message.channel.type === 'dm') this.handleMessageFromDMChannel(message)
@@ -185,8 +186,8 @@ export default class HydroCarbon extends Client {
 }
 
 // Running the bot
-const client: HydroCarbon = new HydroCarbon();
-client.login('ODgzNDA5NDM5NDE4MzU1NzIz.YTJhJw.5Z1QZr9W1l9O1cS0g4erzi4hHk8')
+const client: Tau = new Tau();
+client.login('ODg0MjI0NjQ0OTUxOTczODk5.YTVYXw._1OF-FmFhumJ7oO7oOH8_FswpV0')
 disbut(<Client> client)
 
 // buttons

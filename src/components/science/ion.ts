@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from "discord.js";
-import HydroCarbon from "../..";
+import Tau from "../..";
 import CommandClass from "../classes/CommandClass";
 import ErrorClass from "../classes/ErrorSuperClass";
 
@@ -32,7 +32,7 @@ export default class ion extends CommandClass {
 
     ]
 
-    public async commandMain(message: Message, Client: HydroCarbon) {
+    public async commandMain(message: Message, Client: Tau) {
         const arg = message.content.toLowerCase().split(' ')[1]
             ion.ions.forEach((ionInfo => {
                 if (arg == ionInfo['name'] || arg == ionInfo['formula']) {

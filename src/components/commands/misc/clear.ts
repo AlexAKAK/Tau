@@ -1,5 +1,5 @@
 import { Message, TextChannel } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 
 import CommandClass from '../../classes/CommandClass'
 //const { quantativeRangeErrorMetaclass } = require('../classes/ErrorClass.js');
@@ -26,7 +26,7 @@ export default class clear extends CommandClass {
     // add the errors to check later
     
 
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         const args = clear.splitArgs(message)
     
         const num = Number(args[1])

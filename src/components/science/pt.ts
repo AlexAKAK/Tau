@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
-import HydroCarbon from '../..';
+import Tau from '../..';
 import CommandClass from "../classes/CommandClass";
 import { MISSING_ARGS_ERR_METACLASS } from '../classes/Errors';
 import ErrorClass from '../classes/ErrorSuperClass';
@@ -70,7 +70,7 @@ export default class pt extends CommandClass {
 
     }
 
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         /*
         {
         atomicNumber: 10,

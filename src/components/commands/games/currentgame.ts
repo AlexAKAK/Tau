@@ -1,5 +1,5 @@
 import { DMChannel, Message, TextChannel } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 
 export default class currentgame extends CommandClass {
@@ -8,7 +8,7 @@ export default class currentgame extends CommandClass {
     protected static commandSyntax: string = 'currentgame'
 
 
-    async commandMain(message: Message, client: HydroCarbon): Promise<void> {
+    async commandMain(message: Message, client: Tau): Promise<void> {
         if (client.games.has(message.channel.id) == false || client.games.get(message.channel.id).active == false) {
             currentgame.sendEmbed(<TextChannel|DMChannel> message.channel, {
                 title: `There are no games being played in this channel, ${message.author.tag}.`,

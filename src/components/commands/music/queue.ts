@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from "discord.js";
 import { MessageButton } from "discord-buttons";
-import HydroCarbon from "../../../index";
+import Tau from "../../../index";
 import CommandClass from '../../classes/CommandClass'
 import makeButton from "../../utility/buttons/makeButton";
 import defaultColor from "../../utility/embeds/defaultColor";
@@ -29,7 +29,7 @@ export default class queue extends CommandClass {
     protected static commandSyntax: string = 'queue'
 
 
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
 
         const playing = client.queueMap[message.guild.id]['playing'] // dict
         const serverQueue = client.queueMap[message.guild.id]['queue'] // array

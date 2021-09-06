@@ -1,5 +1,5 @@
 import { TextChannel } from "discord.js";
-import HydroCarbon from "../..";
+import Tau from "../..";
 
 
 // one game can be played per textchannel/dmchannel at a time

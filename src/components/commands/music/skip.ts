@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 
 
 
@@ -47,7 +47,7 @@ export default class skip extends CommandClass {
     protected static commandSyntax: string = 'skip'
     
     
-    public async commandMain(message: Message, client: HydroCarbon) {
+    public async commandMain(message: Message, client: Tau) {
         const connection = message.guild.me.voice.connection
         const dispatcher = connection.dispatcher
         sendEmbed(message.channel, {

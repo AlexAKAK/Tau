@@ -1,5 +1,5 @@
 import { DMChannel, Message, MessageEmbed, TextChannel } from "discord.js";
-import HydroCarbon from "../..";
+import Tau from "../..";
 import CommandClass from "../classes/CommandClass";
 
 
@@ -11,7 +11,7 @@ export default class transcribe extends CommandClass {
     protected static commandDescription: string = 'You transcribe an RNA strand'
     protected static commandSyntax: string = 'transcribe <RNA>'
 
-    async commandMain(message: Message, client: HydroCarbon) {
+    async commandMain(message: Message, client: Tau) {
         let DNA: string = transcribe.splitArgsWithoutCommandCall(message)[0]
         let RNA = DNA
 

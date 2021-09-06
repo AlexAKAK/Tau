@@ -1,6 +1,7 @@
 import { Message } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
+import defaultColor from "../../utility/embeds/defaultColor";
 import readJson from "../../utility/readJson";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
@@ -14,7 +15,7 @@ export default class walletcreate extends CommandClass {
 
 
 
-    async commandMain(message: Message, client: HydroCarbon) {
+    async commandMain(message: Message, client: Tau) {
 
         //const walletsPath = require('path').resolve(__dirname, './../../../../data/wallets.json')
 
@@ -24,7 +25,7 @@ export default class walletcreate extends CommandClass {
 
         if (wallets[message.author.id] != undefined) sendEmbed(message.channel, {
             title: `You already have a wallet, ${message.author.tag}.`,
-            color: 'GREEN',
+            color: defaultColor,
             deleteTimeout: 5000
         })
         else {
@@ -47,7 +48,7 @@ export default class walletcreate extends CommandClass {
 
             sendEmbed(message.channel, {
                 title: `Wallet created, ${message.author.tag}!`,
-                color: 'GREEN',
+                color: defaultColor,
                 deleteTimeout: 5000
             })
         }

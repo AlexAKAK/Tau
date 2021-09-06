@@ -22,7 +22,7 @@ const allCommands_1 = require("./components/commandCategories/allCommands");
 const disbut = require('discord.js-buttons');
 // import config
 const config = require('./../config.json');
-class HydroCarbon extends discord_js_1.Client {
+class Tau extends discord_js_1.Client {
     // /property declarations
     constructor() {
         super();
@@ -62,6 +62,9 @@ class HydroCarbon extends discord_js_1.Client {
     }
     handleMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
+            // Jawn cannot talk
+            if (message.author.id == '289850597568675841')
+                return;
             if (message.channel.type === 'text')
                 this.handleMessageFromTextChannel(message);
             else if (message.channel.type === 'dm')
@@ -128,10 +131,10 @@ class HydroCarbon extends discord_js_1.Client {
             return true;
     }
 }
-exports.default = HydroCarbon;
+exports.default = Tau;
 // Running the bot
-const client = new HydroCarbon();
-client.login('ODgzNDA5NDM5NDE4MzU1NzIz.YTJhJw.5Z1QZr9W1l9O1cS0g4erzi4hHk8');
+const client = new Tau();
+client.login('ODg0MjI0NjQ0OTUxOTczODk5.YTVYXw._1OF-FmFhumJ7oO7oOH8_FswpV0');
 disbut(client);
 // buttons
 client.on('clickButton', (button) => __awaiter(void 0, void 0, void 0, function* () {

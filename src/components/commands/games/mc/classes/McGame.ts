@@ -3,7 +3,7 @@ Add inventory
 */
 
 import { DMChannel, Message, MessageEmbed, TextChannel, Client } from "discord.js"
-import HydroCarbon from "../../../../.."
+import Tau from "../../../../.."
 import emojis from "../../../../utility/emojis"
 import GameSuperClass from "../../../../classes/GameSuperClass"
 import getRandomInt from "../../../../utility/getRandomInt"
@@ -33,7 +33,7 @@ type block = string
 
 export default class McGame extends GameSuperClass {
     public gameName: string = 'Minecraft'
-    private client: HydroCarbon
+    private client: Tau
     private channel: TextChannel|DMChannel
     private messageInChannel: Message = null
     public mostRecentMessage: Message = null
@@ -135,7 +135,7 @@ export default class McGame extends GameSuperClass {
         }
     }
 
-    constructor(_client: HydroCarbon, _channel: TextChannel) {
+    constructor(_client: Tau, _channel: TextChannel) {
         super()
         this.renderTerrain()
         this.renderCharacterInit()

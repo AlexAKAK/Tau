@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import ytVideo from "../../classes/ytVideo";
 import textBlock from "../../utility/embeds/textBlock";
@@ -17,7 +17,7 @@ export default class yt extends CommandClass {
     protected static commandDescription: string = 'Outputs search results for a youtube search'
     protected static commandSyntax: string = 'yt <query>'
 
-    public async commandMain(message: Message, client: HydroCarbon): Promise<void> {
+    public async commandMain(message: Message, client: Tau): Promise<void> {
         const query = yt.removePrefixFromString(message.content, client.PREFIX)
         const links: ytVideo[] = await getYTLinksFromQuery(query)
         let embed = new MessageEmbed()

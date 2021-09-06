@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import ytChannel from "../../classes/ytChannel";
 import defaultColor from "../../utility/embeds/defaultColor";
@@ -16,7 +16,7 @@ export default class ytchannel extends CommandClass {
 
 
 
-    public async commandMain(message: Message, client: HydroCarbon): Promise<any> {
+    public async commandMain(message: Message, client: Tau): Promise<any> {
         const query: string = ytchannel.removePrefixAndCommandFromString(message.content, client.PREFIX)
         const channel: ytChannel = await getYTChannelFromQuery(query)
         if (channel == null) ytchannel.sendErrMessage(message.channel, `There are no channel results for: ${query}`)

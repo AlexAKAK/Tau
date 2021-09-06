@@ -1,5 +1,5 @@
 import { Guild, Message, MessageEmbed } from "discord.js";
-import HydroCarbon from "../../..";
+import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 
 
@@ -15,7 +15,7 @@ export default class announce extends CommandClass {
     static MISSING_ARGS_ERR_2 = announce.MISSING_ARGS_ERR_METACLASS(2)
 
 
-    async commandMain(message: Message, client: HydroCarbon): Promise<void> {
+    async commandMain(message: Message, client: Tau): Promise<void> {
 
     
 
