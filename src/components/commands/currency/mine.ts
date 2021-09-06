@@ -52,7 +52,7 @@ export default class mine extends CommandClass {
             })
 
             sendEmbed(message.channel, {
-                title: `${message.author.tag} mined ${amount} AK Coin`,
+                title: `${message.author.tag} mined ${amount} TauCoin`,
                 color: defaultColor,
                 deleteTimeout: 5000
             })

@@ -11,9 +11,9 @@ const {red, randomColor} = require('./../../utility/hexColors');
     clear.QUANTATIVE_RANGE_ERR_1_1_100
 ])
 
-@clear.role(clear.STAFF)
+@clear.role([clear.HEADDEVELOPER])
 
-@clear.unStable
+//@clear.unStable
 
 export default class clear extends CommandClass {
     protected static commandCategory: string = 'misc'

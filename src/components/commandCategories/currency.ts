@@ -15,4 +15,4 @@ export default new CommandCategory('currency', [
     totalcurrency,
     baltop
 ],
-'Commands for the AK Currency')
+'Commands for TauCoin')

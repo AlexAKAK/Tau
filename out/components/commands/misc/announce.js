@@ -18,19 +18,20 @@ var announce_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const CommandClass_1 = require("../../classes/CommandClass");
+const defaultColor_1 = require("../../utility/embeds/defaultColor");
 let announce = announce_1 = class announce extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
             const spaceIndex = message.content.indexOf(' ');
             const msg = message.content.substring(spaceIndex + 1);
-            const embed = new discord_js_1.MessageEmbed();
-            embed
-                .setColor('BLUE')
+            const embed = new discord_js_1.MessageEmbed()
+                .setColor(defaultColor_1.default)
                 .setDescription(msg)
                 .setTitle(`Annoucement by ${message.author.tag}`)
                 .setTimestamp();
             message.channel.send(embed);
-            //announce.dmEveryone(embed, message.guild)
+            if (!message.deleted)
+                message.delete();
         });
     }
 };

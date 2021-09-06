@@ -1,6 +1,7 @@
-import { Message, TextChannel, User } from "discord.js";
+import { Message, MessageEmbed, TextChannel, User } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
+import defaultColor from "../../utility/embeds/defaultColor";
 
 export default class baltop extends CommandClass {
     protected static commandDescription: string = 'Shows the user with the highest balance'
@@ -21,8 +22,12 @@ export default class baltop extends CommandClass {
 
         const topUser: User = await client.users.fetch(topUserID)
 
-        baltop.sendEmbed(<TextChannel>message.channel, {
-            title: `The user with the highest balance is ${topUser.tag}, with ${topbal} TauCoin.`
-        })
+        const embed = new MessageEmbed()
+        .setTitle(`The user with the highest balance is ${topUser.tag}, with ${topbal} TauCoin.`)
+        .setImage(topUser.avatarURL())
+        .setColor(defaultColor)
+        .setTimestamp()
+
+        message.channel.send(embed)
     }
 }

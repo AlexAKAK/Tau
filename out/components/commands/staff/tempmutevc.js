@@ -14,32 +14,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var loop_1;
+var tempmutevc_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandClass_1 = require("../../classes/CommandClass");
 const defaultColor_1 = require("../../utility/embeds/defaultColor");
-const { CLIENT_NOT_IN_VC_ERR, PLAYING_SONG_ALREADY_LOOPING_ERR } = require('./../../classes/Errors');
-const sendEmbed = require('./../../utility/embeds/sendEmbed');
-const { red, randomColor } = require('./../../utility/hexColors');
-let loop = loop_1 = class loop extends CommandClass_1.default {
+let tempmutevc = tempmutevc_1 = class tempmutevc extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            client.queueMap[message.guild.id]['playing']['loop'] = true;
-            sendEmbed(message.channel, {
-                title: `looping ${client.queueMap[message.guild.id]['playing']['songName']}`,
+            console.log('tempmutevc');
+            const args = tempmutevc_1.splitArgs(message);
+            const playerId = args[1].substring(3).replace('>', '');
+            console.log(playerId);
+            const duration = Number(args[2]) * 1000;
+            const victim = tempmutevc_1.getMember(playerId, message.guild);
+            if (victim == message.guild.me)
+                return;
+            victim.voice.setMute(true);
+            setTimeout(() => {
+                victim.voice.setMute(false);
+            }, duration);
+            tempmutevc_1.sendEmbed(message.channel, {
+                title: `Temporarily vc muted ${victim.user.tag} for ${duration / 1000} seconds.`,
                 color: defaultColor_1.default,
                 deleteTimeout: 5000,
             });
+            victim.user.createDM()
+                .then(dmChannel => tempmutevc_1.sendEmbed(dmChannel, {
+                title: `You have been vc muted for ${duration / 1000} seconds in ${victim.guild.name}.`,
+                color: defaultColor_1.default
+            }));
         });
     }
 };
-loop.commandCategory = 'music';
-loop.commandDescription = 'the currently playing song is set to loop after completion';
-loop.commandSyntax = 'loop';
-loop = loop_1 = __decorate([
-    loop_1.errorCheck([
-        loop_1.CLIENT_NOT_IN_VC_ERR
-        //loop.PLAYING_SONG_ALREADY_LOOPING_ERR
+tempmutevc.commandDescription = 'A user is temporarily muted from vc';
+tempmutevc.commandSyntax = 'tempmutevc <userping> <duration in ms>';
+tempmutevc.MISSING_ARGS_ERR_3 = tempmutevc_1.MISSING_ARGS_ERR_METACLASS(3);
+tempmutevc = tempmutevc_1 = __decorate([
+    tempmutevc_1.errorCheck([
+        tempmutevc_1.MISSING_ARGS_ERR_3
     ])
-], loop);
-exports.default = loop;
+], tempmutevc);
+exports.default = tempmutevc;

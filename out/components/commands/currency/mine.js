@@ -54,7 +54,7 @@ let mine = mine_1 = class mine extends CommandClass_1.default {
                     //file written successfully
                 });
                 sendEmbed(message.channel, {
-                    title: `${message.author.tag} mined ${amount} AK Coin`,
+                    title: `${message.author.tag} mined ${amount} TauCoin`,
                     color: defaultColor_1.default,
                     deleteTimeout: 5000
                 });

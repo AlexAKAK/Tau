@@ -156,14 +156,14 @@ export default abstract class CommandClass {
 
 
     
-    protected static OWNER = 843888754863374386
+    protected static HEADDEVELOPER = 884227120547651604
     protected static ADMIN = 848001679801712650
     protected static MOD = 843991898708246558
     protected static DEVELOPER = 849334166717071420
 
     protected static MUTED = 848386357708849152
 
-    protected static STAFF = [CommandClass.OWNER, CommandClass.ADMIN, CommandClass.MOD]
+    protected static STAFF = [CommandClass.HEADDEVELOPER, CommandClass.ADMIN, CommandClass.MOD]
 
 
     // decorator factory

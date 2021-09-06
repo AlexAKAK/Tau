@@ -11,29 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const CommandClass_1 = require("../../classes/CommandClass");
-const defaultColor_1 = require("../../utility/embeds/defaultColor");
-class baltop extends CommandClass_1.default {
+class helpstaff extends CommandClass_1.default {
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            let topUserID;
-            let topbal = -1;
-            const walletData = require('./../../../../data/wallets.json');
-            for (const userID in walletData) {
-                if (walletData[userID] > topbal) {
-                    topbal = walletData[userID];
-                    topUserID = userID;
-                }
-            }
-            const topUser = yield client.users.fetch(topUserID);
             const embed = new discord_js_1.MessageEmbed()
-                .setTitle(`The user with the highest balance is ${topUser.tag}, with ${topbal} TauCoin.`)
-                .setImage(topUser.avatarURL())
-                .setColor(defaultColor_1.default)
+                .addField('mute <user>', 'mutes the user', false)
+                .addField('unmute <user>', 'unmutes the user', false)
+                .addField('tempmute <user> <duration>', 'temporarily mutes the member for the specified duration', false)
+                .addField('tempmutevc <user> <duration>', 'temporarily vc mutes the user for the specifed duration', false)
+                .setColor('GREEN')
                 .setTimestamp();
             message.channel.send(embed);
         });
     }
 }
-exports.default = baltop;
-baltop.commandDescription = 'Shows the user with the highest balance';
-baltop.commandSyntax = 'baltop';
+exports.default = helpstaff;
+"BRYSON";

@@ -1,6 +1,7 @@
 import { Guild, Message, MessageEmbed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
+import defaultColor from "../../utility/embeds/defaultColor";
 
 
 @announce.alias(['a'])
@@ -16,59 +17,20 @@ export default class announce extends CommandClass {
 
 
     async commandMain(message: Message, client: Tau): Promise<void> {
-
-    
-
         const spaceIndex: number = message.content.indexOf(' ')
         const msg = message.content.substring(spaceIndex + 1)
 
     
         const embed = new MessageEmbed()
-        embed
-        .setColor('BLUE')
+        .setColor(defaultColor)
         .setDescription(msg)
         .setTitle(`Annoucement by ${message.author.tag}`)
         .setTimestamp()
 
-
-
-
         message.channel.send(embed)
 
+        if (!message.deleted) message.delete()
 
-
-
-
-
-
-
-
-
-
-
-
-        //announce.dmEveryone(embed, message.guild)
-
-
-
-
-         
-    }
-/*
-    private static dmEveryone(content: string|MessageEmbed, guild: Guild) {
-        guild.members.cache.forEach(member => {
-            if (member == guild.me)
    
-            member.user.send(content)
-            
-            
-
-            
-           
-        })
     }
-*/
-
-  
-
 }

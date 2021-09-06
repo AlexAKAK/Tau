@@ -262,9 +262,9 @@ CommandClass.errorCheck = function (errorsToCheck) {
         commandConstructor.prototype.commandMain = newCommandMain;
     };
 };
-CommandClass.OWNER = 843888754863374386;
+CommandClass.HEADDEVELOPER = 884227120547651604;
 CommandClass.ADMIN = 848001679801712650;
 CommandClass.MOD = 843991898708246558;
 CommandClass.DEVELOPER = 849334166717071420;
 CommandClass.MUTED = 848386357708849152;
-CommandClass.STAFF = [CommandClass.OWNER, CommandClass.ADMIN, CommandClass.MOD];
+CommandClass.STAFF = [CommandClass.HEADDEVELOPER, CommandClass.ADMIN, CommandClass.MOD];

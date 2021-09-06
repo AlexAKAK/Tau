@@ -14,4 +14,4 @@ exports.default = new CommandCategory_1.default('currency', [
     walletcreate_1.default,
     totalcurrency_1.default,
     baltop_1.default
-], 'Commands for the AK Currency');
+], 'Commands for TauCoin');

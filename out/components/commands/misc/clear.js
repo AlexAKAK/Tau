@@ -20,7 +20,9 @@ const CommandClass_1 = require("../../classes/CommandClass");
 //const { quantativeRangeErrorMetaclass } = require('../classes/ErrorClass.js');
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { red, randomColor } = require('./../../utility/hexColors');
-let clear = clear_1 = class clear extends CommandClass_1.default {
+let clear = clear_1 = 
+//@clear.unStable
+class clear extends CommandClass_1.default {
     // add the errors to check later
     commandMain(message, client) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -50,7 +52,7 @@ clear = clear_1 = __decorate([
     clear_1.errorCheck([
         clear_1.QUANTATIVE_RANGE_ERR_1_1_100
     ]),
-    clear_1.role(clear_1.STAFF),
-    clear_1.unStable
+    clear_1.role([clear_1.HEADDEVELOPER])
+    //@clear.unStable
 ], clear);
 exports.default = clear;

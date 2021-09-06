@@ -35,7 +35,7 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
         // reset the audio by getting it from ytdl()
         const audio = ytdl(url)
         setTimeout(() => {
-          const dispatcher = connection.play(audio, { type: 'opus' })
+          const dispatcher = connection.play(audio, { type: 'opus', volume: 0.05 })
        
         dispatcher.on('finish', () => {
             checkQueueThenHandle(message, connection)
