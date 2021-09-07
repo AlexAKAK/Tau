@@ -8,7 +8,7 @@ import skip from './components/commands/music/skip'
 import queue from './components/commands/music/queue'
 import restart from './components/commands/music/restart'
 
-import McGame from "./components/commands/games/mc/classes/McGame";
+//import McGame from "./components/commands/games/mc/classes/McGame";
 import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
 import allCommands from "./components/commandCategories/allCommands";
 
@@ -16,13 +16,13 @@ const disbut = require('discord.js-buttons')
 
 // import config
 const config: object = require('./../config.json')
-type GameObject = McGame
+//type GameObject = McGame
 export default class Tau extends Client {
 
     // property declarations
     public on: any
     public login: any
-    public games: Map<string, GameObject>
+    //public games: Map<string, GameObject>
     public TEXT_CHANNEL_COMMANDS: any[];
     public DM_COMMANDS: any[];
     public PREFIX: string = config['prefix']
@@ -34,8 +34,8 @@ export default class Tau extends Client {
     constructor() {
         super()
         // data holders
-        this.games = new Map<string, GameObject>()
-        this.queueMap = new Map<any, any>()
+        //this.games = new Map<string, GameObject>()
+        //this.queueMap = new Map<any, any>()
         // / data holders
         // commands
         this.TEXT_CHANNEL_COMMANDS = [
@@ -69,19 +69,19 @@ export default class Tau extends Client {
         // / events
     }
 
-    public addGame(channelID: string, gameObject: GameObject): void {
-        this.games.set(channelID, gameObject)
-    }
+    //public addGame(channelID: string, gameObject: GameObject): void {
+        //this.games.set(channelID, gameObject)
+    //}
 
-    public getGame(channelID: string): GameObject {
-        return this.games.get(channelID)
-    }
+    //public getGame(channelID: string): GameObject {
+        //return this.games.get(channelID)
+    //}
 
-    public removeGame(channelID: string): McGame {
-        const gameObject = this.games.get(channelID)
-        this.games.delete(channelID)
-        return gameObject
-    }
+    //public removeGame(channelID: string): McGame {
+        //const gameObject = this.games.get(channelID)
+        //this.games.delete(channelID)
+        //return gameObject
+    //}
 
     async handleMessage(message: Message) {
 
