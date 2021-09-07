@@ -8,7 +8,7 @@ import seed from "./seed";
 import wood from "./wood";
 import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
 import getRandomInt from "../../../../../utility/getRandomInt";
-import greenapple from "./greenapple";
+import greenapple from "./greenApple";
 import placeable from "../../interfaces/placeable";
 import redApple from "./redApple";
 
