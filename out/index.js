@@ -42,6 +42,16 @@ class Tau extends discord_js_1.Client {
         this.TEXT_CHANNEL_COMMANDS.push(help_1.default);
         this.DM_COMMANDS = [
             help_1.default,
+            /*
+            mc,
+            stopgame,
+            currentgame,
+            pt,
+            transcribe,
+            translate,
+            yt,
+            ytchannel
+            */
         ];
         // / commands
         // events
