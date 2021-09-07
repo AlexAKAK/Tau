@@ -6,7 +6,7 @@ const youtubesearchapi = require('youtube-search-api');
 export default async function getYTChannelFromQuery(query: string): Promise<ytChannel> {
 
     const resultsObject: object = await youtubesearchapi.GetListByKeyword(query)
-
+    console.log(resultsObject)
     const results = resultsObject['items']
 
     for (let i = 0; i < results.length; i++) {

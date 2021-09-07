@@ -17,11 +17,11 @@ export default class tempmutevc extends CommandClass {
     protected static commandSyntax: string = 'tempmutevc <userping> <duration> <unit (s/m/h)>'
     static MISSING_ARGS_ERR_4 = tempmutevc.MISSING_ARGS_ERR_METACLASS(4)
     async commandMain(message: Message, client: HydroCarbon) {
-     
+        console.log('tempmutevc')
         const args = tempmutevc.splitArgs(message)
 
         const playerId = args[1].substring(3).replace('>', '')
-        (playerId)
+        console.log(playerId)
         const duration = Number(args[2])
         if (duration == NaN) return
 

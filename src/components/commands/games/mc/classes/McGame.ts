@@ -13,7 +13,7 @@ import grass from "./items/grass"
 import stone from "./items/stone"
 import tree from "./items/tree"
 import Item from "../interfaces/Item"
-import blockTypes from "../enums/blockTypes" 
+import blockTypes from "../enums/blockTypes"
 import { clearScreenDown } from "readline"
 import direction from "../enums/direction"
 import CommandClass from "../../../../classes/CommandClass"
@@ -54,7 +54,7 @@ export default class McGame extends GameSuperClass {
                 2: emojis.leftArrow,
                 3: emojis.rightArrow
             }
-        
+            console.log(dirToCharacterEmoji[this.direction])
             return dirToCharacterEmoji[this.direction]
         },
         underBlock: null,

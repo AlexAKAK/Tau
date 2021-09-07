@@ -42,12 +42,14 @@ export default class pt extends CommandClass {
     }
       
     public getInfo(search: string): object {
-
+        console.log(search)
         const elementFromName = periodicTable.elements[search]
         const elementFromSymbol = periodicTable.symbols[search]
         const elementFromAtomicNumber = periodicTable.numbers[Number(search)]
 
- 
+        console.log(elementFromAtomicNumber)
+        console.log(elementFromName)
+        console.log(elementFromSymbol)
 
         if (elementFromName != undefined) return elementFromName
         else if (elementFromSymbol != undefined) return elementFromSymbol
@@ -57,7 +59,7 @@ export default class pt extends CommandClass {
 
     static ELEMENT_NOT_FOUND_ERR = class ELEMENT_NOT_FOUND_ERR extends ErrorClass {
         checkPresence(message: Message): boolean {
-         
+            console.log(pt.prototype.getInfo(pt.splitArgs(message)[1]))
             if (!pt.prototype.getInfo(pt.splitArgs(message)[1])) return true
             else return false
         }
@@ -93,7 +95,7 @@ export default class pt extends CommandClass {
         yearDiscovered: 1898
         }
         */
-    
+        console.log(message.content.split(' '))
         const element = pt.prototype.getInfo(message.content.split(' ')[1])
         const embed = new MessageEmbed()
         const name = element['name']

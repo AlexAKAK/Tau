@@ -77,7 +77,7 @@ export default class play extends CommandClass {
         return false
     }
     static async ytPlay(message: Message, client: Tau) {
-     
+        console.log('ytPlay')
         const args = play.splitArgs(message)
         const url = args[1]
         let info: object;
@@ -126,7 +126,7 @@ export default class play extends CommandClass {
     
     static async kwPlay(message: Message, client: Tau, audio: any, url: string) {
 
-       
+        console.log('kwPlay')
 
         let info: object;
         getInfo(url)
@@ -196,7 +196,7 @@ export default class play extends CommandClass {
     }
 
     static async yt(message: Message, client: Tau) {
-      
+        console.log('yt')
     
         /*
         -if connection is defined/nonnull
@@ -209,7 +209,7 @@ export default class play extends CommandClass {
         else play.ytQueueAdd(message, client)
     }
     private static async kw(message: Message, client: Tau) {
-      
+        console.log('kw')
         const keyWords = message.content.substring(message.content.indexOf(' ') + 1)
         let url: string
         try {
@@ -219,7 +219,7 @@ export default class play extends CommandClass {
             play.videoCannotBeAccessed(message, client)
             return
         }
-      
+        console.log('got info')
         if (url == null) {
             sendEmbed(message.channel, {
                 title: `No videos found for: ${keyWords}`,
@@ -281,7 +281,7 @@ export default class play extends CommandClass {
 
     private static async spotify(message: Message, client: Tau) {
         const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
- 
+        console.log(spotifyURL)
         const firstSearch: object = await getData(spotifyURL)
         if (firstSearch['tracks'] != undefined) {
             const playlistName = firstSearch['name']
@@ -303,14 +303,14 @@ export default class play extends CommandClass {
         // change this back to the original link in a bit //
         //
         const infos = await spdl.getInfo(spotifyURL)
-      
+        console.log(infos)
         const artistAndName = infos.artist + " " + infos.title
         const searchResults = await ytsr(artistAndName, { limit: 1 })
-   
+        console.log(searchResults)
         const ytURL = searchResults.items[0].url
         const audio = ytdl(ytURL)
 
-
+        console.log(`dispatcher ${message.guild.me.voice.connection.dispatcher}`)
 
         if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, ytURL)           
         else play.kwQueueAdd(message, client, audio, ytURL)
@@ -321,15 +321,15 @@ export default class play extends CommandClass {
             title: `Loading Spotify Playlist: ${playlistName}`,
             deleteTimeout: 5000
         })
-
-     
+        console.log('spotify playlist')
+        console.log(tracks)
 
         let playing: boolean = false
         for (let i = 0; i < tracks.length; i++) {
             // if the track is explicit, don't add it or play it. Trying to play an explicit track crashes the bot
             
             if (tracks[i] != null) if (tracks[i]['explicit'] == false) if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
-          
+                console.log('dispatcher is null')
                 const songData = await getYTLinkFromSpotifyLink(tracks[i]['external_urls']['spotify']) // change here
                 
                 client.queueMap[message.guild.id] = {

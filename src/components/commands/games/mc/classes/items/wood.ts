@@ -10,7 +10,7 @@ import grass from "./grass";
 
 export default class wood implements Item, placeable {
     update(gameInstance: McGame): void {
-    
+        console.log('updating')
     }
     x: number
     y: number

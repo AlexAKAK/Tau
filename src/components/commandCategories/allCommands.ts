@@ -10,6 +10,6 @@ export default [
     music,
     science,
     currency,
-    //games,
+    games,
     staff
 ]

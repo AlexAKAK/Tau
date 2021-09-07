@@ -30,7 +30,7 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
 
     // if the song will loop
     if (client.queueMap[message.guild.id]['playing']['loop'] === true) {
-      
+        console.log('else if')
         const url = client.queueMap[message.guild.id]['playing']['url']
         // reset the audio by getting it from ytdl()
         const audio = ytdl(url)
@@ -52,7 +52,7 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
 
     // if the song won't loop, and there is a next song in the queue
     else if (client.queueMap[message.guild.id]['queue'][0]) {
-    
+        console.log('else if')
         if (client.queueMap[message.guild.id]['queue'][0]['type'] == 'spotify') {
             const songInfo = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][0]['url'])
             client.queueMap[message.guild.id]['queue'][0]['audio'] = songInfo['audio']
@@ -78,7 +78,7 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
     }
     // if the song won't loop and there isn't a next song in the queue
     else {
-       
+        console.log('else')
         client.queueMap.delete(message.guild.id)
     }
     

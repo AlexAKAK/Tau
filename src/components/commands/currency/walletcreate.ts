@@ -21,7 +21,7 @@ export default class walletcreate extends CommandClass {
 
         const wallets: object = require('./../../../../data/wallets.json')
 
-
+        console.log(wallets)
 
         if (wallets[message.author.id] != undefined) sendEmbed(message.channel, {
             title: `You already have a wallet, ${message.author.tag}.`,
@@ -35,9 +35,9 @@ export default class walletcreate extends CommandClass {
             const jsonString: string = JSON.stringify(wallets)
             
             //write the data
-      
+            console.log(jsonString)
             const logPath = require('path').resolve(__dirname, './../../../../data/wallets.json')
-          
+            console.log(logPath)
             fs.writeFile(logPath, jsonString, err => {
                 if (err) {
                   console.error(err)

@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import Tau from "../../..";
 
 const Tenor = require("tenorjs").client({
-    "Key": require('./../../../../config.json')['tenorAPIKey'], // https://tenor.com/developer/keyregistration
+    "Key": 'C6NWL8O6EVFW', // https://tenor.com/developer/keyregistration
     "Filter": "off", // "off", "low", "medium", "high", not case sensitive
     "Locale": "en_US", // Your locale here, case-sensitivity depends on input
     "MediaFilter": "minimal", // either minimal or basic, not case sensitive
@@ -36,7 +36,7 @@ export default class gif extends CommandClass {
                 const results = await Tenor.Search.Query(keywords, "1")
                 results.forEach(post => {
                     message.channel.send(post['itemurl'])
-               
+                    console.log(post['itemurl'])
                 });   
     }
 }

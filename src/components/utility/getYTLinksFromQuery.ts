@@ -6,7 +6,7 @@ import ytVideo from "../classes/ytVideo";
 export default async function getYTLinksFromQuery(query: string): Promise<ytVideo[]> {
 
     const resultsObject: object = await youtubesearchapi.GetListByKeyword(query)
- 
+    console.log(resultsObject)
     const results = resultsObject['items']
 
     let links: ytVideo[] = [];

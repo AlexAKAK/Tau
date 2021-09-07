@@ -22,7 +22,7 @@ export default class tempmute extends CommandClass {
         const args = tempmute.splitArgs(message)
 
         const playerId = args[1].substring(3).replace('>', '')
-      
+        console.log(playerId)
 
         const duration = Number(args[2]) // in seconds by default
         if (duration == NaN) return
@@ -77,7 +77,7 @@ export default class tempmute extends CommandClass {
     static memberIsHigherRole(message: Message, client: HydroCarbon): boolean {
         const args = tempmute.splitArgs(message)
         const playerId = args[1].substring(3).replace('>', '')
-  
+        console.log(playerId)
         const member = message.member
         const victimMember = message.guild.members.cache.get(playerId)
 

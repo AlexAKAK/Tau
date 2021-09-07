@@ -2,7 +2,7 @@ const ytSearch = require('youtube-search')
 const sendEmbed = require('./embeds/sendEmbed')
 
 // config
-const youtubeAPIKey = require('./../../../config.json')['youtubeAPIKey']
+const youtubeAPIKey = 'AIzaSyAON4YlGAdk_tuuxyGCjVnAUMC6iwHFi_A'
 
 const opts = {
     maxResults : 1,

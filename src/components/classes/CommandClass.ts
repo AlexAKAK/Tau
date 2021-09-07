@@ -174,6 +174,7 @@ export default abstract class CommandClass {
             const oldCommandMain = target.prototype.commandMain
             const newCommandMain: Function = async (message: Message, client: Tau) => {
                 const commandName = message.content.split(' ')[0].substring(1)
+                    console.log('checking roles')
                         let rolePresent = false
                         for (let i = 0; i < roles.length; i++) {
                             if (message.member.roles.cache.find(role => Number(role.id) == roles[i])) rolePresent = true
@@ -210,7 +211,8 @@ export default abstract class CommandClass {
     }
 
     protected static getMember(id: string, guild: Guild): GuildMember {
-
+        console.log(`ID: ${id}`)
+        console.log(`GUILD: ${guild}`)
         const member: GuildMember = guild.members.cache.get(id)
         return member
     }
