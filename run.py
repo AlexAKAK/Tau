@@ -1,8 +1,8 @@
 import os
 import sys
 
-os.system('cls')
-print("\033[0;32m")
+
+
 if not os.path.isdir('node_modules'):
     print('[Installing node_modules]')
     os.system('npm install')
