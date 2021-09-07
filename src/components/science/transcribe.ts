@@ -30,7 +30,7 @@ export default class transcribe extends CommandClass {
 
 
         
-        console.log(DNA)
+
 
         RNA = RNA.replace(/a/g, 'u')
         RNA = RNA.replace(/t/g, 'a')

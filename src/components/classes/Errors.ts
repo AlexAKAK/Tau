@@ -19,7 +19,7 @@ export class CLIENT_NOT_IN_VC_ERR extends ErrorClass {
     
     
     checkPresence(message: Message) {
-        console.log('client not in vc err checking')
+     
 
 
         if (message.guild.me.voice.channel == undefined || message.guild.me.voice.channel == null) return true
@@ -27,7 +27,7 @@ export class CLIENT_NOT_IN_VC_ERR extends ErrorClass {
     }
 
     standardHandle(message: Message) {
-        console.log('not in vc')
+     
 
         const commandName = this.getCommandName(message)
         this.sendErrMessage(<TextChannel|DMChannel> message.channel, `I must be in a voice channel to use the ${commandName} command, ${message.author.tag}.`)
@@ -89,14 +89,14 @@ export function MISSING_ARGS_ERR_METACLASS(minArgs: number) {
 export class CLIENT_NOT_PLAYING_ANYTHING_ERR extends ErrorClass {
 
     checkPresence(message) {
-        console.log('client not playing anything err checking')
+      
         if (message.guild.me.voice.connection.dispatcher == undefined || message.guild.me.voice.connection.dispatcher == null) return true
         else return false
         
     }
 
     standardHandle(message) {
-        console.log('not playing anything')
+       
         
         const commandName = this.getCommandName(message)
         this.sendErrMessage(message.channel, `I am not playing anything, ${message.author.tag}. I must be playing something for you to use the ${commandName} command.`)  
@@ -238,7 +238,7 @@ export class USER_NOT_PLAYING_A_GAME_ERR extends ErrorClass {
 
 export class USER_ALREADY_PLAYING_GAME_ERR extends ErrorClass {
     checkPresence(message: any): boolean {
-        console.log("checkpresence playing game")
+      
         // check if a key/value pair exists in the games map. If not, return false
         // if it does exist, check if the game is active. If active, return true.
         // else return false

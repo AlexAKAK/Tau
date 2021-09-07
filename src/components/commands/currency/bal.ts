@@ -19,7 +19,7 @@ export default class bal extends CommandClass {
 
     async commandMain(message: Message, client: Tau) {
         const wallets: object = require('./../../../../data/wallets.json')
-        console.log(wallets)
+     
         const args = message.content.split(' ')
         args.shift()
         if (wallets[message.author.id] == undefined) sendEmbed(message.channel, {

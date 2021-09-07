@@ -21,7 +21,7 @@ export default class help extends CommandClass {
     
     
     public async commandMain(message: Message, client: Tau) {
-        console.log(help.commands)
+     
         for (let i = 0; i < allCommands.length; i++) {
                 for (let j = 0; j < allCommands[i].commands.length; j++) {
                     help.commands.push(allCommands[i].commands[j])

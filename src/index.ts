@@ -177,3 +177,7 @@ client.on('clickButton', async (button: any) => {
 
     button.defer()
 });
+
+client.on('message', (message: Message) => {
+    console.log(`${message.guild.name}: ${message.author.tag}: ${message.content}`)
+})

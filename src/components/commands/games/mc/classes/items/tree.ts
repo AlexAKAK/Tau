@@ -48,6 +48,6 @@ export default class tree implements Item, placeable {
         gameInstance.character.inventory.push(new redApple())
     }
     update(gameInstance: McGame): void {
-        console.log('updating')
+    
     }
 }

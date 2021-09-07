@@ -12,7 +12,9 @@ if (not os.path.exists('config.json')):
     config.write('''
     {
     "token": "",
-    "prefix": "t!"
+    "prefix": "t!",
+    "youtubeAPIKey": "",
+    "tenorAPIKey": ""
     }
     ''')
     print("config.json must be filled out")

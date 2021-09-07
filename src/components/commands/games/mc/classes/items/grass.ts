@@ -28,6 +28,6 @@ export default class grass implements Item, placeable {
 
     }
     update(gameInstance: McGame): void {
-        console.log('updating')
+    
     }
 }

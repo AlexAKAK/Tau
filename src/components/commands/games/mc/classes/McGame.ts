@@ -54,7 +54,7 @@ export default class McGame extends GameSuperClass {
                 2: emojis.leftArrow,
                 3: emojis.rightArrow
             }
-            console.log(dirToCharacterEmoji[this.direction])
+        
             return dirToCharacterEmoji[this.direction]
         },
         underBlock: null,

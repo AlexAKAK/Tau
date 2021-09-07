@@ -19,12 +19,12 @@ export default class mute extends CommandClass {
         const args = mute.splitArgs(message)
 
         const playerId = args[1].substring(3).replace('>', '')
-        console.log(playerId)
+  
 
         const victim: GuildMember = mute.getMember(playerId, message.guild)
 
 
-        console.log(mute.memberIsHigherRole(message, client))
+   
 
         if (mute.memberIsHigherRole(message, client)) {
             message.guild.members.cache.get(playerId).roles.add('884511677532491837')
@@ -49,10 +49,10 @@ export default class mute extends CommandClass {
     }
 
     static memberIsHigherRole(message: Message, client: HydroCarbon): boolean {
-        console.log('checking')
+  
         const args = mute.splitArgs(message)
         const playerId = args[1].substring(3).replace('>', '')
-        console.log(playerId)
+   
         const member = message.member
         const victimMember = message.guild.members.cache.get(playerId)
 

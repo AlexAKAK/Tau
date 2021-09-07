@@ -14,7 +14,7 @@ export default class stopgame extends CommandClass {
 
 
     async commandMain(message: Message, client: Tau): Promise<void> {
-        console.log(client.games)
+     
         const newGame = client.games.get(message.channel.id)
         newGame.active = false
         stopgame.sendEmbed(<TextChannel|DMChannel> message.channel, {

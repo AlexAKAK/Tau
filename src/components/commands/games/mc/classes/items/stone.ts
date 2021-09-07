@@ -28,6 +28,6 @@ export default class stone implements Item, placeable {
         gameInstance.character.inventory.push(new stone())
     }
     update(gameInstance: McGame): void {
-        console.log('updating')
+      
     }
 }

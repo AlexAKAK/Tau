@@ -11,7 +11,7 @@ import wood from "./wood";
 
 export default class woodenPickaxe implements Item{
     update(gameInstance: McGame): void {
-        console.log('updating')
+
     }
     x: number
     y: number
@@ -42,7 +42,7 @@ export default class woodenPickaxe implements Item{
                 woodIndex.push(i)
             }
         }
-        console.log(count)
+
         if (count < 4) return
         // get the first 4 wood indicies
         let woodIndiciesToUse: number[] = []

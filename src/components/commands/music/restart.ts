@@ -20,7 +20,7 @@ export default class restart extends CommandClass {
     protected static commandSyntax: string = 'restart'
 
     public async commandMain(message: Message, client: Tau) {
-        console.log(client.queueMap[message.guild.id].playing.url)
+     
         const audio = await ytdl(client.queueMap[message.guild.id].playing.url)
         if (message.guild.me.voice.connection.dispatcher != null) message.guild.me.voice.connection.dispatcher.destroy()
 
