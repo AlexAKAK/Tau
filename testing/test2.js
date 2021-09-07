@@ -1,1 +1,0 @@
-const discord = require('spdl-core')
