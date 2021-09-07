@@ -20,6 +20,8 @@ class tempmutevc extends CommandClass_1.default {
             const playerId = args[1].substring(3).replace('>', '');
             console.log(playerId);
             const duration = Number(args[2]);
+            if (duration == NaN)
+                return;
             const unitSymbol = args[3];
             let unit;
             const realDuration = tempmutevc.convertTo(duration, unitSymbol);
@@ -30,6 +32,8 @@ class tempmutevc extends CommandClass_1.default {
             else
                 unit = 'seconds';
             const victim = tempmutevc.getMember(playerId, message.guild);
+            if (victim == undefined)
+                return;
             if (victim == message.guild.me)
                 return;
             victim.roles.add(MUTED_ROLE);
@@ -43,7 +47,7 @@ class tempmutevc extends CommandClass_1.default {
             });
             victim.user.createDM()
                 .then(dmChannel => tempmutevc.sendEmbed(dmChannel, {
-                title: `You have been vc muted for ${duration / 1000} ${unit} in ${victim.guild.name}.`,
+                title: `You have been vc muted for ${duration} ${unit} in ${victim.guild.name}.`,
                 color: defaultColor_1.default
             }));
         });
@@ -59,5 +63,5 @@ class tempmutevc extends CommandClass_1.default {
 }
 exports.default = tempmutevc;
 tempmutevc.commandDescription = 'A user is temporarily muted from vc';
-tempmutevc.commandSyntax = 'tempmutevc <userping> <duration in ms>';
+tempmutevc.commandSyntax = 'tempmutevc <userping> <duration> <unit (s/m/h)>';
 tempmutevc.MISSING_ARGS_ERR_4 = tempmutevc.MISSING_ARGS_ERR_METACLASS(4);

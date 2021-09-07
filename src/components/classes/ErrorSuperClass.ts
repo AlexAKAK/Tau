@@ -7,7 +7,7 @@ const sendEmbed = require('./../utility/embeds/sendEmbed')
 export default abstract class ErrorClass {
     getCommandName(message: Message): string {
         const unCutCommand = message.content.split(' ')[0]
-        const commandName = unCutCommand.substring(3, unCutCommand.length)
+        const commandName = unCutCommand.substring(2, unCutCommand.length)
 
         return commandName
     }

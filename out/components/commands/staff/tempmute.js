@@ -25,6 +25,8 @@ let tempmute = tempmute_1 = class tempmute extends CommandClass_1.default {
             const playerId = args[1].substring(3).replace('>', '');
             console.log(playerId);
             const duration = Number(args[2]); // in seconds by default
+            if (duration == NaN)
+                return;
             const unitSymbol = args[3];
             let unit;
             const realDuration = tempmute_1.convertTo(duration, unitSymbol);
@@ -35,6 +37,8 @@ let tempmute = tempmute_1 = class tempmute extends CommandClass_1.default {
             else
                 unit = 'seconds';
             const victim = tempmute_1.getMember(playerId, message.guild);
+            if (victim == undefined)
+                return;
             if (tempmute_1.memberIsHigherRole(message, client)) {
                 message.guild.members.cache.get(playerId).roles.add('884511677532491837');
                 tempmute_1.sendEmbed(message.channel, {
@@ -94,7 +98,7 @@ let tempmute = tempmute_1 = class tempmute extends CommandClass_1.default {
 };
 tempmute.MISSING_ARGS_ERR_4 = tempmute_1.MISSING_ARGS_ERR_METACLASS(4);
 tempmute.commandDescription = 'a user is temporarily muted';
-tempmute.commandSyntax = 'tempmute <userping> <duration in ms>';
+tempmute.commandSyntax = 'tempmute <userping> <duration in ms> <unit (s/m/h)>';
 tempmute = tempmute_1 = __decorate([
     tempmute_1.errorCheck([
         /*tempmute.MEMBER_ALREADY_MUTED_ERR,*/

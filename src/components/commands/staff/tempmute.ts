@@ -16,7 +16,7 @@ export default class tempmute extends CommandClass {
     static MISSING_ARGS_ERR_4 = tempmute.MISSING_ARGS_ERR_METACLASS(4)
 
     protected static commandDescription: string = 'a user is temporarily muted'
-    protected static commandSyntax: string = 'tempmute <userping> <duration in ms>'
+    protected static commandSyntax: string = 'tempmute <userping> <duration in ms> <unit (s/m/h)>'
 
     async commandMain(message: Message, client: HydroCarbon) {
         const args = tempmute.splitArgs(message)
@@ -25,6 +25,7 @@ export default class tempmute extends CommandClass {
         console.log(playerId)
 
         const duration = Number(args[2]) // in seconds by default
+        if (duration == NaN) return
         const unitSymbol = args[3]
         let unit: string
         const realDuration: number = tempmute.convertTo(duration, unitSymbol)
@@ -34,6 +35,7 @@ export default class tempmute extends CommandClass {
 
         
         const victim: GuildMember = tempmute.getMember(playerId, message.guild)
+        if (victim == undefined) return
 
         if (tempmute.memberIsHigherRole(message, client)) {
             message.guild.members.cache.get(playerId).roles.add('884511677532491837')
