@@ -29,8 +29,8 @@ export default class walletcreate extends CommandClass {
             deleteTimeout: 5000
         })
         else {
-            wallets[message.author.id] == 10000
-            Object.assign(wallets, {[message.author.id]: 10000});
+            wallets[message.author.id] == 0
+            Object.assign(wallets, {[message.author.id]: 0});
             
             const jsonString: string = JSON.stringify(wallets)
             
