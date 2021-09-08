@@ -1,8 +1,8 @@
 import { Message, MessageEmbed } from 'discord.js';
-import Tau from '../..';
-import CommandClass from "../classes/CommandClass";
-import { MISSING_ARGS_ERR_METACLASS } from '../classes/Errors';
-import ErrorClass from '../classes/ErrorSuperClass';
+import Tau from '../../..';
+import CommandClass from "../../classes/CommandClass";
+import { MISSING_ARGS_ERR_METACLASS } from '../../classes/Errors';
+import ErrorClass from '../../classes/ErrorSuperClass';
 
 const periodicTable = require('periodic-table');
 

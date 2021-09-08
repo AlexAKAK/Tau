@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from "discord.js";
-import Tau from "../..";
-import CommandClass from "../classes/CommandClass";
-import ErrorClass from "../classes/ErrorSuperClass";
+import Tau from "../../..";
+import CommandClass from "../../classes/CommandClass";
+import ErrorClass from "../../classes/ErrorSuperClass";
 
 import pt from "./pt";
 

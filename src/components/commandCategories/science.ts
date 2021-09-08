@@ -1,7 +1,7 @@
 import CommandCategory from "../classes/CommandCategory";
-import pt from "../science/pt";
-import transcribe from "../science/transcribe";
-import translate from "../science/translate";
+import pt from "../commands/science/pt";
+import transcribe from "../commands/science/transcribe";
+import translate from "../commands/science/translate";
 
 export default new CommandCategory('science', [
     pt,
