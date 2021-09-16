@@ -27,7 +27,7 @@ export default class Tau extends Client {
     public DM_COMMANDS: any[];
     public PREFIX: string = config['prefix']
     public TOKEN: string = config['token']
-    public queueMap: Map<any, any>;
+    public queueMap: Map<string, object>;
 
 
     // /property declarations

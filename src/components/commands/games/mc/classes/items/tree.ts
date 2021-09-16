@@ -1,7 +1,7 @@
 import Item from "../../interfaces/Item";
 import emojis from "../../../../../utility/emojis";
 import blockTypes from "../../enums/blockTypes";
-import characterInterface from "../../interfaces/characterClass";
+import characterInterface from "../characterClass";
 import grass from "./grass";
 import McGame from "../McGame";
 import seed from "./seed";
@@ -12,13 +12,14 @@ import greenapple from "./greenApple";
 import placeable from "../../interfaces/placeable";
 import redApple from "./redApple";
 
-export default class tree implements Item, placeable {
+export default class tree  extends Item implements placeable {
     miningDifficulty: number = miningDifficultyEnum.STANDARD
     blockType: blockTypes = blockTypes.NOT_WALK_OVER
     x: number
     y: number
 
     constructor(x?: number, y?: number) {
+        super()
         if (x != undefined && y != undefined) {
             this.x = x
             this.y = y

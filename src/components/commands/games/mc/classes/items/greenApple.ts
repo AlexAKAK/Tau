@@ -3,7 +3,7 @@ import Item from "../../interfaces/Item";
 import blockTypes from "../../enums/blockTypes";
 import McGame from "../McGame";
 
-export default class greenapple implements Item {
+export default class greenapple extends Item {
     toString(): string {
         return emojis.greenApple
     }

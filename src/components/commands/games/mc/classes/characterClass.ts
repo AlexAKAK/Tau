@@ -1,36 +1,11 @@
 import direction from "../enums/direction";
-import McGame from "../classes/McGame";
-import Item from "./Item";
+import McGame from "./McGame";
+import Item from "../interfaces/Item";
 import emojis from "../../../../utility/emojis";
 import mine from "../../../currency/mine";
-import stoneSword from "../classes/items/stoneSword";
-import woodenPickaxe from "../classes/items/woodenPickaxe";
-/*
-interface characterClass {
-    x: number,
-    y: number,
-    str: Function,
-    underBlock: string,
-    health: number, // whole number
-    getHearts: Function,
-    getNorthBlock: Function,
-    getSouthBlock: Function,
-    getWestBlock: Function,
-    getEastBlock: Function,
-    mine: Function,
-    getBlockInFront: Function,
-    direction: direction,
-    inventory: Item[];
-    use(slot: number): void,
-    craft(item: string): void,
-    hunger: number,
-    getHungerBar(): string,
-    isAlive(): boolean,
-    incrementHealth: Function,
-    incrementHunger: Function
+import stoneSword from "./items/stoneSword";
+import woodenPickaxe from "./items/woodenPickaxe";
 
-}
-*/
 
 export default class characterClass {
     public x: number = 4
@@ -39,7 +14,7 @@ export default class characterClass {
 
     constructor(gameInstance: McGame) {
         this.gameInstance = gameInstance
-        this.gameInstance.character = this
+        //this.gameInstance.character = this
     }
 
     str() {

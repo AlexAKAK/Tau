@@ -8,7 +8,7 @@ import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
 import miningDifficulty from "../../enums/miningDifficultyEnum";
 import grass from "./grass";
 
-export default class wood implements Item, placeable {
+export default class wood extends Item implements placeable {
     update(gameInstance: McGame): void {
         console.log('updating')
     }

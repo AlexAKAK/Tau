@@ -9,7 +9,7 @@ import grass from "./grass";
 import nullBlock from "./nullBlock";
 import wood from "./wood";
 
-export default class woodenPickaxe implements Item{
+export default class woodenPickaxe extends Item {
     update(gameInstance: McGame): void {
         console.log('updating')
     }

@@ -9,7 +9,7 @@ import nullBlock from "./nullBlock";
 import stone from "./stone";
 import wood from "./wood";
 
-export default class stoneSword implements Item {
+export default class stoneSword extends Item {
     static craft(gameInstance: McGame) {
         // find the number of wood blocks in the inventory
         let countWood: number = 0

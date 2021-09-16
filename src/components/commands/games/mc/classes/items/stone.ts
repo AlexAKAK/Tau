@@ -1,12 +1,12 @@
 import Item from "../../interfaces/Item";
 import emojis from "../../../../../utility/emojis";
 import blockTypes from "../../enums/blockTypes";
-import characterInterface from "../../interfaces/characterClass";
+import characterInterface from "../characterClass";
 import McGame from "../McGame";
 import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
 import placeable from "../../interfaces/placeable";
 
-export default class stone implements Item, placeable {
+export default class stone extends Item implements placeable {
     miningDifficulty: number = miningDifficultyEnum.WOODEN_PICKAXE
     blockType: blockTypes =  blockTypes.WALK_OVER
     x: number

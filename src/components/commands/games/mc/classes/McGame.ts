@@ -8,7 +8,7 @@ import emojis from "../../../../utility/emojis"
 import GameSuperClass from "../../../../classes/GameSuperClass"
 import getRandomInt from "../../../../utility/getRandomInt"
 
-import characterClass from "../interfaces/characterClass"
+import characterClass from "./characterClass"
 import grass from "./items/grass"
 import stone from "./items/stone"
 import tree from "./items/tree"

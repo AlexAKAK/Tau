@@ -1,14 +1,14 @@
 import blockTypes from "../enums/blockTypes";
 import McGame from "../classes/McGame";
-import characterInterface from "./characterClass";
+import characterInterface from "../classes/characterClass";
 
-export default interface Item {
+export default abstract class Item {
     // change this later
     [x: string]: any;
-    toString(): string
-    use(gameInstance: McGame): void
-    miningDifficulty: number
-    blockType: blockTypes
-    mine(gameInstance: McGame): void
-    update(gameInstance: McGame): void
+    abstract toString(): string
+    abstract use(gameInstance: McGame): void
+    abstract miningDifficulty: number
+    abstract blockType: blockTypes
+    abstract mine(gameInstance: McGame): void
+    abstract update(gameInstance: McGame): void
 }

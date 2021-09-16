@@ -5,7 +5,7 @@ import Item from "../../interfaces/Item";
 import McGame from "../McGame";
 import grass from "./grass";
 
-export default class cactus implements Item {
+export default class cactus extends Item {
     [x: string]: any;
     toString(): string {
         return emojis.cactus

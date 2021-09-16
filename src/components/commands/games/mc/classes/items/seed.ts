@@ -7,7 +7,7 @@ import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
 import grass from "./grass";
 import tree from "./tree";
 
-export default class seed implements Item, placeable {
+export default class seed  extends Item implements placeable {
     x: number
     y: number
     growthProgress: number = 1
