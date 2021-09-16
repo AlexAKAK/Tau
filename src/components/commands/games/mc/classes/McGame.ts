@@ -8,7 +8,7 @@ import emojis from "../../../../utility/emojis"
 import GameSuperClass from "../../../../classes/GameSuperClass"
 import getRandomInt from "../../../../utility/getRandomInt"
 
-import characterInterface from "../interfaces/characterInterface"
+import characterClass from "../interfaces/characterClass"
 import grass from "./items/grass"
 import stone from "./items/stone"
 import tree from "./items/tree"
@@ -44,104 +44,22 @@ export default class McGame extends GameSuperClass {
 
     
 
-    public character: characterInterface = {
-        x: 4,
-        y: 4,
-        str: function() {
-            const dirToCharacterEmoji: object = {
-                0: emojis.upArrow,
-                1: emojis.downArrow,
-                2: emojis.leftArrow,
-                3: emojis.rightArrow
-            }
-            console.log(dirToCharacterEmoji[this.direction])
-            return dirToCharacterEmoji[this.direction]
-        },
-        underBlock: null,
-        health: 10,
-        getHearts: function() {
-            let s = ''
-            for (let i = 0; i < this.health; i++) {
-                s += heart
-            }
-            return s
-        },
-        /**
-         * @returns Item
-         */
-        incrementHealth: function(): void {
-            this.health += 2       },
-        incrementHunger: function(): void {
-            this.hunger += 2
-        },
-        getNorthBlock: () => {
-            if (this.character.y == 0) return null
-            return this.grid[this.character.y - 1][this.character.x]
-        },
-        /**
-         * @returns Item
-         */
-        getSouthBlock: () => {
-            if (this.character.y == this.WIDTH - 1) return null
-            return this.grid[this.character.y + 1][this.character.x]
-        },
-        /**
-         * @returns Item
-         */
-        getWestBlock: () => {
-            if (this.character.x == 0) return null
-            return this.grid[this.character.y][this.character.x - 1]
-        },
-        /**
-         * @returns Item
-         */
-        getEastBlock: () => {
-            if (this.character.x == this.LENGTH - 1) return null
-            return this.grid[this.character.y][this.character.x + 1]
-        },
-        mine: (block: Item) => {
-            block.mine(this)
-        },
-        getBlockInFront: () => {
-            if(this.character.direction == direction.FACE_UP) return this.character.getNorthBlock()
-            if(this.character.direction == direction.FACE_DOWN) return this.character.getSouthBlock()
-            if(this.character.direction == direction.FACE_LEFT) return this.character.getWestBlock()
-            if(this.character.direction == direction.FACE_RIGHT) return this.character.getEastBlock()
-            
-        },
-        direction: direction.FACE_DOWN,
-        inventory: [],
-        use: (slot: number) => {
-            this.character.inventory[slot].use(this) // pass the gameInstance as the argument
-        },
-        craft: (item: string) => {
-            if (item == 'wooden_pickaxe') woodenPickaxe.craft(this)
-            if (item == 'stone_sword') stoneSword.craft(this)
-
-        },
-        hunger: 10,
-        getHungerBar: function(): string {
-            let s = '';
-            for (let i = 0; i < this.hunger; i++) {
-                s = `${s}${emojis.chickenDrumstick}`
-            }
-            if (s == '') return "Dead"
-            else return s
-        },
-        isAlive: function(): boolean {
-            if (this.health == 0) return false
-            if (this.hunger == 0) return false
-            return true
-        }
-    }
+    public character: characterClass
 
     constructor(_client: Tau, _channel: TextChannel) {
         super()
+        this.character = new characterClass(this) // pass the gameInstance into the characterClass constructor
+        
+        
+
+        console.log(this.character)
+
         this.renderTerrain()
         this.renderCharacterInit()
         this.client = _client
         this.channel = _channel
         this.startLoop()
+        
     }
 
     private renderTerrain(): void {
@@ -179,6 +97,16 @@ export default class McGame extends GameSuperClass {
 
 
     makeEmbed(): MessageEmbed {
+
+        console.log(this.toString())
+        console.log(this.character.underBlock)
+        console.log(this.character.x)
+        console.log(this.character.y)
+
+
+
+
+
         const _embed = new MessageEmbed()
         _embed.addField(`Minecraft`, this.toString() , false)
         _embed.addField('Standing on', this.character.underBlock, false)

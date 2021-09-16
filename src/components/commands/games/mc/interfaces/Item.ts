@@ -1,6 +1,6 @@
 import blockTypes from "../enums/blockTypes";
 import McGame from "../classes/McGame";
-import characterInterface from "./characterInterface";
+import characterInterface from "./characterClass";
 
 export default interface Item {
     // change this later

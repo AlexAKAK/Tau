@@ -15,6 +15,7 @@ export default class seed implements Item, placeable {
         return emojis.seed
     }
     use(gameInstance: McGame): void {
+        console.log(gameInstance)
         const block = gameInstance.character.getBlockInFront()
         if (block.toString() != grass.prototype.toString()) return
         if (block == null) return
