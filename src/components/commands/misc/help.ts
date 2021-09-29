@@ -58,9 +58,7 @@ export default class help extends CommandClass {
 
         const sentMessage = await message.channel.send(embed)
         
-        setTimeout(function() {
-            if (!sentMessage['deleted']) sentMessage.delete()
-        }, 20000)
+        
     }
 
     private static async argsMain(message: Message, client: Tau): Promise<void> {

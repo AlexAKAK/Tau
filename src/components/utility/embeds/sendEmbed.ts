@@ -49,11 +49,13 @@ function sendEmbed(channel: TextChannel, kwargs: any) {
     // if there's a deleteTimeout specified
     sentMessagePromise
     .then((message) => {
+        /*
         if (kwargs['deleteTimeout']) {
             setTimeout(function() {
                 if(!message.deleted) message.delete()
             }, kwargs['deleteTimeout'])
         }
+        */
     })
 
     return sentMessagePromise

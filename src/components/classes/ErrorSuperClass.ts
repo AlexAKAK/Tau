@@ -43,9 +43,11 @@ export default abstract class ErrorClass {
         // if there's a deleteTimeout specified
         sentMessagePromise
         .then(message => {
+            /*
             setTimeout(() => {
                 if (!message.deleted) message.delete()
             }, 5000)
+            */
         })
 
 

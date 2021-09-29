@@ -7,9 +7,10 @@ import getRandomInt from "../../utility/getRandomInt";
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const wallets = require('./../../../../data/wallets.json')
 const ONE_HOUR: number = 3600000
+const ONE_MINUTE: number = 60000
 
 @hack.errorCheck([hack.MISSING_ARGS_ERR_2])
-@hack.memberCooldown(ONE_HOUR)
+@hack.memberCooldown(ONE_MINUTE)
 export default class hack extends CommandClass {
     static MISSING_ARGS_ERR_2 = hack.MISSING_ARGS_ERR_METACLASS(2)
     
