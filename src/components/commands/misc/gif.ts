@@ -34,10 +34,13 @@ export default class gif extends CommandClass {
 
 
                 const results = await Tenor.Search.Query(keywords, "1")
+                
+                
                 results.forEach(post => {
                     message.channel.send(post['itemurl'])
                     console.log(post['itemurl'])
-                });   
+                });
+                
     }
 }
 
