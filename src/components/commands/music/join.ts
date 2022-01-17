@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import Tau from "../../..";
 import CommandClass from '../../classes/CommandClass'
 const {randomHi, randomBye} = require('./.././../utility/gifs')
-
+import { joinVoiceChannel } from '@discordjs/voice';
 
 @join.alias(['j'])
 
@@ -17,7 +17,18 @@ export default class join extends CommandClass {
     protected static commandSyntax: string = 'join'
 
     async commandMain(message: Message, client: Tau) {
-        message.member.voice.channel.join()
+        //message.member.voice.channel.join()
+        const connection = joinVoiceChannel({
+            channelId: message.member.voice.channel.id,
+            guildId: message.guild.id,
+            adapterCreator: message.guild.voiceAdapterCreator,
+        });
+
+        // reinitialize the queue
+        client.queueMap[message.guild.id] = undefined
+
+        
+        
     }   
 }
 

@@ -1,4 +1,5 @@
-import { MessageButton } from "discord-buttons"
+
+/*import { MessageButton } from "discord-buttons"
 
 export default {
     skip: function(button: MessageButton): boolean {
@@ -26,3 +27,4 @@ export default {
         return false
     }
 }
+*/

@@ -1,5 +1,5 @@
 // import dependencies
-import { Client, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState } from "discord.js";
+import { Client, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState, Intents} from "discord.js";
 
 // import button commands
 import help from './components/commands/misc/help'
@@ -9,10 +9,10 @@ import queue from './components/commands/music/queue'
 import restart from './components/commands/music/restart'
 
 import McGame from "./components/commands/games/mc/classes/McGame";
-import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
+//import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
 import allCommands from "./components/commandCategories/allCommands";
 
-const disbut = require('discord.js-buttons')
+//const disbut = require('discord.js-buttons')
 
 // import config
 const config: object = require('./../config.json')
@@ -32,7 +32,7 @@ export default class Tau extends Client {
 
     // /property declarations
     constructor() {
-        super()
+        super({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]})
         // data holders
         this.games = new Map<string, GameObject>()
         this.queueMap = new Map<any, any>()
@@ -65,8 +65,18 @@ export default class Tau extends Client {
         
         // events
         this.on('ready', () => console.log("[Online]"))
-        this.on('message', async(message: Message) => this.handleMessage(message))
+        this.on('messageCreate', async(message: Message) => this.handleMessage(message))
+        console.log(this.PREFIX)
         // / events
+    }
+
+    isAlreadyPlayingSomething(message: Message) {
+        const a = client.queueMap[message.guild.id]
+        console.log(a)
+
+        if (a == undefined) return false
+        else return true
+        
     }
 
     public addGame(channelID: string, gameObject: GameObject): void {
@@ -84,18 +94,25 @@ export default class Tau extends Client {
     }
 
     async handleMessage(message: Message) {
+        console.log(message.content)
+        if (message.content == 'ping') message.channel.send('pong')
 
+        this.handleMessageFromTextChannel(message)
+        /*
       if (message.channel.type === 'text') this.handleMessageFromTextChannel(message)
       else if (message.channel.type === 'dm') this.handleMessageFromDMChannel(message)
+      */
     }
 
     async handleMessageFromTextChannel(message: Message) {
       if (message.content.startsWith(this.PREFIX)) {
+          console.log('1')
 
           const commandSent = message.content.replace(this.PREFIX, '').toLowerCase()
           for (let i= 0; i < this.TEXT_CHANNEL_COMMANDS.length; i++) {
               let command = this.TEXT_CHANNEL_COMMANDS[i]
               if (commandSent.split(' ')[0] == command.name) {
+                  console.log('2')
                   //setTimeout( async () => {
                       //await message.delete()
                   //}, 500)
@@ -157,9 +174,10 @@ export default class Tau extends Client {
 // Running the bot
 const client: Tau = new Tau();
 client.login(config['token'])
-disbut(<Client> client)
+//disbut(<Client> client)
 
 // buttons
+/*
 client.on('clickButton', async (button: any) => {
     if (button.id === 'skip'&&buttonErrorChecking.skip(button) == false) {
         buttonErrorChecking.skip(button)
@@ -177,3 +195,4 @@ client.on('clickButton', async (button: any) => {
 
     button.defer()
 });
+*/

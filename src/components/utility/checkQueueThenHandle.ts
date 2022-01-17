@@ -1,4 +1,4 @@
-import { Message, VoiceConnection } from "discord.js";
+import { Message } from "discord.js";
 import getYTLinkFromSpotifyLink from "./spotify/getYTLinkFromSpotifyLink";
 
 /* 
@@ -14,12 +14,15 @@ How handling a [!play <url>] will work
 */
 export {}
 const playAudio = require('./playAudio')
-const ytdl = require('discord-ytdl-core');
+import ytdl = require('ytdl-core');
 
 
 const sendNowPlayingEmbed = require('./embeds/sendNowPlayingEmbed')
+import voice = require('@discordjs/voice');
+import ConnectionWithPlayer from "../classes/ConnectionWithPlayer";
+import { getVoiceConnection } from "@discordjs/voice";
 
-async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
+async function checkQueueThenHandle(message: any, connection: voice.VoiceConnection) {
     const client = message.client
     const textChannel = message.channel
     // client: bot
@@ -29,17 +32,26 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
     // if there is a next song in the voice channel's queue
 
     // if the song will loop
-    if (client.queueMap[message.guild.id]['playing']['loop'] === true) {
+
+   
+    if ((client.queueMap[message.guild.id] != undefined) && client.queueMap[message.guild.id]['playing']['loop'] === true) {
+        const connectionP: ConnectionWithPlayer = getVoiceConnection(message.guild.id) as ConnectionWithPlayer
+        const player = connectionP.player
         console.log('else if')
         const url = client.queueMap[message.guild.id]['playing']['url']
         // reset the audio by getting it from ytdl()
         const audio = ytdl(url)
+        const source = voice.createAudioResource(audio)
+        
+        
+
         setTimeout(() => {
-          const dispatcher = connection.play(audio, { type: 'opus', volume: 0.05 })
-       
-        dispatcher.on('finish', () => {
-            checkQueueThenHandle(message, connection)
-        })  
+            player.play(source)
+            /*
+            player.on(voice.AudioPlayerStatus.Idle, () => {
+                checkQueueThenHandle(message, connection)
+            })
+            */
 
 
         }, 2000)
@@ -48,10 +60,21 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
         sendNowPlayingEmbed(url, message)
         
         client.queueMap[message.guild.id]['playing']['loop'] = false
+
+    }
+    
+    else if ((client.queueMap[message.guild.id] != undefined) && client.queueMap[message.guild.id]['queue'].length == 0){
+        console.log('else if 2')
+        // if the queue is empty, stop the audio
+        const connectionP: ConnectionWithPlayer = connection as ConnectionWithPlayer
+        const player = connectionP.player
+        player.stop()
+        //connection.player = undefined
+        client.queueMap[message.guild.id] = undefined
     }
 
     // if the song won't loop, and there is a next song in the queue
-    else if (client.queueMap[message.guild.id]['queue'][0]) {
+    else if ((client.queueMap[message.guild.id] != undefined) && client.queueMap[message.guild.id]['queue'].length > 0) {
         console.log('else if')
         if (client.queueMap[message.guild.id]['queue'][0]['type'] == 'spotify') {
             const songInfo = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][0]['url'])
@@ -61,15 +84,24 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
             client.queueMap[message.guild.id]['queue'][0]['type'] = undefined
             // the song becomes like the rest, after being processed for the first time
         }
-    
+        const connectionP: ConnectionWithPlayer = connection as ConnectionWithPlayer
         const audio = client.queueMap[message.guild.id]['queue'][0]['audio']
         const url = client.queueMap[message.guild.id]['queue'][0]['url']
-        
-        const dispatcher = connection.play(audio, {volume: 0.05})
+
+        const source = voice.createAudioResource(audio)
+        const player = connectionP.player
+        //connection.player = player
+        player.play(source)
+            connection.subscribe(player)
+       /*
+            player.on(voice.AudioPlayerStatus.AutoPaused, () => {
+                checkQueueThenHandle(message, connection)
+            }) 
             
-        dispatcher.on('finish', () => {
+        player.on(voice.AudioPlayerStatus.AutoPaused, () => {
             checkQueueThenHandle(message, connection)
         })
+        */
     
         sendNowPlayingEmbed(url, message)
         // The leading song in the queue becomes the playing one. Then, the leading song gets removed from the queue
@@ -78,6 +110,7 @@ async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
     }
     // if the song won't loop and there isn't a next song in the queue
     else {
+        console.log('there are no more songs in the queue')
         console.log('else')
         client.queueMap.delete(message.guild.id)
     }

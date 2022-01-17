@@ -1,4 +1,4 @@
-import { MessageButton } from "discord-buttons"
+
 import { Message, TextChannel, NewsChannel, DMChannel, MessageEmbed } from "discord.js"
 import defaultColor from "../utility/embeds/defaultColor"
 import errorColor from "../utility/embeds/errorColor"
@@ -39,7 +39,7 @@ export default abstract class ErrorClass {
         
      
         // sends the embed message, then returns a promise that resolves to the message.
-        const sentMessagePromise = channel.send(embed)
+        const sentMessagePromise = channel.send({embeds: [embed]})
         // if there's a deleteTimeout specified
         sentMessagePromise
         .then(message => {

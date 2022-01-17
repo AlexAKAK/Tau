@@ -1,3 +1,4 @@
+import { getVoiceConnection } from "@discordjs/voice"
 import { Message } from "discord.js"
 import Tau from "../../.."
 
@@ -6,6 +7,7 @@ const textFormatting = require('./../../utility/textFormatting')
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const {red, green, lightBlue} = require('./../../utility/hexColors')
 import CommandClass from '../../classes/CommandClass'
+import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer"
  
 
 @stop.errorCheck([
@@ -22,8 +24,9 @@ export default class stop extends CommandClass {
     public async commandMain(message: Message, client: Tau) {
 
             // clear the server's queue
-            client.queueMap.delete(message.guild.me.voice.connection.channel.id)
-            message.guild.me.voice.connection.dispatcher.destroy()
+            client.queueMap.delete(message.guild.id)
+            const connectionP: ConnectionWithPlayer = getVoiceConnection(message.guild.id) as ConnectionWithPlayer
+            connectionP.player.stop()
             // send the embed
             sendEmbed(message.channel, {
                 color: lightBlue,

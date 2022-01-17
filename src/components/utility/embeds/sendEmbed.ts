@@ -45,7 +45,7 @@ function sendEmbed(channel: TextChannel, kwargs: any) {
             kwargs['buttons']
         ]
     })
-    else sentMessagePromise = channel.send(embed)
+    else sentMessagePromise = channel.send({embeds: [embed]})
     // if there's a deleteTimeout specified
     sentMessagePromise
     .then((message) => {

@@ -56,7 +56,7 @@ export default class help extends CommandClass {
         
 
 
-        const sentMessage = await message.channel.send(embed)
+        const sentMessage = await message.channel.send({embeds: [embed]})
         
         
     }
@@ -80,7 +80,7 @@ export default class help extends CommandClass {
                 for (const command of _category.commands) {
                     embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandDescription}\`\`\``, true)
                 }
-                message.channel.send(embed)
+                message.channel.send({embeds: [embed]})
             }
         }
     }
@@ -102,8 +102,8 @@ export default class help extends CommandClass {
         .setColor(defaultColor)
         .addField(`\`\`\`Usage: ${command.commandSyntax}\`\`\``, `\`\`\`Description: ${command.commandDescription}\`\`\``, false)
 
-        message.channel.send(embed)
-        
+        message.channel.send({embeds: [embed]})
+        //
 
         
     }

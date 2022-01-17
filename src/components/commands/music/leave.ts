@@ -4,6 +4,7 @@ import Tau from "../../..";
 const {blue} = require('./.././../utility/hexColors')
 import CommandClass from '../../classes/CommandClass'
 const {randomHi, randomBye} = require('./.././../utility/gifs')
+const {getVoiceConnection} = require('@discordjs/voice')
 
 @leave.alias(['l'])
 
@@ -17,7 +18,7 @@ export default class leave extends CommandClass {
     protected static commandSyntax: string = 'leave'
 
     public async commandMain(message: Message, client: Tau) {
-        message.guild.me.voice.channel.leave()
+        getVoiceConnection(message.guild.id).destroy()
         //message.react('👋')
 
 

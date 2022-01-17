@@ -44,7 +44,7 @@ async function createNowPlayingEmbedPromise(url: string, message: any /*discord.
 
 async function sendNowPlayingEmbed(url: string, message: Message) {
     const nowPlayingEmbed = await createNowPlayingEmbedPromise(url, message)
-    message.channel.send(nowPlayingEmbed)
+    message.channel.send({embeds: [nowPlayingEmbed]})
 }
 
 module.exports = sendNowPlayingEmbed

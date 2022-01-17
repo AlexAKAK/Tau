@@ -15,6 +15,7 @@ import { collapseTextChangeRangesAcrossMultipleVersions, InternalSymbolName } fr
 import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink";
 import defaultColor from "../../utility/embeds/defaultColor";
 const {getData, getTracks} = require('spotify-url-info')
+const {createAudioPlayer} = require('@discordjs/voice')
 
 const spdl = require('spdl-core')
 const ytsr = require('ytsr')
@@ -34,6 +35,14 @@ export default class play extends CommandClass {
     protected static commandSyntax: string = 'play <youtube link/search query>'
 
     static MISSING_ARGS_ERR_2: ERROR = play.MISSING_ARGS_ERR_METACLASS(2)
+
+    static botIsAlreadyPlayingSomething(message: Message, client: Tau) {
+        const a = client.queueMap[message.guild.id]['playing']
+
+        if (a == null || a == undefined) return false
+        else return true
+    }
+
 
     static async ytQueueAdd(message: Message, client: Tau) {
         const args = play.splitArgs(message)
@@ -81,10 +90,10 @@ export default class play extends CommandClass {
         console.log('ytPlay')
         const args = play.splitArgs(message)
         const url = args[1]
-        let info: object;
         getInfo(url)
         .then(async info =>
         {
+            console.log('then')
             if (info == null || info == undefined) {
                         sendEmbed(message.channel, {
                             title: 'No videos found',
@@ -111,6 +120,7 @@ export default class play extends CommandClass {
         })
         .catch(err =>
         {
+            console.log('sus')
             play.videoCannotBeAccessed(message, client)
             return
         })
@@ -170,6 +180,7 @@ export default class play extends CommandClass {
 
 
     static async kwQueueAdd(message: Message, client: Tau, audio: any, url: string) {
+        console.log('kwQueueAdd')
         getInfo(url)
         .then(async info => 
         {
@@ -206,7 +217,7 @@ export default class play extends CommandClass {
         */
     // start working here
     
-        if (message.guild.me.voice.connection.dispatcher != null || message.guild.me.voice.connection.dispatcher != undefined) await play.ytPlay(message, client)           
+        if (this.botIsAlreadyPlayingSomething(message, client)) await play.ytPlay(message, client)           
         else play.ytQueueAdd(message, client)
     }
     private static async kw(message: Message, client: Tau) {
@@ -217,6 +228,7 @@ export default class play extends CommandClass {
             url = await getYoutubeVideoUrlFromKeyword(keyWords)
         }
         catch {
+            console.log('jahegkj haegkljhadg')
             play.videoCannotBeAccessed(message, client)
             return
         }
@@ -234,10 +246,21 @@ export default class play extends CommandClass {
 
         try {
             const audio = await getAudio(url)
-            if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, url)
-            else play.kwQueueAdd(message, client, audio, url)
+            console.log('aelgkjaeglkjeaglkjaeglj')
+            // check if the connection's player is playing something
+          
+            if (!client.isAlreadyPlayingSomething(message)) {
+                console.log('1234')
+                play.kwPlay(message, client, audio, url)
+            }
+            
+            else {
+                console.log('5678')
+                play.kwQueueAdd(message, client, audio, url)
+            }
         }
         catch {
+            console.log('susssss1351361613636')
             play.videoCannotBeAccessed(message, client)
         }
         
@@ -403,7 +426,7 @@ export default class play extends CommandClass {
         else play.kw(message, client)
 
     }
-22
+
     
 
     private static async handleNoVideoFound(message: Message) {

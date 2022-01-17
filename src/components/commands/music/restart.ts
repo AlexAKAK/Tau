@@ -1,11 +1,13 @@
+import { AudioPlayerStatus, createAudioResource, getVoiceConnection, PlayerSubscription } from "@discordjs/voice"
 import { Message, TextChannel } from "discord.js"
 import Tau from "../../../index"
 
 const sendEmbed = require("./../../utility/embeds/sendEmbed")
 const { red, randomColor } = require("./../../utility/hexColors")
-const ytdl = require('ytdl-core-discord')
+import ytdl = require('ytdl-core')
 const checkQueueThenHandle = require("./../../utility/checkQueueThenHandle")
 import CommandClass from '../../classes/CommandClass'
+import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer"
 
 
 @restart.alias(['r'])
@@ -21,13 +23,15 @@ export default class restart extends CommandClass {
 
     public async commandMain(message: Message, client: Tau) {
         console.log(client.queueMap[message.guild.id].playing.url)
-        const audio = await ytdl(client.queueMap[message.guild.id].playing.url)
-        if (message.guild.me.voice.connection.dispatcher != null) message.guild.me.voice.connection.dispatcher.destroy()
+        const audio = ytdl(client.queueMap[message.guild.id].playing.url)
+        const connectionP: ConnectionWithPlayer = getVoiceConnection(message.guild.id) as ConnectionWithPlayer
+        connectionP.player.stop()
 
-        const dispatcher = message.guild.me.voice.connection.play(audio, {type: 'opus', volume: 0.05})
-        dispatcher.on('finish', () => {
+        connectionP.player.play(createAudioResource(audio))
+        /*connectionP.player.on(AudioPlayerStatus.Idle, () => {
             checkQueueThenHandle(message, message.guild.me.voice.connection)
         })
+        */
 
         restart.sendEmbed(<TextChannel> message.channel, {
             title: `Restarting ${client.queueMap[message.guild.id].playing.songName}`,

@@ -1,3 +1,4 @@
+/*
 import { MessageButton } from "discord-buttons"
 
 export default function makeQueueButton() {
@@ -8,3 +9,4 @@ export default function makeQueueButton() {
 
     return skipButton
 }
+*/

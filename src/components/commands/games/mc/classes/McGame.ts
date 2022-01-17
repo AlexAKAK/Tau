@@ -121,7 +121,7 @@ export default class McGame extends GameSuperClass {
 
     async startLoop(): Promise<void> {
         this.messageInChannel = await this.channel.send(this.makeEmbed())
-        this.client.on('message', async (message: Message) => this.messageProcedure(message))
+        this.client.on('messageCreate', async (message: Message) => this.messageProcedure(message))
     }
 
     async messageProcedure(message: Message): Promise<void> {

@@ -137,7 +137,7 @@ export default abstract class CommandClass {
         
      
         // sends the embed message, then returns a promise that resolves to the message.
-        const sentMessagePromise = channel.send(embed)
+        const sentMessagePromise = channel.send({embeds: [embed]})
         // if there's a deleteTimeout specified
         sentMessagePromise
         .then((message) => {

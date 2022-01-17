@@ -10,6 +10,9 @@ import CommandClass from '../../classes/CommandClass'
 const checkQueueThenHandle = require('./../../utility/checkQueueThenHandle')
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const {red, lightBlue} = require('./../../utility/hexColors');
+import voice = require('@discordjs/voice');
+import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer";
+
 // C:/Users/alexk/Desktop/coding projects/bryson/bryson bot 9/src/components/utility/checkQueueThenHandle.js
 /*async function skip(message) {
     // if no err
@@ -48,8 +51,8 @@ export default class skip extends CommandClass {
     
     
     public async commandMain(message: Message, client: Tau) {
-        const connection = message.guild.me.voice.connection
-        const dispatcher = connection.dispatcher
+        const connection = voice.getVoiceConnection(message.guild.id)
+        //const dispatcher = connection.dispatcher
         sendEmbed(message.channel, {
             title: `Skipped ${client.queueMap[message.guild.id]['playing']['songName']}`,
             color: lightBlue,
@@ -57,9 +60,14 @@ export default class skip extends CommandClass {
         })
         // make the song not loop
         client.queueMap[message.guild.id]['playing']['loop'] = false
+        const connectionP: ConnectionWithPlayer = connection as ConnectionWithPlayer
+        connectionP.player.stop()
 
-        dispatcher.destroy()
-        checkQueueThenHandle(message, connection)
+        // the player object changes, and it is not the right one ^^^^^^^
+        
+        //dispatcher.destroy()
+        // **not sure if the next line is necessary** //
+        //checkQueueThenHandle(message, connection)
     }
 }
 

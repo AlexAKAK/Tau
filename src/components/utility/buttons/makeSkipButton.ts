@@ -1,3 +1,4 @@
+/*
 import { MessageButton } from "discord-buttons"
 
 export default function makeSkipButton() {
@@ -8,3 +9,4 @@ export default function makeSkipButton() {
 
     return skipButton
 }
+*/

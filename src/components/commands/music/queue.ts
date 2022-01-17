@@ -1,7 +1,8 @@
 import { Message, MessageEmbed } from "discord.js";
-import { MessageButton } from "discord-buttons";
+//import { MessageButton } from "discord-buttons";
 import Tau from "../../../index";
 import CommandClass from '../../classes/CommandClass'
+/*
 import makeButton from "../../utility/buttons/makeButton";
 import defaultColor from "../../utility/embeds/defaultColor";
 import makeEmbed from "../../utility/embeds/makeEmbed";
@@ -9,6 +10,7 @@ import makeSkipButton from "../../utility/buttons/makeSkipButton";
 import makeRestartButton from "../../utility/buttons/makeRestartButton";
 import makeStopButton from "../../utility/buttons/makeStopButton";
 import makeQueueButton from "../../utility/buttons/makeQueueButton";
+*/
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const {lightBlue} = require('./../../utility/hexColors');
@@ -67,16 +69,17 @@ export default class queue extends CommandClass {
        text = text.substring(0, 1990)
        text += '\`\`\`'
 
-        let buttons: MessageButton[] = []
+        //let buttons: MessageButton[] = []
         
 
         // buttons
        
+        /*
         buttons.push(makeSkipButton())
         buttons.push(makeRestartButton())
         buttons.push(makeStopButton())
         buttons.push(makeQueueButton())
-       
+       */
 
         // working here
         /*
@@ -87,11 +90,12 @@ export default class queue extends CommandClass {
             deleteTimeout: 5000,
         })
         */
-
+        /*
         message.channel.send(text, {
             buttons: buttons
         })
-
+        */
+       message.channel.send(text)
         return false
     }
 }

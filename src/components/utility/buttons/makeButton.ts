@@ -1,4 +1,5 @@
-import { MessageButton, MessageButtonStyleResolvable } from "discord-buttons"
+
+/*import { MessageButton, MessageButtonStyleResolvable } from "discord-buttons"
 
 const disbut = require('discord-buttons')
 
@@ -11,3 +12,4 @@ export default function(color: MessageButtonStyleResolvable, label: string, id: 
     return button
 
 }
+*/

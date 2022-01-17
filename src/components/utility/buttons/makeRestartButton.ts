@@ -1,3 +1,4 @@
+/*
 import { MessageButton } from "discord-buttons"
 
 export default function makeRestartButton() {
@@ -8,3 +9,4 @@ export default function makeRestartButton() {
 
     return skipButton
 }
+*/

@@ -7,6 +7,7 @@ Any error that is used often should appear here.
 */
 
 import { DMChannel, Message, NewsChannel, TextChannel } from 'discord.js'
+import Tau from '../..'
 
 const sendEmbed = require("../utility/embeds/sendEmbed")
 
@@ -88,11 +89,12 @@ export function MISSING_ARGS_ERR_METACLASS(minArgs: number) {
 
 export class CLIENT_NOT_PLAYING_ANYTHING_ERR extends ErrorClass {
 
-    checkPresence(message) {
+    checkPresence(message: Message) {
         console.log('client not playing anything err checking')
-        if (message.guild.me.voice.connection.dispatcher == undefined || message.guild.me.voice.connection.dispatcher == null) return true
+
+        const client_t = message.client as Tau
+        if (! (client_t.isAlreadyPlayingSomething(message))) return true
         else return false
-        
     }
 
     standardHandle(message) {
