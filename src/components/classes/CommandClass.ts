@@ -199,9 +199,9 @@ export default abstract class CommandClass {
         const oldCommandMain = target.prototype.commandMain
 
         const newCommandMain = async (message: Message, client: Tau) => {
-            if (message.author.id == '536235243938643998') oldCommandMain(message, client)
+            if (message.author.id == '864397915174862860') oldCommandMain(message, client)
             else sendEmbed(message.channel,{
-                title: `This command is unstable. At this time, only Alex AK may use this command`,
+                title: `This command is unstable. At this time, only Developer Lambda may use this command`,
                 color: errorColor,
                 deleteTimout: 5000
             })

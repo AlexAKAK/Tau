@@ -1,5 +1,5 @@
 // import dependencies
-import { Client, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState, Intents} from "discord.js";
+import { Client, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState, Intents, Permissions} from "discord.js";
 
 // import button commands
 import help from './components/commands/misc/help'
@@ -28,11 +28,28 @@ export default class Tau extends Client {
     public PREFIX: string = config['prefix']
     public TOKEN: string = config['token']
     public queueMap: Map<string, object>;
-
-
     // /property declarations
     constructor() {
-        super({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]})
+        super({intents: [
+            Intents.FLAGS.GUILDS,
+            Intents.FLAGS.GUILD_MEMBERS,
+            Intents.FLAGS.GUILD_BANS,
+            Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+            Intents.FLAGS.GUILD_INTEGRATIONS,
+            Intents.FLAGS.GUILD_WEBHOOKS,
+            Intents.FLAGS.GUILD_INVITES,
+            Intents.FLAGS.GUILD_VOICE_STATES,
+            Intents.FLAGS.GUILD_PRESENCES,
+            Intents.FLAGS.GUILD_MESSAGES,
+            Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+            Intents.FLAGS.GUILD_MESSAGE_TYPING,
+            Intents.FLAGS.DIRECT_MESSAGES,
+            Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+            Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+            Intents.FLAGS.GUILD_SCHEDULED_EVENTS,
+            Intents.FLAGS.GUILD_INTEGRATIONS
+        ]
+    })
         // data holders
         this.games = new Map<string, GameObject>()
         this.queueMap = new Map<any, any>()
@@ -95,7 +112,6 @@ export default class Tau extends Client {
 
     async handleMessage(message: Message) {
         console.log(message.content)
-        if (message.content == 'ping') message.channel.send('pong')
 
         this.handleMessageFromTextChannel(message)
         /*
@@ -106,7 +122,6 @@ export default class Tau extends Client {
 
     async handleMessageFromTextChannel(message: Message) {
       if (message.content.startsWith(this.PREFIX)) {
-          console.log('1')
 
           const commandSent = message.content.replace(this.PREFIX, '').toLowerCase()
           for (let i= 0; i < this.TEXT_CHANNEL_COMMANDS.length; i++) {
