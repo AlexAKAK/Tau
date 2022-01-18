@@ -3,6 +3,7 @@ import join from "../commands/music/join";
 import leave from "../commands/music/leave";
 import loop from "../commands/music/loop";
 import play from "../commands/music/play";
+import playing from "../commands/music/playing";
 import queue from "../commands/music/queue";
 import restart from "../commands/music/restart";
 import shuffle from "../commands/music/shuffle";
@@ -19,7 +20,8 @@ export default new CommandCategory('music', [
     shuffle,
     skip,
     stop,
-    loop
+    loop,
+    playing
 ],
 'Commands related to playing music in a voice channel')
 
