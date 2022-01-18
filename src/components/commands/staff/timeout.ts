@@ -15,22 +15,24 @@ export default class timeout extends CommandClass {
     
 
     public async commandMain(message: Message, client: Tau): Promise<void> {
+    if (message.member.id != message.guild.ownerId) {
+        if (message.guild.me.roles.highest <= message.mentions.members.first().roles.highest) {
+                sendEmbed(message.channel, {
+                    title: 'I am not high enough to timeout this user',
+                    color: defaultColor
+                })
+                return;
+            }
 
-    if (message.guild.me.roles.highest <= message.mentions.members.first().roles.highest) {
-        sendEmbed(message.channel, {
-            title: 'I am not high enough to timeout this user',
-            color: defaultColor
-        })
-        return;
+            if (message.member.roles.highest <= message.mentions.members.first().roles.highest) {
+                sendEmbed(message.channel, {
+                    title: 'You are not high enough role to use this command against that user',
+                    color: defaultColor
+                })
+                return;
+            }
     }
-
-    if (message.member.roles.highest <= message.mentions.members.first().roles.highest) {
-        sendEmbed(message.channel, {
-            title: 'You are not high enough role to use this command against that user',
-            color: defaultColor
-        })
-        return;
-    }
+    
     
     
     const args: string[] = message.content.split(" ").slice(1); // remove the call
