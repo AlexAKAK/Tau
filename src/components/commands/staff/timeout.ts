@@ -73,7 +73,7 @@ export default class timeout extends CommandClass {
     const embed: MessageEmbed = new MessageEmbed()
     embed
     .setTitle("Timeout")
-    .setDescription(`${member.user.tag} has been timed out for ${time} ${timeUnit}`)
+    .setDescription(`${member.user.tag} has been timed out for ${time} ${timeUnit} for ${reason}`)
     .setColor(defaultColor)
     .setTimestamp()
     message.channel.send({embeds: [embed]});
