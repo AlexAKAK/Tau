@@ -19,7 +19,7 @@ export default class timeout extends CommandClass {
     public async commandMain(message: Message, client: Tau): Promise<void> {
     //if (message.member.id != message.guild.ownerId) {
 
-        if (!(message.member.roles.cache.has(qtData.roles['Moderator']) || message.member.roles.cache.has(client.qtData.roles['Owner']))) {
+        if (!(message.member.roles.cache.has(qtData.roles['Moderator']) || message.member.roles.cache.has(qtData.roles['Owner']))) {
             try {
                 const embed: MessageEmbed = new MessageEmbed()
                 embed.setColor(errorColor)
@@ -31,6 +31,7 @@ export default class timeout extends CommandClass {
             catch(err) {
                 console.log(err)
             }
+            return
         }
 
         
