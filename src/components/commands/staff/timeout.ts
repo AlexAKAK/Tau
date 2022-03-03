@@ -1,6 +1,7 @@
 import { GuildMember, Message, MessageEmbed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
+import qtData from "../../qt/qt data";
 import defaultColor from "../../utility/embeds/defaultColor";
 import errorColor from "../../utility/embeds/errorColor";
 const sendEmbed = require("../../utility/embeds/sendEmbed");
@@ -17,6 +18,22 @@ export default class timeout extends CommandClass {
 
     public async commandMain(message: Message, client: Tau): Promise<void> {
     //if (message.member.id != message.guild.ownerId) {
+
+        if (!(message.member.roles.cache.has(qtData.roles['Moderator']) || message.member.roles.cache.has(client.qtData.roles['Owner']))) {
+            try {
+                const embed: MessageEmbed = new MessageEmbed()
+                embed.setColor(errorColor)
+                embed.setTitle("You do not have permission to use this command.")
+                embed.setDescription("You must have the Moderator role to use this command.")
+                embed.setTimestamp()
+                message.member.send({embeds: [embed]})
+            }
+            catch(err) {
+                console.log(err)
+            }
+        }
+
+        
 
         const memberRolePosition = message.member.roles.highest.position
         const botRolePosition = message.guild.me.roles.highest.position
