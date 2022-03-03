@@ -12,6 +12,7 @@ import McGame from "./components/commands/games/mc/classes/McGame";
 //import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
 import allCommands from "./components/commandCategories/allCommands";
 import setup from "./components/qt/setup";
+import memberJoin from "./components/qt/events/memberJoin";
 
 
 //const disbut = require('discord.js-buttons')
@@ -92,6 +93,9 @@ export default class Tau extends Client {
         this.on('messageCreate', async(message: Message) => this.handleMessage(message))
         console.log(this.PREFIX)
         // / events
+        this.on('guildMemberAdd', async (member: GuildMember) => {
+            memberJoin(this, member)
+        })
     }
 
     isAlreadyPlayingSomething(message: Message) {

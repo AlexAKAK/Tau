@@ -4,6 +4,10 @@ import Tau from "../..";
 import qt from './qt data'
 
 export default function setup (client: Tau) {
+    /*
+    This function runs whenever the bot goes online. 
+    It is used to setup anything specific to the qt server.
+    */
     const server: Guild = client.guilds.cache.get(qt.id)
     server.members.cache.forEach(member => {
         console.log(member.displayName)
