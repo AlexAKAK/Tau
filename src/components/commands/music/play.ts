@@ -411,8 +411,7 @@ export default class play extends CommandClass {
         */
 
 
-        
-        
+
     }
 
 
@@ -420,10 +419,15 @@ export default class play extends CommandClass {
         const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
         const re = /((open|play)\.spotify\.com\/)/
         const isSpotifyLink = re.test(play.removePrefixAndCommandFromString(message.content, client.PREFIX))
-    
-        if (isYTLink) play.yt(message, client)
-        else if (isSpotifyLink) play.spotify(message, client)
-        else play.kw(message, client)
+        try {
+            if (isYTLink) play.yt(message, client)
+            else if (isSpotifyLink) play.spotify(message, client)
+            else play.kw(message, client)   
+        }
+        catch (err) {
+            console.log(err)
+        }
+        
 
     }
 

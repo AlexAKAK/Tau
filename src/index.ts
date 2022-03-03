@@ -11,6 +11,8 @@ import restart from './components/commands/music/restart'
 import McGame from "./components/commands/games/mc/classes/McGame";
 //import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
 import allCommands from "./components/commandCategories/allCommands";
+import setup from "./components/qt/setup";
+
 
 //const disbut = require('discord.js-buttons')
 
@@ -28,6 +30,7 @@ export default class Tau extends Client {
     public PREFIX: string = config['prefix']
     public TOKEN: string = config['token']
     public queueMap: Map<string, object>;
+    public qtServer: Guild;
     // /property declarations
     constructor() {
         super({intents: [
@@ -81,7 +84,11 @@ export default class Tau extends Client {
         // / commands
         
         // events
-        this.on('ready', () => console.log("[Online]"))
+        this.on('ready', () => {
+            console.log("[Online]")
+            this.qtServer = this.guilds.cache.find(guild => guild.id == config['qtServerID'])
+            setup(this)
+        })
         this.on('messageCreate', async(message: Message) => this.handleMessage(message))
         console.log(this.PREFIX)
         // / events
@@ -189,6 +196,8 @@ export default class Tau extends Client {
 // Running the bot
 const client: Tau = new Tau();
 client.login(config['token'])
+
+
 //disbut(<Client> client)
 
 // buttons
