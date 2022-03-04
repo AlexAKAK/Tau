@@ -28,6 +28,17 @@ const modColors: object = {
     white: '949126261853261834',
 }
 
+const adminColors: object = {
+    red: '949127150089408512',
+    orange: '949128932882538506',
+    yellow: '949128942932066344',
+    green: '949128946862145658',
+    blue: '949128949206749204',
+    purple: '949128965405147146',
+    pink: '949128965405147146',
+    white: '949128968118870126',
+}
+
 @color.errorCheck([
     color.MISSING_ARGS_ERR_2
 ])
@@ -48,6 +59,10 @@ export default class color extends CommandClass {
             colors = modColors
         }
 
+        if (message.member.roles.cache.has(qtData.roles['Administrator'])) {
+            colors = adminColors
+        }
+
         // check if the requested color exists in the object
         if (!colors[requestedColor]) {
             const embed: MessageEmbed = new MessageEmbed()
@@ -61,11 +76,23 @@ export default class color extends CommandClass {
         }
 
        // remove all color roles from the member
-       Object.keys(colors).forEach(color => {
+       Object.keys(standardColors).forEach(color => {
             if (message.member.roles.cache.has(colors[color])) {
             message.member.roles.remove(colors[color])
             }
        })
+
+       Object.keys(modColors).forEach(color => {
+        if (message.member.roles.cache.has(colors[color])) {
+        message.member.roles.remove(colors[color])
+        }
+    })
+
+    Object.keys(adminColors).forEach(color => {
+        if (message.member.roles.cache.has(colors[color])) {
+        message.member.roles.remove(colors[color])
+        }
+   })
 
         // add the requested color role to the member
         message.member.roles.add(colors[requestedColor])
