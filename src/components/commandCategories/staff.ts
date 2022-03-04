@@ -8,6 +8,8 @@ import timeout from "../commands/staff/timeout";
 import unmute from "../commands/staff/unmute";
 import makeReactionRoleCategory from "../commands/staff/makeReactionRoleCategory";
 import deleteRoleCategory from "../commands/staff/deleteRoleCategory";
+import addrole from "../commands/staff/addRole";
+import deleterole from "../commands/staff/deleterole";
 
 
 export default new CommandCategory('staff', [
@@ -19,6 +21,8 @@ export default new CommandCategory('staff', [
     rules,
     colorreaction,
     makeReactionRoleCategory,
-    deleteRoleCategory
+    deleteRoleCategory,
+    addrole,
+    deleterole
 ],
 'Commands for staff members')
