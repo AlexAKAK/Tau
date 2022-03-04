@@ -5,7 +5,8 @@ import colorreaction from "../commands/staff/colorreaction";
 import qtData from "./qt data";
 import defaultRoles from './../qt/events/defaultRoles';
 import qt from './qt data'
-import selfRoles from "./selfRoles";
+//import selfRoles from "./selfRoles";
+const selfRoles = require('./../../../data/selfRoles')
 import ReactionRoleCategory from "../classes/ReactionRoleCategory";
 
 export default async function setup (client: Tau): Promise<void> {

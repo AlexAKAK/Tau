@@ -6,6 +6,8 @@ import tempmute from "../commands/staff/tempmute";
 import tempmutevc from "../commands/staff/tempmutevc";
 import timeout from "../commands/staff/timeout";
 import unmute from "../commands/staff/unmute";
+import makeReactionRoleCategory from "../commands/staff/makeReactionRoleCategory";
+import deleteRoleCategory from "../commands/staff/deleteRoleCategory";
 
 
 export default new CommandCategory('staff', [
@@ -15,6 +17,8 @@ export default new CommandCategory('staff', [
     //unmute
     timeout,
     rules,
-    colorreaction
+    colorreaction,
+    makeReactionRoleCategory,
+    deleteRoleCategory
 ],
 'Commands for staff members')
