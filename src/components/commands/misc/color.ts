@@ -3,41 +3,10 @@ import src from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import qtData from "../../qt/qt data";
 import errorColor from "../../utility/embeds/errorColor";
+import allColors from './../../qt/colors'
 
 
 
-const standardColors: object = {
-    red: '949119106618118194',
-    orange: '949119181645815829',
-    yellow: '949119224578732043',
-    green: '949119256602214481',
-    blue: '949119326219276308',
-    purple: '949119388169170974',
-    pink: '949119506020708405',
-    white: '949119506020708405',
-}
-
-const modColors: object = {
-    red: '949126224561700955',
-    orange: '949126227929735178',
-    yellow: '949126256593625158',
-    green: '949126256887205908',
-    blue: '949126258346827888',
-    purple: '949126259584143381',
-    pink: '949126722526253166',
-    white: '949126261853261834',
-}
-
-const adminColors: object = {
-    red: '949127150089408512',
-    orange: '949128932882538506',
-    yellow: '949128942932066344',
-    green: '949128946862145658',
-    blue: '949128949206749204',
-    purple: '949128965405147146',
-    pink: '949128965405147146',
-    white: '949128968118870126',
-}
 
 @color.errorCheck([
     color.MISSING_ARGS_ERR_2
@@ -53,14 +22,14 @@ export default class color extends CommandClass {
 
     public async commandMain(message: Message<boolean>, client: src): Promise<void> {
         const requestedColor = color.splitArgsWithoutCommandCall(message)[0]
-        let colors: object = standardColors
+        let colors: object = allColors['standard']
         // if it's a mod give them the mod colors
         if (message.member.roles.cache.has(qtData.roles['Moderator'])) {
-            colors = modColors
+            colors = allColors['mod']
         }
 
         if (message.member.roles.cache.has(qtData.roles['Administrator'])) {
-            colors = adminColors
+            colors = allColors['admin']
         }
 
         // check if the requested color exists in the object
@@ -76,23 +45,23 @@ export default class color extends CommandClass {
         }
 
        // remove all color roles from the member
-       Object.keys(standardColors).forEach(color => {
+       Object.keys(allColors['standard']).forEach(color => {
             if (message.member.roles.cache.has(colors[color])) {
             message.member.roles.remove(colors[color])
             }
-       })
+        })
 
-       Object.keys(modColors).forEach(color => {
-        if (message.member.roles.cache.has(colors[color])) {
-        message.member.roles.remove(colors[color])
-        }
-    })
+        Object.keys(allColors['mod']).forEach(color => {
+            if (message.member.roles.cache.has(colors[color])) {
+            message.member.roles.remove(colors[color])
+            }
+        })
 
-    Object.keys(adminColors).forEach(color => {
-        if (message.member.roles.cache.has(colors[color])) {
-        message.member.roles.remove(colors[color])
-        }
-   })
+        Object.keys(allColors['admin']).forEach(color => {
+            if (message.member.roles.cache.has(colors[color])) {
+            message.member.roles.remove(colors[color])
+            }
+        })
 
         // add the requested color role to the member
         message.member.roles.add(colors[requestedColor])

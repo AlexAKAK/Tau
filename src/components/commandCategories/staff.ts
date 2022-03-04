@@ -1,5 +1,6 @@
 import CommandCategory from "../classes/CommandCategory";
 import mute from "../commands/staff/mute";
+import colorreaction from "../commands/staff/colorreaction";
 import rules from "../commands/staff/rules";
 import tempmute from "../commands/staff/tempmute";
 import tempmutevc from "../commands/staff/tempmutevc";
@@ -13,6 +14,7 @@ export default new CommandCategory('staff', [
     //tempmutevc,
     //unmute
     timeout,
-    rules
+    rules,
+    colorreaction
 ],
 'Commands for staff members')

@@ -161,7 +161,6 @@ export default class Tau extends Client {
     }
     async handleMessageFromDMChannel(message: Message) {
 
-
       if (message.content.startsWith(this.PREFIX)) {
           const commandSent = message.content.replace(this.PREFIX, '').toLowerCase()
           for (let i= 0; i < this.DM_COMMANDS.length; i++) {

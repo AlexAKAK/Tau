@@ -7,9 +7,9 @@ import staff from "./staff";
 
 export default [
     misc,
-    music,
+    //music,
     //science,
-    currency,
+    //currency,
     //games,
     staff
 ]
