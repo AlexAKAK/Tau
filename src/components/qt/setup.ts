@@ -146,8 +146,13 @@ async function colors(client: Tau) {
 async function addSelfRoles(client: Tau) {
     const server = client.guilds.cache.get(qt.id)
     const channel: TextChannel = client.channels.cache.get(qt.channels['roles']) as TextChannel
+
+    for(let i = 0; i < Object.keys(selfRoles).length; i++) {
+        const category: ReactionRoleCategory = new ReactionRoleCategory(Object.keys(selfRoles)[i], selfRoles[Object.keys(selfRoles)[i]])
+        await category.printReactionRoleMessages(client)
+    }
+
+
     
-    const starSign: ReactionRoleCategory = new ReactionRoleCategory('Star Sign', selfRoles['starSigns'])
-    starSign.printReactionRoleMessages(client)
 
 }

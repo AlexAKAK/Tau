@@ -1,8 +1,14 @@
-import { TextChannel, MessageEmbed, Message, GuildMember } from "discord.js";
+import { TextChannel, MessageEmbed, Message, GuildMember, User, Role } from "discord.js";
 import Tau from "../..";
 import selfRoles from "../qt/selfRoles";
 import qt from "../qt/qt data";
+import defaultColor from "../utility/embeds/defaultColor";
 
+
+/*
+Whenever a role is added to a member, all other reaction
+roles are removed from the user. This is a bug.
+*/
 export default class ReactionRoleCategory {
     public name: string
     public roles: string[]
@@ -12,9 +18,16 @@ export default class ReactionRoleCategory {
     }
 
     async printReactionRoleMessages(client: Tau) {
+        
         const server = client.guilds.cache.get(qt.id)
-    const channel: TextChannel = client.channels.cache.get(qt.channels['roles']) as TextChannel
-    for(let i = 0; i < this.roles.length; i++) {
+        const channel: TextChannel = client.channels.cache.get(qt.channels['roles']) as TextChannel
+        const categoryEmbed: MessageEmbed = new MessageEmbed()
+            .setTitle(this.name)
+            .setColor(defaultColor)
+            .setDescription(`React to the messages below to get a ${this.name} role!`);
+    
+        channel.send({embeds: [categoryEmbed]})
+            for(let i = 0; i < this.roles.length; i++) {
         const id = this.roles[i]
         const role = server.roles.cache.get(id)
         const embed: MessageEmbed = new MessageEmbed()
@@ -23,47 +36,44 @@ export default class ReactionRoleCategory {
             .setColor(role.color)
 
         const sentMessage: Message = await channel.send({embeds: [embed]})
-        client.on('messageReactionAdd', (reactionp, user) => {
-            // remove all other roles in this category
-            const member: GuildMember = channel.guild.members.cache.get(user.id)
-            this.roles.forEach(role => {
-                if (member.roles.cache.has(role)) {
-                member.roles.remove(role)
-                }
-            })
-            // get the member object from the user
-            
-            if (member == null) return
-            
-            if (reactionp.message.id == sentMessage.id) {
-                member.roles.add(role)
-            }
 
+        // event listeners for handling message reaction events
+        client.on('messageReactionAdd', (reactionp, user) => {
+            this.handleMessageReactionEvent(client, reactionp, user, sentMessage, channel, role)
         })
 
         client.on('messageReactionRemove', (reactionp, user) => {
-            // get the member object from the user
-            const member: GuildMember = channel.guild.members.cache.get(user.id)
-            // remove all other roles in this category
-            this.roles.forEach(role => {
-                if (member.roles.cache.has(role)) {
-                member.roles.remove(role)
-                }
-            })
-            
-            if (member == null) return
-            
-            if (reactionp.message.id == sentMessage.id) {
-                member.roles.add(role)
-            }
-
+            this.handleMessageReactionEvent(client, reactionp, user, sentMessage, channel, role)
         })
+
+        
         
         
 
         
         
     }
+    }
+
+
+    private handleMessageReactionEvent(client: Tau, reactionp: any, user: User, sentMessage: Message, channel: TextChannel, role: Role) {
+        // whenever a reaction is added or removed in a reaction role message, it will run
+        if (reactionp.message.id != sentMessage.id) return // only perform this action if the message is the one we sent for this role
+            // remove all other roles in this category
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            this.roles.forEach(role => {
+                console.log(channel.guild.roles.cache.get(role).name)
+                if (member.roles.cache.has(role)) {
+                member.roles.remove(role)
+                }
+            })
+            // get the member object from the user
+            
+            if (member == null) return
+            
+            if (reactionp.message.id == sentMessage.id) {
+                member.roles.add(role)
+            }
     }
 
 
