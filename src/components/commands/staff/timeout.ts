@@ -5,7 +5,6 @@ import qtData from "../../qt/qt data";
 import defaultColor from "../../utility/embeds/defaultColor";
 import errorColor from "../../utility/embeds/errorColor";
 const sendEmbed = require("../../utility/embeds/sendEmbed");
-@timeout.unStable
 @timeout.errorCheck([
     timeout.MISSING_ARGS_ERR_METACLASS(5) // t!timeout <user> <time> <time unit> <reason>
 ])
