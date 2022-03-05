@@ -5,7 +5,7 @@ const standardColors: object = {
     green: '949119256602214481',
     blue: '949119326219276308',
     purple: '949119388169170974',
-    pink: '949119506020708405',
+    pink: '949456615030014032',
 }
 
 const modColors: object = {

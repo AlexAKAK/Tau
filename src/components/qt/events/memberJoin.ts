@@ -12,7 +12,7 @@ export default function memberJoin (client: Tau, member: GuildMember) {
     const server: Guild = client.guilds.cache.get(qt.id)
     const channel: TextChannel = server.channels.cache.get(qt.channels.welcome) as TextChannel
     member.roles.add(server.roles.cache.get(qt.roles['Member']))
-
+    member.roles.add(server.roles.cache.get(qt.roles['About']))
   
     const embed = new MessageEmbed()
     embed.setTitle(`${member.displayName} Joined the server!`)

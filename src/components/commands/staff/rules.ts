@@ -3,6 +3,8 @@ import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import StaffCommand from "../../qt/classes/StaffCommand";
 import defaultColor from "../../utility/embeds/defaultColor";
+const rulesList = require('./../../../../data/rules')
+
 /**
  * Be respectful, civil, and welcoming.
 No inappropriate or unsafe content.
@@ -39,17 +41,14 @@ export default class rules extends StaffCommand {
   
         .setTitle("Rules")
         .setColor(defaultColor)
-        .addField('1','No spamming')
-        .addField('2','No advertising other servers, channels, or Discord accounts')
-        .addField('3','No NSFW content')
-        .addField('4','No racism, sexism, or hate speech')
-        .addField('5', 'Do not buy/sell/trade/give away anything.')
-        .addField('6', 'Do not use the server as a dating server.')
-        .addField('7', 'The primary language of this server is English.')
-        .addField('8', 'Don’t ping without legitimate reasoning behind them.')
+        .setTimestamp()
+        for (let i = 0; i < rulesList.length; i++) {
+            embed.addField(`Rule ${i + 1}`, rulesList[i])
+        }
+        
         
 
-        .setTimestamp()
+        
         
 
         message.channel.send({embeds: [embed]})

@@ -34,12 +34,15 @@ export default class addrole extends CommandClass {
             name: role,
             color: '#292b2f'
         })
+
+        // set the position of the role to directly after the last role in the category
+        newRole.setPosition(message.guild.roles.cache.get(selfRoles[category][selfRoles[category].length - 1]).position + 1)
         
         selfRoles[category].push(newRole.id)
         // write the new role to the file
         fs.writeFile(path.join(__dirname, '../../../../data/selfRoles.json'), JSON.stringify(selfRoles), function() {
             message.channel.send(`Added role ${role} to category ${category}`)
-            setup(client) 
+            //setup(client) 
         })
         
         

@@ -40,8 +40,9 @@ export default class deleterole extends CommandClass {
         
         // write the new role to the file
         fs.writeFile(path.join(__dirname, '../../../../data/selfRoles.json'), JSON.stringify(selfRoles), function() {
-            message.channel.send(`Removed with id ${role} from category ${category}`)
-            setup(client) 
+            message.channel.send(`Removed role with id ${role} from category ${category}`)
+            //setTimeout(() => {setup(client)}, 2000)
+             
         })
         
         

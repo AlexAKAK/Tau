@@ -10,6 +10,7 @@ import makeReactionRoleCategory from "../commands/staff/makeReactionRoleCategory
 import deleteRoleCategory from "../commands/staff/deleteRoleCategory";
 import addrole from "../commands/staff/addRole";
 import deleterole from "../commands/staff/deleterole";
+import initialize from "../commands/staff/initialize";
 
 
 export default new CommandCategory('staff', [
@@ -23,6 +24,7 @@ export default new CommandCategory('staff', [
     makeReactionRoleCategory,
     deleteRoleCategory,
     addrole,
-    deleterole
+    deleterole,
+    initialize
 ],
 'Commands for staff members')
