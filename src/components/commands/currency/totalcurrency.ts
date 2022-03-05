@@ -9,7 +9,7 @@ export default class totalcurrency extends CommandClass {
     protected static commandSyntax: string = 'totalcurrency'
 
     public async commandMain(message: Message, client: Tau): Promise<void> {
-        const walletData = require('./../../../../data/wallets.json')
+        const walletData = require('./../../../../data/wallets')
         let amount: number = 0
         
         for(const userID in walletData) {
@@ -17,8 +17,7 @@ export default class totalcurrency extends CommandClass {
         }
 
         totalcurrency.sendEmbed(<TextChannel>message.channel, {
-            title: `There are currenty ${amount} TauCoins in circulation.`,
-            deleteTimeout: 10000
+            title: `There are currenty ${amount} TauCoins in circulation.`
         })
         
     }

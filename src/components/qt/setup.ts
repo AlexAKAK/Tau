@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Message, MessageEmbed, TextChannel } from "discord.js";
+import { Guild, GuildMember, Message, MessageEmbed, TextChannel, VoiceChannel } from "discord.js";
 import Tau from "../..";
 import color from "../commands/misc/color";
 import colorreaction from "../commands/staff/colorreaction";
@@ -15,9 +15,11 @@ export default async function setup (client: Tau): Promise<void> {
     It is used to setup anything specific to the qt server.
     */
     
-    await addDefaultRoles(client)
-    await colors(client)
-    await addSelfRoles(client)
+    addDefaultRoles(client)
+    colors(client)
+    addSelfRoles(client)
+    memberCountUpdate(client)
+
 
 
 }
@@ -156,4 +158,16 @@ async function addSelfRoles(client: Tau) {
 
     
 
+}
+
+
+
+async function memberCountUpdate(client: Tau) {
+    const channel: VoiceChannel = client.channels.cache.get(qt.channels['memberCount']) as VoiceChannel
+    console.log(channel.name)
+    channel.setName(`😃Members: ${channel.guild.members.cache.size}`)
+    setInterval(async () => {
+        channel.setName(`😃Members: ${channel.guild.members.cache.size}`)
+    }, 1000 * 60 * 60)
+    
 }

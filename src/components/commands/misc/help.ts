@@ -6,6 +6,10 @@ import CommandClass from '../../classes/CommandClass'
 import defaultColor from "../../utility/embeds/defaultColor"
 import errorColor from "../../utility/embeds/errorColor"
 import allCommands from "../../commandCategories/allCommands"
+const pictures = require('./../../../../data/pictures')
+const darkThumbnail = 'https://i.ibb.co/RNpxfVg/bot-logo-for-embed.png'
+
+
 
 @help.alias(['h'])
 export default class help extends CommandClass {
@@ -45,6 +49,7 @@ export default class help extends CommandClass {
         .setTitle(`\`\`\`To see available commands, type: ${client.PREFIX}help <category/command>\`\`\``)
         .setColor(defaultColor)
         .setTimestamp()
+        .setThumbnail(darkThumbnail)
 
         for (let i = 0; i < allCommands.length; i++) {
             
@@ -75,7 +80,7 @@ export default class help extends CommandClass {
             {
                 const embed = new MessageEmbed()
                 embed.setTimestamp()
-                embed.setColor(defaultColor)
+                embed.setColor(defaultColor).setThumbnail(darkThumbnail)
                 embed.setTitle(`\`\`\`Command Category: ${_category.name}\`\`\``)
                 for (const command of _category.commands) {
                     embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandDescription}\`\`\``, true)
@@ -99,7 +104,7 @@ export default class help extends CommandClass {
         const command: any = help.getCommand(help.splitArgsWithoutCommandCall(message)[0])
         const embed = new MessageEmbed()
         .setTimestamp()
-        .setColor(defaultColor)
+        .setColor(defaultColor).setThumbnail(darkThumbnail)
         .addField(`\`\`\`Usage: ${command.commandSyntax}\`\`\``, `\`\`\`Description: ${command.commandDescription}\`\`\``, false)
 
         message.channel.send({embeds: [embed]})
