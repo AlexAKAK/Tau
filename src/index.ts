@@ -13,6 +13,7 @@ import McGame from "./components/commands/games/mc/classes/McGame";
 import allCommands from "./components/commandCategories/allCommands";
 import setup from "./components/qt/setup";
 import memberJoin from "./components/qt/events/memberJoin";
+import moderation from "./components/utility/moderation";
 
 
 //const disbut = require('discord.js-buttons')
@@ -199,6 +200,7 @@ export default class Tau extends Client {
 // Running the bot
 const client: Tau = new Tau();
 client.login(config['token'])
+moderation(client)
 
 
 //disbut(<Client> client)
