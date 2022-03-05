@@ -6,11 +6,11 @@ const KEY = require('./../../../config')['perspectiveAPIKey'];
 require('dotenv').config();
 
 const attributeThresholds = {
-  'INSULT': 0.90,
+  'INSULT': 0.95,
   'TOXICITY': 0.95,
-  'SPAM': 0.95,
-  'INCOHERENT': 0.90,
-  'FLIRTATION': 0.90,
+  'SPAM': 0.75,
+  'INCOHERENT': 0.95,
+  'FLIRTATION': 0.95,
 };
 
 /**

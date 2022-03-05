@@ -89,7 +89,8 @@ export default class Tau extends Client {
         this.on('ready', () => {
             console.log("[Online]")
             this.qtServer = this.guilds.cache.find(guild => guild.id == config['qtServerID'])
-            setup(this)
+
+            if (config['initialize']) setup(this)
         })
         this.on('messageCreate', async(message: Message) => this.handleMessage(message))
         console.log(this.PREFIX)

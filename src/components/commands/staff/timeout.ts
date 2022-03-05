@@ -46,7 +46,6 @@ export default class timeout extends CommandClass {
             })
         }
         const victimRolePosition = victim.roles.highest.position
-        console.log('numbers!!')
         console.log(message.guild.me.roles.highest.position)
         console.log(message.mentions.members.first().roles.highest.position)
         
