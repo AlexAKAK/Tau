@@ -1,4 +1,4 @@
-import currency from "./currency";
+import currency from "./economy";
 import games from "./games";
 import misc from "./misc";
 import music from "./music";
@@ -9,7 +9,7 @@ import trivia from "./trivia"
 export default [
     misc,
     //music,
-    //science,
+    science,
     currency,
     //games,
     staff,

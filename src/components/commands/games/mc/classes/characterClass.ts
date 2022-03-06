@@ -2,7 +2,7 @@ import direction from "../enums/direction";
 import McGame from "./McGame";
 import Item from "../interfaces/Item";
 import emojis from "../../../../utility/emojis";
-import mine from "../../../currency/mine";
+import mine from "../../../economy/mine";
 import stoneSword from "./items/stoneSword";
 import woodenPickaxe from "./items/woodenPickaxe";
 

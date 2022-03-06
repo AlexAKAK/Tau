@@ -85,8 +85,8 @@ export default class question extends CommandClass {
         
         let alreadyGuessedUsers: string[] = []
         // use message collector
-        const filter = (reaction, user: User) => (alreadyGuessedUsers.indexOf(user.id) == -1 && [1, 2, 3, 4].indexOf(Number(m.content)) != -1)
-        const collector = sent.createReactionCollector({time: 15000 })
+        const filter = (reaction, user: User) => alreadyGuessedUsers.indexOf(user.id)
+        const collector = sent.createReactionCollector({filter, time: 15000 })
 
         setTimeout(() => {
             //sent.react('5️⃣')

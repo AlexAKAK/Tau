@@ -28,6 +28,6 @@ export default class baltop extends CommandClass {
         .setColor(defaultColor)
         .setTimestamp()
 
-        message.channel.send(embed)
+        message.channel.send({embeds: [embed]})
     }
 }

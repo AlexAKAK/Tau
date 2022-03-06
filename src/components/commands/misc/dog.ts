@@ -2,7 +2,6 @@ import { Message } from "discord.js";
 import src from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import fetch from 'node-fetch';
-const axios = require('axios').default;
 
 
 
