@@ -2,6 +2,7 @@ import CommandCategory from "../classes/CommandCategory";
 import announce from "../commands/misc/announce";
 import clear from "../commands/misc/clear";
 import color from "../commands/misc/color";
+import dog from "../commands/misc/dog";
 import gif from "../commands/misc/gif";
 import help from "../commands/misc/help";
 import meme from "../commands/misc/meme";
@@ -16,6 +17,7 @@ export default new CommandCategory('misc', [
     report,
     yt,
     ytchannel,
-    clear
+    clear,
+    dog
 ],
 'Random commands for fun!') 

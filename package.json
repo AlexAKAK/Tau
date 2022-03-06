@@ -12,6 +12,7 @@
     "@discordjs/collection": "^0.1.6",
     "@discordjs/opus": "github:discordjs/opus",
     "@discordjs/voice": "^0.7.5",
+    "axios": "^0.26.0",
     "discord-buttons": "^4.0.0",
     "discord-tts": "^1.0.3",
     "discord-ytdl-core": "^5.0.4",

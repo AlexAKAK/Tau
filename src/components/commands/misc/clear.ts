@@ -11,8 +11,6 @@ const {red, randomColor} = require('./../../utility/hexColors');
     clear.QUANTATIVE_RANGE_ERR_1_1_100
 ])
 
-@clear.role([clear.HEADDEVELOPER])
-
 //@clear.unStable
 
 export default class clear extends CommandClass {
@@ -27,6 +25,7 @@ export default class clear extends CommandClass {
     
 
     public async commandMain(message: Message, client: Tau) {
+        if (message.author.id != message.guild.ownerId) return
         const args = clear.splitArgs(message)
     
         const num = Number(args[1])

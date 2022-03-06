@@ -15,6 +15,7 @@ export default function moderation(client: Tau) {
 
 async function perspectiveModeration(client: Tau, message: Message): Promise<void> {
 //if (message.author.id == message.guild.ownerId) return;
+    if (message.author.id == client.user.id) return
         if (message.content == '') return;
         const analysis = await analyzeText(message.content);
         if (messageShouldBeDeleted(analysis)) {
