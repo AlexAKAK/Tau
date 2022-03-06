@@ -1,4 +1,4 @@
-import { Message, MessageEmbed, TextChannel } from "discord.js";
+import { Message, MessageEmbed, TextChannel, User } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import defaultColor from "../../utility/embeds/defaultColor";
@@ -25,6 +25,13 @@ const apiurl: string = 'https://opentdb.com/api.php?amount=1&type=multiple';
     ]
 }
 */
+
+
+const emojis: string[] = ['1️⃣', '2️⃣', '3️⃣', '4️⃣']
+
+
+
+
 export default class question extends CommandClass {
     protected static commandCategory: string = 'trivia'
     protected static commandDescription: string = 'Asks a question'
@@ -69,13 +76,18 @@ export default class question extends CommandClass {
 
 
         const sent = await channel.send({embeds: [embed]})
+        await sent.react(emojis[0])
+        await sent.react(emojis[1])
+        await sent.react(emojis[2])
+        await sent.react(emojis[3])
 
         
         
         let alreadyGuessedUsers: string[] = []
         // use message collector
-        const filter = m => (alreadyGuessedUsers.indexOf(m.author.id) == -1 && [1, 2, 3, 4].indexOf(Number(m.content)) != -1)
-        const collector = channel.createMessageCollector({filter, time: 15000})
+        const filter = (reaction, user: User) => (alreadyGuessedUsers.indexOf(user.id) == -1 && [1, 2, 3, 4].indexOf(Number(m.content)) != -1)
+        const collector = sent.createReactionCollector({time: 15000 })
+
         setTimeout(() => {
             //sent.react('5️⃣')
             sent.edit({embeds: [embed.setColor('RED')]})
@@ -90,10 +102,12 @@ export default class question extends CommandClass {
 
         
 
-        collector.on('collect', (message: Message) => {
-            console.log(message.content)
-            alreadyGuessedUsers.push(message.author.id)
-            message.react('👌')
+        collector.on('collect', (reaction, user) => {
+            alreadyGuessedUsers.push(user.id) // blacklist the user from guessing again for this question
+            //console.log(message.content)
+            //alreadyGuessedUsers.push(message.author.id)
+            //message.react('👌')
+            console.log(reaction.emoji.toString())
         })
 
         collector.on('end', collected => {
@@ -106,14 +120,18 @@ export default class question extends CommandClass {
 
             let correctGuesses = 0
             let incorrectGuesses = 0
-            collected.forEach(message => {
-                if(choices[Number(message.content) - 1] == correctAnswer) {
-                    embed.addField(`${message.author.username}: ${message.content}`, textBlock('Correct!'))
-                    correctGuesses++
-                } else {
-                    embed.addField(`${message.author.username}: ${message.content}`, textBlock('Incorrect!'))
-                    incorrectGuesses++
-                }
+            collected.forEach(reaction => {
+                reaction.users.cache.forEach(user => {
+                    if (user.id == client.user.id) return // don't do it if the user is the bot
+                    if(choices[emojis.indexOf(reaction.emoji.toString())] == correctAnswer) {
+                        embed.addField(textBlock(`${user.username}${user.discriminator}: ${reaction.emoji.toString()}`), textBlock('Correct!'), true)
+                        correctGuesses++
+                    } else {
+                        embed.addField(textBlock(`${user.username}${user.discriminator}: ${reaction.emoji.toString()}`), textBlock('Incorrect!'), true)
+                        incorrectGuesses++
+                    }
+                })
+                
 
                 
             })

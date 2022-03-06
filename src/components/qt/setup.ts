@@ -52,8 +52,10 @@ async function colors(client: Tau) {
             .setDescription('React to get the Red role.')
         
         const redMessage: Message = await channel.send({embeds: [redEmbed]})
+        redMessage.react('🔴')
         redMessage.createReactionCollector()
         .on('collect', (reaction, user: User) => {
+            if (user.id == client.user.id) return
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'red')
         })
@@ -64,8 +66,10 @@ async function colors(client: Tau) {
             .setDescription('React to get the Orange role.')
         
         const orangeMessage: Message = await channel.send({embeds: [orangeEmbed]})
+        orangeMessage.react('🟠')
         orangeMessage.createReactionCollector()
         .on('collect', (reaction, user: GuildMember) => {
+            if (user.id == client.user.id) return
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'orange')
         })
@@ -75,8 +79,10 @@ async function colors(client: Tau) {
             .setDescription('React to get the Yellow role.')
         
         const yellowMessage: Message = await channel.send({embeds: [yellowEmbed]})
+        yellowMessage.react('🟡')
         yellowMessage.createReactionCollector()
         .on('collect', (reaction, user: GuildMember) => {
+            if (user.id == client.user.id) return
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'yellow')
         })
@@ -87,8 +93,10 @@ async function colors(client: Tau) {
             .setDescription('React to get the Green role.')
         
         const greenMessage: Message = await channel.send({embeds: [greenEmbed]})
+        greenMessage.react('🟢')
         greenMessage.createReactionCollector()
         .on('collect', (reaction, user: GuildMember) => {
+            if (user.id == client.user.id) return
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'green')
         })
@@ -98,8 +106,10 @@ async function colors(client: Tau) {
             .setDescription('React to get the Blue role.')
         
         const blueMessage: Message = await channel.send({embeds: [blueEmbed]})
+        blueMessage.react('🔵')
         blueMessage.createReactionCollector()
         .on('collect', (reaction, user: GuildMember) => {
+            if (user.id == client.user.id) return
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'blue')
         })
@@ -110,8 +120,10 @@ async function colors(client: Tau) {
             .setDescription('React to get the Purple role.')
         
         const purpleMessage: Message = await channel.send({embeds: [purpleEmbed]})
+        purpleMessage.react('🟣')
         purpleMessage.createReactionCollector()
         .on('collect', (reaction, user: GuildMember) => {
+            if (user.id == client.user.id) return
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'purple')
         })
@@ -122,8 +134,10 @@ async function colors(client: Tau) {
             .setDescription('React to get the Pink role.')
         
         const pinkMessage: Message = await channel.send({embeds: [pinkEmbed]})
+        pinkMessage.react('🟥')
         pinkMessage.createReactionCollector()
         .on('collect', (reaction, user: GuildMember) => {
+            if (user.id == client.user.id) return
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'pink')
         })
@@ -175,9 +189,9 @@ async function colors(client: Tau) {
 async function addSelfRoles(client: Tau) {
     const server = client.guilds.cache.get(qt.id)
     const channel: TextChannel = client.channels.cache.get(qt.channels['roles']) as TextChannel
-
+    console.log(selfRoles)
     for(let i = 0; i < Object.keys(selfRoles).length; i++) {
-        const category: ReactionRoleCategory = new ReactionRoleCategory(Object.keys(selfRoles)[i], selfRoles[Object.keys(selfRoles)[i]])
+        const category: ReactionRoleCategory = new ReactionRoleCategory(Object.keys(selfRoles)[i], selfRoles[Object.keys(selfRoles)[i]], true)
         await category.printReactionRoleMessages(client)
     }
 

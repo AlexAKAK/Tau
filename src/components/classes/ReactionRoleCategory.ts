@@ -12,9 +12,11 @@ roles are removed from the user. This is a bug.
 export default class ReactionRoleCategory {
     public name: string
     public roles: string[]
-    constructor(name: string, roles: string[] ) {
+    public oneRoleOnly: boolean
+    constructor(name: string, roles: string[], oneRoleOnly: boolean) {
         this.name = name;
         this.roles = roles;
+        this.oneRoleOnly = true; // temporary
     }
 
     async printReactionRoleMessages(client: Tau) {
@@ -24,7 +26,7 @@ export default class ReactionRoleCategory {
         const categoryEmbed: MessageEmbed = new MessageEmbed()
             .setTitle(this.name)
             .setColor(defaultColor)
-            .setDescription(`React to the messages below to get a ${this.name} role!`);
+            //.setDescription(`React to the messages below to get a ${this.name} role!`);
     
         channel.send({embeds: [categoryEmbed]})
             for(let i = 0; i < this.roles.length; i++) {
@@ -32,7 +34,7 @@ export default class ReactionRoleCategory {
         const role = server.roles.cache.get(id)
         const embed: MessageEmbed = new MessageEmbed()
             .setTitle(`${role.name}`)
-            .setDescription(`React to get ${role.name}`)
+            //.setDescription(`React to get ${role.name}`)
             .setColor(role.color)
 
         const sentMessage: Message = await channel.send({embeds: [embed]})
@@ -68,6 +70,7 @@ export default class ReactionRoleCategory {
 
     private handleMessageReactionEvent(client: Tau, reactionp: any, user: User, sentMessage: Message, channel: TextChannel, role: Role) {
         // whenever a reaction is added or removed in a reaction role message, it will run
+        if (user.id == client.user.id) return
         if (reactionp.message.id != sentMessage.id) return // only perform this action if the message is the one we sent for this role
             // remove all other roles in this category
             const member: GuildMember = channel.guild.members.cache.get(user.id)

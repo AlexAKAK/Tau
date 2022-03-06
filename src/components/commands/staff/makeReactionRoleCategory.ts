@@ -1,4 +1,4 @@
-import { Channel, Client, Guild, Message, Role, TextChannel } from "discord.js";
+import { Channel, Client, Guild, Message, MessageCollector, Role, TextChannel } from "discord.js";
 import Tau from "../../..";
 import src from "../../..";
 import CommandClass from "../../classes/CommandClass";
@@ -26,20 +26,25 @@ export default class makeReactionRoleCategory extends CommandClass {
         let madeRoles: Role[] = []
         const channel: TextChannel = message.channel as TextChannel;
         if (message.author.id != '864397915174862860') return
-        const namec = message.content.split(' ')[1]
+        const namec = message.content.replace(client.PREFIX + 'mrrc ', '')
 
         let active = true // represents if the category is still being created
-        client.on('messageCreate', async (message: Message) => {
+
+        const collector: MessageCollector = message.channel.createMessageCollector()
+
+        message.channel.send(`Creating category ${namec}`)
+
+        collector.on('collect', async (message: Message) => {
             if (message.author.id != '864397915174862860') return
             if (message.content == client.PREFIX + 'stop roles') {
-                active = false
+                collector.stop() // stop the collector
                 // send a message to the channel that the category is finished being created
                 channel.send('Reaction role category creation has been stopped.')
                 await makeReactionRoleCategory.loadCategory(namec, message.guild, client, channel, madeRoles)
                 setup(client) // reload the roles
-            
+                return
             } // stop the creation process
-            if (!active) return // if the process is not active, return from the function
+             // if the process is not active, return from the function
 
             const name = message.content // the content of the message is the name of the role
             const newRole = await makeReactionRoleCategory.makeRole(name, message.guild, client, channel) // make the role
