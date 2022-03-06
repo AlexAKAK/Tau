@@ -1,0 +1,147 @@
+import { Message, MessageEmbed, TextChannel } from "discord.js";
+import Tau from "../../..";
+import CommandClass from "../../classes/CommandClass";
+import defaultColor from "../../utility/embeds/defaultColor";
+import fetch from 'node-fetch'
+import textBlock from "../../utility/embeds/textBlock";
+
+const apiurl: string = 'https://opentdb.com/api.php?amount=1&type=multiple';
+/*
+{
+    "response_code": 0,
+    "results": [
+        {
+            "category": "Vehicles",
+            "type": "multiple",
+            "difficulty": "medium",
+            "question": "Enzo Ferrari was originally an auto racer for what manufacturer before founding his own car company?",
+            "correct_answer": "Alfa Romeo",
+                "incorrect_answers": [
+                "Auto Union",
+                "Mercedes Benz",
+                "Bentley"
+            ]
+        }
+    ]
+}
+*/
+
+export default class question extends CommandClass {
+    protected static commandCategory: string = 'trivia'
+    protected static commandDescription: string = 'Asks a question'
+    protected static commandSyntax: string = 'question'
+    public async commandMain(message: Message, client: Tau): Promise<void> {
+        const data = await getQuestion()
+        const difficulty: string = data['difficulty']
+        const question: string = data['question']
+        const correctAnswer: string = data['correct_answer']
+        const incorrectAnswers: string[] = data['incorrect_answers']
+        const category: string = data['category']
+
+        const channel: TextChannel = message.channel as TextChannel
+
+        console.log(question)
+        console.log(question)
+        console.log(question)
+        console.log(question)
+        console.log(question)
+
+        const embed: MessageEmbed = new MessageEmbed()
+        .setColor(defaultColor)
+        .setTitle(`Trivia`)
+        .addField(`Category`, textBlock(category))
+        .addField(`Difficulty`, textBlock(difficulty))
+        .addField(`Question`, textBlock(question))
+        .setTimestamp()
+        
+
+        let choices = [correctAnswer, incorrectAnswers[0], incorrectAnswers[1], incorrectAnswers[2]]
+
+        // Shuffle the choices
+        for (let i = choices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [choices[i], choices[j]] = [choices[j], choices[i]];
+        }
+
+        embed.addField('1', textBlock(choices[0]))
+        embed.addField('2', textBlock(choices[1]))
+        embed.addField('3', textBlock(choices[2]))
+        embed.addField('4', textBlock(choices[3]))
+
+
+        const sent = await channel.send({embeds: [embed]})
+
+        
+        
+        let alreadyGuessedUsers: string[] = []
+        // use message collector
+        const filter = m => (alreadyGuessedUsers.indexOf(m.author.id) == -1 && [1, 2, 3, 4].indexOf(Number(m.content)) != -1)
+        const collector = channel.createMessageCollector({filter, time: 15000})
+        setTimeout(() => {
+            //sent.react('5️⃣')
+            sent.edit({embeds: [embed.setColor('RED')]})
+        }, 10000)
+        setTimeout(() => {
+            sent.edit({embeds: [embed.setColor('YELLOW')]})
+        }, 5000)
+        setTimeout(() => {
+            sent.edit({embeds: [embed.setColor('#282b30')]})
+        }, 15000)
+
+
+        
+
+        collector.on('collect', (message: Message) => {
+            console.log(message.content)
+            alreadyGuessedUsers.push(message.author.id)
+            message.react('👌')
+        })
+
+        collector.on('end', collected => {
+            console.log(`Collected ${collected.size} items`)
+
+            const embed: MessageEmbed = new MessageEmbed()
+            .setColor(defaultColor)
+            .setTitle(`Correct answer: ${correctAnswer}`)
+
+
+            let correctGuesses = 0
+            let incorrectGuesses = 0
+            collected.forEach(message => {
+                if(choices[Number(message.content) - 1] == correctAnswer) {
+                    embed.addField(`${message.author.username}: ${message.content}`, textBlock('Correct!'))
+                    correctGuesses++
+                } else {
+                    embed.addField(`${message.author.username}: ${message.content}`, textBlock('Incorrect!'))
+                    incorrectGuesses++
+                }
+
+                
+            })
+            embed.addField(`Correct guesses`, textBlock(String(correctGuesses)))
+            embed.addField(`Incorrect guesses`, textBlock(String(incorrectGuesses)))
+
+            channel.send({embeds: [embed]})
+        });
+
+
+
+        
+        
+
+        
+        
+
+
+    }
+    
+    
+}
+
+
+async function getQuestion(): Promise<object> {
+    const result = await fetch(apiurl)
+    const data = await result.json()
+    console.log(data)
+    return data['results'][0]
+}
