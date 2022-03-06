@@ -25,7 +25,6 @@ const apiurl: string = 'https://opentdb.com/api.php?amount=1&type=multiple';
     ]
 }
 */
-
 export default class question extends CommandClass {
     protected static commandCategory: string = 'trivia'
     protected static commandDescription: string = 'Asks a question'
@@ -124,21 +123,10 @@ export default class question extends CommandClass {
             channel.send({embeds: [embed]})
         });
 
-
-
-        
-        
-
-        
-        
-
-
     }
     
     
 }
-
-
 async function getQuestion(): Promise<object> {
     const result = await fetch(apiurl)
     const data = await result.json()

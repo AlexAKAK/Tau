@@ -1,4 +1,4 @@
-import { TextChannel, MessageEmbed, Message, GuildMember, User, Role } from "discord.js";
+import { TextChannel, MessageEmbed, Message, GuildMember, User, Role, ReactionCollector } from "discord.js";
 import Tau from "../..";
 import selfRoles from "../qt/selfRoles";
 import qt from "../qt/qt data";
@@ -36,16 +36,26 @@ export default class ReactionRoleCategory {
             .setColor(role.color)
 
         const sentMessage: Message = await channel.send({embeds: [embed]})
+        sentMessage.react('✅')
+        const collector: ReactionCollector = sentMessage.createReactionCollector()
 
+        
+        collector.on('collect', (reaction, user) => {
+            console.log(reaction)
+            console.log(user.id)
+            this.handleMessageReactionEvent(client, reaction, user, sentMessage, channel, role)
+        })
+
+        /*
         // event listeners for handling message reaction events
         client.on('messageReactionAdd', (reactionp, user) => {
-            this.handleMessageReactionEvent(client, reactionp, user, sentMessage, channel, role)
+            
         })
 
         client.on('messageReactionRemove', (reactionp, user) => {
             this.handleMessageReactionEvent(client, reactionp, user, sentMessage, channel, role)
         })
-
+        */
         
         
         

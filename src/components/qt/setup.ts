@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Message, MessageEmbed, TextChannel, VoiceChannel } from "discord.js";
+import { Guild, GuildMember, Message, MessageEmbed, ReactionCollector, TextChannel, User, VoiceChannel } from "discord.js";
 import Tau from "../..";
 import color from "../commands/misc/color";
 import colorreaction from "../commands/staff/colorreaction";
@@ -14,14 +14,10 @@ export default async function setup (client: Tau): Promise<void> {
     This function runs whenever the bot goes online. 
     It is used to setup anything specific to the qt server.
     */
-    
-    addDefaultRoles(client)
-    colors(client)
-    addSelfRoles(client)
-    memberCountUpdate(client)
-
-
-
+    await addDefaultRoles(client)
+    await colors(client)
+    await addSelfRoles(client)
+    await memberCountUpdate(client)
 }
 
 async function addDefaultRoles(client: Tau) {
@@ -56,21 +52,34 @@ async function colors(client: Tau) {
             .setDescription('React to get the Red role.')
         
         const redMessage: Message = await channel.send({embeds: [redEmbed]})
-
+        redMessage.createReactionCollector()
+        .on('collect', (reaction, user: User) => {
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            colorreaction.addReaction(member, 'red')
+        })
+        
         const orangeEmbed = new MessageEmbed()
             .setColor('ORANGE')
             .setTitle('Orange')
             .setDescription('React to get the Orange role.')
         
         const orangeMessage: Message = await channel.send({embeds: [orangeEmbed]})
-
+        orangeMessage.createReactionCollector()
+        .on('collect', (reaction, user: GuildMember) => {
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            colorreaction.addReaction(member, 'orange')
+        })
         const yellowEmbed = new MessageEmbed()
             .setColor('YELLOW')
             .setTitle('Yellow')
             .setDescription('React to get the Yellow role.')
         
         const yellowMessage: Message = await channel.send({embeds: [yellowEmbed]})
-
+        yellowMessage.createReactionCollector()
+        .on('collect', (reaction, user: GuildMember) => {
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            colorreaction.addReaction(member, 'yellow')
+        })
 
         const greenEmbed = new MessageEmbed()
             .setColor('GREEN')
@@ -78,14 +87,22 @@ async function colors(client: Tau) {
             .setDescription('React to get the Green role.')
         
         const greenMessage: Message = await channel.send({embeds: [greenEmbed]})
-
+        greenMessage.createReactionCollector()
+        .on('collect', (reaction, user: GuildMember) => {
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            colorreaction.addReaction(member, 'green')
+        })
         const blueEmbed = new MessageEmbed()
             .setColor('BLUE')
             .setTitle('Blue')
             .setDescription('React to get the Blue role.')
         
         const blueMessage: Message = await channel.send({embeds: [blueEmbed]})
-
+        blueMessage.createReactionCollector()
+        .on('collect', (reaction, user: GuildMember) => {
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            colorreaction.addReaction(member, 'blue')
+        })
 
         const purpleEmbed = new MessageEmbed()
             .setColor('PURPLE')
@@ -93,7 +110,11 @@ async function colors(client: Tau) {
             .setDescription('React to get the Purple role.')
         
         const purpleMessage: Message = await channel.send({embeds: [purpleEmbed]})
-
+        purpleMessage.createReactionCollector()
+        .on('collect', (reaction, user: GuildMember) => {
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            colorreaction.addReaction(member, 'purple')
+        })
 
         const pinkEmbed = new MessageEmbed()
             .setColor('#fcb2c5')
@@ -101,7 +122,12 @@ async function colors(client: Tau) {
             .setDescription('React to get the Pink role.')
         
         const pinkMessage: Message = await channel.send({embeds: [pinkEmbed]})
-
+        pinkMessage.createReactionCollector()
+        .on('collect', (reaction, user: GuildMember) => {
+            const member: GuildMember = channel.guild.members.cache.get(user.id)
+            colorreaction.addReaction(member, 'pink')
+        })
+        /*
         client.on('messageReactionAdd', (reactionp, user) => {
             // get the member object from the user
             const member: GuildMember = channel.guild.members.cache.get(user.id)
@@ -142,7 +168,7 @@ async function colors(client: Tau) {
             if (reactionp.message.id == pinkMessage.id) 
             colorreaction.addReaction(member, 'pink')
         })
-        
+        */
 }
 
 
