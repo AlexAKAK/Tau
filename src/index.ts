@@ -90,7 +90,7 @@ export default class Tau extends Client {
             console.log("[Online]")
             this.qtServer = this.guilds.cache.find(guild => guild.id == config['qtServerID'])
 
-            if (config['initialize']) setup(this)
+            //if (config['initialize']) setup(this)
         })
         this.on('messageCreate', async(message: Message) => this.handleMessage(message))
         console.log(this.PREFIX)
@@ -203,6 +203,17 @@ const client: Tau = new Tau();
 client.login(config['token'])
 moderation(client)
 
+/*
+client.on("messageCreate", (message: Message) => {
+    const dancingbaker: string = '294262526902927361'
+    const jaz: string = '818554234836484156'
+    const alex: string = '864397915174862860'
+
+    if (message.author.id == dancingbaker || message.author.id == jaz || message.author.id == alex) {
+        message.reply('ok');
+    }
+})
+*/
 
 //disbut(<Client> client)
 

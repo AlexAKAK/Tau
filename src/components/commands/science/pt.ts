@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { ColorResolvable, Message, MessageEmbed, TextChannel } from 'discord.js';
 import Tau from '../../..';
 import CommandClass from "../../classes/CommandClass";
 import { MISSING_ARGS_ERR_METACLASS } from '../../classes/Errors';
@@ -25,7 +25,7 @@ export default class pt extends CommandClass {
     protected static commandDescription: string = 'You can look up any element on the periodic table'
     protected static commandSyntax: string = 'pt <name/symbol/atomic number>'
     static MISSING_ARGS_ERR_2 = MISSING_ARGS_ERR_METACLASS(2)
-    
+
 
     static groupBlockColor = {
         'alkali metal': '6462a1',
@@ -40,7 +40,7 @@ export default class pt extends CommandClass {
         'post-transition metal': 'f01111'
 
     }
-      
+
     public getInfo(search: string): object {
         console.log(search)
         const elementFromName = periodicTable.elements[search]
@@ -65,7 +65,7 @@ export default class pt extends CommandClass {
         }
 
         standardHandle(message: Message): void {
-            pt.sendErrMessage(message.channel, `You must provide a valid element name, element symbol, or atomic number to use the pt command, ${message.author.tag}.`)
+            pt.sendErrMessage(<TextChannel> message.channel, `You must provide a valid element name, element symbol, or atomic number to use the pt command, ${message.author.tag}.`)
         }
 
     }
@@ -96,7 +96,12 @@ export default class pt extends CommandClass {
         }
         */
         console.log(message.content.split(' '))
-        const element = pt.prototype.getInfo(message.content.split(' ')[1])
+
+        const table = new pt();
+
+        const element = table.getInfo(message.content.split(' ')[1])
+        console.log(element)
+        
         const embed = new MessageEmbed()
         const name = element['name']
         const info: object = {
@@ -109,15 +114,39 @@ export default class pt extends CommandClass {
             groupBlock : element['groupBlock']
         }
 
+        
+
+        
+        embed.addField('Symbol', element['symbol'], false)
+        
+        embed.addField('Atomic Number', String(element['atomicNumber']), false)
+        
+        embed.addField('Atomic Mass', String(element['atomicMass']), false)
+        embed.addField('Electron Configuration', element['electronicConfiguration'], false)
+        embed.addField('Atomic Radius', String(element['atomicRadius']), false)
+        embed.addField('State', element['standardState'], false)
+        embed.addField('Block', element['groupBlock'], false)
+        
+
+
+
+        
         embed.setTitle(`Information for ${name}`)
+        /*
         for (let [key, value] of Object.entries(info)) {
-            if (value != '' && value != undefined && value != null) embed.addField(key, value, true)
+            //if (value != '' && value != undefined && value != null) embed.addField(key, value, true)
+            console.log(key)
+            console.log(value)
         }
+        */
+        
         for (let [key, value] of Object.entries(pt.groupBlockColor)) {
             if (info['groupBlock'] == key) embed.setColor(value)
         }
+        
         embed.setTimestamp()
 
-        message.channel.send(embed)  
+        message.channel.send({embeds: [embed]})  
+        
     }
 }
