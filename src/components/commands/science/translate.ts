@@ -35,9 +35,10 @@ export default class translate extends CommandClass {
         const embed = new MessageEmbed()
         embed.setColor('BLUE')
         embed.addField('mRNA transcript', mRNA.baseSequence, false),
-        embed.addField('Polypeptide chain', mRNA.aminoAcidStrand, false)
+        embed.addField('Polypeptide chain', String(mRNA.aminoAcidStrand), false)
         embed.setTimestamp()
-        message.channel.send(embed)
+
+        message.channel.send({embeds: [embed]})
 
 
 

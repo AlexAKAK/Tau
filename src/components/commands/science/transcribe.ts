@@ -47,7 +47,7 @@ export default class transcribe extends CommandClass {
         embed.setTimestamp()
         
 
-        message.channel.send(embed)
+        message.channel.send({embeds: [embed]})
 
 
 
