@@ -116,7 +116,7 @@ export default class pt extends CommandClass {
 
         
 
-        
+        /*
         embed.addField('Symbol', element['symbol'], false)
         
         embed.addField('Atomic Number', String(element['atomicNumber']), false)
@@ -126,19 +126,21 @@ export default class pt extends CommandClass {
         embed.addField('Atomic Radius', String(element['atomicRadius']), false)
         embed.addField('State', element['standardState'], false)
         embed.addField('Block', element['groupBlock'], false)
-        
+        */
 
 
 
         
         embed.setTitle(`Information for ${name}`)
-        /*
+        
         for (let [key, value] of Object.entries(info)) {
-            //if (value != '' && value != undefined && value != null) embed.addField(key, value, true)
+            if (value != '' && value != undefined && value != null) {
+                embed.addField(key, String(value), true)
+            }
             console.log(key)
             console.log(value)
         }
-        */
+        
         
         for (let [key, value] of Object.entries(pt.groupBlockColor)) {
             if (info['groupBlock'] == key) embed.setColor(value)
