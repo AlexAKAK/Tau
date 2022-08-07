@@ -1,4 +1,4 @@
-import { DMChannel, Message, Embed, TextChannel } from 'discord.js'
+import { DMChannel, Message, Embed, TextChannel, EmbedBuilder } from 'discord.js'
 import defaultColor from './defaultColor.js'
 
 // Figure out the directory
@@ -7,7 +7,7 @@ import defaultColor from './defaultColor.js'
 export default function sendEmbed(channel: TextChannel, kwargs: any) {
     // message is a discord.message, kwargs is a dictionary
 
-    let embed = new Embed()
+    let embed = new EmbedBuilder()
     /*if (kwargs['color'])*/ /*embed.setColor(kwargs['color'])*/ embed.setColor(defaultColor)
     if (kwargs['title']) embed.setTitle(`${kwargs['title']}`)
     if (kwargs['image']) embed.setImage(`${kwargs['image']}`)
@@ -18,7 +18,11 @@ export default function sendEmbed(channel: TextChannel, kwargs: any) {
         for (let i = 0; i < kwargs['fields'].length; i++) {
             const name = kwargs['fields'][i]['name']
             const value = kwargs['fields'][i]['value']
-            embed.addField(name, value, false)
+            embed.addFields({
+                name: name,
+                value: value,
+                inline: false
+            })
         }
     }
     

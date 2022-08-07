@@ -1,4 +1,4 @@
-import { Message, Embed, TextChannel } from "discord.js";
+import { Message, Embed, TextChannel, EmbedBuilder } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import ytChannel from "../../classes/ytChannel.js";
@@ -21,10 +21,23 @@ export default class ytchannel extends CommandClass {
         const channel: ytChannel = await getYTChannelFromQuery(query)
         if (channel == null) ytchannel.sendErrMessage(<TextChannel> message.channel, `There are no channel results for: ${query}`)
         else {
-            let embed = new Embed()
+            let embed = new EmbedBuilder()
             embed.setTitle(`Result for: ${query}`)
-            embed.addField(`\`\`\`Channel name\`\`\``, `\`\`\`${channel.name}\`\`\``, false)
-            embed.addField('\`\`\`URL\`\`\`', `\`\`\`${channel.URL}\`\`\``, false)
+
+            embed.addFields({
+                name:  `\`\`\`Channel name\`\`\``,
+                value: `\`\`\`${channel.name}\`\`\``,
+                inline: false
+            },
+            {
+                name: '\`\`\`URL\`\`\`',
+                value: `\`\`\`${channel.URL}\`\`\``,
+                inline: false
+            }
+            )
+
+
+           
             embed.setURL(channel.URL)
             embed.setThumbnail(`https:${channel.thumbnail['thumbnails'][1]['url']}`)
             embed.setTimestamp()

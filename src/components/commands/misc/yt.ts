@@ -1,4 +1,4 @@
-import { Message, Embed } from "discord.js";
+import { Message, Embed, EmbedBuilder, ColorResolvable } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import ytVideo from "../../classes/ytVideo.js";
@@ -6,6 +6,7 @@ import textBlock from "../../utility/embeds/textBlock.js";
 import getYTLinksFromQuery from "../../utility/getYTLinksFromQuery.js";
 
 import youtubesearchapi from 'youtube-search-api'
+import defaultColor from "../../utility/embeds/defaultColor.js";
 
 
 @yt.errorCheck([
@@ -20,11 +21,15 @@ export default class yt extends CommandClass {
     public async commandMain(message: Message, client: Tau): Promise<void> {
         const query = yt.removePrefixFromString(message.content, client.PREFIX)
         const links: ytVideo[] = await getYTLinksFromQuery(query)
-        let embed = new Embed()
+        let embed = new EmbedBuilder()
         .setTitle(textBlock(`Search results for ${query}`))
-        .setColor('GREEN')
+        .setColor(defaultColor)
         for (let i = 0; i < links.length; i++) {
-            embed.addField(textBlock(`Result ${i + 1}: ${links[i].title}`), links[i].URL, false)
+            embed.addFields({
+                name: textBlock(`Result ${i + 1}: ${links[i].title}`),
+                value: links[i].URL,
+                inline:false
+            })
         }
         message.channel.send({embeds: [embed]})
     }
