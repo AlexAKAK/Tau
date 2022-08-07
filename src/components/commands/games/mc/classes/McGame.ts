@@ -2,7 +2,7 @@
 Add inventory
 */
 
-import { DMChannel, Message, Embed, TextChannel, Client } from "discord.js"
+import { DMChannel, Message, Embed, TextChannel, Client, EmbedBuilder } from "discord.js"
 import Tau from "../../../../.."
 import emojis from "../../../../utility/emojis.js"
 import GameSuperClass from "../../../../classes/GameSuperClass.js"
@@ -96,7 +96,7 @@ export default class McGame extends GameSuperClass {
     }
 
 
-    makeEmbed(): Embed {
+    makeEmbed(): EmbedBuilder {
 
         console.log(this.toString())
         console.log(this.character.underBlock)
@@ -107,7 +107,8 @@ export default class McGame extends GameSuperClass {
 
 
 
-        const _embed = new Embed()
+        const _embed = new EmbedBuilder()
+        /*
         _embed.addField(`Minecraft`, this.toString() , false)
         
         _embed.addField('Standing on', String(this.character.underBlock), false)
@@ -117,7 +118,50 @@ export default class McGame extends GameSuperClass {
         _embed.addField('Hunger', String(this.character.getHungerBar()), false)
         _embed.addField('Facing', String(this.directionToString[this.character.direction]), false)
         _embed.addField('Inventory', String(this.inventoryToString()), false)
-        
+        */
+
+        _embed.addFields({
+            name: `Minecraft`,
+            value: this.toString(),
+            inline: false
+        },
+        {
+            name: 'Standing on',
+            value: String(this.character.underBlock),
+            inline: false
+        },
+        {
+            name: 'x',
+            value: String(this.character.x),
+            inline: false
+        },
+        {
+            name: 'y',
+            value: String(this.character.y),
+            inline: false
+        },
+        {
+            name: 'Health',
+            value: String(this.character.getHearts()),
+            inline: false
+        },
+        {
+            name: 'Hunger',
+            value: String(this.character.getHungerBar()),
+            inline: false
+        },
+        {
+            name: 'Facing',
+            value: String(this.directionToString[this.character.direction]),
+            inline: false
+        },
+        {
+            name: 'Inventory',
+            value: String(this.inventoryToString()),
+            inline: false
+        }
+        )
+
         return _embed
     }
 
@@ -261,7 +305,7 @@ export default class McGame extends GameSuperClass {
     }
     private characterDeathProcedure(): void {
         this.active = false
-        sendEmbed(this.messageInChannel.channel, {
+        sendEmbed(<TextChannel> this.messageInChannel.channel, {
             title: `You have died. Good Game!`,
             color: 'GREEN'
         })
