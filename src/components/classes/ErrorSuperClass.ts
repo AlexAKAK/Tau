@@ -1,8 +1,8 @@
 
-import { Message, TextChannel, NewsChannel, DMChannel, MessageEmbed } from "discord.js"
+import { Message, TextChannel, NewsChannel, DMChannel, Embed } from "discord.js"
 import defaultColor from "../utility/embeds/defaultColor.js"
 import errorColor from "../utility/embeds/errorColor.js"
-const sendEmbed = require('./../utility/embeds/sendEmbed')
+import sendEmbed from './../utility/embeds/sendEmbed.js'
 
 export default abstract class ErrorClass {
     getCommandName(message: Message): string {
@@ -22,7 +22,7 @@ export default abstract class ErrorClass {
 
     /*
     sendErrMessage(channel: TextChannel | NewsChannel | DMChannel, errMessage: string) {
-        let embed = new MessageEmbed()
+        let embed = new Embed()
         embed.setColor(errorColor)
         embed.setTitle(errMessage)
     }
@@ -31,7 +31,7 @@ export default abstract class ErrorClass {
     sendErrMessage(channel: TextChannel|DMChannel|NewsChannel, message: string) {
         // message is a discord.message, kwargs is a dictionary
     
-        let embed = new MessageEmbed()
+        let embed = new Embed()
         /*if (kwargs['color'])*/ embed.setColor(errorColor)
         embed.setTitle(message)
     

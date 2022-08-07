@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, Embed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import StaffCommand from "../../qt/classes/StaffCommand";
@@ -37,7 +37,7 @@ export default class rules extends StaffCommand {
     protected static commandDescription: string = 'Prints the rules'
     protected static commandSyntax: string = 'rules'
     public async commandMainUndecorated(message: Message<boolean>, client: Tau): Promise<void> {
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
   
         .setTitle("Rules")
         .setColor(defaultColor)

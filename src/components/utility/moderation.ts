@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, Embed } from "discord.js";
 import Tau from "../..";
 import analyzeText from "./analyzeText.js";
 import textBlock from "./embeds/textBlock.js";
@@ -37,7 +37,7 @@ async function linkModeration(client: Tau, message: Message) {
    if (message.author.id == message.guild.ownerId) return;
     if (message.content.includes('discord.gg/'||'discordapp.com/invite/')) { //if it contains an invite link
         await deleteMessage(message)
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
             .setTitle('Chat Moderation')
             .setColor('#ff0000')
             .setTimestamp()
@@ -117,7 +117,7 @@ function reply(message: Message, content: string): void {
     try {
         //message.reply(textBlock('⚠️' + content + '⚠️'))
 
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
             .setTitle('Chat Moderation')
             .setColor('#ff0000')
             .setTimestamp()

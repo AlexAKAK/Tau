@@ -2,7 +2,7 @@
 Add inventory
 */
 
-import { DMChannel, Message, MessageEmbed, TextChannel, Client } from "discord.js"
+import { DMChannel, Message, Embed, TextChannel, Client } from "discord.js"
 import Tau from "../../../../.."
 import emojis from "../../../../utility/emojis.js"
 import GameSuperClass from "../../../../classes/GameSuperClass.js"
@@ -22,7 +22,7 @@ import miningDifficultyEnum from "../enums/miningDifficultyEnum.js"
 import cactus from "./items/cactus.js"
 import stoneSword from "./items/stoneSword.js"
 
-const sendEmbed = require("./../../../../utility/embeds/sendEmbed")
+import sendEmbed from "./../../../../utility/embeds/sendEmbed.js"
 
 
 
@@ -96,7 +96,7 @@ export default class McGame extends GameSuperClass {
     }
 
 
-    makeEmbed(): MessageEmbed {
+    makeEmbed(): Embed {
 
         console.log(this.toString())
         console.log(this.character.underBlock)
@@ -107,7 +107,7 @@ export default class McGame extends GameSuperClass {
 
 
 
-        const _embed = new MessageEmbed()
+        const _embed = new Embed()
         _embed.addField(`Minecraft`, this.toString() , false)
         
         _embed.addField('Standing on', String(this.character.underBlock), false)

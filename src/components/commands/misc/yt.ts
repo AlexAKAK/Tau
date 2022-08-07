@@ -1,11 +1,11 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, Embed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import ytVideo from "../../classes/ytVideo.js";
 import textBlock from "../../utility/embeds/textBlock.js";
 import getYTLinksFromQuery from "../../utility/getYTLinksFromQuery.js";
 
-let youtubesearchapi = require('youtube-search-api');
+import youtubesearchapi from 'youtube-search-api'
 
 
 @yt.errorCheck([
@@ -20,7 +20,7 @@ export default class yt extends CommandClass {
     public async commandMain(message: Message, client: Tau): Promise<void> {
         const query = yt.removePrefixFromString(message.content, client.PREFIX)
         const links: ytVideo[] = await getYTLinksFromQuery(query)
-        let embed = new MessageEmbed()
+        let embed = new Embed()
         .setTitle(textBlock(`Search results for ${query}`))
         .setColor('GREEN')
         for (let i = 0; i < links.length; i++) {

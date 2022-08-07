@@ -1,5 +1,5 @@
 // import dependencies
-import { Client, GatewayIntentBits, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState, Intents, Permissions} from "discord.js";
+import { Client, GatewayIntentBits, Guild, GuildMember, Message, Embed, MessageReaction, VoiceState, Intents, Permissions} from "discord.js";
 
 // import button commands
 import help from './components/commands/misc/help.js'
@@ -20,7 +20,12 @@ import registerSlashCommands from "./components/utility/registerSlashCommands.js
 //const disbut = require('discord.js-buttons')
 
 // import config
-const config: object = require('./../config.json')
+import config from './../config.json' assert { type: 'json' };
+
+
+
+
+
 type GameObject = McGame
 export default class Tau extends Client {
 

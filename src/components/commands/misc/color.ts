@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, Embed } from "discord.js";
 import src from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import qtData from "../../qt/qt data.js";
@@ -34,7 +34,7 @@ export default class color extends CommandClass {
 
         // check if the requested color exists in the object
         if (!colors[requestedColor]) {
-            const embed: MessageEmbed = new MessageEmbed()
+            const embed: Embed = new Embed()
             .setColor(errorColor)
             .setTitle('Invalid Color')
             .setDescription(`The color ${requestedColor} does not exist.Please use one of the following colors: red, orange, yellow, green, blue, purple, pink, white`)
@@ -68,7 +68,7 @@ export default class color extends CommandClass {
 
 
         // send the success embed
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
         .setColor(message.guild.roles.cache.get(colors[requestedColor]).color)
         .setTitle('Color Changed')
         .setDescription(`You have changed your color to ${requestedColor}`)

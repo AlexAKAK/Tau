@@ -1,7 +1,7 @@
 import ytChannel from "../classes/ytChannel.js";
 import constructYTLinkFromVideoID from "./constructYTLinkFromVideoID.js";
 
-const youtubesearchapi = require('youtube-search-api');
+import youtubesearchapi from 'youtube-search-api';
 
 export default async function getYTChannelFromQuery(query: string): Promise<ytChannel> {
 

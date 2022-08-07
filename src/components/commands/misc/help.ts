@@ -1,4 +1,4 @@
-import { DMChannel, Message, TextChannel, MessageEmbed } from "discord.js"
+import { DMChannel, Message, TextChannel, Embed } from "discord.js"
 import Tau from "../../.."
 
 //const CommandClass = require('../classes/CommandClass')
@@ -6,7 +6,7 @@ import CommandClass from '../../classes/CommandClass.js'
 import defaultColor from "../../utility/embeds/defaultColor.js"
 import errorColor from "../../utility/embeds/errorColor.js"
 import allCommands from "../../commandCategories/allCommands.js"
-const pictures = require('./../../../../data/pictures')
+//const pictures = require('./../../../../data/pictures')
 const darkThumbnail = 'https://i.ibb.co/RNpxfVg/bot-logo-for-embed.png'
 
 
@@ -45,7 +45,7 @@ export default class help extends CommandClass {
 
     private static async noArgsMain(message: Message, client: Tau): Promise<void> {
     
-        const embed = new MessageEmbed()
+        const embed = new Embed()
         .setTitle(`\`\`\`To see available commands, type: ${client.PREFIX}help <category/command>\`\`\``)
         .setColor(defaultColor)
         .setTimestamp()
@@ -78,7 +78,7 @@ export default class help extends CommandClass {
         {
             if (_category.name == category) 
             {
-                const embed = new MessageEmbed()
+                const embed = new Embed()
                 embed.setTimestamp()
                 embed.setColor(defaultColor).setThumbnail(darkThumbnail)
                 embed.setTitle(`\`\`\`Command Category: ${_category.name}\`\`\``)
@@ -102,7 +102,7 @@ export default class help extends CommandClass {
         }
         
         const command: any = help.getCommand(help.splitArgsWithoutCommandCall(message)[0])
-        const embed = new MessageEmbed()
+        const embed = new Embed()
         .setTimestamp()
         .setColor(defaultColor).setThumbnail(darkThumbnail)
         .addField(`\`\`\`Usage: ${command.commandSyntax}\`\`\``, `\`\`\`Description: ${command.commandDescription}\`\`\``, false)

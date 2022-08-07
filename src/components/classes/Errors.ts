@@ -9,9 +9,9 @@ Any error that is used often should appear here.
 import { DMChannel, Message, NewsChannel, TextChannel } from 'discord.js'
 import Tau from '../..'
 
-const sendEmbed = require("../utility/embeds/sendEmbed")
+import sendEmbed from "../utility/embeds/sendEmbed"
 
-const {red} = require("./../utility/hexColors")
+import { red } from "./../utility/hexColors.js"
 
 import ErrorClass from './ErrorSuperClass.js'
 //////////////////////////////////////////////////////////////////////////////////

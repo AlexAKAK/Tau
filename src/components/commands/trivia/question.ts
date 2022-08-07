@@ -1,4 +1,4 @@
-import { Message, MessageEmbed, TextChannel, User } from "discord.js";
+import { Message, Embed, TextChannel, User } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
@@ -46,7 +46,7 @@ export default class question extends CommandClass {
 
         const channel: TextChannel = message.channel as TextChannel
 
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
         .setColor(defaultColor)
         .setTitle(`Trivia`)
         .addField(`Category`, textBlock(category))
@@ -107,7 +107,7 @@ export default class question extends CommandClass {
         collector.on('end', collected => {
             console.log(`Collected ${collected.size} items`)
 
-            const embed: MessageEmbed = new MessageEmbed()
+            const embed: Embed = new Embed()
             .setColor(defaultColor)
             .setTitle(`Correct answer: ${correctAnswer}`)
 

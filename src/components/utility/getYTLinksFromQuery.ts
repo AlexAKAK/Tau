@@ -1,6 +1,6 @@
 import constructYTLinkFromVideoID from "./constructYTLinkFromVideoID.js";
 
-const youtubesearchapi = require('youtube-search-api');
+import youtubesearchapi from 'youtube-search-api';
 import ytVideo from "../classes/ytVideo.js";
 
 export default async function getYTLinksFromQuery(query: string): Promise<ytVideo[]> {

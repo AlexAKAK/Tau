@@ -1,4 +1,4 @@
-import { Message, MessageEmbed, MessageReaction, ReactionCollector, User } from "discord.js";
+import { Message, Embed, MessageReaction, ReactionCollector, User } from "discord.js";
 import src from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
@@ -7,7 +7,7 @@ import defaultColor from "../../utility/embeds/defaultColor.js";
 export default class shop extends CommandClass {
     public async commandMain(message: Message<boolean>, client: src): Promise<void> {
         const items: object[] = require('./../../../../data/items');
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
             .setTitle('Shop')
             .setDescription('React to messages to purchase items')
             .setColor(defaultColor)

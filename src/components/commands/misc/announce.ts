@@ -1,4 +1,4 @@
-import { Guild, Message, MessageEmbed } from "discord.js";
+import { Guild, Message, Embed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
@@ -21,7 +21,7 @@ export default class announce extends CommandClass {
         const msg = message.content.substring(spaceIndex + 1)
 
     
-        const embed = new MessageEmbed()
+        const embed = new Embed()
         .setColor(defaultColor)
         .setDescription(msg)
         .setTitle(`Annoucement by ${message.author.tag}`)

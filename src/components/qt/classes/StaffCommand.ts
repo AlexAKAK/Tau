@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, Embed } from "discord.js";
 import Tau from "../../..";
 import src from "../../..";
 import qtData from "../qt data";
@@ -14,7 +14,7 @@ export default abstract class StaffCommand extends CommandClass {
             await this.commandMainUndecorated(message, client);
 
         else try {
-            const embed: MessageEmbed = new MessageEmbed()
+            const embed: Embed = new Embed()
             embed.setColor(errorColor)
             embed.setTitle("You do not have permission to use this command.")
             embed.setDescription("You must have the Moderator role to use this command.")

@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, Embed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import ErrorClass from "../../classes/ErrorSuperClass.js";
@@ -36,7 +36,7 @@ export default class ion extends CommandClass {
         const arg = message.content.toLowerCase().split(' ')[1]
             ion.ions.forEach((ionInfo => {
                 if (arg == ionInfo['name'] || arg == ionInfo['formula']) {
-                    const embed = new MessageEmbed()
+                    const embed = new Embed()
                     embed.setTitle(`Information for ${ionInfo['name']}`)
                     embed.addField(`Formula`, ionInfo['formula'], true)
                     embed.addField('Charge', ionInfo['charge'], true)

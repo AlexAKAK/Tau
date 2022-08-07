@@ -1,4 +1,4 @@
-import { TextChannel, MessageEmbed, Message, GuildMember, User, Role, ReactionCollector } from "discord.js";
+import { TextChannel, Embed, Message, GuildMember, User, Role, ReactionCollector } from "discord.js";
 import Tau from "../..";
 import selfRoles from "../qt/selfRoles.js";
 import qt from "../qt/qt data.js";
@@ -23,7 +23,7 @@ export default class ReactionRoleCategory {
         
         const server = client.guilds.cache.get(qt.id)
         const channel: TextChannel = client.channels.cache.get(qt.channels['roles']) as TextChannel
-        const categoryEmbed: MessageEmbed = new MessageEmbed()
+        const categoryEmbed: Embed = new Embed()
             .setTitle(this.name)
             .setColor(defaultColor)
             //.setDescription(`React to the messages below to get a ${this.name} role!`);
@@ -32,7 +32,7 @@ export default class ReactionRoleCategory {
             for(let i = 0; i < this.roles.length; i++) {
         const id = this.roles[i]
         const role = server.roles.cache.get(id)
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
             .setTitle(`${role.name}`)
             //.setDescription(`React to get ${role.name}`)
             .setColor(role.color)

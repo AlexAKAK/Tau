@@ -22,8 +22,8 @@ if (not os.path.exists('config.json')):
     sys.exit(1)
 
 
-print('[Compiling src to out]')
+print('[Compiling src to out/src]')
 os.system('tsc --outdir out')
 
 print('[Executing index.js]')
-os.system('node out/index.js')
+os.system('node out/src/index.js')

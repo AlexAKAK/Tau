@@ -1,9 +1,13 @@
 
 import {google} from 'googleapis'
 
-const KEY = require('./../../../config')['perspectiveAPIKey'];
+//const KEY = require('./../../../config')['perspectiveAPIKey'];
+import config from './../../../config.json' assert {type: 'json'}
 
-require('dotenv').config();
+const KEY = config['perspectiveAPIKey'];
+
+// THISTHISTHISTHIS
+//require('dotenv').config();
 
 const attributeThresholds = {
   'INSULT': 0.85,

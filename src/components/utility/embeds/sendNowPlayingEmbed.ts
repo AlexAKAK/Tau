@@ -1,6 +1,6 @@
 import { Message } from "discord.js"
 
-const {MessageEmbed} = require('discord.js')
+const {Embed} = require('discord.js')
 const {getInfo} = require('ytdl-core')
 const textFormatting = require('../textFormatting')
 const getYoutubeVideoThumbnail = require('../getYoutubeVideoThumbnail')
@@ -14,7 +14,7 @@ import defaultColor from "./defaultColor.js"
 async function createNowPlayingEmbedPromise(url: string, message: any /*discord.Message*/) {
     
     const info = await getInfo(url)
-    let nowPlayingEmbed = new MessageEmbed()
+    let nowPlayingEmbed = new Embed()
     /*
     const lengthSeconds = info.videoDetails.lengthSeconds
     const minutes = Math.floor(info.videoDetails.lengthSeconds/60)

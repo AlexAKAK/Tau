@@ -1,9 +1,9 @@
-const {MessageEmbed} = require('discord.js')
+const {Embed} = require('discord.js')
 
 export default function makeEmbed(kwargs: any) {
     // message is a discord.message, kwargs is a dictionary
 
-    let embed = new MessageEmbed()
+    let embed = new Embed()
     if (kwargs['color']) embed.setColor(kwargs['color'])
     if (kwargs['title']) embed.setTitle(`${kwargs['title']}`)
     if (kwargs['image']) embed.setImage(`${kwargs['image']}`)

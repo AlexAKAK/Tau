@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Message, MessageEmbed, ReactionCollector, TextChannel, User, VoiceChannel } from "discord.js";
+import { Guild, GuildMember, Message, Embed, ReactionCollector, TextChannel, User, VoiceChannel } from "discord.js";
 import Tau from "../..";
 import color from "../commands/misc/color";
 import colorreaction from "../commands/staff/colorreaction";
@@ -46,7 +46,7 @@ async function colors(client: Tau) {
     await channel.bulkDelete(messages)
     
 
-    const redEmbed = new MessageEmbed()
+    const redEmbed = new Embed()
             .setColor('#ff0000')
             .setTitle('Red')
             .setDescription('React to get the Red role.')
@@ -60,7 +60,7 @@ async function colors(client: Tau) {
             colorreaction.addReaction(member, 'red')
         })
         
-        const orangeEmbed = new MessageEmbed()
+        const orangeEmbed = new Embed()
             .setColor('ORANGE')
             .setTitle('Orange')
             .setDescription('React to get the Orange role.')
@@ -73,7 +73,7 @@ async function colors(client: Tau) {
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'orange')
         })
-        const yellowEmbed = new MessageEmbed()
+        const yellowEmbed = new Embed()
             .setColor('YELLOW')
             .setTitle('Yellow')
             .setDescription('React to get the Yellow role.')
@@ -87,7 +87,7 @@ async function colors(client: Tau) {
             colorreaction.addReaction(member, 'yellow')
         })
 
-        const greenEmbed = new MessageEmbed()
+        const greenEmbed = new Embed()
             .setColor('GREEN')
             .setTitle('Green')
             .setDescription('React to get the Green role.')
@@ -100,7 +100,7 @@ async function colors(client: Tau) {
             const member: GuildMember = channel.guild.members.cache.get(user.id)
             colorreaction.addReaction(member, 'green')
         })
-        const blueEmbed = new MessageEmbed()
+        const blueEmbed = new Embed()
             .setColor('BLUE')
             .setTitle('Blue')
             .setDescription('React to get the Blue role.')
@@ -114,7 +114,7 @@ async function colors(client: Tau) {
             colorreaction.addReaction(member, 'blue')
         })
 
-        const purpleEmbed = new MessageEmbed()
+        const purpleEmbed = new Embed()
             .setColor('PURPLE')
             .setTitle('Purple')
             .setDescription('React to get the Purple role.')
@@ -128,7 +128,7 @@ async function colors(client: Tau) {
             colorreaction.addReaction(member, 'purple')
         })
 
-        const pinkEmbed = new MessageEmbed()
+        const pinkEmbed = new Embed()
             .setColor('#fcb2c5')
             .setTitle('Pink')
             .setDescription('React to get the Pink role.')

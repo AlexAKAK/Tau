@@ -1,4 +1,4 @@
-import { GuildMember, Message, MessageEmbed } from "discord.js";
+import { GuildMember, Message, Embed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import qtData from "../../qt/qt data";
@@ -20,7 +20,7 @@ export default class timeout extends CommandClass {
 
         if (!(message.member.roles.cache.has(qtData.roles['Moderator']) || message.member.roles.cache.has(qtData.roles['Owner']))) {
             try {
-                const embed: MessageEmbed = new MessageEmbed()
+                const embed: Embed = new Embed()
                 embed.setColor(errorColor)
                 embed.setTitle("You do not have permission to use this command.")
                 embed.setDescription("You must have the Moderator role to use this command.")
@@ -111,7 +111,7 @@ export default class timeout extends CommandClass {
     
        member.timeout(realTime, reason)
        .then(() => {
-        const embed: MessageEmbed = new MessageEmbed()
+        const embed: Embed = new Embed()
                 embed
                 .setTitle(`Timeout in ${message.guild.name}`)
                 .setDescription(`${member.user.tag} has been timed out for ${time} ${realTimeUnit} for ${reason}`)

@@ -4,9 +4,9 @@ import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
 //import readJson from "../../utility/readJson";
 
-const sendEmbed = require('./../../utility/embeds/sendEmbed')
+import sendEmbed from './../../utility/embeds/sendEmbed';
 
-const fs = require('fs')
+import fs from 'fs';
 //import readJson from "../../utility/readJson";
 
 

@@ -1,4 +1,4 @@
-import { Message, MessageEmbed, TextChannel } from "discord.js";
+import { Message, Embed, TextChannel } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import ytChannel from "../../classes/ytChannel.js";
@@ -21,7 +21,7 @@ export default class ytchannel extends CommandClass {
         const channel: ytChannel = await getYTChannelFromQuery(query)
         if (channel == null) ytchannel.sendErrMessage(<TextChannel> message.channel, `There are no channel results for: ${query}`)
         else {
-            let embed = new MessageEmbed()
+            let embed = new Embed()
             embed.setTitle(`Result for: ${query}`)
             embed.addField(`\`\`\`Channel name\`\`\``, `\`\`\`${channel.name}\`\`\``, false)
             embed.addField('\`\`\`URL\`\`\`', `\`\`\`${channel.URL}\`\`\``, false)

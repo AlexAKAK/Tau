@@ -1,4 +1,4 @@
-import { GuildMember, Guild, TextChannel, MessageEmbed } from "discord.js"
+import { GuildMember, Guild, TextChannel, Embed } from "discord.js"
 import Tau from "../../.."
 import qt from './../qt data'
 import defaultColor from "../../utility/embeds/defaultColor"
@@ -14,7 +14,7 @@ export default function memberJoin (client: Tau, member: GuildMember) {
     member.roles.add(server.roles.cache.get(qt.roles['Member']))
     member.roles.add(server.roles.cache.get(qt.roles['About']))
   
-    const embed = new MessageEmbed()
+    const embed = new Embed()
     embed.setTitle(`${member.displayName} Joined the server!`)
     embed.setDescription(`<@${member.user.id}> Welcome to the server!\n\nPlease read the rules and guidelines in <#${qt.channels.rules}>`)
     embed.setThumbnail(member.displayAvatarURL())

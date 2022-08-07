@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 
-const sendEmbed = require('./../../utility/embeds/sendEmbed')
+import sendEmbed from './../../utility/embeds/sendEmbed.js';
 
 
 @report.errorCheck([report.MISSING_ARGS_ERR_3])

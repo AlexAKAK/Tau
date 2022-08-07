@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, Embed } from "discord.js";
 //import { MessageButton } from "discord-buttons";
 import Tau from "../../../index";
 import CommandClass from '../../classes/CommandClass.js'
@@ -83,7 +83,7 @@ export default class queue extends CommandClass {
 
         // working here
         /*
-        const embed: MessageEmbed = makeEmbed({
+        const embed: Embed = makeEmbed({
             title: '** [Queue] **',
             color: defaultColor,
             fields: fields,

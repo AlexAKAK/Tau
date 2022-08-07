@@ -1,4 +1,4 @@
-import { DiscordAPIError, DMChannel, Message, MessageEmbed, TextChannel } from "discord.js";
+import { DiscordAPIError, DMChannel, Message, Embed, TextChannel } from "discord.js";
 import mRNAGeneTranscript from '../../classes/genetics/mRNAGeneTranscript.js'
 import CommandClass from "../../classes/CommandClass.js";
 import aminoAcidSymbolToName from "../../classes/genetics/aminoAcidSymbolToName.js";
@@ -32,7 +32,7 @@ export default class translate extends CommandClass {
             translationWithNames[i] = aminoAcidSymbolToName[symbol]
         }
 
-        const embed = new MessageEmbed()
+        const embed = new Embed()
         embed.setColor('BLUE')
         embed.addField('mRNA transcript', mRNA.baseSequence, false),
         embed.addField('Polypeptide chain', String(mRNA.aminoAcidStrand), false)

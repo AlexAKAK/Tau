@@ -1,18 +1,18 @@
-import { DMChannel, Guild, GuildMember, Message, MessageEmbed, NewsChannel, TextChannel } from "discord.js"
+import { DMChannel, Guild, GuildMember, Message, Embed, NewsChannel, TextChannel } from "discord.js"
 
 import * as errorClasses from "./Errors.js"
 import Tau from '../../index.js'
 import {ERROR, ERROR_METACLASS} from './Errors.js'
 import errorColor from "../utility/embeds/errorColor.js"
 import defaultColor from "../utility/embeds/defaultColor.js"
-const fs = require('fs')
+import fs from 'fs'
 
 /* make the err list definable as a static property of the CommandClass subclass, then use .class to
 retrieve the class. After, use that to call CommandClass.constructor (super, in context).
 */
 
 
-const sendEmbed = require('./../utility/embeds/sendEmbed.js')
+import sendEmbed from './../utility/embeds/sendEmbed.js'
 
 
 export default abstract class CommandClass {
@@ -106,7 +106,7 @@ export default abstract class CommandClass {
     protected static sendEmbed(channel: TextChannel|DMChannel, kwargs: any) {
         // message is a discord.message, kwargs is a dictionary
     
-        let embed = new MessageEmbed()
+        let embed = new Embed()
         /*if (kwargs['color'])*/ embed.setColor(defaultColor)
         if (kwargs['title']) embed.setTitle(`${kwargs['title']}`)
         if (kwargs['image']) embed.setImage(`${kwargs['image']}`)

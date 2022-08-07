@@ -1,4 +1,4 @@
-import { GuildMember, Message, MessageEmbed } from "discord.js";
+import { GuildMember, Message, Embed } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import allColors from "../../qt/colors";
@@ -26,21 +26,21 @@ export default class colorreaction extends CommandClass {
     protected static commandSyntax: string = 'reactionRoles'
 
     public async commandMain(message: Message<boolean>, client: Tau): Promise<void> {
-        const redEmbed = new MessageEmbed()
+        const redEmbed = new Embed()
             .setColor('#ff0000')
             .setTitle('Red')
             .setDescription('React to get the Red role.')
         
         const redMessage: Message = await message.channel.send({embeds: [redEmbed]})
 
-        const orangeEmbed = new MessageEmbed()
+        const orangeEmbed = new Embed()
             .setColor('ORANGE')
             .setTitle('Orange')
             .setDescription('React to get the Orange role.')
         
         const orangeMessage: Message = await message.channel.send({embeds: [orangeEmbed]})
 
-        const yellowEmbed = new MessageEmbed()
+        const yellowEmbed = new Embed()
             .setColor('YELLOW')
             .setTitle('Yellow')
             .setDescription('React to get the Yellow role.')
@@ -48,14 +48,14 @@ export default class colorreaction extends CommandClass {
         const yellowMessage: Message = await message.channel.send({embeds: [yellowEmbed]})
 
 
-        const greenEmbed = new MessageEmbed()
+        const greenEmbed = new Embed()
             .setColor('GREEN')
             .setTitle('Green')
             .setDescription('React to get the Green role.')
         
         const greenMessage: Message = await message.channel.send({embeds: [greenEmbed]})
 
-        const blueEmbed = new MessageEmbed()
+        const blueEmbed = new Embed()
             .setColor('BLUE')
             .setTitle('Blue')
             .setDescription('React to get the Blue role.')
@@ -63,7 +63,7 @@ export default class colorreaction extends CommandClass {
         const blueMessage: Message = await message.channel.send({embeds: [blueEmbed]})
 
 
-        const purpleEmbed = new MessageEmbed()
+        const purpleEmbed = new Embed()
             .setColor('PURPLE')
             .setTitle('Purple')
             .setDescription('React to get the Purple role.')
@@ -71,7 +71,7 @@ export default class colorreaction extends CommandClass {
         const purpleMessage: Message = await message.channel.send({embeds: [purpleEmbed]})
 
 
-        const pinkEmbed = new MessageEmbed()
+        const pinkEmbed = new Embed()
             .setColor('#fcb2c5')
             .setTitle('Pink')
             .setDescription('React to get the Pink role.')

@@ -1,6 +1,6 @@
 import Tau from "../..";
 
-const { SlashCommandBuilder, Routes, REST } = require('discord.js');
+import { SlashCommandBuilder, Routes, REST } from 'discord.js';
 
 //import { REST } from '@discordjs/rest';
 

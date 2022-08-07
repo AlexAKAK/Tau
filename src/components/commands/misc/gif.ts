@@ -1,7 +1,11 @@
 import { Message } from "discord.js";
 import Tau from "../../..";
 
-const Tenor = require("tenorjs").client({
+import TenorModule from 'tenorjs';
+
+///egaegaegaegaegegaeaegaegaeg
+
+const Tenor = TenorModule.client({
     "Key": 'C6NWL8O6EVFW', // https://tenor.com/developer/keyregistration
     "Filter": "off", // "off", "low", "medium", "high", not case sensitive
     "Locale": "en_US", // Your locale here, case-sensitivity depends on input
@@ -21,7 +25,7 @@ export default class gif extends CommandClass {
     protected static commandDescription: string = 'A gif is sent into the chat'
     protected static commandSyntax: string = 'gif <search query>'
 
-    static fetch = require('node-fetch')
+    //static fetch = require('node-fetch')
     static MISSING_ARGS_ERR_2 = gif.MISSING_ARGS_ERR_METACLASS(2)
 
     public async commandMain(message: Message, client: Tau) {

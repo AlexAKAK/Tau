@@ -1,4 +1,4 @@
-import { DMChannel, Message, MessageEmbed, TextChannel } from "discord.js";
+import { DMChannel, Message, Embed, TextChannel } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
@@ -36,7 +36,7 @@ export default class ball extends CommandClass {
         //console.log(Object.keys(response))
 
         
-        const embed = new MessageEmbed();
+        const embed = new Embed();
 
         embed
         .setTitle('Magic 8 Ball')
