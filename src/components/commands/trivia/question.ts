@@ -46,12 +46,6 @@ export default class question extends CommandClass {
 
         const channel: TextChannel = message.channel as TextChannel
 
-        console.log(question)
-        console.log(question)
-        console.log(question)
-        console.log(question)
-        console.log(question)
-
         const embed: MessageEmbed = new MessageEmbed()
         .setColor(defaultColor)
         .setTitle(`Trivia`)
@@ -85,7 +79,7 @@ export default class question extends CommandClass {
         
         let alreadyGuessedUsers: string[] = []
         // use message collector
-        const filter = (reaction, user: User) => alreadyGuessedUsers.indexOf(user.id)
+        const filter = (reaction, user: User) => alreadyGuessedUsers.indexOf(user.id)== -1
         const collector = sent.createReactionCollector({filter, time: 15000 })
 
         setTimeout(() => {

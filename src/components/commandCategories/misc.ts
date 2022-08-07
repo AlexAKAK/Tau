@@ -11,13 +11,13 @@ import yt from "../commands/misc/yt";
 import ytchannel from "../commands/misc/ytchannel";
 
 export default new CommandCategory('misc', [
-    color,
+    //color,
     gif,
     meme,
     report,
     yt,
     ytchannel,
-    clear,
+    //clear,
     dog
 ],
 'Random commands for fun!') 
