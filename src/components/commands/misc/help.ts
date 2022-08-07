@@ -1,4 +1,4 @@
-import { DMChannel, Message, TextChannel, Embed } from "discord.js"
+import { DMChannel, Message, TextChannel, Embed, EmbedBuilder } from "discord.js"
 import Tau from "../../.."
 
 //const CommandClass = require('../classes/CommandClass')
@@ -45,7 +45,7 @@ export default class help extends CommandClass {
 
     private static async noArgsMain(message: Message, client: Tau): Promise<void> {
     
-        const embed = new Embed()
+        const embed = new EmbedBuilder()
         .setTitle(`\`\`\`To see available commands, type: ${client.PREFIX}help <category/command>\`\`\``)
         .setColor(defaultColor)
         .setTimestamp()
@@ -54,7 +54,11 @@ export default class help extends CommandClass {
         for (let i = 0; i < allCommands.length; i++) {
             
             //embed.addField(`\`\`\`${client.PREFIX}${allCommands[i].commandSyntax}\`\`\``, `\`\`\`${help.commands[i].commandCategory}: ${help.commands[i].commandDescription}\`\`\``, true)
-            embed.addField(`\`\`\`${allCommands[i].name}\`\`\``, `\`\`\`${allCommands[i].description}\`\`\``, true)
+            embed.addFields({
+                name: `\`\`\`${allCommands[i].name}\`\`\``,
+                value: `\`\`\`${allCommands[i].description}\`\`\``,
+                inline: true
+            })
             
 
         }
@@ -78,12 +82,16 @@ export default class help extends CommandClass {
         {
             if (_category.name == category) 
             {
-                const embed = new Embed()
+                const embed = new EmbedBuilder()
                 embed.setTimestamp()
                 embed.setColor(defaultColor).setThumbnail(darkThumbnail)
                 embed.setTitle(`\`\`\`Command Category: ${_category.name}\`\`\``)
                 for (const command of _category.commands) {
-                    embed.addField(`\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``, `\`\`\`${command.commandDescription}\`\`\``, true)
+                    embed.addFields({
+                        name: `\`\`\`${client.PREFIX}${command.commandSyntax}\`\`\``,
+                        value: `\`\`\`${command.commandDescription}\`\`\``,
+                        inline: true
+                    })
                 }
                 message.channel.send({embeds: [embed]})
             }
@@ -102,10 +110,15 @@ export default class help extends CommandClass {
         }
         
         const command: any = help.getCommand(help.splitArgsWithoutCommandCall(message)[0])
-        const embed = new Embed()
+        const embed = new EmbedBuilder()
         .setTimestamp()
         .setColor(defaultColor).setThumbnail(darkThumbnail)
-        .addField(`\`\`\`Usage: ${command.commandSyntax}\`\`\``, `\`\`\`Description: ${command.commandDescription}\`\`\``, false)
+        .addFields({
+            name: `\`\`\`Usage: ${command.commandSyntax}\`\`\``,
+            value: `\`\`\`Description: ${command.commandDescription}\`\`\``,
+            inline: false
+
+        })
 
         message.channel.send({embeds: [embed]})
         //

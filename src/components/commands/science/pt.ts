@@ -1,4 +1,4 @@
-import { ColorResolvable, Message, Embed, TextChannel } from 'discord.js';
+import { ColorResolvable, Message, Embed, TextChannel, EmbedBuilder } from 'discord.js';
 import Tau from '../../..';
 import CommandClass from "../../classes/CommandClass.js";
 import { MISSING_ARGS_ERR_METACLASS } from '../../classes/Errors.js';
@@ -102,7 +102,7 @@ export default class pt extends CommandClass {
         const element = table.getInfo(message.content.split(' ')[1])
         console.log(element)
         
-        const embed = new Embed()
+        const embed = new EmbedBuilder()
         const name = element['name']
         const info: object = {
             symbol : element['symbol'],
@@ -135,7 +135,11 @@ export default class pt extends CommandClass {
         
         for (let [key, value] of Object.entries(info)) {
             if (value != '' && value != undefined && value != null) {
-                embed.addField(key, String(value), true)
+                embed.addFields({
+                    name: key,
+                    value: String(value),
+                    inline: true
+                })
             }
             console.log(key)
             console.log(value)
@@ -143,7 +147,7 @@ export default class pt extends CommandClass {
         
         
         for (let [key, value] of Object.entries(pt.groupBlockColor)) {
-            if (info['groupBlock'] == key) embed.setColor(value)
+            if (info['groupBlock'] == key) embed.setColor(<ColorResolvable> value)
         }
         
         embed.setTimestamp()

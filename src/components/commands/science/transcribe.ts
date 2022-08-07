@@ -1,6 +1,7 @@
-import { DMChannel, Message, Embed, TextChannel } from "discord.js";
+import { DMChannel, Message, Embed, TextChannel, EmbedBuilder } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
 
 
 
@@ -40,10 +41,18 @@ export default class transcribe extends CommandClass {
 
         
 
-        const embed = new Embed()
-        embed.setColor('BLUE')
-        embed.addField('DNA strand', DNA, false)
-        embed.addField('mRNA transcript', RNA, false)
+        const embed = new EmbedBuilder()
+        embed.setColor(defaultColor)
+        embed.addFields({
+            name: 'DNA strand',
+            value:DNA,
+            inline:false
+        })
+        embed.addFields({
+            name: 'mRNA transcript',
+            value: RNA,
+            inline: false
+        })
         embed.setTimestamp()
         
 

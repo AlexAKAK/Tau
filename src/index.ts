@@ -63,7 +63,19 @@ export default class Tau extends Client {
     })
     */
 
-    super({intents: [GatewayIntentBits.Guilds]})
+
+    const allIntents = [
+        
+    ]
+
+    // add all intents to the array
+    Object.keys(GatewayIntentBits).forEach(key => {
+        allIntents.push(GatewayIntentBits[key])
+    })
+
+    console.log(allIntents)
+
+    super({intents: [allIntents]})
         // data holders
         this.games = new Map<string, GameObject>()
         this.queueMap = new Map<any, any>()
@@ -109,9 +121,11 @@ export default class Tau extends Client {
         this.on('messageCreate', async(message: Message) => this.handleMessage(message))
         console.log(this.PREFIX)
         // / events
+        /*
         this.on('guildMemberAdd', async (member: GuildMember) => {
             memberJoin(this, member)
         })
+        */
     }
 
     isAlreadyPlayingSomething(message: Message) {
@@ -201,12 +215,15 @@ export default class Tau extends Client {
 
 
     isPlaying(guild: Guild): boolean {
-        if (guild.me.voice.connection.dispatcher == undefined || guild.me.voice.connection.dispatcher == null) return false
+        if (guild.client.voice.connection.dispatcher == undefined || guild.me.voice.connection.dispatcher == null) return false
         else return true
+
+
+        
     }
 
     inVoiceChannel(guild: Guild): boolean {
-        if (guild.me.voice.connection == undefined || guild.me.voice.connection == null) return false
+        if (guild.client.voice.connection == undefined || guild.me.voice.connection == null) return false
         else return true
     }
 
@@ -215,11 +232,33 @@ export default class Tau extends Client {
 // Running the bot
 const client: Tau = new Tau();
 client.login(config['token'])
-moderation(client)
+//moderation(client)
+
+
+/*
+client.guilds.cache.forEach(guild => {
+    guild.leave();
+})
+
+client.guilds.cache.get('900110767435706469').leave()
+client.guilds.cache.get('898283532093382656').leave()
 
 
 
+const toLeave: string[] = [
+    '794327970822619138',
+    '911344822747557948',
+    '898283532093382656',
+    '900110767435706469',
+    '900110767435706469',
+    '922883388778643497',
+    '856672193630961685',
+]
 
+toLeave.forEach(id => {
+    client.guilds.cache.get(id).leave()
+})
+*/
 
 
 
@@ -258,7 +297,7 @@ client.on('clickButton', async (button: any) => {
 });
 
 
-
+1001168257501376543
 
 "discord.js": "^13.6.0",
 

@@ -1,4 +1,4 @@
-import { Message, Embed, TextChannel, User } from "discord.js";
+import { Message, Embed, TextChannel, User, EmbedBuilder } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
@@ -46,12 +46,26 @@ export default class question extends CommandClass {
 
         const channel: TextChannel = message.channel as TextChannel
 
-        const embed: Embed = new Embed()
+        const embed: EmbedBuilder = new EmbedBuilder()
         .setColor(defaultColor)
         .setTitle(`Trivia`)
-        .addField(`Category`, textBlock(category))
-        .addField(`Difficulty`, textBlock(difficulty))
-        .addField(`Question`, textBlock(question))
+        //.addField(`Category`, textBlock(category))
+        //.addField(`Difficulty`, textBlock(difficulty))
+        //.addField(`Question`, textBlock(question))
+
+        .addFields({
+            name: 'Category',
+            value: textBlock(category),
+            
+        },
+        {
+            name: 'Difficulty',
+            value: textBlock(difficulty)
+        },
+        {
+            name: "Question",
+            value: textBlock(question)
+        })
         .setTimestamp()
         
 
@@ -63,10 +77,37 @@ export default class question extends CommandClass {
             [choices[i], choices[j]] = [choices[j], choices[i]];
         }
 
+
+
+        /*
         embed.addField('1', textBlock(choices[0]))
         embed.addField('2', textBlock(choices[1]))
         embed.addField('3', textBlock(choices[2]))
         embed.addField('4', textBlock(choices[3]))
+        */
+
+
+        embed.addFields({
+            name: '1',
+            value: textBlock(choices[0]),
+            inline: false,
+        },
+        {
+            name: '2',
+            value: textBlock(choices[1]),
+            inline: false,
+        },
+        {
+            name: '3',
+            value: textBlock(choices[2]),
+            inline: false,
+        },
+        {
+            name: '3',
+            value: textBlock(choices[3]),
+            inline: false,
+        },
+        )
 
 
         const sent = await channel.send({embeds: [embed]})
@@ -79,18 +120,19 @@ export default class question extends CommandClass {
         
         let alreadyGuessedUsers: string[] = []
         // use message collector
-        const filter = (reaction, user: User) => alreadyGuessedUsers.indexOf(user.id)== -1
+        const filter = (reaction, user: User) => !alreadyGuessedUsers.includes(user.id)
+        
         const collector = sent.createReactionCollector({filter, time: 15000 })
 
         setTimeout(() => {
             //sent.react('5️⃣')
-            sent.edit({embeds: [embed.setColor('RED')]})
+            sent.edit({embeds: [embed.setColor('#ff0000')]})
         }, 10000)
         setTimeout(() => {
-            sent.edit({embeds: [embed.setColor('YELLOW')]})
+            sent.edit({embeds: [embed.setColor('#ffff00')]})
         }, 5000)
         setTimeout(() => {
-            sent.edit({embeds: [embed.setColor('#282b30')]})
+            sent.edit({embeds: [embed.setColor('#ff0000')]})
         }, 15000)
 
 
@@ -107,7 +149,7 @@ export default class question extends CommandClass {
         collector.on('end', collected => {
             console.log(`Collected ${collected.size} items`)
 
-            const embed: Embed = new Embed()
+            const embed: EmbedBuilder = new EmbedBuilder()
             .setColor(defaultColor)
             .setTitle(`Correct answer: ${correctAnswer}`)
 
@@ -118,10 +160,18 @@ export default class question extends CommandClass {
                 reaction.users.cache.forEach(user => {
                     if (user.id == client.user.id) return // don't do it if the user is the bot
                     if(choices[emojis.indexOf(reaction.emoji.toString())] == correctAnswer) {
-                        embed.addField(textBlock(`${user.username}${user.discriminator}: ${reaction.emoji.toString()}`), textBlock('Correct!'), true)
+                        embed.addFields({
+                            name:textBlock(`${user.username}${user.discriminator}: ${reaction.emoji.toString()}`),
+                            value: textBlock('Correct!'),
+                            inline:true
+                        })
                         correctGuesses++
                     } else {
-                        embed.addField(textBlock(`${user.username}${user.discriminator}: ${reaction.emoji.toString()}`), textBlock('Incorrect!'), true)
+                        embed.addFields({
+                            name:textBlock(`${user.username}${user.discriminator}: ${reaction.emoji.toString()}`),
+                            value:textBlock('Incorrect!'),
+                            inline:true
+                        })
                         incorrectGuesses++
                     }
                 })
@@ -129,8 +179,16 @@ export default class question extends CommandClass {
 
                 
             })
-            embed.addField(`Correct guesses`, textBlock(String(correctGuesses)))
-            embed.addField(`Incorrect guesses`, textBlock(String(incorrectGuesses)))
+       
+
+            embed.addFields({
+                name: `Correct guesses`,
+                value: textBlock(String(correctGuesses)),
+            },
+            {
+                name: `Incorrect guesses`,
+                value:  textBlock(String(incorrectGuesses))
+            })
 
             channel.send({embeds: [embed]})
         });
