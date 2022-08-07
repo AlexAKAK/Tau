@@ -2,10 +2,8 @@ import { getVoiceConnection } from "@discordjs/voice"
 import { Message } from "discord.js"
 import Tau from "../../.."
 
-export {}
-const textFormatting = require('./../../utility/textFormatting')
-const sendEmbed = require('./../../utility/embeds/sendEmbed')
-const {red, green, lightBlue} = require('./../../utility/hexColors')
+
+import sendEmbed from './../../utility/embeds/sendEmbed.js'
 import CommandClass from '../../classes/CommandClass.js'
 import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js"
  
@@ -29,7 +27,7 @@ export default class stop extends CommandClass {
             connectionP.player.stop()
             // send the embed
             sendEmbed(message.channel, {
-                color: lightBlue,
+                color: '#ffff00',
                 title: `I stopped playing.`,
                 deleteTimeout: 5000,
             })

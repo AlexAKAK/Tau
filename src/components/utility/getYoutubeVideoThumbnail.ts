@@ -1,6 +1,5 @@
-module.exports = getYoutubeVideoThumbnail
-export {}
-function getYoutubeVideoThumbnail(url: string, size: string) {
+
+export default function getYoutubeVideoThumbnail(url: string, size: string) {
     if (url === null) {
         return '';
     }

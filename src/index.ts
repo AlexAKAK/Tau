@@ -227,6 +227,10 @@ export default class Tau extends Client {
         else return true
     }
 
+    getVoiceState(guildId: string): VoiceState {
+        return client.guilds.cache.get(guildId).voiceStates.cache.get(client.user.id)
+    }
+
 }
 
 // Running the bot

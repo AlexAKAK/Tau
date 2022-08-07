@@ -1,10 +1,9 @@
 import { Message } from "discord.js";
 import { LanguageServiceMode } from "typescript";
 import Tau from "../../..";
-const {blue} = require('./.././../utility/hexColors')
 import CommandClass from '../../classes/CommandClass.js'
-const {randomHi, randomBye} = require('./.././../utility/gifs')
-const {getVoiceConnection} = require('@discordjs/voice')
+//const {randomHi, randomBye} = require('./.././../utility/gifs')
+import { getVoiceConnection } from '@discordjs/voice';
 
 @leave.alias(['l'])
 
@@ -29,6 +28,8 @@ export default class leave extends CommandClass {
             sentMessage.delete()
         }, 5000)
         */
+
+        console.log(client.getVoiceState(message.guild.id))
     }
 }
 

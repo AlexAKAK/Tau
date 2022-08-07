@@ -2,10 +2,9 @@ import { AudioPlayerStatus, createAudioResource, getVoiceConnection, PlayerSubsc
 import { Message, TextChannel } from "discord.js"
 import Tau from "../../../index"
 
-const sendEmbed = require("./../../utility/embeds/sendEmbed")
-const { red, randomColor } = require("./../../utility/hexColors")
+import sendEmbed from "./../../utility/embeds/sendEmbed"
 import ytdl from 'ytdl-core'
-const checkQueueThenHandle = require("./../../utility/checkQueueThenHandle")
+import checkQueueThenHandle from "./../../utility/checkQueueThenHandle"
 import CommandClass from '../../classes/CommandClass.js'
 import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js"
 
@@ -35,7 +34,7 @@ export default class restart extends CommandClass {
 
         restart.sendEmbed(<TextChannel> message.channel, {
             title: `Restarting ${client.queueMap[message.guild.id].playing.songName}`,
-            color: randomColor(),
+            color: '#ffff00',
             deleteTimeout: 10000
         })
     }

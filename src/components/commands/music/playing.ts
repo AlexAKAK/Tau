@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import Tau from "../../..";
 import src from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
-const sendNowPlayingEmbed = require('./../../utility/embeds/sendNowPlayingEmbed.js');
+import sendNowPlayingEmbed from './../../utility/embeds/sendNowPlayingEmbed.js';
 
 @playing.errorCheck([
     playing.CLIENT_NOT_PLAYING_ANYTHING_ERR

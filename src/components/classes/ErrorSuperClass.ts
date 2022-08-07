@@ -1,5 +1,5 @@
 
-import { Message, TextChannel, NewsChannel, DMChannel, Embed } from "discord.js"
+import { Message, TextChannel, NewsChannel, DMChannel, Embed, EmbedBuilder } from "discord.js"
 import defaultColor from "../utility/embeds/defaultColor.js"
 import errorColor from "../utility/embeds/errorColor.js"
 import sendEmbed from './../utility/embeds/sendEmbed.js'
@@ -31,7 +31,7 @@ export default abstract class ErrorClass {
     sendErrMessage(channel: TextChannel|DMChannel|NewsChannel, message: string) {
         // message is a discord.message, kwargs is a dictionary
     
-        let embed = new Embed()
+        let embed = new EmbedBuilder()
         /*if (kwargs['color'])*/ embed.setColor(errorColor)
         embed.setTitle(message)
     

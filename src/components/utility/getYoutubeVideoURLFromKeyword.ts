@@ -1,5 +1,5 @@
-const ytSearch = require('youtube-search')
-const sendEmbed = require('./embeds/sendEmbed')
+import ytSearch from 'youtube-search'
+import sendEmbed from './embeds/sendEmbed'
 
 // config
 const youtubeAPIKey = 'AIzaSyAON4YlGAdk_tuuxyGCjVnAUMC6iwHFi_A'
@@ -11,7 +11,7 @@ const opts = {
 // / config
 
 // the function
-function getYoutubeVideoUrlFromKeyword(keyWords: string): Promise<unknown> {
+export default function getYoutubeVideoUrlFromKeyword(keyWords: string): Promise<unknown> {
     // keyWords: string
 
     const urlPromise = new Promise(function(resolve, reject) {
@@ -32,5 +32,3 @@ function getYoutubeVideoUrlFromKeyword(keyWords: string): Promise<unknown> {
     return urlPromise
 
 }
-
-module.exports = getYoutubeVideoUrlFromKeyword

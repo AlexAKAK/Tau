@@ -1,10 +1,16 @@
-const ytdl = require('ytdl-core')
-const {getInfo} = require('ytdl-core')
+import ytdl from 'ytdl-core'
+
+
+
+import ytdlModule from 'ytdl-core'
+const getInfo = ytdlModule.getInfo
+
+
 
 export default async function getYTDLStream(url: string) {
     const info = await getInfo(url)
     const seconds = info.videoDetails.lengthSeconds
-    if (seconds == 0) return getLiveStream(url)
+    if (Number(seconds) == 0) return getLiveStream(url)
     else return getVideo(url)
 }
 

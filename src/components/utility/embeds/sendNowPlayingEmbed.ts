@@ -1,11 +1,15 @@
-import { Message } from "discord.js"
+import { EmbedBuilder, Message } from "discord.js"
 
-const {Embed} = require('discord.js')
-const {getInfo} = require('ytdl-core')
-const textFormatting = require('../textFormatting')
-const getYoutubeVideoThumbnail = require('../getYoutubeVideoThumbnail')
-const {randomColor} = require('../hexColors')
-const { green, bold, orange, yellow } = require('../textFormatting')
+import { Embed } from 'discord.js'
+//import { getInfo } from 'ytdl-core'
+
+import ytdlModule from 'ytdl-core'
+
+const getInfo = ytdlModule.getInfo
+
+
+import getYoutubeVideoThumbnail from '../getYoutubeVideoThumbnail.js'
+
 
 import getAudio from "./../getAudio.js"
 import defaultColor from "./defaultColor.js"
@@ -14,7 +18,7 @@ import defaultColor from "./defaultColor.js"
 async function createNowPlayingEmbedPromise(url: string, message: any /*discord.Message*/) {
     
     const info = await getInfo(url)
-    let nowPlayingEmbed = new Embed()
+    let nowPlayingEmbed = new EmbedBuilder()
     /*
     const lengthSeconds = info.videoDetails.lengthSeconds
     const minutes = Math.floor(info.videoDetails.lengthSeconds/60)
@@ -34,7 +38,11 @@ async function createNowPlayingEmbedPromise(url: string, message: any /*discord.
     .setColor(defaultColor)
     .setTitle(`Now Playing: ${info['videoDetails']['title']}`)
     .setURL(url)
-    .addField(`\`\`\`Queued by: ${author}\`\`\``, `${url}`) // used to be timeToDisplay
+    .addFields({
+        name: `\`\`\`Queued by: ${author}\`\`\``,
+        value: `${url}`,
+        inline: false
+    })
     .setImage(getYoutubeVideoThumbnail(url))
     .setTimestamp()
             
@@ -42,9 +50,7 @@ async function createNowPlayingEmbedPromise(url: string, message: any /*discord.
    
 }
 
-async function sendNowPlayingEmbed(url: string, message: Message) {
+export default async function sendNowPlayingEmbed(url: string, message: Message) {
     const nowPlayingEmbed = await createNowPlayingEmbedPromise(url, message)
     message.channel.send({embeds: [nowPlayingEmbed]})
 }
-
-module.exports = sendNowPlayingEmbed

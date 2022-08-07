@@ -1,12 +1,12 @@
 import CommandClass from "./../../classes/CommandClass.js"
-const { getInfo } = require('ytdl-core');
-const ytdl = require('ytdl-core');
-const sendEmbed = require('./../../utility/embeds/sendEmbed');
-const { red, randomColor } = require('./../../utility/hexColors');
+import ytdl from 'ytdl-core';
+const getInfo = ytdl.getInfo
+import sendEmbed from './../../utility/embeds/sendEmbed.js';
+//import { red, randomColor } from './../../utility/hexColors';
 import checkQueueThenHandle from './../../utility/checkQueueThenHandle.js'
-const playAudio = require('./../../utility/playAudio');
+import playAudio from './../../utility/playAudio.js';
 import { Client, Message, TextChannel } from 'discord.js';
-const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
+import getYoutubeVideoUrlFromKeyword from './../../utility/getYoutubeVideoURLFromKeyword.js';
 //const CommandClass = require('../classes/CommandClass');
 import Tau from './../../../index.js'
 import { ERROR } from "../../classes/Errors.js";
@@ -14,11 +14,19 @@ import getAudio from "./../../utility/getAudio.js"
 import { collapseTextChangeRangesAcrossMultipleVersions, InternalSymbolName } from "typescript";
 import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
-const {getData, getTracks} = require('spotify-url-info')
-const {createAudioPlayer} = require('@discordjs/voice')
+//import { getData, getTracks } from 'spotify-url-info';
+import { createAudioPlayer } from '@discordjs/voice';
 
-const spdl = require('spdl-core')
-const ytsr = require('ytsr')
+import fetch from "isomorphic-unfetch"
+
+
+import spotifyUrlInfoG from 'spotify-url-info'
+const spotifyUrlInfo = spotifyUrlInfoG(fetch)
+const {getData, getTracks} = spotifyUrlInfo
+
+
+import spdl from 'spdl-core';
+import ytsr from 'ytsr';
 
 @play.alias(['p'])
 
@@ -62,7 +70,7 @@ export default class play extends CommandClass {
 
                     sendEmbed(message.channel, {
                         title: `Added to queue: ${info['videoDetails']['title']}`,
-                        color: randomColor(),
+                        color: '#ffff00',
                         deleteTimeout: 5000,
                                         
 
@@ -193,7 +201,7 @@ export default class play extends CommandClass {
 
                     sendEmbed(message.channel, {
                         title: `Added to queue: ${info['videoDetails']['title']}`,
-                        color: randomColor(),
+                        color: '#ffff00',
                         deleteTimeout: 5000,
                     }) // end of sendEmbed()
                     
@@ -236,7 +244,7 @@ export default class play extends CommandClass {
         if (url == null) {
             sendEmbed(message.channel, {
                 title: `No videos found for: ${keyWords}`,
-                color: randomColor(),
+                color: "#ffff00",
                 deleteTimeout: 5000,
                 
             })
@@ -296,7 +304,7 @@ export default class play extends CommandClass {
 
         sendEmbed(message.channel, {
             title: `Added to queue: ${info['videoDetails']['title']}`,
-            color: randomColor(),
+            color: '#ffff00',
             deleteTimeout: 5000,
         }) // end of sendEmbed()
         

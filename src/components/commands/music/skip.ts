@@ -7,10 +7,9 @@ import Tau from "../../..";
 
 export {}
 import CommandClass from '../../classes/CommandClass.js'
-const checkQueueThenHandle = require('./../../utility/checkQueueThenHandle')
-const sendEmbed = require('./../../utility/embeds/sendEmbed')
-const {red, lightBlue} = require('./../../utility/hexColors');
-import {voice} from '@discordjs/voice'
+import checkQueueThenHandle from './../../utility/checkQueueThenHandle';
+import sendEmbed from './../../utility/embeds/sendEmbed.js';
+import {getVoiceConnection} from '@discordjs/voice'
 import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js";
 
 // C:/Users/alexk/Desktop/coding projects/bryson/bryson bot 9/src/components/utility/checkQueueThenHandle.js
@@ -51,11 +50,12 @@ export default class skip extends CommandClass {
     
     
     public async commandMain(message: Message, client: Tau) {
-        const connection = voice.getVoiceConnection(message.guild.id)
+        const connection = getVoiceConnection(message.guild.id)
+        
         //const dispatcher = connection.dispatcher
         sendEmbed(message.channel, {
             title: `Skipped ${client.queueMap[message.guild.id]['playing']['songName']}`,
-            color: lightBlue,
+            color: '#ffff00',
             deleteTimeout: 5000,
         })
         // make the song not loop

@@ -1,8 +1,18 @@
-const spdl = require('spdl-core')
-const ytsr = require('ytsr')
-const ytdl = require('ytdl-core')
-const {getInfo} = require('ytdl-core')
-const {getData} = require('spotify-url-info')
+import spdl from 'spdl-core'
+import ytsr from 'ytsr'
+import ytdl from 'ytdl-core'
+//import { getInfo } from 'ytdl-core'
+import  getData  from 'spotify-url-info'
+
+
+import ytdlModule from 'ytdl-core'
+const getInfo = ytdlModule.getInfo
+
+
+import spotifyUrlInfoModule from 'spotify-url-info'
+//const getData = spotifyUrlInfoModule.getData
+
+
 
 export default async function getYTLinkFromSpotifyLink(spotifyLink: string): Promise<object> {
     console.log('getYTLinkFromSpotifyLink')

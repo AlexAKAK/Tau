@@ -13,16 +13,17 @@ How handling a [!play <url>] will work
     repeat steps 2a and 2b
 */
 export {}
-const playAudio = require('./playAudio')
-import ytdl = require('ytdl-core');
+import playAudio from './playAudio';
+import ytdl from 'ytdl-core'
 
 
-const sendNowPlayingEmbed = require('./embeds/sendNowPlayingEmbed')
-import voice = require('@discordjs/voice');
+import sendNowPlayingEmbed from './embeds/sendNowPlayingEmbed.js';
+//import voice from '@discordjs/voice'
+
 import ConnectionWithPlayer from "../classes/ConnectionWithPlayer";
-import { getVoiceConnection } from "@discordjs/voice";
+import { getVoiceConnection, VoiceConnection, createAudioResource} from "@discordjs/voice";
 
-async function checkQueueThenHandle(message: any, connection: voice.VoiceConnection) {
+export default async function checkQueueThenHandle(message: any, connection: VoiceConnection) {
     const client = message.client
     const textChannel = message.channel
     // client: bot
@@ -41,7 +42,7 @@ async function checkQueueThenHandle(message: any, connection: voice.VoiceConnect
         const url = client.queueMap[message.guild.id]['playing']['url']
         // reset the audio by getting it from ytdl()
         const audio = ytdl(url)
-        const source = voice.createAudioResource(audio)
+        const source = createAudioResource(audio)
         
         
 
@@ -88,7 +89,7 @@ async function checkQueueThenHandle(message: any, connection: voice.VoiceConnect
         const audio = client.queueMap[message.guild.id]['queue'][0]['audio']
         const url = client.queueMap[message.guild.id]['queue'][0]['url']
 
-        const source = voice.createAudioResource(audio)
+        const source = createAudioResource(audio)
         const player = connectionP.player
         //connection.player = player
         player.play(source)
@@ -117,4 +118,4 @@ async function checkQueueThenHandle(message: any, connection: voice.VoiceConnect
     
 }
 
-module.exports = checkQueueThenHandle
+

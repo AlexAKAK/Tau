@@ -12,9 +12,7 @@ import makeStopButton from "../../utility/buttons/makeStopButton";
 import makeQueueButton from "../../utility/buttons/makeQueueButton";
 */
 
-const sendEmbed = require('./../../utility/embeds/sendEmbed.js');
-const {lightBlue} = require('./../../utility/hexColors.js');
-const {randomColor} = require('./.././../utility/hexColors.js')
+import sendEmbed from './../../utility/embeds/sendEmbed.js';
 
 export {}
 

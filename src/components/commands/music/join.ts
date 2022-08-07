@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import Tau from "../../..";
 import CommandClass from '../../classes/CommandClass.js'
-const {randomHi, randomBye} = require('./.././../utility/gifs')
+//const {randomHi, randomBye} = require('./.././../utility/gifs')
 import { joinVoiceChannel } from '@discordjs/voice';
 
 @join.alias(['j'])
@@ -26,6 +26,9 @@ export default class join extends CommandClass {
 
         // reinitialize the queue
         client.queueMap[message.guild.id] = undefined
+
+
+        console.log(client.getVoiceState(message.guild.id))
 
         
         

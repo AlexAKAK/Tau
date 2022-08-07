@@ -1,11 +1,11 @@
 import { AudioPlayerStatus, createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerState, PlayerSubscription} from "@discordjs/voice"
 import { Message, StreamDispatcher, VoiceChannel, VoiceConnection } from "discord.js"
-const dv = require('@discordjs/voice')
-const sendNowPlayingEmbed = require('./embeds/sendNowPlayingEmbed')
-const ytdl = require('discord-ytdl-core')
-const checkQueueThenHandle = require('./checkQueueThenHandle.js')
-export {}
-async function playAudio(audio: any, voiceChannel: VoiceChannel, url: string, message: Message) {
+import dv from '@discordjs/voice'
+import sendNowPlayingEmbed from './embeds/sendNowPlayingEmbed.js'
+import ytdl from 'discord-ytdl-core'
+import checkQueueThenHandle from './checkQueueThenHandle.js'
+
+export default async function playAudio(audio: any, voiceChannel: VoiceChannel, url: string, message: Message) {
     
     const connection = getVoiceConnection(voiceChannel.guild.id)
     
@@ -33,5 +33,3 @@ async function playAudio(audio: any, voiceChannel: VoiceChannel, url: string, me
 
     sendNowPlayingEmbed(url, message)
 }
-
-module.exports = playAudio

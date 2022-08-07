@@ -6,7 +6,7 @@ Any error that is used often should appear here.
 
 */
 
-import { DMChannel, Message, NewsChannel, TextChannel } from 'discord.js'
+import { DMChannel, Message, NewsChannel, TextChannel, VoiceState } from 'discord.js'
 import Tau from '../..'
 
 import sendEmbed from "../utility/embeds/sendEmbed"
@@ -22,8 +22,10 @@ export class CLIENT_NOT_IN_VC_ERR extends ErrorClass {
     checkPresence(message: Message) {
         console.log('client not in vc err checking')
 
+        const state: VoiceState = (<Tau> message.client).getVoiceState(message.guild.id)
 
-        if (message.guild.me.voice.channel == undefined || message.guild.me.voice.channel == null) return true
+        // working here
+        if (state.channel == undefined || state.channel == null) return true
         else return false
     }
 
@@ -110,14 +112,14 @@ export class CLIENT_NOT_PLAYING_ANYTHING_ERR extends ErrorClass {
 export class PLAYING_SONG_ALREADY_LOOPING_ERR extends ErrorClass {
 
     checkPresence(message) {
-        if (message.client.queueMap[message.guild.me.voice.connection.channel.id]['playing']['loop'] === true) return true
+        if (message.client.queueMap[message.guild.client.voice.connection.channel.id]['playing']['loop'] === true) return true
         else return false
         
     }
 
     standardHandle(message) {
         const commandName = this.getCommandName(message)
-        this.sendErrMessage(message.channel, `${message.client.queueMap[message.guild.me.voice.connection.channel.id]['playing']['songName']} is already looping, ${message.author.tag}`)
+        this.sendErrMessage(message.channel, `${message.client.queueMap[message.guild.client.voice.connection.channel.id]['playing']['songName']} is already looping, ${message.author.tag}`)
     }
 
 
@@ -157,7 +159,7 @@ export function QUANTATIVE_RANGE_ERR_METACLASS(argName, i, lowerBound, upperBoun
 
 export class CLIENT_ALREADY_IN_VC_ERR extends ErrorClass {
     checkPresence(message: Message): boolean {
-        if (message.guild.me.voice.channel != null) return true
+        if (message.guild.client.voice.channel != null) return true
         else return false
     }
     standardHandle(message: Message): void {
@@ -169,7 +171,7 @@ export class CLIENT_ALREADY_IN_VC_ERR extends ErrorClass {
 
 export class MEMBER_IN_DIFFERENT_VC_THAN_CLIENT_ERR extends ErrorClass {
     checkPresence(message: Message): boolean {
-        if (message.guild.me.voice.channel != message.member.voice.channel) return true
+        if (message.guild.client.voice.channel != message.member.voice.channel) return true
         else return false
     }
 

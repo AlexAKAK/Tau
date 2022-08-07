@@ -1,11 +1,10 @@
-import { Message } from "discord.js";
+import { Message, TextChannel } from "discord.js";
 import Tau from "../../..";
 
 import CommandClass from '../../classes/CommandClass.js'
 import defaultColor from "../../utility/embeds/defaultColor.js";
-const { CLIENT_NOT_IN_VC_ERR, PLAYING_SONG_ALREADY_LOOPING_ERR } = require('./../../classes/Errors');
-const sendEmbed = require('./../../utility/embeds/sendEmbed');
-const { red, randomColor } = require('./../../utility/hexColors');
+import { CLIENT_NOT_IN_VC_ERR, PLAYING_SONG_ALREADY_LOOPING_ERR } from './../../classes/Errors.js';
+import sendEmbed from './../../utility/embeds/sendEmbed.js';
 
 
 
@@ -22,7 +21,7 @@ export default class loop extends CommandClass {
     
     public async commandMain(message: Message, client: Tau) {
         client.queueMap[message.guild.id]['playing']['loop'] = true
-        sendEmbed(message.channel, {
+        sendEmbed(<TextChannel> message.channel, {
             title: `looping ${client.queueMap[message.guild.id]['playing']['songName']}`,
             color: defaultColor,
             deleteTimeout: 5000,
