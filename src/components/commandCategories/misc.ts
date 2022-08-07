@@ -1,4 +1,5 @@
 import CommandCategory from "../classes/CommandCategory";
+import ball from "../commands/misc/8ball";
 import announce from "../commands/misc/announce";
 import clear from "../commands/misc/clear";
 import color from "../commands/misc/color";
@@ -18,6 +19,7 @@ export default new CommandCategory('misc', [
     yt,
     ytchannel,
     //clear,
-    dog
+    dog,
+    ball
 ],
 'Random commands for fun!') 

@@ -8,10 +8,10 @@ import trivia from "./trivia"
 
 export default [
     misc,
-    //music,
+    music,
     science,
-    currency,
+    //currency,
     games,
-    staff,
+    //staff,
     trivia
 ]
