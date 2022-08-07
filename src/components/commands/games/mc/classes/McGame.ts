@@ -109,18 +109,20 @@ export default class McGame extends GameSuperClass {
 
         const _embed = new MessageEmbed()
         _embed.addField(`Minecraft`, this.toString() , false)
-        _embed.addField('Standing on', this.character.underBlock, false)
-        _embed.addField('x', this.character.x, false)
-        _embed.addField('y', this.character.y, false)
-        _embed.addField('Health', this.character.getHearts(), false)
-        _embed.addField('Hunger', this.character.getHungerBar(), false)
-        _embed.addField('Facing', this.directionToString[this.character.direction], false)
-        _embed.addField('Inventory', this.inventoryToString(), false)
+        
+        _embed.addField('Standing on', String(this.character.underBlock), false)
+        _embed.addField('x', String(this.character.x), false)
+        _embed.addField('y', String(this.character.y), false)
+        _embed.addField('Health', String(this.character.getHearts()), false)
+        _embed.addField('Hunger', String(this.character.getHungerBar()), false)
+        _embed.addField('Facing', String(this.directionToString[this.character.direction]), false)
+        _embed.addField('Inventory', String(this.inventoryToString()), false)
+        
         return _embed
     }
 
     async startLoop(): Promise<void> {
-        this.messageInChannel = await this.channel.send(this.makeEmbed())
+        this.messageInChannel = await this.channel.send({embeds: [this.makeEmbed()]})
         this.client.on('messageCreate', async (message: Message) => this.messageProcedure(message))
     }
 
@@ -276,7 +278,7 @@ export default class McGame extends GameSuperClass {
         // if the character is dead, activate the deathProdcedure
         if (!this.character.isAlive()) {this.characterDeathProcedure(); return;}
         this.updateCharacter()
-        this.channel.send(this.makeEmbed())
+        this.channel.send({embeds: [this.makeEmbed()]})
     }
 
     checkIfCanMove(x: number, y: number): boolean {
