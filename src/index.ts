@@ -1,5 +1,5 @@
 // import dependencies
-import { Client, GatewayIntentBits, Guild, GuildMember, Message, Embed, MessageReaction, VoiceState, Intents, Permissions} from "discord.js";
+import { Client, GatewayIntentBits, Guild, GuildMember, Message, Embed, MessageReaction, VoiceState, Intents, Permissions, BaseInteraction, ChatInputCommandInteraction} from "discord.js";
 
 // import button commands
 import help from './components/commands/misc/help.js'
@@ -115,6 +115,8 @@ export default class Tau extends Client {
                 // iterate through the list of guilds
                 registerSlashCommands(client, client.TOKEN, guild.id) 
             });
+
+            
 
             //if (config['initialize']) setup(this)
         })
@@ -237,6 +239,13 @@ export default class Tau extends Client {
 const client: Tau = new Tau();
 client.login(config['token'])
 //moderation(client)
+
+
+client.on('interactionCreate', (interaction: BaseInteraction) => {
+	const chatInteraction: ChatInputCommandInteraction = <ChatInputCommandInteraction> interaction;
+
+    chatInteraction.reply('yes')
+});
 
 
 /*
