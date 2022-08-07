@@ -1,8 +1,8 @@
 import { DMChannel, Message, TextChannel } from "discord.js";
 import Tau from "../../../..";
-import CommandClass from "../../../classes/CommandClass";
-import McGame from "./classes/McGame";
-import emojis from "../../../utility/emojis";
+import CommandClass from "../../../classes/CommandClass.js";
+import McGame from "./classes/McGame.js";
+import emojis from "../../../utility/emojis.js";
 
 const blackSquare: string = emojis.blackSquare
 const character: string = emojis.character

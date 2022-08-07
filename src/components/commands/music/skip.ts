@@ -6,12 +6,12 @@ import Tau from "../../..";
 
 
 export {}
-import CommandClass from '../../classes/CommandClass'
+import CommandClass from '../../classes/CommandClass.js'
 const checkQueueThenHandle = require('./../../utility/checkQueueThenHandle')
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const {red, lightBlue} = require('./../../utility/hexColors');
-import voice = require('@discordjs/voice');
-import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer";
+import voice from '@discordjs/voice'
+import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js";
 
 // C:/Users/alexk/Desktop/coding projects/bryson/bryson bot 9/src/components/utility/checkQueueThenHandle.js
 /*async function skip(message) {

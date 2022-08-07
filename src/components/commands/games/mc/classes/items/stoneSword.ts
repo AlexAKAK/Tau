@@ -1,13 +1,13 @@
 import { Block } from "typescript";
-import emojis from "../../../../../utility/emojis";
-import blockTypes from "../../enums/blockTypes";
-import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
-import craftable from "../../interfaces/craftable";
-import Item from "../../interfaces/Item";
-import McGame from "../McGame";
-import nullBlock from "./nullBlock";
-import stone from "./stone";
-import wood from "./wood";
+import emojis from "../../../../../utility/emojis.js";
+import blockTypes from "../../enums/blockTypes.js";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum.js";
+import craftable from "../../interfaces/craftable.js";
+import Item from "../../interfaces/Item.js";
+import McGame from "../McGame.js";
+import nullBlock from "./nullBlock.js";
+import stone from "./stone.js";
+import wood from "./wood.js";
 
 export default class stoneSword extends Item {
     static craft(gameInstance: McGame) {

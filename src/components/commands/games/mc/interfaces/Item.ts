@@ -1,5 +1,5 @@
-import blockTypes from "../enums/blockTypes";
-import McGame from "../classes/McGame";
+import blockTypes from "../enums/blockTypes.js";
+import McGame from "../classes/McGame.js";
 import characterInterface from "../classes/characterClass";
 
 export default abstract class Item {

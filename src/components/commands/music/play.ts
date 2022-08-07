@@ -1,19 +1,19 @@
-import CommandClass from "./../../classes/CommandClass"
+import CommandClass from "./../../classes/CommandClass.js"
 const { getInfo } = require('ytdl-core');
 const ytdl = require('ytdl-core');
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { red, randomColor } = require('./../../utility/hexColors');
-import checkQueueThenHandle = require('./../../utility/checkQueueThenHandle');
+import checkQueueThenHandle from './../../utility/checkQueueThenHandle.js'
 const playAudio = require('./../../utility/playAudio');
 import { Client, Message, TextChannel } from 'discord.js';
 const getYoutubeVideoUrlFromKeyword = require('./../../utility/getYoutubeVideoURLFromKeyword');
 //const CommandClass = require('../classes/CommandClass');
-import Tau from './../../../index'
-import { ERROR } from "../../classes/Errors";
-import getAudio from "./../../utility/getAudio"
+import Tau from './../../../index.js'
+import { ERROR } from "../../classes/Errors.js";
+import getAudio from "./../../utility/getAudio.js"
 import { collapseTextChangeRangesAcrossMultipleVersions, InternalSymbolName } from "typescript";
-import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink";
-import defaultColor from "../../utility/embeds/defaultColor";
+import getYTLinkFromSpotifyLink from "../../utility/spotify/getYTLinkFromSpotifyLink.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
 const {getData, getTracks} = require('spotify-url-info')
 const {createAudioPlayer} = require('@discordjs/voice')
 

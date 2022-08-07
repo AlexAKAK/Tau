@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from "discord.js";
 import Tau from "../..";
-import analyzeText from "./analyzeText";
-import textBlock from "./embeds/textBlock";
+import analyzeText from "./analyzeText.js";
+import textBlock from "./embeds/textBlock.js";
 
 export default function moderation(client: Tau) {
     client.on('messageCreate', async (message: Message) => {

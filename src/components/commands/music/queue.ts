@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from "discord.js";
 //import { MessageButton } from "discord-buttons";
 import Tau from "../../../index";
-import CommandClass from '../../classes/CommandClass'
+import CommandClass from '../../classes/CommandClass.js'
 /*
 import makeButton from "../../utility/buttons/makeButton";
 import defaultColor from "../../utility/embeds/defaultColor";
@@ -12,9 +12,9 @@ import makeStopButton from "../../utility/buttons/makeStopButton";
 import makeQueueButton from "../../utility/buttons/makeQueueButton";
 */
 
-const sendEmbed = require('./../../utility/embeds/sendEmbed');
-const {lightBlue} = require('./../../utility/hexColors');
-const {randomColor} = require('./.././../utility/hexColors')
+const sendEmbed = require('./../../utility/embeds/sendEmbed.js');
+const {lightBlue} = require('./../../utility/hexColors.js');
+const {randomColor} = require('./.././../utility/hexColors.js')
 
 export {}
 

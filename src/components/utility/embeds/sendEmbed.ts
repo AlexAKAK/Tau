@@ -1,5 +1,5 @@
 import { DMChannel, Message, MessageEmbed, TextChannel } from 'discord.js'
-import defaultColor from './defaultColor'
+import defaultColor from './defaultColor.js'
 export {}
 // Figure out the directory
 

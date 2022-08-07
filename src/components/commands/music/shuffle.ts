@@ -1,7 +1,7 @@
 import { Message, TextChannel } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import shuffleArray from "../../utility/shuffleArray";
+import CommandClass from "../../classes/CommandClass.js";
+import shuffleArray from "../../utility/shuffleArray.js";
 
 
 @shuffle.errorCheck([

@@ -9,7 +9,7 @@ const Tenor = require("tenorjs").client({
     "DateFormat": "D/MM/YYYY - H:mm:ss A" // Change this accordingly
 });
 
-import CommandClass from '../../classes/CommandClass'
+import CommandClass from '../../classes/CommandClass.js'
 
 
 @gif.errorCheck([

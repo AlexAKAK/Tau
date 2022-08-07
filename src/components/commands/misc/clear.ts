@@ -1,7 +1,7 @@
 import { Message, TextChannel } from "discord.js";
 import Tau from "../../..";
 
-import CommandClass from '../../classes/CommandClass'
+import CommandClass from '../../classes/CommandClass.js'
 //const { quantativeRangeErrorMetaclass } = require('../classes/ErrorClass.js');
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const {red, randomColor} = require('./../../utility/hexColors');

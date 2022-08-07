@@ -1,7 +1,7 @@
 import { DMChannel, Message, TextChannel } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import ErrorClass from "../../classes/ErrorSuperClass";
+import CommandClass from "../../classes/CommandClass.js";
+import ErrorClass from "../../classes/ErrorSuperClass.js";
 
 
 

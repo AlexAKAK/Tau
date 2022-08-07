@@ -1,5 +1,5 @@
-import ytChannel from "../classes/ytChannel";
-import constructYTLinkFromVideoID from "./constructYTLinkFromVideoID";
+import ytChannel from "../classes/ytChannel.js";
+import constructYTLinkFromVideoID from "./constructYTLinkFromVideoID.js";
 
 const youtubesearchapi = require('youtube-search-api');
 

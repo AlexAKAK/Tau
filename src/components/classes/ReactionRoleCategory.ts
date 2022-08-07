@@ -1,8 +1,8 @@
 import { TextChannel, MessageEmbed, Message, GuildMember, User, Role, ReactionCollector } from "discord.js";
 import Tau from "../..";
-import selfRoles from "../qt/selfRoles";
-import qt from "../qt/qt data";
-import defaultColor from "../utility/embeds/defaultColor";
+import selfRoles from "../qt/selfRoles.js";
+import qt from "../qt/qt data.js";
+import defaultColor from "../utility/embeds/defaultColor.js";
 
 
 /*

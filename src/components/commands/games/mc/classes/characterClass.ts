@@ -1,10 +1,10 @@
-import direction from "../enums/direction";
-import McGame from "./McGame";
-import Item from "../interfaces/Item";
-import emojis from "../../../../utility/emojis";
-import mine from "../../../economy/mine";
-import stoneSword from "./items/stoneSword";
-import woodenPickaxe from "./items/woodenPickaxe";
+import direction from "../enums/direction.js";
+import McGame from "./McGame.js";
+import Item from "../interfaces/Item.js";
+import emojis from "../../../../utility/emojis.js";
+import mine from "../../../economy/mine.js";
+import stoneSword from "./items/stoneSword.js";
+import woodenPickaxe from "./items/woodenPickaxe.js";
 
 
 export default class characterClass {

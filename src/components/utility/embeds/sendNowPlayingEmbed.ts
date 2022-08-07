@@ -7,8 +7,8 @@ const getYoutubeVideoThumbnail = require('../getYoutubeVideoThumbnail')
 const {randomColor} = require('../hexColors')
 const { green, bold, orange, yellow } = require('../textFormatting')
 
-import getAudio from "./../getAudio"
-import defaultColor from "./defaultColor"
+import getAudio from "./../getAudio.js"
+import defaultColor from "./defaultColor.js"
 
 // make this an async function to avoid having to declare the promise
 async function createNowPlayingEmbedPromise(url: string, message: any /*discord.Message*/) {

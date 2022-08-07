@@ -1,7 +1,7 @@
 import { Message, MessageEmbed, TextChannel, User } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import defaultColor from "../../utility/embeds/defaultColor";
+import CommandClass from "../../classes/CommandClass.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
 
 export default class baltop extends CommandClass {
     protected static commandDescription: string = 'Shows the user with the highest balance'

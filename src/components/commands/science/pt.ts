@@ -1,8 +1,8 @@
 import { ColorResolvable, Message, MessageEmbed, TextChannel } from 'discord.js';
 import Tau from '../../..';
-import CommandClass from "../../classes/CommandClass";
-import { MISSING_ARGS_ERR_METACLASS } from '../../classes/Errors';
-import ErrorClass from '../../classes/ErrorSuperClass';
+import CommandClass from "../../classes/CommandClass.js";
+import { MISSING_ARGS_ERR_METACLASS } from '../../classes/Errors.js';
+import ErrorClass from '../../classes/ErrorSuperClass.js';
 
 const periodicTable = require('periodic-table');
 

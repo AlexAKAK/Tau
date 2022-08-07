@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import src from "../../..";
-import CommandClass from "../../classes/CommandClass";
+import CommandClass from "../../classes/CommandClass.js";
 
 const emojis = ['', '']
 export default class roll extends CommandClass {

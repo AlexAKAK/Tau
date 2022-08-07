@@ -1,7 +1,7 @@
 import { DiscordAPIError, DMChannel, Message, MessageEmbed, TextChannel } from "discord.js";
-import mRNAGeneTranscript from '../../classes/genetics/mRNAGeneTranscript'
-import CommandClass from "../../classes/CommandClass";
-import aminoAcidSymbolToName from "../../classes/genetics/aminoAcidSymbolToName";
+import mRNAGeneTranscript from '../../classes/genetics/mRNAGeneTranscript.js'
+import CommandClass from "../../classes/CommandClass.js";
+import aminoAcidSymbolToName from "../../classes/genetics/aminoAcidSymbolToName.js";
 import Tau from "../../..";
 
 @translate.errorCheck(translate.MISSING_ARGS_ERR_METACLASS(2))

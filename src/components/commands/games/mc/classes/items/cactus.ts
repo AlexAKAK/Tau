@@ -1,9 +1,9 @@
-import emojis from "../../../../../utility/emojis";
-import blockTypes from "../../enums/blockTypes";
-import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
-import Item from "../../interfaces/Item";
-import McGame from "../McGame";
-import grass from "./grass";
+import emojis from "../../../../../utility/emojis.js";
+import blockTypes from "../../enums/blockTypes.js";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum.js";
+import Item from "../../interfaces/Item.js";
+import McGame from "../McGame.js";
+import grass from "./grass.js";
 
 export default class cactus extends Item {
     [x: string]: any;

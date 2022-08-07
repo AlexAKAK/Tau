@@ -4,10 +4,10 @@ import Tau from "../../../index"
 
 const sendEmbed = require("./../../utility/embeds/sendEmbed")
 const { red, randomColor } = require("./../../utility/hexColors")
-import ytdl = require('ytdl-core')
+import ytdl from 'ytdl-core'
 const checkQueueThenHandle = require("./../../utility/checkQueueThenHandle")
-import CommandClass from '../../classes/CommandClass'
-import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer"
+import CommandClass from '../../classes/CommandClass.js'
+import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js"
 
 
 @restart.alias(['r'])

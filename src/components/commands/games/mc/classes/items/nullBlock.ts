@@ -1,9 +1,9 @@
-import Item from "../../interfaces/Item";
-import emojis from "../../../../../utility/emojis";
-import blockTypes from "../../enums/blockTypes";
-import characterInterface from "../characterClass";
-import McGame from "../McGame";
-import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
+import Item from "../../interfaces/Item.js";
+import emojis from "../../../../../utility/emojis.js";
+import blockTypes from "../../enums/blockTypes.js";
+import characterInterface from "../characterClass.js";
+import McGame from "../McGame.js";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum.js";
 
 export default class nullBlock extends Item {
     // This block does bothing. It is only used as a placeholder in the inventory to make things easier.

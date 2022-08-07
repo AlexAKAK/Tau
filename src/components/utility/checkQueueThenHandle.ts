@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import getYTLinkFromSpotifyLink from "./spotify/getYTLinkFromSpotifyLink";
+import getYTLinkFromSpotifyLink from "./spotify/getYTLinkFromSpotifyLink.js";
 
 /* 
 How handling a [!play <url>] will work

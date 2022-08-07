@@ -6,8 +6,8 @@ export {}
 const textFormatting = require('./../../utility/textFormatting')
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const {red, green, lightBlue} = require('./../../utility/hexColors')
-import CommandClass from '../../classes/CommandClass'
-import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer"
+import CommandClass from '../../classes/CommandClass.js'
+import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js"
  
 
 @stop.errorCheck([

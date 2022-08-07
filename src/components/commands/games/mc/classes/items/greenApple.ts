@@ -1,7 +1,7 @@
-import emojis from "../../../../../utility/emojis";
-import Item from "../../interfaces/Item";
-import blockTypes from "../../enums/blockTypes";
-import McGame from "../McGame";
+import emojis from "../../../../../utility/emojis.js";
+import Item from "../../interfaces/Item.js";
+import blockTypes from "../../enums/blockTypes.js";
+import McGame from "../McGame.js";
 
 export default class greenapple extends Item {
     toString(): string {

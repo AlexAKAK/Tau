@@ -1,15 +1,15 @@
-import CommandCategory from "../classes/CommandCategory";
-import ball from "../commands/misc/8ball";
-import announce from "../commands/misc/announce";
-import clear from "../commands/misc/clear";
-import color from "../commands/misc/color";
-import dog from "../commands/misc/dog";
-import gif from "../commands/misc/gif";
-import help from "../commands/misc/help";
-import meme from "../commands/misc/meme";
-import report from "../commands/misc/report";
-import yt from "../commands/misc/yt";
-import ytchannel from "../commands/misc/ytchannel";
+import CommandCategory from "../classes/CommandCategory.js";
+import ball from "../commands/misc/8ball.js";
+import announce from "../commands/misc/announce.js";
+import clear from "../commands/misc/clear.js";
+import color from "../commands/misc/color.js";
+import dog from "../commands/misc/dog.js";
+import gif from "../commands/misc/gif.js";
+import help from "../commands/misc/help.js";
+import meme from "../commands/misc/meme.js";
+import report from "../commands/misc/report.js";
+import yt from "../commands/misc/yt.js";
+import ytchannel from "../commands/misc/ytchannel.js";
 
 export default new CommandCategory('misc', [
     //color,

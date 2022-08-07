@@ -1,8 +1,8 @@
 import { Message } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import defaultColor from "../../utility/embeds/defaultColor";
-import readJson from "../../utility/readJson";
+import CommandClass from "../../classes/CommandClass.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
+import readJson from "../../utility/readJson.js";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 

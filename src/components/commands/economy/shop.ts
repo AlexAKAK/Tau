@@ -1,7 +1,7 @@
 import { Message, MessageEmbed, MessageReaction, ReactionCollector, User } from "discord.js";
 import src from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import defaultColor from "../../utility/embeds/defaultColor";
+import CommandClass from "../../classes/CommandClass.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
 
 
 export default class shop extends CommandClass {

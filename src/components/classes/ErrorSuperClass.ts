@@ -1,7 +1,7 @@
 
 import { Message, TextChannel, NewsChannel, DMChannel, MessageEmbed } from "discord.js"
-import defaultColor from "../utility/embeds/defaultColor"
-import errorColor from "../utility/embeds/errorColor"
+import defaultColor from "../utility/embeds/defaultColor.js"
+import errorColor from "../utility/embeds/errorColor.js"
 const sendEmbed = require('./../utility/embeds/sendEmbed')
 
 export default abstract class ErrorClass {

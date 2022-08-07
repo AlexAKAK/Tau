@@ -2,10 +2,10 @@ import { DMChannel, Message, TextChannel, MessageEmbed } from "discord.js"
 import Tau from "../../.."
 
 //const CommandClass = require('../classes/CommandClass')
-import CommandClass from '../../classes/CommandClass'
-import defaultColor from "../../utility/embeds/defaultColor"
-import errorColor from "../../utility/embeds/errorColor"
-import allCommands from "../../commandCategories/allCommands"
+import CommandClass from '../../classes/CommandClass.js'
+import defaultColor from "../../utility/embeds/defaultColor.js"
+import errorColor from "../../utility/embeds/errorColor.js"
+import allCommands from "../../commandCategories/allCommands.js"
 const pictures = require('./../../../../data/pictures')
 const darkThumbnail = 'https://i.ibb.co/RNpxfVg/bot-logo-for-embed.png'
 

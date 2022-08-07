@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import Tau from "../../..";
-import CommandClass from '../../classes/CommandClass'
+import CommandClass from '../../classes/CommandClass.js'
 const {randomHi, randomBye} = require('./.././../utility/gifs')
 import { joinVoiceChannel } from '@discordjs/voice';
 

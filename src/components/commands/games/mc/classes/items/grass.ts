@@ -1,11 +1,11 @@
-import Item from "../../interfaces/Item";
-import emojis from "../../../../../utility/emojis";
-import blockTypes from "../../enums/blockTypes";
-import characterInterface from "../characterClass";
-import McGame from "../McGame";
-import seed from "./seed";
-import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
-import placeable from "../../interfaces/placeable";
+import Item from "../../interfaces/Item.js";
+import emojis from "../../../../../utility/emojis.js";
+import blockTypes from "../../enums/blockTypes.js";
+import characterInterface from "../characterClass.js";
+import McGame from "../McGame.js";
+import seed from "./seed.js";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum.js";
+import placeable from "../../interfaces/placeable.js";
 
 export default class grass extends Item implements placeable {
     miningDifficulty: number = miningDifficultyEnum.STANDARD

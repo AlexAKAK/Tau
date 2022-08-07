@@ -1,9 +1,9 @@
 import { Message, MessageEmbed, TextChannel } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import ytChannel from "../../classes/ytChannel";
-import defaultColor from "../../utility/embeds/defaultColor";
-import getYTChannelFromQuery from "../../utility/getYTChannelFromQuery";
+import CommandClass from "../../classes/CommandClass.js";
+import ytChannel from "../../classes/ytChannel.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
+import getYTChannelFromQuery from "../../utility/getYTChannelFromQuery.js";
 
 @ytchannel.errorCheck([
     ytchannel.MISSING_ARGS_ERR_METACLASS(2)

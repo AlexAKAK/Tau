@@ -1,9 +1,9 @@
 import { Message, MessageEmbed, TextChannel, User } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import defaultColor from "../../utility/embeds/defaultColor";
+import CommandClass from "../../classes/CommandClass.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
 import fetch from 'node-fetch'
-import textBlock from "../../utility/embeds/textBlock";
+import textBlock from "../../utility/embeds/textBlock.js";
 
 const apiurl: string = 'https://opentdb.com/api.php?amount=1&type=multiple';
 /*

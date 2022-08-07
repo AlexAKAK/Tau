@@ -1,10 +1,10 @@
 import { DMChannel, Guild, GuildMember, Message, MessageEmbed, NewsChannel, TextChannel } from "discord.js"
 
-import * as errorClasses from "./Errors"
-import Tau from '../../index'
-import {ERROR, ERROR_METACLASS} from './Errors'
-import errorColor from "../utility/embeds/errorColor"
-import defaultColor from "../utility/embeds/defaultColor"
+import * as errorClasses from "./Errors.js"
+import Tau from '../../index.js'
+import {ERROR, ERROR_METACLASS} from './Errors.js'
+import errorColor from "../utility/embeds/errorColor.js"
+import defaultColor from "../utility/embeds/defaultColor.js"
 const fs = require('fs')
 
 /* make the err list definable as a static property of the CommandClass subclass, then use .class to
@@ -12,7 +12,7 @@ retrieve the class. After, use that to call CommandClass.constructor (super, in 
 */
 
 
-const sendEmbed = require('./../utility/embeds/sendEmbed')
+const sendEmbed = require('./../utility/embeds/sendEmbed.js')
 
 
 export default abstract class CommandClass {

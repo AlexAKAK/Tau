@@ -1,4 +1,4 @@
-import playlist from "../classes/playlist"
+import playlist from "../classes/playlist.js"
 
 let SpotifyWebApi = require('spotify-web-api-node')
 //const token = 'BQBh5pDXgxvt3sMj0fcnP-YzxKqp7IYylezTdyvfE5vGdbDwVKVwSHqJQ-FcR9XoO_Tm3rbl6JFluVhn9Qh_E_0j1sUAzBQgvtMuWMgWyfvDm-GT9bliZmXr-zPlkqEY5el5C8SlNMRKmVJ3prj5MK9wk0DDr30'

@@ -1,7 +1,7 @@
 import { TextChannel } from "discord.js";
 import { Message } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
+import CommandClass from "../../classes/CommandClass.js";
 
 export default class totalcurrency extends CommandClass {
     protected static commandCategory: string = 'currency'

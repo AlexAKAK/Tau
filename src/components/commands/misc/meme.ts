@@ -1,6 +1,6 @@
 import { Message, TextChannel } from "discord.js"
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
+import CommandClass from "../../classes/CommandClass.js";
 const fetch = require('node-fetch')
 
 

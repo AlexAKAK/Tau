@@ -1,9 +1,9 @@
 import { GuildMember } from "discord.js";
 import { Message } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass"
-import defaultColor from "../../utility/embeds/defaultColor";
-import getRandomInt from "../../utility/getRandomInt";
+import CommandClass from "../../classes/CommandClass.js"
+import defaultColor from "../../utility/embeds/defaultColor.js";
+import getRandomInt from "../../utility/getRandomInt.js";
 const sendEmbed = require('./../../utility/embeds/sendEmbed')
 const fs = require('fs')
 

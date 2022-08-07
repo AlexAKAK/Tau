@@ -1,8 +1,8 @@
 import { Message } from "discord.js";
 import Tau from "../../..";
 
-import CommandClass from '../../classes/CommandClass'
-import defaultColor from "../../utility/embeds/defaultColor";
+import CommandClass from '../../classes/CommandClass.js'
+import defaultColor from "../../utility/embeds/defaultColor.js";
 const { CLIENT_NOT_IN_VC_ERR, PLAYING_SONG_ALREADY_LOOPING_ERR } = require('./../../classes/Errors');
 const sendEmbed = require('./../../utility/embeds/sendEmbed');
 const { red, randomColor } = require('./../../utility/hexColors');

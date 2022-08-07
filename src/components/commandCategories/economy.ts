@@ -1,10 +1,10 @@
-import CommandCategory from "../classes/CommandCategory";
-import bal from "../commands/economy/bal";
-import baltop from "../commands/economy/baltop";
-import hack from "../commands/economy/hack";
-import mine from "../commands/economy/mine";
-import totalcurrency from "../commands/economy/totalcurrency";
-import walletcreate from "../commands/economy/walletcreate";
+import CommandCategory from "../classes/CommandCategory.js";
+import bal from "../commands/economy/bal.js";
+import baltop from "../commands/economy/baltop.js";
+import hack from "../commands/economy/hack.js";
+import mine from "../commands/economy/mine.js";
+import totalcurrency from "../commands/economy/totalcurrency.js";
+import walletcreate from "../commands/economy/walletcreate.js";
 
 
 export default new CommandCategory('economy', [

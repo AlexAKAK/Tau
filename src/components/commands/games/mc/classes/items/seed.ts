@@ -1,11 +1,11 @@
-import emojis from "../../../../../utility/emojis";
-import Item from "../../interfaces/Item";
-import placeable from "../../interfaces/placeable";
-import blockTypes from "../../enums/blockTypes";
-import McGame from "../McGame";
-import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
-import grass from "./grass";
-import tree from "./tree";
+import emojis from "../../../../../utility/emojis.js";
+import Item from "../../interfaces/Item.js";
+import placeable from "../../interfaces/placeable.js";
+import blockTypes from "../../enums/blockTypes.js";
+import McGame from "../McGame.js";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum.js";
+import grass from "./grass.js";
+import tree from "./tree.js";
 
 export default class seed  extends Item implements placeable {
     x: number

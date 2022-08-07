@@ -1,9 +1,9 @@
 import { Message, MessageEmbed } from "discord.js";
 import src from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import qtData from "../../qt/qt data";
-import errorColor from "../../utility/embeds/errorColor";
-import allColors from './../../qt/colors'
+import CommandClass from "../../classes/CommandClass.js";
+import qtData from "../../qt/qt data.js";
+import errorColor from "../../utility/embeds/errorColor.js";
+import allColors from './../../qt/colors.js'
 
 
 

@@ -1,9 +1,9 @@
 import { Message, MessageEmbed } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import ytVideo from "../../classes/ytVideo";
-import textBlock from "../../utility/embeds/textBlock";
-import getYTLinksFromQuery from "../../utility/getYTLinksFromQuery";
+import CommandClass from "../../classes/CommandClass.js";
+import ytVideo from "../../classes/ytVideo.js";
+import textBlock from "../../utility/embeds/textBlock.js";
+import getYTLinksFromQuery from "../../utility/getYTLinksFromQuery.js";
 
 let youtubesearchapi = require('youtube-search-api');
 

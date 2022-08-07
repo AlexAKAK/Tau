@@ -12,7 +12,7 @@ import McGame from "./components/commands/games/mc/classes/McGame.js";
 //import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
 import allCommands from "./components/commandCategories/allCommands.js";
 import setup from "./components/qt/setup.js";
-import memberJoin from "./components/qt/events/memberJoin.js";
+//import memberJoin from "./components/qt/events/memberJoin.js";
 import moderation from "./components/utility/moderation.js";
 import registerSlashCommands from "./components/utility/registerSlashCommands.js";
 

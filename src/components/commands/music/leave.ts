@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import { LanguageServiceMode } from "typescript";
 import Tau from "../../..";
 const {blue} = require('./.././../utility/hexColors')
-import CommandClass from '../../classes/CommandClass'
+import CommandClass from '../../classes/CommandClass.js'
 const {randomHi, randomBye} = require('./.././../utility/gifs')
 const {getVoiceConnection} = require('@discordjs/voice')
 

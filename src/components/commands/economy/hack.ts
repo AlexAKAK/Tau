@@ -1,10 +1,10 @@
 import { GuildMember, Message, TextChannel } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import defaultColor from "../../utility/embeds/defaultColor";
-import getRandomInt from "../../utility/getRandomInt";
+import CommandClass from "../../classes/CommandClass.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
+import getRandomInt from "../../utility/getRandomInt.js";
 
-const sendEmbed = require('./../../utility/embeds/sendEmbed')
+const sendEmbed = require('./../../utility/embeds/sendEmbed.js')
 const wallets = require('./../../../../data/wallets.json')
 const ONE_HOUR: number = 3600000
 const ONE_MINUTE: number = 60000

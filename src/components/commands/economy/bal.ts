@@ -1,7 +1,7 @@
 import { GuildMember, Message } from "discord.js";
 import Tau from "../../..";
-import CommandClass from "../../classes/CommandClass";
-import defaultColor from "../../utility/embeds/defaultColor";
+import CommandClass from "../../classes/CommandClass.js";
+import defaultColor from "../../utility/embeds/defaultColor.js";
 //import readJson from "../../utility/readJson";
 
 const sendEmbed = require('./../../utility/embeds/sendEmbed')

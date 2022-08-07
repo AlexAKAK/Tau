@@ -1,13 +1,13 @@
 import { isThisTypeNode } from "typescript";
-import emojis from "../../../../../utility/emojis";
-import craftable from "../../interfaces/craftable";
-import Item from "../../interfaces/Item";
-import blockTypes from "../../enums/blockTypes";
-import McGame from "../McGame";
-import miningDifficultyEnum from "../../enums/miningDifficultyEnum";
-import grass from "./grass";
-import nullBlock from "./nullBlock";
-import wood from "./wood";
+import emojis from "../../../../../utility/emojis.js";
+import craftable from "../../interfaces/craftable.js";
+import Item from "../../interfaces/Item.js";
+import blockTypes from "../../enums/blockTypes.js";
+import McGame from "../McGame.js";
+import miningDifficultyEnum from "../../enums/miningDifficultyEnum.js";
+import grass from "./grass.js";
+import nullBlock from "./nullBlock.js";
+import wood from "./wood.js";
 
 export default class woodenPickaxe extends Item {
     update(gameInstance: McGame): void {

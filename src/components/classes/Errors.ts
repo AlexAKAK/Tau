@@ -13,7 +13,7 @@ const sendEmbed = require("../utility/embeds/sendEmbed")
 
 const {red} = require("./../utility/hexColors")
 
-import ErrorClass from './ErrorSuperClass'
+import ErrorClass from './ErrorSuperClass.js'
 //////////////////////////////////////////////////////////////////////////////////
 export class CLIENT_NOT_IN_VC_ERR extends ErrorClass {
 
