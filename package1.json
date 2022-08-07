@@ -1,8 +1,7 @@
 {
-  "name": "Tau",
-  "type": "module",
+  "name": "bryson-bot",
   "version": "12.0.0",
-  "description": "Tau",
+  "description": "bryson bot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/collection": "^1.0.1",
+    "@discordjs/opus": "github:discordjs/opus",
     "@discordjs/voice": "^0.11.0",
     "axios": "^0.27.2",
     "discord-buttons": "^4.0.0",
@@ -29,6 +29,7 @@
     "miniget": "^4.2.2",
     "node-fetch": "^3.2.10",
     "node-localstorage": "^2.2.1",
+    "node-opus": "^0.3.3",
     "opusscript": "^0.0.8",
     "path": "^0.12.7",
     "periodic-table": "^0.0.8",

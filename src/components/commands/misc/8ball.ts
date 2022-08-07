@@ -2,8 +2,7 @@ import { DMChannel, Message, MessageEmbed, TextChannel } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import defaultColor from "../../utility/embeds/defaultColor";
-
-const fetch = require('node-fetch')
+import fetch from "node-fetch"
 
 @ball.alias([
     '8ball'

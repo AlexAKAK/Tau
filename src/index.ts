@@ -1,19 +1,20 @@
 // import dependencies
-import { Client, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState, Intents, Permissions} from "discord.js";
+import { Client, GatewayIntentBits, Guild, GuildMember, Message, MessageEmbed, MessageReaction, VoiceState, Intents, Permissions} from "discord.js";
 
 // import button commands
-import help from './components/commands/misc/help'
-import stop from './components/commands/music/stop'
-import skip from './components/commands/music/skip'
-import queue from './components/commands/music/queue'
-import restart from './components/commands/music/restart'
+import help from './components/commands/misc/help.js'
+import stop from './components/commands/music/stop.js'
+import skip from './components/commands/music/skip.js'
+import queue from './components/commands/music/queue.js'
+import restart from './components/commands/music/restart.js'
 
-import McGame from "./components/commands/games/mc/classes/McGame";
+import McGame from "./components/commands/games/mc/classes/McGame.js";
 //import buttonErrorChecking from "./components/utility/buttons/buttonErrorChecking";
-import allCommands from "./components/commandCategories/allCommands";
-import setup from "./components/qt/setup";
-import memberJoin from "./components/qt/events/memberJoin";
-import moderation from "./components/utility/moderation";
+import allCommands from "./components/commandCategories/allCommands.js";
+import setup from "./components/qt/setup.js";
+import memberJoin from "./components/qt/events/memberJoin.js";
+import moderation from "./components/utility/moderation.js";
+import registerSlashCommands from "./components/utility/registerSlashCommands.js";
 
 
 //const disbut = require('discord.js-buttons')
@@ -35,7 +36,7 @@ export default class Tau extends Client {
     public qtServer: Guild;
     // /property declarations
     constructor() {
-        super({intents: [
+        /*super({intents: [
             Intents.FLAGS.GUILDS,
             Intents.FLAGS.GUILD_MEMBERS,
             Intents.FLAGS.GUILD_BANS,
@@ -55,6 +56,9 @@ export default class Tau extends Client {
             Intents.FLAGS.GUILD_INTEGRATIONS
         ]
     })
+    */
+
+    super({intents: [GatewayIntentBits.Guilds]})
         // data holders
         this.games = new Map<string, GameObject>()
         this.queueMap = new Map<any, any>()
@@ -89,6 +93,11 @@ export default class Tau extends Client {
         this.on('ready', () => {
             console.log("[Online]")
             this.qtServer = this.guilds.cache.find(guild => guild.id == config['qtServerID'])
+
+            client.guilds.cache.map(guild => {
+                // iterate through the list of guilds
+                registerSlashCommands(client, client.TOKEN, guild.id) 
+            });
 
             //if (config['initialize']) setup(this)
         })
@@ -203,6 +212,12 @@ const client: Tau = new Tau();
 client.login(config['token'])
 moderation(client)
 
+
+
+
+
+
+
 /*
 client.on("messageCreate", (message: Message) => {
     const dancingbaker: string = '294262526902927361'
@@ -236,4 +251,10 @@ client.on('clickButton', async (button: any) => {
 
     button.defer()
 });
+
+
+
+
+"discord.js": "^13.6.0",
+
 */
