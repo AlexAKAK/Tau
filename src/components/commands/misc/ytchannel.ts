@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, MessageEmbed, TextChannel } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass";
 import ytChannel from "../../classes/ytChannel";
@@ -19,7 +19,7 @@ export default class ytchannel extends CommandClass {
     public async commandMain(message: Message, client: Tau): Promise<any> {
         const query: string = ytchannel.removePrefixAndCommandFromString(message.content, client.PREFIX)
         const channel: ytChannel = await getYTChannelFromQuery(query)
-        if (channel == null) ytchannel.sendErrMessage(message.channel, `There are no channel results for: ${query}`)
+        if (channel == null) ytchannel.sendErrMessage(<TextChannel> message.channel, `There are no channel results for: ${query}`)
         else {
             let embed = new MessageEmbed()
             embed.setTitle(`Result for: ${query}`)
@@ -29,7 +29,7 @@ export default class ytchannel extends CommandClass {
             embed.setThumbnail(`https:${channel.thumbnail['thumbnails'][1]['url']}`)
             embed.setTimestamp()
             embed.setColor(defaultColor)
-            message.channel.send(embed)
+            message.channel.send({embeds: [embed]})
         }
     }
     

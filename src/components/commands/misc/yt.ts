@@ -26,7 +26,7 @@ export default class yt extends CommandClass {
         for (let i = 0; i < links.length; i++) {
             embed.addField(textBlock(`Result ${i + 1}: ${links[i].title}`), links[i].URL, false)
         }
-        message.channel.send(embed)
+        message.channel.send({embeds: [embed]})
     }
     
 }
