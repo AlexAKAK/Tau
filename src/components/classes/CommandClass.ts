@@ -44,14 +44,14 @@ export default abstract class CommandClass {
     // decorator factory
     protected static errorCheck: Function = function (errorsToCheck: ERROR|ERROR_METACLASS[]) {
     
-        const checkErr = (message: Message): boolean => {
+        const checkErr = (interaction: ChatInputCommandInteraction): boolean => {
             let errPresent = false
             // instantiated a an object of class of superclass ErrorClass, which checks if the error is present
             for (let i = 0; i < errorsToCheck.length; i++) {
-                const errBeingChecked = new errorsToCheck[i](message)
-                if (errBeingChecked.checkPresence(message) == true) {
+                const errBeingChecked = new errorsToCheck[i](interaction)
+                if (errBeingChecked.checkPresence(interaction) == true) {
                     errPresent = true
-                    errBeingChecked.standardHandle(message)
+                    errBeingChecked.standardHandle(interaction)
                     break
                 }
             }

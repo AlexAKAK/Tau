@@ -1,5 +1,5 @@
 
-import { Message, TextChannel, NewsChannel, DMChannel, Embed, EmbedBuilder } from "discord.js"
+import { Message, TextChannel, NewsChannel, DMChannel, Embed, EmbedBuilder, ChatInputCommandInteraction } from "discord.js"
 import defaultColor from "../utility/embeds/defaultColor.js"
 import errorColor from "../utility/embeds/errorColor.js"
 import sendEmbed from './../utility/embeds/sendEmbed.js'
@@ -28,7 +28,7 @@ export default abstract class ErrorClass {
     }
     */
 
-    sendErrMessage(channel: TextChannel|DMChannel|NewsChannel, message: string) {
+    sendErrMessage(interaction: ChatInputCommandInteraction, message: string) {
         // message is a discord.message, kwargs is a dictionary
     
         let embed = new EmbedBuilder()
@@ -39,7 +39,7 @@ export default abstract class ErrorClass {
         
      
         // sends the embed message, then returns a promise that resolves to the message.
-        const sentMessagePromise = channel.send({embeds: [embed]})
+        const sentMessagePromise = interaction.reply({embeds: [embed], ephemeral: true})
         // if there's a deleteTimeout specified
         sentMessagePromise
         .then(message => {
@@ -61,8 +61,8 @@ export default abstract class ErrorClass {
     
 
     
-    abstract checkPresence(message: Message): boolean
-    abstract standardHandle(message: Message): void
+    abstract checkPresence(interaction: ChatInputCommandInteraction): boolean
+    abstract standardHandle(interaction: ChatInputCommandInteraction): void
     
 
     //checkPresence(message) {}

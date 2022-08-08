@@ -6,12 +6,11 @@ Any error that is used often should appear here.
 
 */
 
-import { DMChannel, Message, NewsChannel, TextChannel, VoiceState } from 'discord.js'
+import { getVoiceConnection } from '@discordjs/voice'
+import { ChatInputCommandInteraction, DMChannel, Message, NewsChannel, TextChannel, VoiceState } from 'discord.js'
 import Tau from '../..'
 
 import sendEmbed from "../utility/embeds/sendEmbed"
-
-import { red } from "./../utility/hexColors.js"
 
 import ErrorClass from './ErrorSuperClass.js'
 //////////////////////////////////////////////////////////////////////////////////
@@ -19,21 +18,21 @@ export class CLIENT_NOT_IN_VC_ERR extends ErrorClass {
 
     
     
-    checkPresence(message: Message) {
+    checkPresence(interaction: ChatInputCommandInteraction) {
         console.log('client not in vc err checking')
-
-        const state: VoiceState = (<Tau> message.client).getVoiceState(message.guild.id)
+        console.log('testing')
+        const voice: VoiceState = (<Tau> interaction.client).getVoiceState(interaction.guild.id)
 
         // working here
-        if (state.channel == undefined || state.channel == null) return true
+        if (voice == undefined || voice == null) return true
         else return false
     }
 
-    standardHandle(message: Message) {
+    standardHandle(interaction: ChatInputCommandInteraction) {
         console.log('not in vc')
 
-        const commandName = this.getCommandName(message)
-        this.sendErrMessage(<TextChannel|DMChannel> message.channel, `I must be in a voice channel to use the ${commandName} command, ${message.author.tag}.`)
+    
+        this.sendErrMessage(interaction, `I must be in a voice channel to use the ${interaction.commandName} command, ${interaction.user.tag}.`)
     }
 
 
@@ -44,15 +43,19 @@ export class MEMBER_NOT_IN_VC_ERR extends ErrorClass {
 
     
     
-    checkPresence(message: Message) {
+    checkPresence(interaction: ChatInputCommandInteraction) {
+        console.log('testing')
 
-        if (message.member.voice.channel == undefined || message.member.voice.channel == null) return true
+        if (interaction.member.voice.channel == undefined || interaction.member.voice.channel == null) return true
         else return false
     }
 
-    standardHandle(message: Message) {
-        const commandName = this.getCommandName(message)
-        this.sendErrMessage(message.channel, `You must be in a voice channel to use the ${commandName} command, ${message.author.tag}.`)
+    standardHandle(interaction: ChatInputCommandInteraction) {
+
+        
+
+       
+        this.sendErrMessage(interaction, `You must be in a voice channel to use the ${interaction.commandName} command, ${interaction.user.tag}.`)
     }
 
 
@@ -158,12 +161,17 @@ export function QUANTATIVE_RANGE_ERR_METACLASS(argName, i, lowerBound, upperBoun
 }
 
 export class CLIENT_ALREADY_IN_VC_ERR extends ErrorClass {
-    checkPresence(message: Message): boolean {
-        if (message.guild.client.voice.channel != null) return true
+    checkPresence(interaction: ChatInputCommandInteraction): boolean {
+        console.log('testing')
+
+
+        const voice = interaction.guild.voiceStates.cache.get(interaction.client.user.id)
+        
+        if (voice != undefined) return true
         else return false
     }
-    standardHandle(message: Message): void {
-        this.sendErrMessage(message.channel, `I am already in a voice channel, ${message.author.tag}.`)
+    standardHandle(interaction: ChatInputCommandInteraction): void {
+        this.sendErrMessage(interaction, `I am already in a voice channel, ${interaction.user.tag}.`)
     }
 }
 
