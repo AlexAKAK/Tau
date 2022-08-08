@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
 import Tau from "../../..";
 
 import TenorModule from 'tenorjs';
@@ -15,33 +15,45 @@ const Tenor = TenorModule.client({
 
 import CommandClass from '../../classes/CommandClass.js'
 
-
+/*
 @gif.errorCheck([
     gif.MISSING_ARGS_ERR_2
 ])
+*/
+
 
 export default class gif extends CommandClass {
     protected static commandCategory: string = 'misc'
     protected static commandDescription: string = 'A gif is sent into the chat'
     protected static commandSyntax: string = 'gif <search query>'
 
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setName("gif")
+        .setDescription("Sends a gif")
+        .addStringOption(query =>
+            query.setDescription("Your query")
+            .setName("query")
+            .setRequired(true)
+        )
+
     //static fetch = require('node-fetch')
     static MISSING_ARGS_ERR_2 = gif.MISSING_ARGS_ERR_METACLASS(2)
 
-    public async commandMain(message: Message, client: Tau) {
-        const argsList = message.content.split(' ')
-        let keywords: string = ""
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
+        
 
 
-        for (let i = 1; i < argsList.length; i++) keywords = `${keywords} ${argsList[i]}`
+        const keywords = interaction.options.getString('query')
 
-
+        
 
                 const results = await Tenor.Search.Query(keywords, "1")
                 
                 
                 results.forEach(post => {
-                    message.channel.send(post['itemurl'])
+                    interaction.reply(post['itemurl'])
                     console.log(post['itemurl'])
                 });
                 

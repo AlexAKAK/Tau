@@ -13,13 +13,13 @@ import ytchannel from "../commands/misc/ytchannel.js";
 
 export default new CommandCategory('misc', [
     //color,
-    //gif,
-    //meme,
-    //report,
-    //yt,
-    //ytchannel,
+    gif,
+    meme,
+    report,
+    yt,
+    ytchannel,
     //clear,
-    //dog,
+    dog,
     ball
 ],
 'Random commands for fun!') 

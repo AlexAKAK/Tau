@@ -15,6 +15,12 @@ import fetch from "node-fetch"
 */
 
 export default class ball extends CommandClass {
+
+    protected static commandCategory: string = 'misc'
+    protected static commandDescription: string = 'Ask the magic 8 ball a question'
+    protected static commandSyntax: string = 'ball <question>'
+
+
     public static slashCommand = new SlashCommandBuilder()
         .setName("ball")
         .setDescription("Answers a question!")
@@ -58,26 +64,9 @@ export default class ball extends CommandClass {
         .setColor(defaultColor)
         .setTimestamp()
         
-        interaction.channel.send({embeds: [embed]})
+        interaction.reply({embeds: [embed]})
     
-     
-        
-    }
-
-    public static register(rest: REST, client: Tau): void {
-        console.log('registering')
-        const data = new SlashCommandBuilder()
-
-        .setName('ball')
-        .setDescription('Get advice')
-
-        const commands = [
-            data
-        ]
-        
-        client.guilds.cache.forEach((guild: Guild) => {
-            rest.put(Routes.applicationGuildCommands(client.user.id, guild.id), {body: commands})
-        })
+       
         
     }
 }

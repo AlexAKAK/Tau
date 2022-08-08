@@ -1,4 +1,4 @@
-import { Message, Embed, EmbedBuilder, ColorResolvable } from "discord.js";
+import { Message, Embed, EmbedBuilder, ColorResolvable, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import ytVideo from "../../classes/ytVideo.js";
@@ -8,18 +8,31 @@ import getYTLinksFromQuery from "../../utility/getYTLinksFromQuery.js";
 import youtubesearchapi from 'youtube-search-api'
 import defaultColor from "../../utility/embeds/defaultColor.js";
 
-
+/*
 @yt.errorCheck([
     yt.MISSING_ARGS_ERR_METACLASS(2)
 ])
+*/
 export default class yt extends CommandClass {
 
     protected static commandCategory: string = 'misc'
     protected static commandDescription: string = 'Outputs search results for a youtube search'
     protected static commandSyntax: string = 'yt <query>'
 
-    public async commandMain(message: Message, client: Tau): Promise<void> {
-        const query = yt.removePrefixFromString(message.content, client.PREFIX)
+
+    public static slashCommand = new SlashCommandBuilder()
+    .setName("yt")
+    .setDescription("Searches youtube")
+    .addStringOption(query =>
+        query.setDescription("The query for youtube")
+        .setName("query")
+        .setRequired(true)
+    )
+
+
+
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
+        const query = interaction.options.getString('query')
         const links: ytVideo[] = await getYTLinksFromQuery(query)
         let embed = new EmbedBuilder()
         .setTitle(textBlock(`Search results for ${query}`))
@@ -31,7 +44,7 @@ export default class yt extends CommandClass {
                 inline:false
             })
         }
-        message.channel.send({embeds: [embed]})
+        interaction.reply({embeds: [embed]})
     }
     
 }

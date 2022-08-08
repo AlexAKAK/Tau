@@ -1,4 +1,4 @@
-import { Message, TextChannel } from "discord.js"
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder, TextChannel } from "discord.js"
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import fetch from 'node-fetch';
@@ -9,12 +9,18 @@ export default class meme extends CommandClass {
     protected static commandCategory: string = 'misc'
     protected static commandDescription: string = 'A random meme is sent into the chat'
     protected static commandSyntax: string = 'meme'
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setDescription("Sends a random meme")
+        .setName('meme')
+
     
-    async commandMain(message: Message, client: Tau) {
+    async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
 
         const memeFromReddit = await meme.getRandomMeme()  
-        try {message.channel.send(memeFromReddit)}
-        catch {meme.sendEmbed(<TextChannel> message.channel, {
+        try {interaction.reply(memeFromReddit)}
+        catch {meme.sendEmbed(<TextChannel> interaction.channel, {
             title: `An unexpected error occured. please try again later.`,
             color: 'GREEN',
             deleteTimeout: 5000
