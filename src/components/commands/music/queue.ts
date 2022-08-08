@@ -1,4 +1,4 @@
-import { Message, Embed } from "discord.js";
+import { Message, Embed, SlashCommandAssertions, SlashCommandBuilder, ChatInputCommandInteraction } from "discord.js";
 //import { MessageButton } from "discord-buttons";
 import Tau from "../../../index";
 import CommandClass from '../../classes/CommandClass.js'
@@ -16,7 +16,7 @@ import sendEmbed from './../../utility/embeds/sendEmbed.js';
 
 export {}
 
-@queue.alias(['q'])
+//@queue.alias(['q'])
 
 @queue.errorCheck([
     queue.CLIENT_NOT_IN_VC_ERR, 
@@ -29,10 +29,16 @@ export default class queue extends CommandClass {
     protected static commandSyntax: string = 'queue'
 
 
-    public async commandMain(message: Message, client: Tau) {
+    public static slashCommand = new SlashCommandBuilder()
+        .setName('queue')
+        .setDescription('Displays the song queue')
 
-        const playing = client.queueMap[message.guild.id]['playing'] // dict
-        const serverQueue = client.queueMap[message.guild.id]['queue'] // array
+
+
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
+
+        const playing = client.queueMap[interaction.guild.id]['playing'] // dict
+        const serverQueue = client.queueMap[interaction.guild.id]['queue'] // array
 
         
         // make fields
@@ -93,7 +99,7 @@ export default class queue extends CommandClass {
             buttons: buttons
         })
         */
-       message.channel.send(text)
+       interaction.reply(text)
         return false
     }
 }

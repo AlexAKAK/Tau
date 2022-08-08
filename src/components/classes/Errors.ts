@@ -94,19 +94,19 @@ export function MISSING_ARGS_ERR_METACLASS(minArgs: number) {
 
 export class CLIENT_NOT_PLAYING_ANYTHING_ERR extends ErrorClass {
 
-    checkPresence(message: Message) {
+    checkPresence(interaction: ChatInputCommandInteraction) {
         console.log('client not playing anything err checking')
 
-        const client_t = message.client as Tau
-        if (! (client_t.isAlreadyPlayingSomething(message))) return true
+        const client_t = interaction.client as Tau
+        if (! (client_t.isAlreadyPlayingSomething(interaction))) return true
         else return false
     }
 
-    standardHandle(message) {
+    standardHandle(interaction: ChatInputCommandInteraction) {
         console.log('not playing anything')
         
-        const commandName = this.getCommandName(message)
-        this.sendErrMessage(message.channel, `I am not playing anything, ${message.author.tag}. I must be playing something for you to use the ${commandName} command.`)  
+        
+        this.sendErrMessage(interaction, `I am not playing anything, ${interaction.user.tag}. I must be playing something for you to use the ${interaction.commandName} command.`)  
     }
 
 
@@ -167,7 +167,8 @@ export class CLIENT_ALREADY_IN_VC_ERR extends ErrorClass {
 
         const voice = interaction.guild.voiceStates.cache.get(interaction.client.user.id)
         
-        if (voice != undefined) return true
+        if (voice == undefined) return false
+        if (voice.channel != undefined || voice.channel != null) return true;
         else return false
     }
     standardHandle(interaction: ChatInputCommandInteraction): void {

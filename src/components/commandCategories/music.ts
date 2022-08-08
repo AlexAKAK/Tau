@@ -14,16 +14,16 @@ import stop from "../commands/music/stop.js";
 export default new CommandCategory('music', [
     join,
     leave,
-    /*
+    
     play,
     queue,
-    restart,
-    shuffle,
+    //restart,
+    //shuffle,
     skip,
-    stop,
-    loop,
-    playing
-    */
+    //stop,
+    //loop,
+    //playing
+    
 ],
 'Commands related to playing music in a voice channel')
 

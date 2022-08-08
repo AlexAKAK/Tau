@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
 import Tau from "../../..";
 
 
@@ -11,6 +11,7 @@ import checkQueueThenHandle from './../../utility/checkQueueThenHandle';
 import sendEmbed from './../../utility/embeds/sendEmbed.js';
 import {getVoiceConnection} from '@discordjs/voice'
 import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js";
+import replyEmbed from "../../utility/embeds/replyEmbed.js";
 
 // C:/Users/alexk/Desktop/coding projects/bryson/bryson bot 9/src/components/utility/checkQueueThenHandle.js
 /*async function skip(message) {
@@ -35,7 +36,7 @@ import ConnectionWithPlayer from "../../classes/ConnectionWithPlayer.js";
 }*/
 
 
-@skip.alias(['s'])
+//@skip.alias(['s'])
 
 
 @skip.errorCheck([
@@ -47,19 +48,24 @@ export default class skip extends CommandClass {
     protected static commandCategory: string = 'music'
     protected static commandDescription: string = 'The current song is skipped'
     protected static commandSyntax: string = 'skip'
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setName('skip')
+        .setDescription('Skips the current song')
     
     
-    public async commandMain(message: Message, client: Tau) {
-        const connection = getVoiceConnection(message.guild.id)
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
+        const connection = getVoiceConnection(interaction.guild.id)
         
         //const dispatcher = connection.dispatcher
-        sendEmbed(message.channel, {
-            title: `Skipped ${client.queueMap[message.guild.id]['playing']['songName']}`,
+        replyEmbed(interaction, {
+            title: `Skipped ${client.queueMap[interaction.guild.id]['playing']['songName']}`,
             color: '#ffff00',
             deleteTimeout: 5000,
         })
         // make the song not loop
-        client.queueMap[message.guild.id]['playing']['loop'] = false
+        client.queueMap[interaction.guild.id]['playing']['loop'] = false
         const connectionP: ConnectionWithPlayer = connection as ConnectionWithPlayer
         connectionP.player.stop()
 

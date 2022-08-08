@@ -130,8 +130,8 @@ export default class Tau extends Client {
         */
     }
 
-    isAlreadyPlayingSomething(message: Message) {
-        const a = client.queueMap[message.guild.id]
+    isAlreadyPlayingSomething(interaction: ChatInputCommandInteraction) {
+        const a = client.queueMap[interaction.guild.id]
         console.log(a)
 
         if (a == undefined) return false

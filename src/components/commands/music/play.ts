@@ -5,7 +5,7 @@ import sendEmbed from './../../utility/embeds/sendEmbed.js';
 //import { red, randomColor } from './../../utility/hexColors';
 import checkQueueThenHandle from './../../utility/checkQueueThenHandle.js'
 import playAudio from './../../utility/playAudio.js';
-import { Client, Message, TextChannel } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder, TextChannel } from 'discord.js';
 import getYoutubeVideoUrlFromKeyword from './../../utility/getYoutubeVideoURLFromKeyword.js';
 //const CommandClass = require('../classes/CommandClass');
 import Tau from './../../../index.js'
@@ -27,13 +27,14 @@ const {getData, getTracks} = spotifyUrlInfo
 
 import spdl from 'spdl-core';
 import ytsr from 'ytsr';
+import replyEmbed from "../../utility/embeds/replyEmbed.js";
 
-@play.alias(['p'])
+//@play.alias(['p'])
 
 @play.errorCheck([
     play.CLIENT_NOT_IN_VC_ERR,
     play.MEMBER_NOT_IN_VC_ERR, 
-    play.MISSING_ARGS_ERR_2
+    //play.MISSING_ARGS_ERR_2
     /*, play.MEMBER_IN_DIFFERENT_VC_THAN_CLIENT_ERR*/
 ])
 
@@ -42,33 +43,48 @@ export default class play extends CommandClass {
     protected static commandDescription: string = 'I play a song by name or youtube link'
     protected static commandSyntax: string = 'play <youtube link/search query>'
 
+
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setName("play")
+        .setDescription('Plays audio from YouTube')
+        .addStringOption(query => 
+            query.setRequired(true)
+            .setName('query')
+            .setDescription('The query for the audio')    
+        )
+
+
+
+
     static MISSING_ARGS_ERR_2: ERROR = play.MISSING_ARGS_ERR_METACLASS(2)
 
-    static botIsAlreadyPlayingSomething(message: Message, client: Tau) {
-        const a = client.queueMap[message.guild.id]['playing']
+    static botIsAlreadyPlayingSomething(interaction: ChatInputCommandInteraction, client: Tau) {
+        const a = client.queueMap[interaction.guild.id]['playing']
 
         if (a == null || a == undefined) return false
         else return true
     }
 
 
-    static async ytQueueAdd(message: Message, client: Tau) {
-        const args = play.splitArgs(message)
-        const url = args[1]
+    static async ytQueueAdd(interaction: ChatInputCommandInteraction, client: Tau) {
+        //const args = play.splitArgs(message)
+        const url = interaction.options.getString('query')
         let info: object;
         getInfo(url)
         .then(info => 
         {
             const audio = getAudio(url)
-            client.queueMap[message.guild.id]['queue'].push({
+            client.queueMap[interaction.guild.id]['queue'].push({
                         audio: audio,
                         url: url,
                         songName: info['videoDetails']['title'],
-                        author: message.author,
+                        author: interaction.user,
                                         
                     })
 
-                    sendEmbed(message.channel, {
+                    replyEmbed(interaction, {
                         title: `Added to queue: ${info['videoDetails']['title']}`,
                         color: '#ffff00',
                         deleteTimeout: 5000,
@@ -80,7 +96,7 @@ export default class play extends CommandClass {
 
         })
         .catch(err => {
-            play.videoCannotBeAccessed(message, client)
+            play.videoCannotBeAccessed(interaction, client)
             return
         })
         
@@ -94,16 +110,16 @@ export default class play extends CommandClass {
                     
         return false
     }
-    static async ytPlay(message: Message, client: Tau) {
+    static async ytPlay(interaction: ChatInputCommandInteraction, client: Tau) {
         console.log('ytPlay')
-        const args = play.splitArgs(message)
-        const url = args[1]
+        //const args = play.splitArgs(message)
+        const url = interaction.options.getString('query')
         getInfo(url)
         .then(async info =>
         {
             console.log('then')
             if (info == null || info == undefined) {
-                        sendEmbed(message.channel, {
+                        replyEmbed(interaction, {
                             title: 'No videos found',
                             color: 'Red',
                             deleteTimeout: 5000
@@ -111,13 +127,13 @@ export default class play extends CommandClass {
                     }
                     const audio = await getAudio(url)
 
-                await playAudio(audio, message.member.voice.channel, url, message)
-                    client.queueMap[message.guild.id] = {
+                await playAudio(audio, interaction.member.voice.channel, url, interaction)
+                    client.queueMap[interaction.guild.id] = {
                         playing: {
                             audio: audio,
                             url: url,
                             songName: info['videoDetails']['title'],
-                            author: message.author
+                            author: interaction.user
                                             
                         },
                         queue: [],
@@ -129,7 +145,7 @@ export default class play extends CommandClass {
         .catch(err =>
         {
             console.log('sus')
-            play.videoCannotBeAccessed(message, client)
+            play.videoCannotBeAccessed(interaction, client)
             return
         })
 
@@ -143,7 +159,7 @@ export default class play extends CommandClass {
     }
 
     
-    static async kwPlay(message: Message, client: Tau, audio: any, url: string) {
+    static async kwPlay(interaction: ChatInputCommandInteraction, client: Tau, audio: any, url: string) {
 
         console.log('kwPlay')
 
@@ -151,16 +167,16 @@ export default class play extends CommandClass {
         getInfo(url)
         .then(async info => 
         {
-            if (info == null || info == undefined) play.handleNoVideoFound(message)
+            if (info == null || info == undefined) play.handleNoVideoFound(interaction)
 
                     // playAudio(message.client, audio, message.channel, message.author.voice.channel)
-                    await playAudio(audio, message.member.voice.channel, url, message)
-                    client.queueMap[message.guild.id] = {
+                    await playAudio(audio, interaction.member.voice.channel, url, interaction)
+                    client.queueMap[interaction.guild.id] = {
                         playing: {
                         audio: audio,
                         url: url,
                         songName: info['videoDetails']['title'],
-                        author: message.author
+                        author: interaction.user
                                             
                         },
                             queue: [],
@@ -176,7 +192,7 @@ export default class play extends CommandClass {
         })
         .catch(err => 
         {
-            play.videoCannotBeAccessed(message, client)
+            play.videoCannotBeAccessed(interaction, client)
             return
         })
         
@@ -187,19 +203,19 @@ export default class play extends CommandClass {
     }
 
 
-    static async kwQueueAdd(message: Message, client: Tau, audio: any, url: string) {
+    static async kwQueueAdd(interaction: ChatInputCommandInteraction, client: Tau, audio: any, url: string) {
         console.log('kwQueueAdd')
         getInfo(url)
         .then(async info => 
         {
-            client.queueMap[message.guild.id]['queue'].push({
+            client.queueMap[interaction.guild.id]['queue'].push({
                         audio: audio,
                         url: url,
                         songName: info['videoDetails']['title'],
-                        author: message.author
+                        author: interaction.user
                     })
 
-                    sendEmbed(message.channel, {
+                    replyEmbed(interaction, {
                         title: `Added to queue: ${info['videoDetails']['title']}`,
                         color: '#ffff00',
                         deleteTimeout: 5000,
@@ -209,13 +225,13 @@ export default class play extends CommandClass {
         })
         .catch(err => 
         {
-            play.videoCannotBeAccessed(message, client)
+            play.videoCannotBeAccessed(interaction, client)
             return
         })
 
     }
 
-    static async yt(message: Message, client: Tau) {
+    static async yt(interaction: ChatInputCommandInteraction, client: Tau) {
         console.log('yt')
     
         /*
@@ -225,24 +241,25 @@ export default class play extends CommandClass {
         */
     // start working here
     
-        if (this.botIsAlreadyPlayingSomething(message, client)) await play.ytPlay(message, client)           
-        else play.ytQueueAdd(message, client)
+        if (this.botIsAlreadyPlayingSomething(interaction, client)) await play.ytPlay(interaction, client)           
+        else play.ytQueueAdd(interaction, client)
     }
-    private static async kw(message: Message, client: Tau) {
+    private static async kw(interaction: ChatInputCommandInteraction, client: Tau) {
         console.log('kw')
-        const keyWords = message.content.substring(message.content.indexOf(' ') + 1)
+        //const keyWords = message.content.substring(message.content.indexOf(' ') + 1)
+        const keyWords = interaction.options.getString('query')
         let url: string
         try {
             url = await getYoutubeVideoUrlFromKeyword(keyWords)
         }
         catch {
             console.log('jahegkj haegkljhadg')
-            play.videoCannotBeAccessed(message, client)
+            play.videoCannotBeAccessed(interaction, client)
             return
         }
         console.log('got info')
         if (url == null) {
-            sendEmbed(message.channel, {
+            replyEmbed(interaction, {
                 title: `No videos found for: ${keyWords}`,
                 color: "#ffff00",
                 deleteTimeout: 5000,
@@ -257,19 +274,19 @@ export default class play extends CommandClass {
             console.log('aelgkjaeglkjeaglkjaeglj')
             // check if the connection's player is playing something
           
-            if (!client.isAlreadyPlayingSomething(message)) {
+            if (!client.isAlreadyPlayingSomething(interaction)) {
                 console.log('1234')
-                play.kwPlay(message, client, audio, url)
+                play.kwPlay(interaction, client, audio, url)
             }
             
             else {
                 console.log('5678')
-                play.kwQueueAdd(message, client, audio, url)
+                play.kwQueueAdd(interaction, client, audio, url)
             }
         }
         catch {
             console.log('susssss1351361613636')
-            play.videoCannotBeAccessed(message, client)
+            play.videoCannotBeAccessed(interaction, client)
         }
         
 
@@ -293,16 +310,16 @@ export default class play extends CommandClass {
         
     }
 
-    private static async spotifyAdd(message: Message, client: Tau, audio: any, url: string) {
+    private static async spotifyAdd(interaction: ChatInputCommandInteraction, client: Tau, audio: any, url: string) {
         const info = await getInfo(url)
-        client.queueMap[message.guild.id]['queue'].push({
+        client.queueMap[interaction.guild.id]['queue'].push({
             audio: audio,
             url: url,
             songName: info['videoDetails']['title'],
-            author: message.author
+            author: interaction.user
         })
 
-        sendEmbed(message.channel, {
+        replyEmbed(interaction, {
             title: `Added to queue: ${info['videoDetails']['title']}`,
             color: '#ffff00',
             deleteTimeout: 5000,
@@ -311,8 +328,9 @@ export default class play extends CommandClass {
         //return false 
     }
 
-    private static async spotify(message: Message, client: Tau) {
-        const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
+    private static async spotify(interaction: ChatInputCommandInteraction, client: Tau) {
+        //const spotifyURL = play.removePrefixAndCommandFromString(message.content, client.PREFIX)
+        const spotifyURL = interaction.options.getString('query')
         console.log(spotifyURL)
         const firstSearch: object = await getData(spotifyURL)
         if (firstSearch['tracks'] != undefined) {
@@ -326,7 +344,7 @@ export default class play extends CommandClass {
             }
             
             */
-            await play.spotifyPlaylist(message, client, tracks, playlistName)
+            await play.spotifyPlaylist(interaction, client, tracks, playlistName)
             return
         }
 
@@ -342,15 +360,15 @@ export default class play extends CommandClass {
         const ytURL = searchResults.items[0].url
         const audio = ytdl(ytURL)
 
-        console.log(`dispatcher ${message.guild.me.voice.connection.dispatcher}`)
+        console.log(`dispatcher ${interaction.guild.client.voice.connection.dispatcher}`)
 
-        if (message.guild.me.voice.connection.dispatcher == null || message.guild.me.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, ytURL)           
-        else play.kwQueueAdd(message, client, audio, ytURL)
+        if (interaction.guild.client.voice.connection.dispatcher == null || interaction.guild.client.voice.connection.dispatcher == undefined) play.kwPlay(message, client, audio, ytURL)           
+        else play.kwQueueAdd(interaction, client, audio, ytURL)
     }
 
-    private static async spotifyPlaylist(message: Message, client: Tau, tracks: object[], playlistName: string) {
+    private static async spotifyPlaylist(interaction: ChatInputCommandInteraction, client: Tau, tracks: object[], playlistName: string) {
    
-        sendEmbed(message.channel, {
+        replyEmbed(interaction, {
             title: `Loading Spotify Playlist: ${playlistName}`,
             deleteTimeout: 5000
         })
@@ -362,15 +380,15 @@ export default class play extends CommandClass {
         for (let i = 0; i < tracks.length; i++) {
             // if the track is explicit, don't add it or play it. Trying to play an explicit track crashes the bot
             
-            if (tracks[i] != null) if (!tracks[i]['explicit']) if (message.guild.me.voice.connection.dispatcher == null && playing == false) {
+            if (tracks[i] != null) if (!tracks[i]['explicit']) if (interaction.guild.client.voice.connection.dispatcher == null && playing == false) {
                 console.log('dispatcher is null')
                 const songData = await getYTLinkFromSpotifyLink(tracks[i]['external_urls']['spotify']) // change here
                 
-                client.queueMap[message.guild.id] = {
+                client.queueMap[interaction.guild.id] = {
                     playing: {
 
                         url: songData['url'],
-                        author: message.author,
+                        author: interaction.user,
                         audio: songData['audio'],
                         songName: songData['songName'],
                         playlistName: playlistName
@@ -381,19 +399,19 @@ export default class play extends CommandClass {
 
                 playing = true
                 
-                await playAudio(songData['audio'], message.member.voice.channel, songData['url'], message)
+                await playAudio(songData['audio'], interaction.member.voice.channel, songData['url'], interaction)
             }                
             
             else {
-                client.queueMap[message.guild.id]['queue'].push({
+                client.queueMap[interaction.guild.id]['queue'].push({
                    
                     url: tracks[i]['external_urls']['spotify'],
                     type: 'spotify',
-                    author: message.author,
+                    author: interaction.user,
                     playlistName: playlistName
                 })
                 // add back later
-                const length = client.queueMap[message.guild.id]['queue'].length
+                const length = client.queueMap[interaction.guild.id]['queue'].length
 
             }
 
@@ -403,7 +421,7 @@ export default class play extends CommandClass {
            
         }
 
-        if (areExplicitSongs) sendEmbed(message.channel, {
+        if (areExplicitSongs) replyEmbed(interaction, {
             title: `This playlist has songs that are explicit, and cannot be accessed anonymously.`,
             color: defaultColor,
             deleteTimeout: 5000
@@ -423,14 +441,18 @@ export default class play extends CommandClass {
     }
 
 
-    public async commandMain(message: Message, client: Tau) {
-        const isYTLink = message.content.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
+
+
+        const query = interaction.options.getString('query')
+
+        const isYTLink = query.match('http(?:s?):\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\?v=|\.be\\/)([\\w\\-\\_]*)(&(amp;)?‌​[\\w\\?‌​=]*)?')
         const re = /((open|play)\.spotify\.com\/)/
-        const isSpotifyLink = re.test(play.removePrefixAndCommandFromString(message.content, client.PREFIX))
+        const isSpotifyLink = re.test(play.removePrefixAndCommandFromString(query, client.PREFIX))
         try {
-            if (isYTLink) play.yt(message, client)
-            else if (isSpotifyLink) play.spotify(message, client)
-            else play.kw(message, client)   
+            if (isYTLink) play.yt(interaction, client)
+            else if (isSpotifyLink) play.spotify(interaction, client)
+            else play.kw(interaction, client)   
         }
         catch (err) {
             console.log(err)
@@ -441,16 +463,16 @@ export default class play extends CommandClass {
 
     
 
-    private static async handleNoVideoFound(message: Message) {
-        sendEmbed(message.channel, {
-            title: `No video results found, ${message.author.tag}.`,
+    private static async handleNoVideoFound(interaction: ChatInputCommandInteraction) {
+        replyEmbed(interaction, {
+            title: `No video results found, ${interaction.user.tag}.`,
             color: 'RED',
             deleteTimeout: 5000
         })
 
     }
 
-    private static async loadSong(message: Message, client: Tau, song: object) {
+    private static async loadSong(interaction: ChatInputCommandInteraction, client: Tau, song: object) {
             if (song['type'] == 'spotify') {
                 const data: object = await getYTLinkFromSpotifyLink(song['url'])
                 song['url'] = data['url']
@@ -460,21 +482,21 @@ export default class play extends CommandClass {
             }
     }
     
-    private static async loadAllSongs(message: Message, client: Tau) {
-        for (let i = 0; i < client.queueMap[message.guild.id]['queue'].length; i++) {
-            if (client.queueMap[message.guild.id]['queue'][i]['type'] == 'spotify') {
-                const data: object = await getYTLinkFromSpotifyLink(client.queueMap[message.guild.id]['queue'][i]['url'])
-                client.queueMap[message.guild.id]['queue'][i]['url'] = data['url']
-                client.queueMap[message.guild.id]['queue'][i]['audio'] = data['audio']
-                client.queueMap[message.guild.id]['queue'][i]['songName'] = data['songName']
-                client.queueMap[message.guild.id]['queue'][i]['type'] = undefined
+    private static async loadAllSongs(interaction: ChatInputCommandInteraction, client: Tau) {
+        for (let i = 0; i < client.queueMap[interaction.guild.id]['queue'].length; i++) {
+            if (client.queueMap[interaction.guild.id]['queue'][i]['type'] == 'spotify') {
+                const data: object = await getYTLinkFromSpotifyLink(client.queueMap[interaction.guild.id]['queue'][i]['url'])
+                client.queueMap[interaction.guild.id]['queue'][i]['url'] = data['url']
+                client.queueMap[interaction.guild.id]['queue'][i]['audio'] = data['audio']
+                client.queueMap[interaction.guild.id]['queue'][i]['songName'] = data['songName']
+                client.queueMap[interaction.guild.id]['queue'][i]['type'] = undefined
             }
         }
     }
 
-    private static videoCannotBeAccessed(message: Message, client: Tau): void {
-        play.sendEmbed(<TextChannel> message.channel, {
-            title: `That video cannot be accessed anonymously, and is likely age-restricted, ${message.author.tag}.`,
+    private static videoCannotBeAccessed(interaction: ChatInputCommandInteraction, client: Tau): void {
+        replyEmbed(interaction, {
+            title: `That video cannot be accessed anonymously, and is likely age-restricted, ${interaction.user.tag}.`,
             deleteTimeout: 5000
         })
     }
