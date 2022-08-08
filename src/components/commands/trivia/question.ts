@@ -1,4 +1,4 @@
-import { Message, Embed, TextChannel, User, EmbedBuilder } from "discord.js";
+import { Message, Embed, TextChannel, User, EmbedBuilder, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
@@ -36,7 +36,15 @@ export default class question extends CommandClass {
     protected static commandCategory: string = 'trivia'
     protected static commandDescription: string = 'Asks a question'
     protected static commandSyntax: string = 'question'
-    public async commandMain(message: Message, client: Tau): Promise<void> {
+
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setName('question')
+        .setDescription('Asks a trivia question')
+
+
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
         const data = await getQuestion()
         const difficulty: string = data['difficulty']
         const question: string = data['question']
@@ -44,7 +52,10 @@ export default class question extends CommandClass {
         const incorrectAnswers: string[] = data['incorrect_answers']
         const category: string = data['category']
 
-        const channel: TextChannel = message.channel as TextChannel
+
+        interaction.deferReply()
+
+        const channel: TextChannel = interaction.channel as TextChannel
 
         const embed: EmbedBuilder = new EmbedBuilder()
         .setColor(defaultColor)
@@ -190,7 +201,7 @@ export default class question extends CommandClass {
                 value:  textBlock(String(incorrectGuesses))
             })
 
-            channel.send({embeds: [embed]})
+            interaction.channel.send({embeds: [embed]})
         });
 
     }

@@ -1,4 +1,4 @@
-import { ColorResolvable, Message, Embed, TextChannel, EmbedBuilder } from 'discord.js';
+import { ColorResolvable, Message, Embed, TextChannel, EmbedBuilder, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import Tau from '../../..';
 import CommandClass from "../../classes/CommandClass.js";
 import { MISSING_ARGS_ERR_METACLASS } from '../../classes/Errors.js';
@@ -6,12 +6,12 @@ import ErrorClass from '../../classes/ErrorSuperClass.js';
 
 import periodicTable from 'periodic-table';
 
-
+/*
 @pt.errorCheck([
     pt.MISSING_ARGS_ERR_2,
     pt.ELEMENT_NOT_FOUND_ERR
 ])
-
+*/
 
 export default class pt extends CommandClass {
     /* 3 possibilities for input
@@ -40,6 +40,19 @@ export default class pt extends CommandClass {
         'post-transition metal': 'f01111'
 
     }
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setName('pt')
+        .setDescription('Research any element on the periodic table')
+        .addStringOption(query =>
+            query.setName('query')
+                .setDescription('Atomic number, atomic symbol, or element name')
+                .setRequired(true)
+        )
+
+
+
 
     public getInfo(search: string): object {
         console.log(search)
@@ -70,7 +83,7 @@ export default class pt extends CommandClass {
 
     }
 
-    public async commandMain(message: Message, client: Tau) {
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
         /*
         {
         atomicNumber: 10,
@@ -95,11 +108,15 @@ export default class pt extends CommandClass {
         yearDiscovered: 1898
         }
         */
-        console.log(message.content.split(' '))
+        
 
         const table = new pt();
 
-        const element = table.getInfo(message.content.split(' ')[1])
+
+        const query = interaction.options.getString('query')
+
+
+        const element = table.getInfo(query)
         console.log(element)
         
         const embed = new EmbedBuilder()
@@ -152,7 +169,7 @@ export default class pt extends CommandClass {
         
         embed.setTimestamp()
 
-        message.channel.send({embeds: [embed]})  
+        interaction.reply({embeds: [embed]})  
         
     }
 }

@@ -5,10 +5,12 @@ import ErrorClass from "../../classes/ErrorSuperClass.js";
 
 import pt from "./pt";
 
-
+/*
 @ion.errorCheck([
     ion.ION_NOT_FOUND_ERR
 ])
+*/
+
 
 export default class ion extends CommandClass {
     protected static commandCategory: string = 'science'

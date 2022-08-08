@@ -9,9 +9,9 @@ import trivia from "./trivia.js"
 export default [
     misc,
     //music,
-    //science,
+    science,
     //currency,
     //games,
     //staff,
-    //trivia
+    trivia
 ]
