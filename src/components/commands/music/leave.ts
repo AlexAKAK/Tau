@@ -30,9 +30,12 @@ export default class leave extends CommandClass {
         //getVoiceConnection(interaction.guild.id).destroy()
 
 
-        const connection = interaction.guild.voiceStates.cache.get(client.user.id)
+        const voiceState = interaction.guild.voiceStates.cache.get(client.user.id)
+        
 
-        connection.disconnect()
+        const connection = getVoiceConnection(interaction.guild.id)
+    
+        connection.destroy()
 
         //message.react('👋')
 

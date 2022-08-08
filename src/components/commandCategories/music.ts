@@ -20,9 +20,9 @@ export default new CommandCategory('music', [
     //restart,
     //shuffle,
     skip,
-    //stop,
+    stop,
     //loop,
-    //playing
+    playing
     
 ],
 'Commands related to playing music in a voice channel')

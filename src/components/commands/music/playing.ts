@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
 import Tau from "../../..";
 import src from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
@@ -13,9 +13,15 @@ export default class playing extends CommandClass {
     protected static commandCategory: string = 'music'
     protected static commandDescription: string = 'Shows the current song'
     protected static commandSyntax: string = 'playing'
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setName('playing')
+        .setDescription("Displays the current song")
+
     
-    public async commandMain(message: Message, client: Tau): Promise<void> {
-        sendNowPlayingEmbed(client.queueMap[message.guild.id].playing.url, message);
+    public async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
+        sendNowPlayingEmbed(client.queueMap[interaction.guild.id].playing.url, interaction);
     }
     
 }

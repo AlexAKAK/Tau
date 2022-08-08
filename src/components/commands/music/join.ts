@@ -38,6 +38,8 @@ export default class join extends CommandClass {
             adapterCreator: interaction.guild.voiceAdapterCreator,
         });
 
+        
+
         // reinitialize the queue
         client.queueMap[interaction.guild.id] = undefined
 

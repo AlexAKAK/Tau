@@ -1,4 +1,4 @@
-import { EmbedBuilder, Message } from "discord.js"
+import { ChatInputCommandInteraction, EmbedBuilder, Message } from "discord.js"
 
 import { Embed } from 'discord.js'
 //import { getInfo } from 'ytdl-core'
@@ -50,7 +50,7 @@ async function createNowPlayingEmbedPromise(url: string, message: any /*discord.
    
 }
 
-export default async function sendNowPlayingEmbed(url: string, message: Message) {
-    const nowPlayingEmbed = await createNowPlayingEmbedPromise(url, message)
-    message.channel.send({embeds: [nowPlayingEmbed]})
+export default async function sendNowPlayingEmbed(url: string, interaction: ChatInputCommandInteraction) {
+    const nowPlayingEmbed = await createNowPlayingEmbedPromise(url, interaction)
+    interaction.channel.send({embeds: [nowPlayingEmbed]})
 }
