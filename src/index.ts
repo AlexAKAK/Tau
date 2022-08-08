@@ -1,5 +1,5 @@
 // import dependencies
-import { Client, GatewayIntentBits, Guild, GuildMember, Message, Embed, MessageReaction, VoiceState, Intents, Permissions, BaseInteraction, ChatInputCommandInteraction} from "discord.js";
+import { Client, GatewayIntentBits, Guild, GuildMember, Message, Embed, MessageReaction, VoiceState, Intents, Permissions, BaseInteraction, ChatInputCommandInteraction, REST, SlashCommandBuilder, Routes} from "discord.js";
 
 // import button commands
 import help from './components/commands/misc/help.js'
@@ -113,7 +113,7 @@ export default class Tau extends Client {
 
             client.guilds.cache.map(guild => {
                 // iterate through the list of guilds
-                registerSlashCommands(client, client.TOKEN, guild.id) 
+                //registerSlashCommands(client, client.TOKEN, guild.id) 
             });
 
             
@@ -217,7 +217,7 @@ export default class Tau extends Client {
 
 
     isPlaying(guild: Guild): boolean {
-        if (guild.client.voice.connection.dispatcher == undefined || guild.me.voice.connection.dispatcher == null) return false
+        if (guild.client.voice.connection.dispatcher == undefined || guild.client.voice.connection.dispatcher == null) return false
         else return true
 
 
@@ -225,7 +225,7 @@ export default class Tau extends Client {
     }
 
     inVoiceChannel(guild: Guild): boolean {
-        if (guild.client.voice.connection == undefined || guild.me.voice.connection == null) return false
+        if (guild.client.voice.connection == undefined || guild.client.voice.connection == null) return false
         else return true
     }
 
@@ -240,12 +240,107 @@ const client: Tau = new Tau();
 client.login(config['token'])
 //moderation(client)
 
+const rest = new REST({ version: '10' }).setToken(client.TOKEN);
 
+
+setTimeout (() => {
+
+
+const slashCommandData = []
+// register for each guild
+
+
+    // register for a single guild
+allCommands.forEach(category => {
+    category.commands.forEach(command => {
+        slashCommandData.push(command.slashCommand)
+    })
+})
+
+console.log(slashCommandData)
+
+client.guilds.cache.forEach(guild => {
+    console.log('for each guild')
+    rest.put(Routes.applicationGuildCommands(client.user.id, guild.id), {body: slashCommandData})
+})
+
+
+}, 5000)
+
+
+// handler for the slash commands
+
+client.on('interactionCreate', function(interaction: BaseInteraction) {
+    if (!interaction.isChatInputCommand()) return;
+
+    // find the right command and then execute it
+
+    allCommands.forEach(category => {
+        category.commands.forEach(command => {
+            console.log(command.name)
+            console.log(interaction.commandName)
+            if (command.name == interaction.commandName) {
+                const runnningCommand = new command()
+                runnningCommand.commandMain(interaction, client)
+            }
+        })
+    })
+
+})
+
+
+
+
+
+/*
+const c = new SlashCommandBuilder();
+
+c.setName("testttttttttttt")
+c.setDescription("tesgegeggegwge4agt")
+c.addNumberOption(num => 
+    num.setName("number")
+    .setDescription("aegaegjaegh")
+    .setRequired(true)
+)
+.addUserOption(user => 
+    user.setDescription("User to ejgaegkaegjag")
+    .setName("victim")
+    .setRequired(true)  
+)
+
+setTimeout(() => {
+    client.guilds.cache.forEach(guild => {
+       rest.put(Routes.applicationGuildCommands(client.user.id, guild.id), {body: [c]})   
+    })
+  
+}, 5000)
+*/
+
+// register the slash commands
+/*
+allCommands.forEach(category => {
+    category.commands.forEach(command => {
+        console.log('aegjaehgjeghjaegjhaegjhaegjhaegjaegjh')
+        command.register(rest, client)
+    })
+}
+*/
+
+
+
+/*
 client.on('interactionCreate', (interaction: BaseInteraction) => {
 	const chatInteraction: ChatInputCommandInteraction = <ChatInputCommandInteraction> interaction;
 
     chatInteraction.reply('yes')
 });
+*/
+
+
+
+
+
+
 
 
 /*

@@ -1,5 +1,5 @@
 import CommandCategory from "../classes/CommandCategory.js";
-import ball from "../commands/misc/8ball.js";
+import ball from "../commands/misc/ball.js";
 import announce from "../commands/misc/announce.js";
 import clear from "../commands/misc/clear.js";
 import color from "../commands/misc/color.js";
@@ -13,13 +13,13 @@ import ytchannel from "../commands/misc/ytchannel.js";
 
 export default new CommandCategory('misc', [
     //color,
-    gif,
-    meme,
-    report,
-    yt,
-    ytchannel,
+    //gif,
+    //meme,
+    //report,
+    //yt,
+    //ytchannel,
     //clear,
-    dog,
+    //dog,
     ball
 ],
 'Random commands for fun!') 

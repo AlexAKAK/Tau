@@ -1,4 +1,4 @@
-import { DMChannel, Guild, GuildMember, Message, Embed, NewsChannel, TextChannel, EmbedBuilder } from "discord.js"
+import { DMChannel, Guild, GuildMember, Message, Embed, NewsChannel, TextChannel, EmbedBuilder, BaseInteraction, ChatInputCommandInteraction } from "discord.js"
 
 import * as errorClasses from "./Errors.js"
 import Tau from '../../index.js'
@@ -38,7 +38,7 @@ export default abstract class CommandClass {
     protected static commandSyntax: string = ''
 
 
-    public abstract /*async*/ commandMain(message: Message, client: Tau): Promise<any>
+    public abstract /*async*/ commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<any>
     // can be overriden
     protected static aliases: string[] = []
     // decorator factory

@@ -8,10 +8,10 @@ import trivia from "./trivia.js"
 
 export default [
     misc,
-    music,
-    science,
+    //music,
+    //science,
     //currency,
-    games,
+    //games,
     //staff,
-    trivia
+    //trivia
 ]
