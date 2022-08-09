@@ -8,11 +8,11 @@ import walletcreate from "../commands/economy/walletcreate.js";
 
 
 export default new CommandCategory('economy', [
-    bal,
+    //bal,
     //hack,
-    mine,
-    walletcreate,
-    totalcurrency,
-    baltop
+    //mine,
+    //walletcreate,
+    //totalcurrency,
+    //baltop
 ],
 'Economy commands')

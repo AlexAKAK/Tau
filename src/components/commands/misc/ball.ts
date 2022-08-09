@@ -1,4 +1,4 @@
-import { DMChannel, Message, Embed, TextChannel, EmbedBuilder, SlashCommandBuilder, REST, Routes, Guild, BaseInteraction, ChatInputCommandInteraction } from "discord.js";
+import { DMChannel, Message, Embed, TextChannel, EmbedBuilder, SlashCommandBuilder, REST, Routes, Guild, BaseInteraction, ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
@@ -29,7 +29,13 @@ export default class ball extends CommandClass {
             .setName("question")
             .setRequired(true)
         )
+        
+        
+        
+        
 
+
+    
 
     async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
         const question: string = interaction.options.getString('question')

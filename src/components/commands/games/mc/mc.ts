@@ -1,4 +1,4 @@
-import { DMChannel, Message, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, DMChannel, Message, TextChannel } from "discord.js";
 import Tau from "../../../..";
 import CommandClass from "../../../classes/CommandClass.js";
 import McGame from "./classes/McGame.js";
@@ -15,11 +15,11 @@ export default class mc extends CommandClass {
     protected static commandSyntax: string = 'mc'
 
 
-    async commandMain(message: Message, client: Tau): Promise<void> {
+    async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
         console.log('running mc')
         // creates the new game
-        const gameBoard: McGame = new McGame(client, <TextChannel> message.channel);
-        client.addGame(message.channel.id, gameBoard)
+        const gameBoard: McGame = new McGame(client, <TextChannel> interaction.channel);
+        client.addGame(interaction.channel.id, gameBoard)
     }
 
     

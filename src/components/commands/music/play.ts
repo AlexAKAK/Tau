@@ -5,7 +5,7 @@ import sendEmbed from './../../utility/embeds/sendEmbed.js';
 //import { red, randomColor } from './../../utility/hexColors';
 import checkQueueThenHandle from './../../utility/checkQueueThenHandle.js'
 import playAudio from './../../utility/playAudio.js';
-import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder, TextChannel } from 'discord.js';
+import { BaseInteraction, ChatInputCommandInteraction, Client, EmbedBuilder, InteractionResponse, Message, SlashCommandBuilder, TextChannel } from 'discord.js';
 import getYoutubeVideoUrlFromKeyword from './../../utility/getYoutubeVideoURLFromKeyword.js';
 //const CommandClass = require('../classes/CommandClass');
 import Tau from './../../../index.js'
@@ -442,7 +442,7 @@ export default class play extends CommandClass {
 
 
     public async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
-
+        if (!interaction.replied) interaction.reply('👍')
 
         const query = interaction.options.getString('query')
 
@@ -450,13 +450,22 @@ export default class play extends CommandClass {
         const re = /((open|play)\.spotify\.com\/)/
         const isSpotifyLink = re.test(play.removePrefixAndCommandFromString(query, client.PREFIX))
         try {
-            if (isYTLink) play.yt(interaction, client)
-            else if (isSpotifyLink) play.spotify(interaction, client)
-            else play.kw(interaction, client)   
+            if (isYTLink) await play.yt(interaction, client)
+            else if (isSpotifyLink) await play.spotify(interaction, client)
+            else await play.kw(interaction, client)
+
+
+            // check if the interaction has been responded to and if not respond to it
+
+            
+
+
         }
         catch (err) {
             console.log(err)
         }
+
+        //interaction.deferReply() // for now just defer the reply to the interaction
         
 
     }
@@ -495,10 +504,12 @@ export default class play extends CommandClass {
     }
 
     private static videoCannotBeAccessed(interaction: ChatInputCommandInteraction, client: Tau): void {
-        replyEmbed(interaction, {
-            title: `That video cannot be accessed anonymously, and is likely age-restricted, ${interaction.user.tag}.`,
-            deleteTimeout: 5000
-        })
+        const embed = new EmbedBuilder()
+        .setTitle("error")
+        .setDescription('This video cannot be accessed, and is likely age restricted.')
+
+        interaction.channel.send({embeds: [embed]})
+        
     }
     
     

@@ -10,7 +10,7 @@ export default [
     misc,
     music,
     science,
-    //currency,
+    currency,
     //games,
     //staff,
     trivia

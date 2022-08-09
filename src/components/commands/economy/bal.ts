@@ -1,10 +1,10 @@
-import { GuildMember, Message } from "discord.js";
+import { ChatInputCommandInteraction, GuildMember, Message, SlashCommandBuilder } from "discord.js";
 import Tau from "../../..";
 import CommandClass from "../../classes/CommandClass.js";
 import defaultColor from "../../utility/embeds/defaultColor.js";
 //import readJson from "../../utility/readJson";
 
-import sendEmbed from './../../utility/embeds/sendEmbed';
+import sendEmbed from './../../utility/embeds/sendEmbed.js';
 
 import fs from 'fs';
 //import readJson from "../../utility/readJson";
@@ -17,11 +17,36 @@ export default class bal extends CommandClass {
     protected static commandDescription: string = 'shows your currency balance'
     protected static commandSyntax: string = 'bal <?user>'
 
-    async commandMain(message: Message, client: Tau) {
+
+
+
+    public static slashCommand = new SlashCommandBuilder()
+        .setName('bal')
+        .setDescription('displays user balance')
+        .addUserOption(user => {
+            user.setName('user')
+            .setDescription('The user to check the balance for')
+            .setRequired(false)
+            return user
+        })
+
+
+
+
+
+    async commandMain(interaction: ChatInputCommandInteraction, client: Tau) {
         const wallets: object = require('./../../../../data/wallets.json')
+
+        
         console.log(wallets)
-        const args = message.content.split(' ')
-        args.shift() // remove the command call
+        //const args = message.content.split(' ')
+        //args.shift() // remove the command call
+
+
+
+        const user = interaction.options.getUser('user')
+
+        console.log(user)
 
         // for caller
         if (wallets[message.author.id] == undefined) sendEmbed(message.channel, {

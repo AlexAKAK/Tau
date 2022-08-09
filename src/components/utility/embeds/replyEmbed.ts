@@ -51,8 +51,8 @@ export default function replyEmbed(interaction: ChatInputCommandInteraction, kwa
         ]
     })
     */
-    interaction.reply({embeds: [embed]})
-  
+    if (!interaction.replied) interaction.reply({embeds: [embed]})
+    else interaction.followUp({embeds: [embed]})
 
     
 

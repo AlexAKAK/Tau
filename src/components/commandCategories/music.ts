@@ -17,7 +17,7 @@ export default new CommandCategory('music', [
     
     play,
     queue,
-    //restart,
+    restart,
     //shuffle,
     skip,
     stop,
