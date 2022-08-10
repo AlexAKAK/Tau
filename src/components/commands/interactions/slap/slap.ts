@@ -4,25 +4,25 @@ import CommandClass from "../../../classes/CommandClass.js";
 import defaultColor from "../../../utility/embeds/defaultColor.js";
 import InteractionCommand from "../classes/InteractionCommand.js";
 
-export default class hug extends InteractionCommand {
+export default class slap extends InteractionCommand {
 
 
     public static slashCommand = new SlashCommandBuilder()
-        .setName('hug')
-        .setDescription('Hug someone')
+        .setName('slap')
+        .setDescription('Slap someone')
         .addUserOption(user => {
             user.setName('user')
-            .setDescription('The user to hug')
+            .setDescription('The user to slap')
             .setRequired(true)
             return user
         })
 
 
     async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
-        const gif: string = await hug.getGif('hug')
+        const gif: string = await slap.getGif('slap')
         const user: User = interaction.options.getUser('user')
 
-        const title: string = `${interaction.user.toString()} hugs ${user.toString()}`
+        const title: string = `${interaction.user.toString()} slaps ${user.toString()}`
        
 
         const embed = new EmbedBuilder()
