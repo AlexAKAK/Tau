@@ -253,11 +253,12 @@ const slashCommandData = []
     // register for a single guild
 allCommands.forEach(category => {
     category.commands.forEach(command => {
+        console.log(command.name)
         slashCommandData.push(command.slashCommand)
     })
 })
 
-console.log(slashCommandData)
+//console.log(slashCommandData)
 
 client.guilds.cache.forEach(guild => {
     console.log('for each guild')
