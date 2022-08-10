@@ -41,7 +41,7 @@ export default class join extends CommandClass {
         });
 
         
-        // IMPORTANT!!!!
+        // IMPORTANT!!!! ////////////////
         // This makes it so that the audio is not played again if the bot is forced to leave the vc
         connection.on(VoiceConnectionStatus.Disconnected, () => {
             connection.destroy()

@@ -1,1 +1,1 @@
-export default '#0dbab1'
+export default '#5865F2'

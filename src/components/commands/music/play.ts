@@ -28,6 +28,7 @@ const {getData, getTracks} = spotifyUrlInfo
 import spdl from 'spdl-core';
 import ytsr from 'ytsr';
 import replyEmbed from "../../utility/embeds/replyEmbed.js";
+import errorColor from "../../utility/embeds/errorColor.js";
 
 //@play.alias(['p'])
 
@@ -505,8 +506,9 @@ export default class play extends CommandClass {
 
     private static videoCannotBeAccessed(interaction: ChatInputCommandInteraction, client: Tau): void {
         const embed = new EmbedBuilder()
-        .setTitle("error")
+        .setTitle("Music Error!")
         .setDescription('This video cannot be accessed, and is likely age restricted.')
+        .setColor(errorColor)
 
         interaction.channel.send({embeds: [embed]})
         
