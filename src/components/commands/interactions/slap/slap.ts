@@ -21,7 +21,10 @@ export default class slap extends InteractionCommand {
     async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
         const gif: string = await slap.getGif('slap')
         const user: User = interaction.options.getUser('user')
-
+        if (user == interaction.user) {
+            slap.cant(interaction)
+            return;
+        }
         const title: string = `${interaction.user.toString()} slaps ${user.toString()}`
        
 

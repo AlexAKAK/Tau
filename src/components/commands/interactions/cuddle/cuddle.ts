@@ -22,7 +22,16 @@ export default class cuddle extends InteractionCommand {
         const gif: string = await cuddle.getGif('cuddle')
         const user: User = interaction.options.getUser('user')
 
-        const title: string = `${interaction.user.toString()} cuddle ${user.toString()}`
+
+
+        if (user == interaction.user) {
+            cuddle.cant(interaction)
+            return;
+        }
+
+
+
+        const title: string = `${interaction.user.toString()} cuddles ${user.toString()}`
        
 
         const embed = new EmbedBuilder()

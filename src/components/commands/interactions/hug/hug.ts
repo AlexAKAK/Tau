@@ -21,7 +21,10 @@ export default class hug extends InteractionCommand {
     async commandMain(interaction: ChatInputCommandInteraction, client: Tau): Promise<void> {
         const gif: string = await hug.getGif('hug')
         const user: User = interaction.options.getUser('user')
-
+        if (user == interaction.user) {
+            hug.cant(interaction)
+            return;
+        }
         const title: string = `${interaction.user.toString()} hugs ${user.toString()}`
        
 

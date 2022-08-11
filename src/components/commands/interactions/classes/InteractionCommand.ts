@@ -1,4 +1,6 @@
+import { ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import CommandClass from "../../../classes/CommandClass.js";
+import errorColor from "../../../utility/embeds/errorColor.js";
 
 export default abstract class InteractionCommand extends CommandClass {
     static async getGif(action: string) {
@@ -8,5 +10,14 @@ export default abstract class InteractionCommand extends CommandClass {
         console.log('gif')
 
         return gif
+    }
+
+
+    static async cant(interaction: ChatInputCommandInteraction) {
+        const embed = new EmbedBuilder()
+            .setDescription("❌ You can't do that!")
+            .setColor(errorColor)
+            
+        interaction.reply({embeds: [embed], ephemeral: true})
     }
 }
