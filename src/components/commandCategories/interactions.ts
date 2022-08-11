@@ -1,4 +1,5 @@
 import CommandCategory from "../classes/CommandCategory.js";
+import bite from "../commands/interactions/bite/bite.js";
 import cuddle from "../commands/interactions/cuddle/cuddle.js";
 import hug from "../commands/interactions/hug/hug.js";
 import kiss from "../commands/interactions/kiss/kiss.js";
@@ -10,6 +11,7 @@ export default new CommandCategory('interactions', [
     cuddle,
     slap,
     kiss,
-    pat
+    pat,
+    bite
 ],
 'Interactions') 
